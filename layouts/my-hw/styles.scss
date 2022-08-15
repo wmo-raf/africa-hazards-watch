@@ -1,0 +1,16 @@
+@import "~styles/settings.scss";
+
+.l-my-hw-page {
+  .login {
+    padding: rem(40px) 0;
+
+    @media screen and (min-width: $screen-m) {
+      padding: rem(100px) 0;
+    }
+
+    .login-intro {
+      text-align: center;
+      margin-bottom: rem(20px);
+    }
+  }
+}

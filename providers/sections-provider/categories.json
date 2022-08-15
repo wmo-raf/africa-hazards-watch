@@ -1,0 +1,93 @@
+{
+
+  "data": {
+    "objects": [{
+        "active": true,
+        "icon": "rainfall",
+        "id": 1,
+        "info": null,
+        "order": 1,
+        "sub_categories": [{
+          "active": true,
+          "id": 1,
+          "sort_order": 1,
+          "title": "Weather Forecast"
+        }],
+        "title": "Weather"
+      },
+      {
+        "active": true,
+        "icon": "climate_change",
+        "id": 2,
+        "info": null,
+        "order": 2,
+        "sub_categories": [{
+          "active": true,
+          "id": 1,
+          "sort_order": 2,
+          "title": "Monthly Monitoring"
+        }],
+        "title": "Climate"
+      },
+      {
+        "active": true,
+        "icon": "agric",
+        "id": 3,
+        "info": null,
+        "order": 3,
+        "sub_categories": [{
+          "active": true,
+          "id": 1,
+          "title": "Food Security"
+        }],
+        "title": "Agriculture"
+      },
+      {
+        "active": true,
+        "icon": "drought",
+        "id": 4,
+        "info": null,
+        "order": 4,
+        "sub_categories": [],
+        "title": "Drought"
+      },
+      {
+        "active": false,
+        "icon": "floods",
+        "id": 5,
+        "info": null,
+        "order": 5,
+        "sub_categories": [],
+        "title": "Floods"
+      },
+      {
+        "active": true,
+        "icon": "env",
+        "id": 6,
+        "info": null,
+        "order": 6,
+        "sub_categories": [],
+        "title": "Environment"
+      },
+      {
+        "active": true,
+        "icon": "landuse",
+        "id": 7,
+        "info": null,
+        "order": 7,
+        "sub_categories": [{
+          "active": true,
+          "id": 7,
+          "sort_order": 0,
+          "title": "People"
+        }, {
+          "active": true,
+          "id": 16,
+          "sort_order": 1,
+          "title": "Infrastructure"
+        }],
+        "title": "Exposure"
+      }
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+[
+    {
+        "source": "/dashboards/",
+        "destination": "/dashboards/africa/",
+        "permanent": true
+    }
+]

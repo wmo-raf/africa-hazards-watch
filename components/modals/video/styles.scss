@@ -1,0 +1,28 @@
+@import '~styles/settings.scss';
+
+.c-modal-video {
+  width: 100% !important;
+  height: 100% !important;
+
+  > div {
+    height: 100%;
+
+    > button {
+      svg {
+        fill: $white;
+      }
+
+      &:hover {
+        svg {
+          fill: $grey-dark;
+        }
+      }
+    }
+  }
+
+  .modal-content {
+    padding: 90px 0 !important;
+    height: 100%;
+    background: $black;
+  }
+}

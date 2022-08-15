@@ -1,0 +1,20 @@
+@import '~styles/settings.scss';
+
+.c-gfw-fires-modal {
+  p {
+    font-size: rem(18px);
+    line-height: 30px;
+    margin-bottom: 1.25rem;
+  }
+
+  button,
+  a {
+    color: $green-gfw;
+    cursor: pointer;
+
+    &:hover {
+      color: $dark-green;
+      text-decoration: underline;
+    }
+  }
+}
