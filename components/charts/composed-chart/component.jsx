@@ -1,9 +1,9 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { format } from 'd3-format';
-import maxBy from 'lodash/maxBy';
-import max from 'lodash/max';
-import cx from 'classnames';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import { format } from "d3-format";
+import maxBy from "lodash/maxBy";
+import max from "lodash/max";
+import cx from "classnames";
 import {
   Line,
   Bar,
@@ -18,12 +18,12 @@ import {
   ComposedChart,
   LabelList,
   Legend,
-} from 'recharts';
+} from "recharts";
 
-import ChartToolTip from '../components/chart-tooltip';
-import CustomTick from './custom-tick-component';
-import CustomBackground from './custom-background-component';
-import './styles.scss';
+import ChartToolTip from "../components/chart-tooltip";
+import CustomTick from "./custom-tick-component";
+import CustomBackground from "./custom-background-component";
+import "./styles.scss";
 
 class CustomComposedChart extends PureComponent {
   findMaxValue = (data, config) => {
@@ -98,7 +98,7 @@ class CustomComposedChart extends PureComponent {
 
     return (
       <div
-        className={cx('c-composed-chart', className)}
+        className={cx("c-composed-chart", className)}
         style={{ height: simple ? 110 : height || 250 }}
       >
         <ResponsiveContainer width="99%">
@@ -108,7 +108,7 @@ class CustomComposedChart extends PureComponent {
               margin || {
                 top: !simple ? 15 : 0,
                 right: rightMargin,
-                left: simple || isVertical ? 0 : 42,
+                left: simpleNeedsAxis ? 42 : simple || isVertical ? 0 : 42,
                 bottom: 0,
               }
             }
@@ -117,7 +117,7 @@ class CustomComposedChart extends PureComponent {
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             onClick={handleClick}
-            layout={isVertical ? 'vertical' : 'horizontal'}
+            layout={isVertical ? "vertical" : "horizontal"}
           >
             <defs>
               {gradients &&
@@ -137,77 +137,77 @@ class CustomComposedChart extends PureComponent {
                 ))}
             </defs>
             <XAxis
-              dataKey={xKey || ''}
+              dataKey={xKey || ""}
               axisLine={false}
               tickLine={false}
               tick={{
                 dy: 8,
-                fontSize: simple ? '10px' : '12px',
-                fill: '#555555',
+                fontSize: simple ? "10px" : "12px",
+                fill: "#555555",
               }}
               interval="preserveStartEnd"
               {...xAxis}
             />
             {(!simple || simpleNeedsAxis) && (
               <YAxis
-                dataKey={yKey || ''}
+                dataKey={yKey || ""}
                 tickLine={!isVertical}
                 axisLine={false}
                 {...(!isVertical
                   ? {
-                      strokeDasharray: '3 4',
+                      strokeDasharray: "3 4",
                       tickSize: -42,
                       mirror: true,
                       tickMargin: 0,
                     }
                   : {})}
-                tick={(
+                tick={
                   <CustomTick
                     dataMax={maxYValue}
-                    unit={unit || ''}
+                    unit={unit || ""}
                     unitFormat={
                       unitFormat ||
                       ((value) =>
-                        value < 1 ? format('.2r')(value) : format('.2s')(value))
+                        value < 1 ? format(".2r")(value) : format(".2s")(value))
                     }
                     fill="#555555"
                     vertical={isVertical}
                   />
-                )}
+                }
                 {...yAxis}
               />
             )}
             {(!simple || simpleNeedsAxis) && rightYAxis && (
               <YAxis
                 orientation="right"
-                dataKey={yKey || ''}
+                dataKey={yKey || ""}
                 tickLine={!isVertical}
                 axisLine={false}
                 {...(!isVertical
                   ? {
-                      strokeDasharray: '3 4',
+                      strokeDasharray: "3 4",
                       tickSize: -42,
                       mirror: true,
                       tickMargin: 0,
                     }
                   : {})}
-                tick={(
+                tick={
                   <CustomTick
                     dataMax={rightYAxis.maxYValue || maxYValue}
-                    unit={rightYAxis.unit || unit || ''}
+                    unit={rightYAxis.unit || unit || ""}
                     unitFormat={
                       unitFormat ||
                       ((value) =>
-                        value < 1 ? format('.2r')(value) : format('.2s')(value))
+                        value < 1 ? format(".2r")(value) : format(".2s")(value))
                     }
                     fill="#555555"
                     vertical={isVertical}
                   />
-                )}
+                }
                 {...rightYAxis}
               />
             )}
-            {!simple && (
+            {(!simple || simpleNeedsAxis) && (
               <CartesianGrid
                 vertical={isVertical}
                 horizontal={!isVertical}
@@ -232,7 +232,7 @@ class CustomComposedChart extends PureComponent {
               offset={100}
               cursor={{
                 opacity: 0.5,
-                stroke: '#d6d6d9',
+                stroke: "#d6d6d9",
                 ...(!!bars && {
                   strokeWidth: `${
                     1.2 * ((isVertical ? 45 : 100) / data.length)
@@ -255,7 +255,8 @@ class CustomComposedChart extends PureComponent {
                         {...d}
                         activeIndex={barBackground.activeIndex}
                       />
-                    )}
+                    )
+                  }
                   {...bars[key]}
                 >
                   {bars[key].labelList && (

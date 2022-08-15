@@ -10,8 +10,6 @@ import {
   getGeodescriberDescription,
 } from "providers/geodescriber-provider/selectors";
 
-const DOWNLOAD_VERSION = "20200331";
-
 const selectLocation = (state) => state.location && state.location.payload;
 const selectData = (state) => state.analysis && state.analysis.data;
 const selectError = (state) => state.analysis && state.analysis.error;
@@ -31,6 +29,7 @@ export const getDataFromLayers = createSelector(
           !l.isBoundary &&
           !l.isRecentImagery &&
           l.analysisConfig &&
+          l.analysisConfig.find((a) => a.type === routeType) &&
           (!widgetLayers || !widgetLayers.includes(l.id)) &&
           (!l.admLevels || l.admLevels.includes(admLevel))
       )
@@ -89,7 +88,7 @@ export const getDownloadLinks = createSelector(
 );
 
 export const getShowAnalysisProps = createStructuredSelector({
-  data: getDataFromLayers,
+  // data: getDataFromLayers,
   loading: getLoading,
   layers: getActiveLayers,
   downloadUrls: getDownloadLinks,

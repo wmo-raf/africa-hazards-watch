@@ -1,35 +1,7 @@
 {
-  "rainfall": {
-    "main": "#367DA4"
-  },
-  "temperature": {
-    "main": "#fc5a1e"
-  },
-  "precipitation": {
-    "main": "#367DA4"
-  },
-  "climateChange": {
-    "prcp": "#367DA4",
-    "tas": "#fc5a1e"
-  },
-  "drought": {
-    "main": "#fc5a1e",
-    "ramp": [
-      "#940f07",
-      "#b11509",
-      "#cd2009",
-      "#e73108",
-      "#fe4605",
-      "#ff7104",
-      "#ff9203",
-      "#ffb004",
-      "#fecc05"
-    ],
-    "compareYear": "#49b5e3",
-    "compareYearRamp": [
-      "#49b5e3",
-      "#D0ECF8"
-    ],
-    "otherColor": "#AAAAAA"
+  "weather": {
+    "main": "#367DA4",
+    "rainfall": "#367DA4",
+    "temperature": "#ca192b"
   }
 }

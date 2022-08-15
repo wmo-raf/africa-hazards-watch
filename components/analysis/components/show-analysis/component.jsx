@@ -1,28 +1,28 @@
-import React, { PureComponent, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { formatNumber } from 'utils/format';
-import isEmpty from 'lodash/isEmpty';
-import moment from 'moment';
-import { trackEvent } from 'utils/analytics';
-import Link from 'next/link';
+import React, { PureComponent, Fragment } from "react";
+import PropTypes from "prop-types";
+import { formatNumber } from "utils/format";
+import isEmpty from "lodash/isEmpty";
+import moment from "moment";
+import { trackEvent } from "utils/analytics";
+import Link from "next/link";
 
-import Modal from 'components/modal';
-import Icon from 'components/ui/icon';
-import NoContent from 'components/ui/no-content';
-import Button from 'components/ui/button';
-import Widgets from 'components/widgets';
-import DynamicSentence from 'components/ui/dynamic-sentence';
-import DownloadData from 'components/analysis/components/download-data';
+import Modal from "components/modal";
+import Icon from "components/ui/icon";
+import NoContent from "components/ui/no-content";
+import Button from "components/ui/button";
+import Widgets from "components/widgets";
+import DynamicSentence from "components/ui/dynamic-sentence";
+import DownloadData from "components/analysis/components/download-data";
 
-import screensImg1x from 'assets/images/aois/email-dashboard.png';
-import screensImg2x from 'assets/images/aois/email-dashboard@2x.png';
-import arrowDownIcon from 'assets/icons/arrow-down.svg?sprite';
-import shareIcon from 'assets/icons/share.svg?sprite';
-import downloadIcon from 'assets/icons/download.svg?sprite';
+import screensImg1x from "assets/images/aois/email-dashboard.png";
+import screensImg2x from "assets/images/aois/email-dashboard@2x.png";
+import arrowDownIcon from "assets/icons/arrow-down.svg?sprite";
+import shareIcon from "assets/icons/share.svg?sprite";
+import downloadIcon from "assets/icons/download.svg?sprite";
 
-import './styles.scss';
+import "./styles.scss";
 
-const isServer = typeof window === 'undefined';
+const isServer = typeof window === "undefined";
 
 class ShowAnalysis extends PureComponent {
   static propTypes = {
@@ -65,8 +65,8 @@ class ShowAnalysis extends PureComponent {
           {startDate &&
             endDate &&
             ` (${moment(startDate).format(
-              dateFormat || 'YYYY-MM-DD'
-            )} to ${moment(endDate).format(dateFormat || 'YYYY-MM-DD')})`}
+              dateFormat || "YYYY-MM-DD"
+            )} to ${moment(endDate).format(dateFormat || "YYYY-MM-DD")})`}
           {threshold && ` with >${threshold}% canopy density`}
         </span>
       </div>
@@ -85,7 +85,7 @@ class ShowAnalysis extends PureComponent {
           <strong>
             {formatNumber({
               num: Array.isArray(value) ? 0 : value,
-              unit: unit || 'ha',
+              unit: unit || "ha",
             })}
           </strong>
         )}
@@ -112,6 +112,7 @@ class ShowAnalysis extends PureComponent {
       analysisTitle,
       analysisDescription,
     } = this.props;
+
     const hasWidgets = widgetLayers && !!widgetLayers.length;
 
     return (
@@ -138,42 +139,43 @@ class ShowAnalysis extends PureComponent {
                   theme="theme-button-clear"
                   onClick={() =>
                     setShareModal({
-                      title: 'Share this view',
+                      title: "Share this view",
                       shareUrl:
                         !isServer &&
-                        (window.location.href.includes('embed')
-                          ? window.location.href.replace('/embed', '')
+                        (window.location.href.includes("embed")
+                          ? window.location.href.replace("/embed", "")
                           : window.location.href),
                       embedUrl:
                         !isServer &&
-                        (window.location.href.includes('embed')
+                        (window.location.href.includes("embed")
                           ? window.location.href
-                          : window.location.href.replace('/map', '/embed/map')),
+                          : window.location.href.replace("/map", "/embed/map")),
                       areaId: activeArea?.id,
-                    })}
-                  tooltip={{ text: 'Share analysis' }}
+                    })
+                  }
+                  tooltip={{ text: "Share analysis" }}
                 >
                   <Icon icon={shareIcon} className="icon-share" />
                 </Button>
-                <Button
+                {/* <Button
                   className="title-btn title-action"
                   theme="theme-button-clear"
                   disabled={!downloadUrls || !downloadUrls.length}
                   onClick={() => {
                     handleShowDownloads(true);
                     trackEvent({
-                      category: 'Map analysis',
-                      action: 'Download',
+                      category: "Map analysis",
+                      action: "Download",
                       label:
                         downloadUrls &&
                         downloadUrls.length &&
-                        downloadUrls.map((d) => d?.label).join(', '),
+                        downloadUrls.map((d) => d?.label).join(", "),
                     });
                   }}
-                  tooltip={{ text: 'Download data' }}
+                  tooltip={{ text: "Download data" }}
                 >
                   <Icon icon={downloadIcon} className="icon-download" />
-                </Button>
+                </Button> */}
               </div>
             </div>
           )}
@@ -192,9 +194,7 @@ class ShowAnalysis extends PureComponent {
                 <NoContent message="No analysis data available" />
               )}
             {!hasLayers && !hasWidgets && !loading && (
-              <NoContent>
-                Select a data layer to analyze.
-              </NoContent>
+              <NoContent>Select a data layer to analyze.</NoContent>
             )}
             {(hasLayers || hasWidgets) && !loading && !error && (
               <Fragment>
@@ -209,95 +209,6 @@ class ShowAnalysis extends PureComponent {
                       selected area. Results are more accurate at closer zoom
                       levels.
                     </p>
-                  )}
-                  {showAnalysisDisclaimer && (
-                    <>
-                      <p>
-                        <b>NOTE:</b>
-                        {' '}
-                        tree cover loss and gain statistics cannot
-                        be compared against each other.
-                        {' '}
-                        <button
-                          onClick={() =>
-                            this.setState({ disclaimerModalOpen: true })}
-                        >
-                          Learn more.
-                        </button>
-                      </p>
-                      <Modal
-                        open={this.state.disclaimerModalOpen}
-                        title="Comparing Loss and Gain"
-                        onRequestClose={() =>
-                          this.setState({ disclaimerModalOpen: false })}
-                        className="c-loss-disclaimer-modal"
-                      >
-                        <p>
-                          Due to variation in research methodology and/or date
-                          of content, tree cover and tree cover loss and gain
-                          statistics cannot be compared against each other.
-                          Accordingly, “net” loss cannot be calculated by
-                          subtracting tree cover gain from tree cover loss, and
-                          current (or post-2000) tree cover cannot be determined
-                          by subtracting annual tree cover loss from year 2000
-                          tree cover.
-                        </p>
-                        <p>
-                          Please also be aware that “tree cover” does not equate
-                          to “forest cover.” “Tree cover” refers to the
-                          biophysical presence of trees, which may be a part of
-                          natural forests or tree plantations. Thus, loss of
-                          tree cover may occur for many reasons, including
-                          deforestation, fire, and logging within the course of
-                          sustainable forestry operations. Similarly, tree cover
-                          gain may indicate the growth of tree canopy within
-                          natural or managed forests.
-                        </p>
-                        <p className="credits">
-                          <strong>Citation:</strong>
-                          {' '}
-                          Hansen, M. C., P. V.
-                          Potapov, R. Moore, M. Hancher, S. A. Turubanova, A.
-                          Tyukavina, D. Thau, S. V. Stehman, S. J. Goetz, T. R.
-                          Loveland, A. Kommareddy, A. Egorov, L. Chini, C. O.
-                          Justice, and J. R. G. Townshend. 2013.
-                          “High-Resolution Global Maps of 21st-Century Forest
-                          Cover Change.” Science 342 (15 November): 850–53. Data
-                          available on-line from:
-                          {' '}
-                          <a
-                            href="http://earthenginepartners.appspot.com/science-2013-global-forest"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            http://earthenginepartners.appspot.com/science-2013-global-forest
-                          </a>
-                          .
-                        </p>
-                        <p className="credits">
-                          <strong>
-                            Suggested citations for data as displayed on AHW:
-                          </strong>
-                          {' '}
-                          Hansen, M. C., P. V. Potapov, R. Moore, M. Hancher, S.
-                          A. Turubanova, A. Tyukavina, D. Thau, S. V. Stehman,
-                          S. J. Goetz, T. R. Loveland, A. Kommareddy, A. Egorov,
-                          L. Chini, C. O. Justice, and J. R. G. Townshend. 2013.
-                          “Hansen/UMD/Google/USGS/NASA Tree Cover Loss and Gain
-                          Area.” University of Maryland, Google, USGS, and NASA.
-                          Accessed through Global Forest Watch on [date].
-                          {' '}
-                          <a
-                            href="https://www.globalforestwatch.org"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            www.globalforestwatch.org
-                          </a>
-                          .
-                        </p>
-                      </Modal>
-                    </>
                   )}
                 </div>
               </Fragment>
@@ -315,8 +226,7 @@ class ShowAnalysis extends PureComponent {
             {activeArea ? (
               <div className="content">
                 <p>
-                  To perform an in-depth analysis of this area please visit the
-                  {' '}
+                  To perform an in-depth analysis of this area please visit the{" "}
                   <Link
                     href="/dashboards/[[...location]]"
                     as={`/dashboards/aoi/${activeArea.id}`}

@@ -19,14 +19,14 @@ const parseConfig = createSelector([getColors], (colors) => ({
   height: 250,
   xKey: "date",
   yKeys: {
-    areas: {
+    lines: {
       val: {
-        stroke: colors.rainfall,
+        stroke: colors.temperature,
         yAxisId: "val",
       },
     },
   },
-  unit: " mm",
+  unit: " °C",
   xAxis: {
     tickFormatter: formatWeekday,
   },
@@ -43,8 +43,8 @@ const parseConfig = createSelector([getColors], (colors) => ({
     // },
     {
       key: "val",
-      label: "Precipitation",
-      unitFormat: (value) => formatNumber({ num: value, unit: "mm" }),
+      label: "Temperature",
+      unitFormat: (value) => formatNumber({ num: value, unit: "°C" }),
     },
   ],
 }));

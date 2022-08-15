@@ -85,7 +85,7 @@ const generateLayers = (timestamps = []) => {
       data_path: dataPath,
       analysisConfig: [
         {
-          key: "forecast",
+          key: "temperature_forecast",
           type: "admin",
         },
       ],

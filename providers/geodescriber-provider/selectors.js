@@ -1,12 +1,12 @@
-import { createSelector, createStructuredSelector } from 'reselect';
-import isEmpty from 'lodash/isEmpty';
+import { createSelector, createStructuredSelector } from "reselect";
+import isEmpty from "lodash/isEmpty";
 
-import { selectActiveLang } from 'utils/lang';
-import { getDataLocation, buildFullLocationName } from 'utils/location';
+import { selectActiveLang } from "utils/lang";
+import { getDataLocation, buildFullLocationName } from "utils/location";
 
-import { getActiveArea } from 'providers/areas-provider/selectors';
+import { getActiveArea } from "providers/areas-provider/selectors";
 
-import { parseSentence } from 'services/sentences';
+import { parseSentence } from "services/sentences";
 
 export const selectGeojson = (state) =>
   state.geostore && state.geostore.data && state.geostore.data.geojson;
@@ -79,10 +79,8 @@ export const getGeodescriberTitle = createSelector(
     getActiveArea,
   ],
   (geodescriber, wdpaLocation, location, adminTitle, activeArea) => {
-    if (isEmpty(geodescriber)) return {};
-
     if (
-      (location.type === 'aoi' || location.areaId) &&
+      (location.type === "aoi" || location.areaId) &&
       activeArea &&
       activeArea.userArea
     ) {
@@ -90,14 +88,14 @@ export const getGeodescriberTitle = createSelector(
         sentence: activeArea.name,
       };
     }
-    if (location.type === 'wdpa' && wdpaLocation) {
+    if (location.type === "wdpa" && wdpaLocation) {
       return {
         sentence: wdpaLocation?.name,
       };
     }
 
     // if not an admin we can use geodescriber
-    if (!['ea', 'country'].includes(location.type)) {
+    if (!["africa", "country"].includes(location.type)) {
       return {
         sentence: geodescriber.title,
         params: geodescriber.title_params,
@@ -115,7 +113,7 @@ export const getGeodescriberTitleFull = createSelector(
   (title, wdpaLocation) => {
     if (isEmpty(title)) return null;
     let { sentence } = title;
-    if (location.type === 'wdpa' && wdpaLocation) {
+    if (location.type === "wdpa" && wdpaLocation) {
       return sentence;
     }
     if (title.params) {
@@ -142,24 +140,24 @@ export const getGeodescriberDescription = createSelector(
   ],
   (geodescriber, location, wdpaLocation, adminSentence) => {
     if (isEmpty(geodescriber)) return {};
-    if (location.type === 'wdpa' && wdpaLocation) {
+    if (location.type === "wdpa" && wdpaLocation) {
       const status = wdpaLocation?.status;
       const marine = wdpaLocation?.marine;
       const status_year = wdpaLocation?.status_yr;
       return {
         sentence: `{name} is a{marine}protected area given {status} ${
-          status_year ? 'status in {status_year}.' : 'status.'
+          status_year ? "status in {status_year}." : "status."
         }`,
         params: {
-          status: status ? String(status).toLowerCase() : 'unknown',
+          status: status ? String(status).toLowerCase() : "unknown",
           status_year,
-          marine: marine === 2 ? ' marine ' : ' ',
+          marine: marine === 2 ? " marine " : " ",
           name: wdpaLocation?.name,
         },
       };
     }
     // if not an admin we can use geodescriber
-    if (!['ea', 'country'].includes(location.type)) {
+    if (!["ea", "country"].includes(location.type)) {
       return {
         sentence: geodescriber.description,
         params: geodescriber.description_params,

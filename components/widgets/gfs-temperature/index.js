@@ -3,15 +3,15 @@ import { parseISO, addDays } from "date-fns";
 
 import {
   POLITICAL_BOUNDARIES_DATASET,
-  GFS_PRECIPITATION_FORECAST_DATASET,
+  GFS_TEMPERATURE_FORECAST_DATASET,
 } from "data/datasets";
-import { POLITICAL_BOUNDARIES, GFS_PRECIPITATION_FORECAST } from "data/layers";
+import { POLITICAL_BOUNDARIES, GFS_TEMPERATURE_FORECAST } from "data/layers";
 
 import getWidgetProps from "./selectors";
 
 export default {
-  widget: "gfs_precipitation_1hr_widget",
-  title: "Forecast {location}",
+  widget: "gfs_temperature_2m_widget",
+  title: "Temperature Forecast for {location}",
   categories: ["forecast"],
   types: ["country", "geostore"],
   admins: ["adm0", "adm1", "adm2"],
@@ -29,9 +29,9 @@ export default {
     },
     // forecast
     {
-      dataset: GFS_PRECIPITATION_FORECAST_DATASET,
-      layers: [GFS_PRECIPITATION_FORECAST],
-      keys: ["forecast"],
+      dataset: GFS_TEMPERATURE_FORECAST_DATASET,
+      layers: [GFS_TEMPERATURE_FORECAST],
+      keys: ["temperature_forecast"],
     },
   ],
   getData: (params = {}, token) => {
@@ -55,7 +55,7 @@ export default {
     const startDateTimeParam = time.substring(0, 16);
     const endDateTimeParam = endDateTime.substring(0, 16);
 
-    const wpsIdentifier = "gfs_precipitation_1hr_GeometryDrill";
+    const wpsIdentifier = "gfs_temperature_2m_GeometryDrill";
 
     // if point, make a FeatureCollection and run analysis
     if (isPoint) {

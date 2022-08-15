@@ -1,13 +1,13 @@
-import { createElement, Component } from 'react';
-import PropTypes from 'prop-types';
-import { CancelToken } from 'axios';
-import isEqual from 'lodash/isEqual';
-import sumBy from 'lodash/sumBy';
-import pick from 'lodash/pick';
-import has from 'lodash/has';
-import { trackEvent } from 'utils/analytics';
+import { createElement, Component } from "react";
+import PropTypes from "prop-types";
+import { CancelToken } from "axios";
+import isEqual from "lodash/isEqual";
+import sumBy from "lodash/sumBy";
+import pick from "lodash/pick";
+import has from "lodash/has";
+import { trackEvent } from "utils/analytics";
 
-import WidgetComponent from './component';
+import WidgetComponent from "./component";
 
 class WidgetContainer extends Component {
   static propTypes = {
@@ -25,7 +25,7 @@ class WidgetContainer extends Component {
   };
 
   static defaultProps = {
-    widget: '',
+    widget: "",
     location: {},
     getData: fetch,
     setWidgetData: () => {},
@@ -109,27 +109,31 @@ class WidgetContainer extends Component {
       this.cancelWidgetDataFetch();
       this.widgetDataFetch = CancelToken.source();
       this.setState({ loading: true, error: false });
-      getData({ ...params, geostore, token: this.widgetDataFetch.token })
-        .then((data) => {
-          setWidgetData(data);
-          setTimeout(() => {
+
+      if (geostore && geostore.geojson) {
+        getData({ ...params, geostore, token: this.widgetDataFetch.token })
+          .then((data) => {
+            setWidgetData(data);
+            setTimeout(() => {
+              if (this._mounted) {
+                this.setState({
+                  ...this.handleMaxRowSize(data),
+                  loading: false,
+                  error: false,
+                });
+              }
+            }, 200);
+          })
+          .catch((error) => {
             if (this._mounted) {
               this.setState({
-                ...this.handleMaxRowSize(data),
+                error:
+                  error.message !== `Cancelling ${this.props.widget} fetch`,
                 loading: false,
-                error: false,
               });
             }
-          }, 200);
-        })
-        .catch((error) => {
-          if (this._mounted) {
-            this.setState({
-              error: error.message !== `Cancelling ${this.props.widget} fetch`,
-              loading: false,
-            });
-          }
-        });
+          });
+      }
     }
   };
 
@@ -138,8 +142,8 @@ class WidgetContainer extends Component {
     const params = { ...location, ...settings };
     this.handleGetWidgetData({ ...params, GFW_META: meta });
     trackEvent({
-      category: 'Refetch data',
-      action: 'Data failed to fetch, user clicks to refetch',
+      category: "Refetch data",
+      action: "Data failed to fetch, user clicks to refetch",
       label: `Widget: ${widget}`,
     });
   };

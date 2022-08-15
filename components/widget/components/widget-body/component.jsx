@@ -1,25 +1,25 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
-import cx from 'classnames';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import isEmpty from "lodash/isEmpty";
+import cx from "classnames";
 
-import Loader from 'components/ui/loader';
-import NoContent from 'components/ui/no-content';
-import RefreshButton from 'components/ui/refresh-button';
-import DynamicSentence from 'components/ui/dynamic-sentence';
-import CustomComponent from 'components/widget/components/widgets-custom';
-import WidgetComposedChart from 'components/widget/components/widget-composed-chart';
-import WidgetHorizontalBarChart from 'components/widget/components/widget-horizontal-bar-chart';
-import WidgetNumberedList from 'components/widget/components/widget-numbered-list';
-import WidgetPieChartLegend from 'components/widget/components/widget-pie-chart-legend';
-import WidgetChartList from 'components/widget/components/widget-chart-list';
-import WidgetChartAndList from 'components/widget/components/widget-chart-and-list';
-import WidgetListLegend from 'components/widget/components/widget-list-legend';
-import WidgetMapList from 'components/widget/components/widget-map-list';
-import WidgetSankey from 'components/widget/components/widget-sankey';
-import WidgetLollipop from 'components/widget/components/widget-lollipop';
+import Loader from "components/ui/loader";
+import NoContent from "components/ui/no-content";
+import RefreshButton from "components/ui/refresh-button";
+import DynamicSentence from "components/ui/dynamic-sentence";
+import CustomComponent from "components/widget/components/widgets-custom";
+import WidgetComposedChart from "components/widget/components/widget-composed-chart";
+import WidgetHorizontalBarChart from "components/widget/components/widget-horizontal-bar-chart";
+import WidgetNumberedList from "components/widget/components/widget-numbered-list";
+import WidgetPieChartLegend from "components/widget/components/widget-pie-chart-legend";
+import WidgetChartList from "components/widget/components/widget-chart-list";
+import WidgetChartAndList from "components/widget/components/widget-chart-and-list";
+import WidgetListLegend from "components/widget/components/widget-list-legend";
+import WidgetMapList from "components/widget/components/widget-map-list";
+import WidgetSankey from "components/widget/components/widget-sankey";
+import WidgetLollipop from "components/widget/components/widget-lollipop";
 
-import './styles.scss';
+import "./styles.scss";
 
 const chartOptions = {
   composedChart: WidgetComposedChart,
@@ -78,7 +78,7 @@ class WidgetBody extends PureComponent {
     const Component = chartOptions[chartType];
 
     return (
-      <div className={cx('c-widget-body', { simple })}>
+      <div className={cx("c-widget-body", { simple })}>
         {(loading || metaLoading) && <Loader className="widget-loader" />}
         {!loading &&
           !metaLoading &&
@@ -87,7 +87,7 @@ class WidgetBody extends PureComponent {
           !hasSentence &&
           Component && (
             <NoContent
-              message={`No data in selection for ${locationName || '...'}`}
+              message={`No data in selection for ${locationName || "..."}`}
             />
           )}
         {!loading && error && <RefreshButton refetchFn={handleRefetchData} />}

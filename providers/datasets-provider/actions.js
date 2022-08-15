@@ -28,8 +28,6 @@ export const fetchDatasets = createThunkAction(
       return all;
     }, []);
 
-    console.log(localDatasets);
-
     all([...asyncLayersRequests])
       .then(
         spread((...asyncDatasets) => {
@@ -45,7 +43,6 @@ export const fetchDatasets = createThunkAction(
         })
       )
       .catch((error) => {
-        console.log(error);
         dispatch(setDatasetsLoading({ loading: false, error: true }));
       });
   }
