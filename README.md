@@ -1,1 +1,1 @@
-# East Africa Hazards Watch
+# Africa Hazards Watch
