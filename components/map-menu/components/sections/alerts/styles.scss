@@ -1,0 +1,20 @@
+@import "~styles/settings.scss";
+
+.c-map-menu-alerts {
+  height: 100%;
+
+  h3 {
+    padding: 20px 10px;
+    text-transform: uppercase;
+    color: $slate;
+    font-size: rem(14px);
+    font-weight: 500;
+    border-bottom: 1px solid rgba($hot-grey, 0.3);
+  }
+
+  .alerts-wrapper {
+    display: flex;
+    justify-content: space-between;
+    height: calc(100% - 62px);
+  }
+}

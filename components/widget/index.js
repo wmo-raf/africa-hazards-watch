@@ -51,6 +51,7 @@ class WidgetContainer extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { location, settings, refetchKeys, status, meta } = this.props;
+
     const { error } = this.state;
     const hasLocationChanged =
       location && !isEqual(location, prevProps.location);
@@ -65,6 +66,7 @@ class WidgetContainer extends Component {
     // refetch data if error, settings, or location changes
     if (hasSettingsChanged || hasLocationChanged || hasErrorChanged) {
       const params = { ...location, ...settings, status };
+
       this.handleGetWidgetData({ ...params, GFW_META: meta });
     }
   }

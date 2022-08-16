@@ -1,27 +1,27 @@
-import React, { PureComponent, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
-import Link from 'next/link';
-import isEmpty from 'lodash/isEmpty';
+import React, { PureComponent, Fragment } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
+import Link from "next/link";
+import isEmpty from "lodash/isEmpty";
 
-import { trackEvent } from 'utils/analytics';
+import { trackEvent } from "utils/analytics";
 
-import Dropdown from 'components/ui/dropdown';
-import Loader from 'components/ui/loader';
-import Icon from 'components/ui/icon';
-import Button from 'components/ui/button';
-import DynamicSentence from 'components/ui/dynamic-sentence';
-import AreaOfInterestModal from 'components/modals/area-of-interest';
+import Dropdown from "components/ui/dropdown";
+import Loader from "components/ui/loader";
+import Icon from "components/ui/icon";
+import Button from "components/ui/button";
+import DynamicSentence from "components/ui/dynamic-sentence";
+import AreaOfInterestModal from "components/modals/area-of-interest";
 
-import editIcon from 'assets/icons/edit.svg?sprite';
-import hiddenIcon from 'assets/icons/hidden.svg?sprite';
-import dashboardIcon from 'assets/icons/dashboard.svg?sprite';
-import tagIcon from 'assets/icons/tag.svg?sprite';
-import downloadIcon from 'assets/icons/download.svg?sprite';
-import saveUserIcon from 'assets/icons/save-user.svg?sprite';
-import subscribedIcon from 'assets/icons/subscribed.svg?sprite';
-import arrowIcon from 'assets/icons/arrow-down.svg?sprite';
-import './styles.scss';
+import editIcon from "assets/icons/edit.svg?sprite";
+import hiddenIcon from "assets/icons/hidden.svg?sprite";
+import dashboardIcon from "assets/icons/dashboard.svg?sprite";
+import tagIcon from "assets/icons/tag.svg?sprite";
+import downloadIcon from "assets/icons/download.svg?sprite";
+import saveUserIcon from "assets/icons/save-user.svg?sprite";
+import subscribedIcon from "assets/icons/subscribed.svg?sprite";
+import arrowIcon from "assets/icons/arrow-down.svg?sprite";
+import "./styles.scss";
 
 class Header extends PureComponent {
   static propTypes = {
@@ -58,17 +58,17 @@ class Header extends PureComponent {
     } = this.props;
 
     const btnTheme = cx(
-      'theme-button-clear theme-button-clear-underline theme-button-small'
+      "theme-button-clear theme-button-clear-underline theme-button-small"
     );
     return (
       <Dropdown
         layout="overflow-menu"
         className="edit-button"
         onChange={this.handleAreaActions}
-        theme={cx('theme-button-medium theme-dropdown-no-border small square')}
+        theme={cx("theme-button-medium theme-dropdown-no-border small square")}
         options={[
           {
-            value: 'open_map',
+            value: "open_map",
             component: (
               <Button
                 theme={btnTheme}
@@ -81,7 +81,7 @@ class Header extends PureComponent {
           },
           activeArea &&
             activeArea.userArea && {
-              value: 'edit_area',
+              value: "edit_area",
               component: (
                 <Button
                   theme={btnTheme}
@@ -91,7 +91,7 @@ class Header extends PureComponent {
                       locationNames.adm0 &&
                       locationNames.adm0.label
                     }`,
-                    position: 'bottom',
+                    position: "bottom",
                   }}
                   onClick={() => setAreaOfInterestModalSettings(activeArea.id)}
                 >
@@ -100,14 +100,14 @@ class Header extends PureComponent {
                 </Button>
               ),
             },
-          location?.type === 'country' && {
-            value: 'save_area',
+          location?.type === "country" && {
+            value: "save_area",
             component: (
               <Button
                 theme={btnTheme}
                 tooltip={{
-                  text: 'Save as an area of interest',
-                  position: 'bottom',
+                  text: "Save as an area of interest",
+                  position: "bottom",
                 }}
                 onClick={() => setAreaOfInterestModalSettings(true)}
               >
@@ -117,7 +117,7 @@ class Header extends PureComponent {
             ),
           },
           (isCountryDashboard || isAreaAndCountryDashboard) && {
-            value: 'download_data',
+            value: "download_data",
             component: (
               <Button
                 theme={btnTheme}
@@ -130,19 +130,19 @@ class Header extends PureComponent {
                           locationNames.adm0 &&
                           locationNames.adm0.label
                         }`
-                      : ''
+                      : ""
                   }`,
-                  position: 'bottom',
+                  position: "bottom",
                 }}
                 onClick={() => {
                   trackEvent({
-                    category: 'Dashboards page',
-                    action: 'Download page',
+                    category: "Dashboards page",
+                    action: "Download page",
                     label:
                       (locationNames &&
                         locationNames.adm0 &&
                         locationNames.adm0.label) ||
-                      'ea',
+                      "Global",
                   });
                 }}
               >
@@ -212,21 +212,23 @@ class Header extends PureComponent {
     let selectorMeta;
     if (isEmpty(runtimeLocation)) {
       selectorMeta = {
-        typeVerb: 'country',
-        typeName: 'country',
+        typeVerb: "country",
+        typeName: "country",
       };
     } else {
       selectorMeta = runtimeSelectorMeta;
     }
 
     const isCountryDashboard =
-      location?.type === 'country' || location?.type === 'ea';
-    const isAreaDashboard = location?.type === 'aoi';
+      location?.type === "country" || location?.type === "africa";
+
+    const isAreaDashboard = location?.type === "aoi";
     const isAreaAndCountryDashboard =
       !isCountryDashboard &&
       activeArea &&
       activeArea.admin &&
       activeArea.admin.adm0;
+
     const showMetaControls =
       !loading && (!isAreaDashboard || (isAreaDashboard && activeArea));
     const { tags } = activeArea || {};
@@ -239,7 +241,7 @@ class Header extends PureComponent {
     const subRegionData = this.getAdm2SelectorData();
 
     return (
-      <div className={cx('c-dashboards-header', className)}>
+      <div className={cx("c-dashboards-header", className)}>
         {loading && <Loader className="loader" theme="theme-loader-light" />}
         {showMetaControls && (
           <div className="meta-controls">
@@ -289,11 +291,12 @@ class Header extends PureComponent {
                     <button
                       onClick={() =>
                         trackEvent({
-                          category: 'Areas of interest',
+                          category: "Areas of interest",
                           action:
-                            'User changes between global and areas dashboard',
-                          label: 'changes to global',
-                        })}
+                            "User changes between continental and areas dashboard",
+                          label: "changes to global",
+                        })
+                      }
                     >
                       <Icon icon={arrowIcon} className="breadcrumb-icon" />
                       Go to Global dashboard
@@ -310,11 +313,12 @@ class Header extends PureComponent {
                     <button
                       onClick={() =>
                         trackEvent({
-                          category: 'Areas of interest',
+                          category: "Areas of interest",
                           action:
-                            'User changes between global and areas dashboard',
-                          label: 'changes to areas',
-                        })}
+                            "User changes between continental and areas dashboard",
+                          label: "changes to areas",
+                        })
+                      }
                     >
                       <Icon icon={arrowIcon} className="breadcrumb-icon" />
                       Go to Areas dashboard
@@ -323,7 +327,7 @@ class Header extends PureComponent {
                 </Link>
               )}
               {title && (
-                <h3 className={cx({ global: title === 'ea' })}>{title}</h3>
+                <h3 className={cx({ global: title === "global" })}>{title}</h3>
               )}
               <Dropdown
                 theme="theme-dropdown-dark"
@@ -333,7 +337,8 @@ class Header extends PureComponent {
                 value={countrySelectorData.value}
                 options={countrySelectorData.options}
                 onChange={(adm0) =>
-                  handleLocationChange({ adm0: adm0 && adm0.value })}
+                  handleLocationChange({ adm0: adm0 && adm0.value })
+                }
                 searchable
                 disabled={loading}
                 tooltip={{
@@ -359,11 +364,12 @@ class Header extends PureComponent {
                       handleLocationChange({
                         adm0: location.adm0,
                         adm1: adm1 && adm1.value,
-                      })}
+                      })
+                    }
                     searchable
                     disabled={loading}
                     tooltip={{
-                      text: 'Choose the region you want to explore',
+                      text: "Choose the region you want to explore",
                       delay: 1000,
                     }}
                     arrowPosition="left"
@@ -387,11 +393,12 @@ class Header extends PureComponent {
                         adm0: location.adm0,
                         adm1: location.adm1,
                         adm2: adm2 && adm2.value,
-                      })}
+                      })
+                    }
                     searchable
                     disabled={loading}
                     tooltip={{
-                      text: 'Choose the region you want to explore',
+                      text: "Choose the region you want to explore",
                       delay: 1000,
                     }}
                     arrowPosition="left"
@@ -406,7 +413,7 @@ class Header extends PureComponent {
                 {tags && !!tags.length && (
                   <div className="tags">
                     <Icon icon={tagIcon} className="tag-icon" />
-                    <p>{tags.join(', ')}</p>
+                    <p>{tags.join(", ")}</p>
                   </div>
                 )}
                 {(activeArea.deforestationAlerts ||
@@ -428,23 +435,6 @@ class Header extends PureComponent {
                   className="sentence"
                   sentence={displaySentence}
                 />
-                {location && location.adm0 === 'IDN' && (
-                  <Fragment>
-                    <p className="disclaimer">
-                      *Primary forest is defined as mature natural humid
-                      tropical forest that has not been completely cleared and
-                      regrown in recent history.
-                    </p>
-                  </Fragment>
-                )}
-                {forestAtlasLink && isCountryDashboard && (
-                  <Button
-                    className="forest-atlas-btn"
-                    extLink={forestAtlasLink.url}
-                  >
-                    EXPLORE FOREST ATLAS
-                  </Button>
-                )}
               </div>
             </div>
           </div>

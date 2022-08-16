@@ -109,13 +109,12 @@ export const getGeodescriberTitle = createSelector(
 );
 
 export const getGeodescriberTitleFull = createSelector(
-  [getGeodescriberTitle, selectWdpaLocation],
-  (title, wdpaLocation) => {
+  [getGeodescriberTitle],
+  (title) => {
     if (isEmpty(title)) return null;
+
     let { sentence } = title;
-    if (location.type === "wdpa" && wdpaLocation) {
-      return sentence;
-    }
+
     if (title.params) {
       Object.keys(title.params).forEach((p) => {
         sentence = sentence.replace(`{${p}}`, title.params[p]);
@@ -157,7 +156,7 @@ export const getGeodescriberDescription = createSelector(
       };
     }
     // if not an admin we can use geodescriber
-    if (!["ea", "country"].includes(location.type)) {
+    if (!["africa", "country"].includes(location.type)) {
       return {
         sentence: geodescriber.description,
         params: geodescriber.description_params,

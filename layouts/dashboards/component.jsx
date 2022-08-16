@@ -59,7 +59,8 @@ class DashboardsPage extends PureComponent {
 
   componentDidMount() {
     const { locationType, setDashboardPromptsSettings } = this.props;
-    if (locationType === "ea" || locationType === "country") {
+
+    if (locationType === "africa" || locationType === "country") {
       setDashboardPromptsSettings({
         open: true,
         stepIndex: 0,

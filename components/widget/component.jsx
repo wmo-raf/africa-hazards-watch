@@ -1,12 +1,12 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
 
-import WidgetHeader from './components/widget-header';
-import WidgetBody from './components/widget-body';
-import WidgetFooter from './components/widget-footer';
+import WidgetHeader from "./components/widget-header";
+import WidgetBody from "./components/widget-body";
+import WidgetFooter from "./components/widget-footer";
 
-import './styles.scss';
+import "./styles.scss";
 
 class Widget extends PureComponent {
   static propTypes = {
@@ -135,7 +135,7 @@ class Widget extends PureComponent {
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div
         id={widget}
-        className={cx('c-widget', { large }, { embed }, { simple })}
+        className={cx("c-widget", { large }, { embed }, { simple })}
         style={{
           ...(active &&
             !simple &&

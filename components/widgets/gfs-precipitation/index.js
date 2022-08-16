@@ -11,16 +11,20 @@ import getWidgetProps from "./selectors";
 
 export default {
   widget: "gfs_precipitation_1hr_widget",
-  title: "Forecast {location}",
-  categories: ["forecast"],
+  title: "Precipitation Forecast for {location}",
+  categories: ["summary"],
   types: ["country", "geostore"],
   admins: ["adm0", "adm1", "adm2"],
+  large: true,
   metaKey: "",
   sortOrder: {},
-  visible: ["analysis"],
+  visible: ["analysis", "dashboard"],
   chartType: "composedChart",
   colors: "weather",
   sentences: {},
+  settings: {
+    time: "",
+  },
   datasets: [
     {
       dataset: POLITICAL_BOUNDARIES_DATASET,

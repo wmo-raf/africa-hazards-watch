@@ -8,35 +8,35 @@ import { getArea } from "services/areas";
 export const countryConfig = {
   adm0: (params) =>
     pgFeatureServRequest(
-      `/collections/pgadapter.ea_gadm36_countries/items.json?iso=${params.adm0}&properties=iso,name_engli&orderBy=name_engli&limit=1000`
+      `/functions/postgisftw.africa_countries_list/items.json?country_iso=${params.adm0}`
     ).then((response) => {
-      const { name_engli, ...props } = response?.data?.rows?.[0];
+      const { name, ...props } = response?.data?.[0];
 
       return {
-        locationName: name_engli,
+        locationName: name,
         ...props,
-        name: name_engli,
+        name: name,
       };
     }),
   adm1: (params) =>
     pgFeatureServRequest(
-      `/collections/pgadapter.ea_gadm36_adm1/items.json?gid_1=${params.adm0}.${params.adm1}_1&properties=iso,gid_1,name_0,name_1&limit=1000`
+      `/functions/postgisftw.africa_adm1_by_id/items.json?adm1_id=${params.adm0}.${params.adm1}_1`
     ).then((response) => {
-      const { gid_1, name_1, name_0, ...props } = response?.data?.rows?.[0];
+      const { id, name_1, name_0, ...props } = response?.data?.[0];
 
       return {
         locationName: `${name_1}, ${name_0}`,
         ...props,
-        id: gid_1,
+        id: id,
         adm0: name_0,
         adm1: name_1,
       };
     }),
   adm2: (params) =>
     pgFeatureServRequest(
-      `/collections/pgadapter.ea_gadm36_adm2/items.json?gid_2=${params.adm0}.${params.adm1}.${params.adm2}_1&properties=gid_2,name_0,name_1,name_2&limit=1000`
+      `/functions/postgisftw.africa_adm2_by_id/items.json?adm2_id=${params.adm0}.${params.adm1}.${params.adm2}_1`
     ).then((response) => {
-      const { name_2, name_1, name_0, ...props } = response?.data?.rows?.[0];
+      const { name_2, name_1, name_0, ...props } = response?.data?.[0];
 
       return {
         locationName: `${name_2}, ${name_1}, ${name_0}`,

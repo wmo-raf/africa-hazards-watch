@@ -12,12 +12,13 @@ import getWidgetProps from "./selectors";
 export default {
   widget: "gfs_temperature_2m_widget",
   title: "Temperature Forecast for {location}",
-  categories: ["forecast"],
+  categories: ["summary"],
+  large: true,
   types: ["country", "geostore"],
   admins: ["adm0", "adm1", "adm2"],
   metaKey: "",
   sortOrder: {},
-  visible: ["analysis"],
+  visible: ["analysis", "dashboard"],
   chartType: "composedChart",
   colors: "weather",
   sentences: {},
@@ -34,6 +35,9 @@ export default {
       keys: ["temperature_forecast"],
     },
   ],
+  settings: {
+    time: "",
+  },
   getData: (params = {}, token) => {
     const {
       endpoint,

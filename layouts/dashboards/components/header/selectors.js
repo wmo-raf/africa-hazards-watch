@@ -1,18 +1,17 @@
-import { createSelector, createStructuredSelector } from 'reselect';
-import upperFirst from 'lodash/upperFirst';
-import { deburrUpper } from 'utils/strings';
+import { createSelector, createStructuredSelector } from "reselect";
+import upperFirst from "lodash/upperFirst";
+import { deburrUpper } from "utils/strings";
 
 import {
   getGeodescriberTitleFull,
   getGeodescriberDescription,
-} from 'providers/geodescriber-provider/selectors';
+} from "providers/geodescriber-provider/selectors";
 import {
   getUserAreas,
   getActiveArea,
-} from 'providers/areas-provider/selectors';
+} from "providers/areas-provider/selectors";
 
-const isServer = typeof window === 'undefined';
-const DOWNLOAD_VERSION = '20200331';
+const isServer = typeof window === "undefined";
 
 // get list data
 export const selectLocation = (state) =>
@@ -73,7 +72,7 @@ export const getDashboardTitle = createSelector(
 export const getAdminMetadata = createSelector(
   [selectLocation, selectCountryData, getAreasOptions],
   (location, countries, areas) => {
-    if (location?.type === 'aoi') return areas;
+    if (location?.type === "aoi") return areas;
     return countries;
   }
 );
@@ -100,25 +99,6 @@ export const getAdm2Data = createSelector(
 export const getExternalLinks = createSelector(
   [selectCountryData, selectLocation],
   (data, location) => data && data.links?.[location?.adm0]
-);
-
-export const getForestAtlasLink = createSelector(
-  [getExternalLinks],
-  (links) =>
-    links &&
-    links.find((l) => deburrUpper(l.title).indexOf(deburrUpper('forest atlas')))
-);
-
-export const getDownloadLink = createSelector(
-  [selectLocation, getActiveArea],
-  (location, area) => {
-    const { admin } = area || {};
-    const { adm0 } = admin || {};
-
-    return `https://gfw2-data.s3.amazonaws.com/country-pages/country_stats/download/${DOWNLOAD_VERSION}/${
-      adm0 || location?.adm0 || 'ea'
-    }.xlsx`;
-  }
 );
 
 export const getAdminsSelected = createSelector(
@@ -164,7 +144,7 @@ export const getShareData = createSelector(
   [getAdminsSelected, selectLocation],
   (adminsSelected, location) => ({
     title:
-      location?.type === 'aoi' ? 'Share this area' : 'Share this Dashboard',
+      location?.type === "aoi" ? "Share this area" : "Share this Dashboard",
     shareUrl: !isServer && `${window.location.href}`,
     socialText: `${
       (adminsSelected &&
@@ -177,11 +157,11 @@ export const getShareData = createSelector(
 
 export const getSelectorMeta = createSelector([selectLocation], (location) => {
   const { type } = location || {};
-  const newType = type === 'ea' ? 'country' : type;
-  if (type === 'aoi') {
+  const newType = type === "africa" ? "country" : type;
+  if (type === "aoi") {
     return {
-      typeVerb: 'area of interest',
-      typeName: 'area of interest',
+      typeVerb: "area of interest",
+      typeName: "area of interest",
     };
   }
   return {
@@ -193,14 +173,14 @@ export const getSelectorMeta = createSelector([selectLocation], (location) => {
 export const getShareMeta = createSelector(
   [selectLocation, getActiveArea],
   (location, activeArea) => {
-    if (location?.type === 'aoi' && activeArea && activeArea.userArea) {
-      return 'share area';
+    if (location?.type === "aoi" && activeArea && activeArea.userArea) {
+      return "share area";
     }
-    if (location?.type === 'aoi') {
-      return 'save to my HW';
+    if (location?.type === "aoi") {
+      return "save to my HW";
     }
 
-    return 'share dashboard';
+    return "share dashboard";
   }
 );
 
@@ -210,8 +190,6 @@ export const getHeaderProps = createStructuredSelector({
   adm0s: getAdm0Data,
   adm1s: getAdm1Data,
   adm2s: getAdm2Data,
-  downloadLink: getDownloadLink,
-  forestAtlasLink: getForestAtlasLink,
   shareData: getShareData,
   sentence: getGeodescriberDescription,
   locationNames: getAdminsSelected,

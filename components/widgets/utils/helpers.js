@@ -1,5 +1,5 @@
 const isAreaComputed = status => status === 'saved';
-const isGlobalArea = type => type === 'ea';
+const isGlobalArea = type => type === 'africa';
 const isCountryArea = type => type === 'country';
 
 export const shouldQueryPrecomputedTables = params =>

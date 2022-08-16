@@ -132,8 +132,7 @@ class WidgetsContainer extends PureComponent {
       datasets.length &&
       getWidgetDatasets({ datasets, ...settings });
 
-    const polynameDatasets = getPolynameDatasets({ optionsSelected, settings });
-    let allDatasets = [...compact(polynameDatasets)];
+    let allDatasets = [];
 
     if (widgetDatasets) {
       allDatasets = [...allDatasets, ...widgetDatasets];

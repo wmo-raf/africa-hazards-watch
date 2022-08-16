@@ -76,7 +76,7 @@ function getLabel(location, countryData) {
   if (location.adm0) {
     return country;
   }
-  return "ea";
+  return "africa";
 }
 
 export const getServerSideProps = async ({ params, query, req }) => {
@@ -108,7 +108,7 @@ export const getServerSideProps = async ({ params, query, req }) => {
 
   let countryData = await getCategorisedCountries(true);
 
-  if (!type || type === "ea") {
+  if (!type || type === "africa") {
     // get global data
     const data = await getSentenceData();
     const parsedSentence = parseSentence(data);
@@ -143,7 +143,7 @@ export const getServerSideProps = async ({ params, query, req }) => {
       };
     }
 
-    const title = `${locationName} Deforestation Rates & Statistics | AHW`;
+    const title = `${locationName} Weather, Climate and Hazards Statistics | AHW`;
     const noIndex = !["country"].includes(type);
     const [locationType, adm0, lvl1, lvl2] = params?.location;
     const adm1 = lvl1 ? parseInt(lvl1, 10) : null;
@@ -154,8 +154,6 @@ export const getServerSideProps = async ({ params, query, req }) => {
       adm0,
       adm1,
       adm2,
-      threshold: 30,
-      extentYear: 2010,
     });
 
     if (adm0) {
@@ -242,8 +240,9 @@ export const getServerSideProps = async ({ params, query, req }) => {
 function getCanonical(props, query) {
   const category = isServer ? props.category : query.category;
   const shouldShowCat = category !== "summary";
-  const path = `https://www.globalforestwatch.org${isServer ? props?.basePath : window.location.pathname.slice(0, -1)
-    }`;
+  const path = `https://www.globalforestwatch.org${
+    isServer ? props?.basePath : window.location.pathname.slice(0, -1)
+  }`;
   return `${path}${shouldShowCat ? `?category=${category}` : ""}`;
 }
 

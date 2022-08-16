@@ -1,18 +1,18 @@
-import { createThunkAction } from 'redux/actions';
-import { getGadmLocationByLevel } from 'utils/gadm';
-import useRouter from 'utils/router';
+import { createThunkAction } from "redux/actions";
+import { getGadmLocationByLevel } from "utils/gadm";
+import useRouter from "utils/router";
 
-import { trackEvent } from 'utils/analytics';
+import { trackEvent } from "utils/analytics";
 
-import { setDashboardPromptsSettings } from 'components/prompts/dashboard-prompts/actions';
+import { setDashboardPromptsSettings } from "components/prompts/dashboard-prompts/actions";
 
 export const handleCategoryChange = createThunkAction(
-  'handleCategoryChange',
+  "handleCategoryChange",
   (category) => () => {
     const { query, asPath, pushQuery } = useRouter();
 
     pushQuery({
-      pathname: asPath?.split('?')?.[0],
+      pathname: asPath?.split("?")?.[0],
       query: {
         ...query,
         category,
@@ -23,7 +23,7 @@ export const handleCategoryChange = createThunkAction(
 );
 
 export const handleLocationChange = createThunkAction(
-  'handleLocationChange',
+  "handleLocationChange",
   (location) => (dispatch, getState) => {
     const { type, payload, query } = getState().location || {};
     const { pushQuery } = useRouter();
@@ -34,15 +34,15 @@ export const handleLocationChange = createThunkAction(
     if (query) {
       Object.keys(query).forEach((key) => {
         const queryObj = query[key] || {};
-        if (typeof queryObj === 'object') {
+        if (typeof queryObj === "object") {
           const { forestType, landCategory, page } = queryObj;
           newQuery[key] = {
             ...queryObj,
             ...(forestType && {
-              forestType: '',
+              forestType: "",
             }),
             ...(landCategory && {
-              landCategory: '',
+              landCategory: "",
             }),
             ...(page && {
               page: 0,
@@ -58,32 +58,33 @@ export const handleLocationChange = createThunkAction(
     if (data) {
       const { cartodb_id, wdpaid } = data || {};
       const { analysisEndpoint, tableName } = layer || {};
-      if (analysisEndpoint === 'admin') {
+      if (analysisEndpoint === "admin") {
         newPayload =
-          payload.type === 'ea'
+          payload.type === "africa"
             ? {
-                type: 'ea',
+                type: "africa",
               }
             : {
                 ...getGadmLocationByLevel(data),
               };
-      } else if (analysisEndpoint === 'wdpa' && (cartodb_id || wdpaid)) {
+      } else if (analysisEndpoint === "wdpa" && (cartodb_id || wdpaid)) {
         newPayload = {
           type: analysisEndpoint,
           adm0: wdpaid || cartodb_id,
         };
       } else if (cartodb_id && tableName) {
         newPayload = {
-          type: 'use',
+          type: "use",
           adm0: tableName,
           adm1: cartodb_id,
         };
       }
     } else {
-      const newAdminType = !location.adm0 ? 'ea' : 'country';
+      const newAdminType = !location.adm0 ? "africa" : "country";
+
       newPayload = {
         type:
-          payload.type === 'ea' || !location.adm0
+          payload.type === "africa" || !location.adm0
             ? newAdminType
             : payload.type,
         ...location,
@@ -93,7 +94,7 @@ export const handleLocationChange = createThunkAction(
     pushQuery({
       pathname: `/dashboards/${Object.values(newPayload)
         ?.filter((o) => o)
-        ?.join('/')}/`,
+        ?.join("/")}/`,
       query: {
         ...newQuery,
         widget: undefined,
@@ -105,12 +106,12 @@ export const handleLocationChange = createThunkAction(
     });
 
     trackEvent({
-      category: 'Dashboards page',
-      action: 'User changes dashboard location',
-      label: `${type === 'ea' ? type : ''}${
-        newPayload.adm0 ? ` ${newPayload.adm0}` : ''
-      }${newPayload.adm1 ? `.${newPayload.adm1}` : ''}${
-        newPayload.adm2 ? `.${newPayload.adm2}` : ''
+      category: "Dashboards page",
+      action: "User changes dashboard location",
+      label: `${type === "africa" ? type : ""}${
+        newPayload.adm0 ? ` ${newPayload.adm0}` : ""
+      }${newPayload.adm1 ? `.${newPayload.adm1}` : ""}${
+        newPayload.adm2 ? `.${newPayload.adm2}` : ""
       }`,
     });
 
@@ -118,16 +119,16 @@ export const handleLocationChange = createThunkAction(
       setDashboardPromptsSettings({
         open: true,
         stepIndex: 0,
-        stepsKey: 'dashboardAnalyses',
+        stepsKey: "dashboardAnalyses",
       })
     );
   }
 );
 
-export const clearScrollTo = createThunkAction('clearScrollTo', () => () => {
+export const clearScrollTo = createThunkAction("clearScrollTo", () => () => {
   const { query, asPath, pushQuery } = useRouter();
   pushQuery({
-    pathname: asPath?.split('?')?.[0],
+    pathname: asPath?.split("?")?.[0],
     query: {
       ...query,
       scrollTo: false,
