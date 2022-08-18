@@ -72,6 +72,7 @@ class MapComponent extends Component {
       drawing,
       clearMapInteractions,
       basemap,
+      location,
     } = this.props;
     const {
       mapLabels: prevMapLabels,
@@ -82,6 +83,7 @@ class MapComponent extends Component {
       lang: prevLang,
       drawing: prevDrawing,
       basemap: prevBasemap,
+      location: prevLocation,
     } = prevProps;
 
     if (!drawing && prevDrawing) {
@@ -128,6 +130,26 @@ class MapComponent extends Component {
       setMapSettings({ canBound: false, bbox: [] });
       // eslint-disable-next-line
       this.setState({ bounds: {} });
+    }
+
+    // if clicked point changes
+    if (location && location.type === "point") {
+      // eslint-disable-next-line
+      const { adm0, adm1 } = location;
+      const prevLat = prevLocation.adm0;
+      const prevLong = prevLocation.adm1;
+
+      if (adm0 !== prevLat || adm1 !== prevLong) {
+        const lat = parseFloat(adm0);
+        const lng = parseFloat(adm1);
+
+        setMapSettings({
+          center: {
+            lat: lat,
+            lng: lng,
+          },
+        });
+      }
     }
 
     // fit bounds on cluster if clicked

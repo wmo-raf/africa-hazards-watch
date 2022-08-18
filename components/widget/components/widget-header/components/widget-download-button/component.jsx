@@ -104,11 +104,11 @@ class WidgetDownloadButton extends PureComponent {
       .map((entry) => `${entry[0]},${entry[1]}`)
       .join("\n");
 
-    let parentAdminLevel = "ea";
-    let adminLevel = intAdminLevel || "ea";
+    let parentAdminLevel = "africa";
+    let adminLevel = intAdminLevel || "africa";
     let childAdminLevel = "adm2";
 
-    if (adminLevel === "ea") {
+    if (adminLevel === "africa") {
       childAdminLevel = "iso";
     }
     if (adminLevel === "adm0") {
@@ -129,7 +129,7 @@ class WidgetDownloadButton extends PureComponent {
 
     const parentLocationMetadataFile =
       !isEmpty(parentData) &&
-      adminLevel !== "ea" &&
+      adminLevel !== "africa" &&
       adminLevel !== "iso" &&
       [`name,${parentAdminLevel}${parentAdminLevel !== "iso" ? "__id" : ""}`]
         .concat(
@@ -141,7 +141,7 @@ class WidgetDownloadButton extends PureComponent {
 
     let locationMetadataFile =
       !isEmpty(locationData) &&
-      adminLevel !== "ea" &&
+      adminLevel !== "africa" &&
       location.type !== "geostore" &&
       [`name,${adminLevel}${adminLevel !== "iso" ? "__id" : ""}`]
         .concat(

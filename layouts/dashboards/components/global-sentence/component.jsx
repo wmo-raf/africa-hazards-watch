@@ -26,7 +26,7 @@ class GlobalSentence extends PureComponent {
       if (useLocation.adm1) return 'adm1';
       return 'country';
     }
-    if (useLocation.type === 'ea') return 'ea';
+    if (useLocation.type === 'africa') return 'africa';
     return 'area';
   }
 

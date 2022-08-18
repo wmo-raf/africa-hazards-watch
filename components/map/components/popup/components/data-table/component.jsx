@@ -1,16 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { formatNumber } from 'utils/format';
+import React from "react";
+import PropTypes from "prop-types";
+import { formatNumber } from "utils/format";
 
-import Button from 'components/ui/button';
+import Button from "components/ui/button";
 
-import './styles.scss';
+import "./styles.scss";
 
 const renderString = ({ suffix, type, linkText, value }) => {
-  let valueString = value || 'n/a';
-  if (type === 'number' && value) {
+  let valueString = value || "n/a";
+  if (type === "number" && value) {
     valueString = formatNumber({ num: value, unit: suffix });
-  } else if (type === 'link' && value && linkText) {
+  } else if (type === "link" && value && linkText) {
     valueString = (
       <a
         className="table-link"
@@ -41,13 +41,10 @@ const DataTable = ({
       <div className="table">
         {data?.map((d) => (
           <div key={`${d.label}-${d?.value}`} className="wrapper">
-            <div className="label">
-              {d?.label}
-              :
-            </div>
+            <div className="label">{d?.label}:</div>
             <div
               className={
-                d?.type === 'link' && d?.linkText ? 'table-link' : 'value'
+                d?.type === "link" && d?.linkText ? "table-link" : "value"
               }
             >
               {renderString(d)}
@@ -55,17 +52,6 @@ const DataTable = ({
           </div>
         ))}
       </div>
-      {isPoint && (
-        <Button
-          onClick={() => {
-            setMapSettings({ drawing: true });
-            setAnalysisSettings({ showDraw: true });
-            setMainMapSettings({ showAnalysis: true });
-          }}
-        >
-          draw a shape to analyze
-        </Button>
-      )}
       {!isPoint && zoomToShape && (
         <Button
           onClick={() => {

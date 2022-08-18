@@ -44,7 +44,7 @@ class GeodescriberProvider extends PureComponent {
 
   getAllowedLocationTypes = () => {
     const { embed } = this.props;
-    let types = ["ea"];
+    let types = ["africa"];
 
     if (!embed) {
       types = [...types, "country"];

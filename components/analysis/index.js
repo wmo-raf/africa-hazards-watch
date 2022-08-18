@@ -1,16 +1,17 @@
-import { createElement, PureComponent } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import isEqual from 'lodash/isEqual';
-import { cancelToken } from 'utils/request';
-import reducerRegistry from 'redux/registry';
+import { createElement, PureComponent } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import isEqual from "lodash/isEqual";
+import { cancelToken } from "utils/request";
+import reducerRegistry from "redux/registry";
 
-import { setAreaOfInterestModalSettings } from 'components/modals/area-of-interest/actions';
-import { setShareModal } from 'components/modals/share/actions';
-import * as actions from './actions';
-import reducers, { initialState } from './reducers';
-import { getAnalysisProps } from './selectors';
-import AnalysisComponent from './component';
+import { setAreaOfInterestModalSettings } from "components/modals/area-of-interest/actions";
+import { setShareModal } from "components/modals/share/actions";
+import * as actions from "./actions";
+import reducers, { initialState } from "./reducers";
+import { getAnalysisProps } from "./selectors";
+import AnalysisComponent from "./component";
+import { isEmpty } from "lodash";
 
 class AnalysisContainer extends PureComponent {
   static propTypes = {
@@ -64,10 +65,13 @@ class AnalysisContainer extends PureComponent {
     if (this.analysisFetch) {
       this.analysisFetch.cancel();
     }
-    this.analysisFetch = cancelToken();
+
+    const { geostore } = this.props;
+
     this.props.getAnalysis({
       endpoints,
       ...this.props.location,
+      geostore,
       token: this.analysisFetch.token,
     });
   };
@@ -78,7 +82,7 @@ class AnalysisContainer extends PureComponent {
     if (this.analysisFetch) {
       this.analysisFetch.cancel();
     }
-    setAnalysisLoading({ loading: false, error: '', errorMessage: '' });
+    setAnalysisLoading({ loading: false, error: "", errorMessage: "" });
   };
 
   render() {
@@ -90,7 +94,7 @@ class AnalysisContainer extends PureComponent {
   }
 }
 
-reducerRegistry.registerModule('analysis', {
+reducerRegistry.registerModule("analysis", {
   actions,
   reducers,
   initialState,

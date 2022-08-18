@@ -23,7 +23,7 @@ const errorProps = {
   errorTitle: "Widget Not Found",
 };
 
-const ALLOWED_TYPES = ["geostore", "ea", "country", "aoi"];
+const ALLOWED_TYPES = ["geostore", "africa", "country", "aoi"];
 
 export const getStaticProps = async ({ params }) => {
   const { location, widget } = params || {};
@@ -35,7 +35,7 @@ export const getStaticProps = async ({ params }) => {
     };
   }
 
-  if (type === "ea") {
+  if (type === "africa") {
     return {
       props: {
         widget: widget || "",

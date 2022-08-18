@@ -36,7 +36,7 @@ export const getServerSideProps = async ({ req, params }) => {
     };
   }
 
-  if (!type || type === "ea") {
+  if (!type || type === "africa") {
     return {
       props: {
         title: "Africa Hazards Watch | AHW",

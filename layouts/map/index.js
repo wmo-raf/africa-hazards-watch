@@ -78,18 +78,24 @@ class MainMapContainer extends PureComponent {
   };
 
   handleClickAnalysis = (selected) => {
-    const { data, layer, geometry } = selected;
-    const { cartodb_id } = data || {};
-    const { analysisEndpoint, tableName } = layer || {};
-
-    const isAdmin = analysisEndpoint === "admin";
-    const isUse = cartodb_id && tableName;
-
     const { setMainMapAnalysisView } = this.props;
-    if (isAdmin || isUse) {
+    const { data, layer, geometry, isPoint } = selected;
+
+    if (isPoint) {
+      // this is a clicked point with latlng
       setMainMapAnalysisView(selected);
     } else {
-      this.onDrawComplete(geometry);
+      const { cartodb_id } = data || {};
+      const { analysisEndpoint, tableName } = layer || {};
+
+      const isAdmin = analysisEndpoint === "admin";
+      const isUse = cartodb_id && tableName;
+
+      if (isAdmin || isUse) {
+        setMainMapAnalysisView(selected);
+      } else {
+        this.onDrawComplete(geometry);
+      }
     }
   };
 

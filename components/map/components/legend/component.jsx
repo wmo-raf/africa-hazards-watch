@@ -6,8 +6,6 @@ import {
   Legend,
   LegendListItem,
   LegendItemTypes,
-  LegendItemTypeBasic,
-  LegendItemTypeProportional,
   LegendItemToolbar,
   LegendItemButtonOpacity,
   LegendItemButtonInfo,
@@ -26,9 +24,8 @@ import LayerListMenu from "./components/layer-list-menu";
 import LayerSelectMenu from "./components/layer-select-menu";
 import LayerSelectorMenu from "./components/layer-selector-menu";
 import LayerStatement from "./components/layer-statement";
+import LayerAnalysisStatement from "./components/layer-analysis-statement";
 import LayerMoreInfo from "./components/layer-more-info";
-import LegendItemTypeGradient from "./components/legend-item-type-gradient";
-import LegendItemTypeChoropleth from "./components/legend-item-type-choropleth";
 
 import "./styles.scss";
 import "./themes/vizzuality-legend.scss";
@@ -96,11 +93,19 @@ const MapLegend = ({
             const {
               params,
               paramsSelectorConfig,
+              paramsSelectorColumnView,
               decodeParams,
               decodeParamsSelectorConfig,
               moreInfo,
               timelineParams,
+              statement,
+              citation,
+              disclaimer,
+              filterParams,
+              paramsFilterConfig,
+              legendImage,
             } = activeLayer || {};
+
             return (
               <LegendListItem
                 index={i}
@@ -141,12 +146,23 @@ const MapLegend = ({
                   </LegendItemToolbar>
                 }
               >
-                <LegendItemTypes>
-                  <LegendItemTypeBasic />
-                  <LegendItemTypeChoropleth />
-                  <LegendItemTypeProportional />
-                  <LegendItemTypeGradient />
-                </LegendItemTypes>
+                {citation && <div>{citation}</div>}
+                {disclaimer && <div className="disclaimer">{disclaimer}</div>}
+                {legendImage && legendImage.url && (
+                  <div className="legend-image">
+                    <img src={legendImage.url} />
+                  </div>
+                )}
+                {!legendImage && <LegendItemTypes />}
+                {statement && (
+                  <LayerAnalysisStatement statementHtml={statement} />
+                )}
+                {statementConfig && (
+                  <LayerStatement
+                    className="layer-statement"
+                    {...statementConfig}
+                  />
+                )}
 
                 {isMultiLayer && (
                   <LayerSelectMenu
@@ -157,41 +173,47 @@ const MapLegend = ({
                   />
                 )}
 
-                {activeLayer &&
-                  paramsSelectorConfig &&
-                  params &&
-                  paramsSelectorConfig.map((paramConfig) =>
-                    paramConfig.type === "datetime" ? (
-                      <DateTimeSelector
-                        key={`${activeLayer.name}-${paramConfig.key}`}
-                        name={name}
-                        className="param-selector"
-                        {...paramConfig}
-                        selectedTime={
-                          params[paramConfig.key] || paramConfig.default
-                        }
-                        onChange={(value) =>
-                          onChangeParam(activeLayer, {
-                            [paramConfig.key]: value,
-                          })
-                        }
-                      />
-                    ) : paramConfig.options ? (
-                      <SentenceSelector
-                        key={`${activeLayer.name}-${paramConfig.key}`}
-                        name={name}
-                        className="param-selector"
-                        {...paramConfig}
-                        value={params[paramConfig.key] || paramConfig.default}
-                        columnView={paramsSelectorColumnView}
-                        onChange={(e) =>
-                          onChangeParam(activeLayer, {
-                            [paramConfig.key]: e,
-                          })
-                        }
-                      />
-                    ) : null
-                  )}
+                <div
+                  className={cx("param-selectors", {
+                    "-column": paramsSelectorColumnView,
+                  })}
+                >
+                  {activeLayer &&
+                    paramsSelectorConfig &&
+                    params &&
+                    paramsSelectorConfig.map((paramConfig) =>
+                      paramConfig.type === "datetime" ? (
+                        <DateTimeSelector
+                          key={`${activeLayer.name}-${paramConfig.key}`}
+                          name={name}
+                          className="param-selector"
+                          {...paramConfig}
+                          selectedTime={
+                            params[paramConfig.key] || paramConfig.default
+                          }
+                          onChange={(value) =>
+                            onChangeParam(activeLayer, {
+                              [paramConfig.key]: value,
+                            })
+                          }
+                        />
+                      ) : paramConfig.options ? (
+                        <SentenceSelector
+                          key={`${activeLayer.name}-${paramConfig.key}`}
+                          name={name}
+                          className="param-selector"
+                          {...paramConfig}
+                          value={params[paramConfig.key] || paramConfig.default}
+                          columnView={paramsSelectorColumnView}
+                          onChange={(e) =>
+                            onChangeParam(activeLayer, {
+                              [paramConfig.key]: e,
+                            })
+                          }
+                        />
+                      ) : null
+                    )}
+                </div>
 
                 {activeLayer &&
                   decodeParamsSelectorConfig &&

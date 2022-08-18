@@ -1,4 +1,4 @@
-@import '~styles/settings.scss';
+@import "~styles/settings.scss";
 
 .c-legend,
 .c-legend-item {
@@ -32,6 +32,13 @@
     margin-bottom: rem(10px);
   }
 
+  .disclaimer {
+    color: $green-gfw;
+  }
+  .legend-image {
+    padding: 10px 0;
+  }
+
   .layer-statement,
   .layer-selector,
   .param-selector {
@@ -45,5 +52,25 @@
 
   .more-info {
     margin-bottom: rem(10px);
+  }
+
+  .vizzuality__c-legend-item-basic {
+    align-items: center;
+    .vizzuality__icon-line {
+      height: 3px;
+    }
+    .vizzuality__icon-square {
+      border: 0.5px solid rgba(19, 21, 41, 0.5);
+    }
+  }
+  .vizzuality__c-legend-type-choropleth .vizzuality__icon-choropleth {
+    height: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+  }
+  .param-selectors {
+    display: flex;
+    &.-column {
+      flex-direction: column;
+    }
   }
 }

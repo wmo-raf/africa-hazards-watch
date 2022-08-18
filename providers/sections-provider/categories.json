@@ -24,8 +24,11 @@
         "sub_categories": [{
           "active": true,
           "id": 1,
-          "sort_order": 2,
           "title": "Monthly Monitoring"
+        }, {
+          "active": true,
+          "id": 2,
+          "title": "Climate Projections"
         }],
         "title": "Climate"
       },

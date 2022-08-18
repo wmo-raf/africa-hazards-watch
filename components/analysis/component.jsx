@@ -1,16 +1,16 @@
-import React, { PureComponent, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
-import { trackEvent } from 'utils/analytics';
+import React, { PureComponent, Fragment } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
+import { trackEvent } from "utils/analytics";
 
-import Button from 'components/ui/button';
-import Loader from 'components/ui/loader';
-import ChoseAnalysis from 'components/analysis/components/chose-analysis';
-import ShowAnalysis from 'components/analysis/components/show-analysis';
+import Button from "components/ui/button";
+import Loader from "components/ui/loader";
+import ChoseAnalysis from "components/analysis/components/chose-analysis";
+import ShowAnalysis from "components/analysis/components/show-analysis";
 
-import './styles.scss';
+import "./styles.scss";
 
-const isServer = typeof window === 'undefined';
+const isServer = typeof window === "undefined";
 
 class AnalysisComponent extends PureComponent {
   static propTypes = {
@@ -63,25 +63,25 @@ class AnalysisComponent extends PureComponent {
 
     const linkProps = {
       link: `/dashboards/${location.type}${
-        location.adm0 ? `/${location.adm0}` : ''
-      }${location.adm1 ? `/${location.adm1}` : ''}${
-        location.adm2 ? `/${location.adm2}` : ''
-      }${search ? `?${search}` : ''}`,
+        location.adm0 ? `/${location.adm0}` : ""
+      }${location.adm1 ? `/${location.adm1}` : ""}${
+        location.adm2 ? `/${location.adm2}` : ""
+      }${search ? `?${search}` : ""}`,
       ...(embed && {
         extLink:
-          !isServer && window.location.href.replace('embed/map', 'dashboards'),
-        target: '_blank',
+          !isServer && window.location.href.replace("embed/map", "dashboards"),
+        target: "_blank",
       }),
     };
 
     return (
       <Fragment>
-        <div className={cx('c-analysis', className)}>
+        <div className={cx("c-analysis", className)}>
           {loading && (
-            <Loader className={cx('analysis-loader', { fetching: loading })} />
+            <Loader className={cx("analysis-loader", { fetching: loading })} />
           )}
           {location.type && location.adm0 && (loading || (!loading && error)) && (
-            <div className={cx('cancel-analysis', { fetching: loading })}>
+            <div className={cx("cancel-analysis", { fetching: loading })}>
               {!loading && error && !geostoreError && (
                 <Button
                   className="refresh-analysis-btn"
@@ -99,7 +99,7 @@ class AnalysisComponent extends PureComponent {
               {!loading && error && (
                 <p className="error-message">
                   {geostoreError
-                    ? 'We are having trouble getting the selected geometry. Please try again later.'
+                    ? "We are having trouble getting the selected geometry. Please try again later."
                     : error}
                 </p>
               )}
@@ -115,7 +115,7 @@ class AnalysisComponent extends PureComponent {
               analysis
             />
           )}
-          {location.type === 'ea' && !location.adm0 && (
+          {location.type === "africa" && !location.adm0 && (
             <ChoseAnalysis
               checkingShape={checkingShape}
               uploadingShape={uploadingShape}
@@ -125,17 +125,18 @@ class AnalysisComponent extends PureComponent {
         </div>
         {!loading && !error && location && location.type && location.adm0 && (
           <div className="analysis-actions">
-            {location.type === 'country' && !location.areaId && (
+            {location.type === "country" && !location.areaId && (
               <Button
                 className="analysis-action-btn"
                 theme="theme-button-light"
                 {...linkProps}
                 onClick={() =>
                   trackEvent({
-                    category: 'Map analysis',
-                    action: 'User goes to dashboards',
+                    category: "Map analysis",
+                    action: "User goes to dashboards",
                     label: location.adm0,
-                  })}
+                  })
+                }
               >
                 DASHBOARD
               </Button>
@@ -145,45 +146,47 @@ class AnalysisComponent extends PureComponent {
                 className="analysis-action-btn"
                 theme="theme-button-light"
                 link={activeArea && `/dashboards/aoi/${activeArea.id}`}
-                tooltip={{ text: 'Go to Areas of Interest dashboard' }}
+                tooltip={{ text: "Go to Areas of Interest dashboard" }}
               >
                 DASHBOARD
               </Button>
             )}
-            {(!activeArea || (activeArea && !activeArea.userArea)) && (
-              <Button
-                className="analysis-action-btn save-to-mygfw-btn"
-                onClick={() => setAreaOfInterestModalSettings(true)}
-                disabled={areaTooLarge}
-                {...(areaTooLarge && {
-                  tooltip: {
-                    text:
-                      'Your area is too large! Please try again with an area smaller than 1 billion hectares (approximately the size of Brazil).',
-                  },
-                })}
-              >
-                save in my HW
-              </Button>
-            )}
+            {location.type !== "point" &&
+              (!activeArea || (activeArea && !activeArea.userArea)) && (
+                <Button
+                  className="analysis-action-btn save-to-mygfw-btn"
+                  onClick={() => setAreaOfInterestModalSettings(true)}
+                  disabled={areaTooLarge}
+                  {...(areaTooLarge && {
+                    tooltip: {
+                      text:
+                        "Your area is too large! Please try again with an area smaller than 1 billion hectares (approximately the size of Brazil).",
+                    },
+                  })}
+                >
+                  save in my HW
+                </Button>
+              )}
             {activeArea && activeArea.userArea && (
               <Button
                 className="analysis-action-btn"
                 onClick={() =>
                   setShareModal({
-                    title: 'Share this view',
+                    title: "Share this view",
                     shareUrl:
                       !isServer &&
-                      (window.location.href.includes('embed')
-                        ? window.location.href.replace('/embed', '')
+                      (window.location.href.includes("embed")
+                        ? window.location.href.replace("/embed", "")
                         : window.location.href),
                     embedUrl:
                       !isServer &&
-                      (window.location.href.includes('embed')
+                      (window.location.href.includes("embed")
                         ? window.location.href
-                        : window.location.href.replace('/map', '/embed/map')),
+                        : window.location.href.replace("/map", "/embed/map")),
                     areaId: activeArea?.id,
-                  })}
-                tooltip={{ text: 'Share or embed this area' }}
+                  })
+                }
+                tooltip={{ text: "Share or embed this area" }}
               >
                 Share area
               </Button>

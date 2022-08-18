@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
-import isEqual from 'lodash/isEqual';
-import { Popup as MapPopup } from 'react-map-gl';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import isEmpty from "lodash/isEmpty";
+import isEqual from "lodash/isEqual";
+import { Popup as MapPopup } from "react-map-gl";
 
-import Dropdown from 'components/ui/dropdown';
+import Dropdown from "components/ui/dropdown";
 
-import AreaSentence from './components/area-sentence';
-import ArticleCard from './components/article-card';
-import DataTable from './components/data-table';
-import BoundarySentence from './components/boundary-sentence';
-import ContextualSentence from './components/contextual-sentence';
+import AreaSentence from "./components/area-sentence";
+import ArticleCard from "./components/article-card";
+import DataTable from "./components/data-table";
+import BoundarySentence from "./components/boundary-sentence";
+import ContextualSentence from "./components/contextual-sentence";
+import PointSentence from "./components/point-sentence";
 
 class Popup extends Component {
   static propTypes = {
@@ -28,6 +29,10 @@ class Popup extends Component {
     map: PropTypes.object,
   };
 
+  state = {
+    useClickedPoint: false,
+  };
+
   componentDidUpdate(prevProps) {
     const { interactionsOptions, activeDatasets } = this.props;
 
@@ -40,24 +45,39 @@ class Popup extends Component {
   }
 
   handleClickAction = (selected) => {
-    const { data, layer, geometry } = selected;
-    const { cartodb_id, wdpaid } = data || {};
-    const { analysisEndpoint, tableName } = layer || {};
+    const { longitude, latitude, onClickAnalysis } = this.props;
+    const { useClickedPoint } = this.state;
 
-    const isAdmin = analysisEndpoint === 'admin';
-    const isWdpa = analysisEndpoint === 'wdpa' && (cartodb_id || wdpaid);
-    const isUse = cartodb_id && tableName;
+    if (useClickedPoint) {
+      onClickAnalysis({
+        isPoint: true,
+        latlng: { lat: latitude, lng: longitude },
+      });
+    } else {
+      const { data, layer, geometry } = selected;
+      const { cartodb_id, wdpaid } = data || {};
+      const { analysisEndpoint, tableName } = layer || {};
 
-    this.props.onClickAnalysis({
-      data,
-      layer,
-      geometry,
-      isUse,
-      isAdmin,
-      isWdpa,
-    });
+      const isAdmin = analysisEndpoint === "admin";
+      const isWdpa = analysisEndpoint === "wdpa" && (cartodb_id || wdpaid);
+      const isUse = cartodb_id && tableName;
+
+      onClickAnalysis({
+        data,
+        layer,
+        geometry,
+        isUse,
+        isAdmin,
+        isWdpa,
+      });
+    }
 
     this.handleClose();
+  };
+
+  handlePopupClose = () => {
+    this.setState({ useClickedPoint: false });
+    this.props.clearMapInteractions();
   };
 
   // when clicking popup action the map triggers the interaction event
@@ -66,22 +86,40 @@ class Popup extends Component {
     setTimeout(() => this.props.clearMapInteractions(), 300);
   };
 
+  handleInteractionChange = (selected) => {
+    const { setMapInteractionSelected } = this.props;
+
+    if (selected === "map-clicked-point") {
+      this.setState({ useClickedPoint: true });
+    } else {
+      this.setState({ useClickedPoint: false });
+      setMapInteractionSelected(selected);
+    }
+  };
+
   renderPopupBody = () => {
     const {
       selected,
       interactionOptionSelected,
       interactionsOptions,
-      setMapInteractionSelected,
       latitude,
       longitude,
       map,
     } = this.props;
 
+    const { useClickedPoint } = this.state;
+
     if (selected?.isArticle) {
       return <ArticleCard data={selected} />;
     }
 
-    const hasManyInteractions = interactionsOptions?.length > 1;
+    const interactionOptionsWithMapPoint = [
+      ...interactionsOptions,
+      ...[{ label: "Clicked Point", value: "map-clicked-point" }],
+    ];
+
+    const hasManyInteractions = interactionOptionsWithMapPoint?.length > 1;
+
     const { isAoi, isBoundary, isPoint, isLayer } = selected || {};
 
     return (
@@ -90,37 +128,50 @@ class Popup extends Component {
           <Dropdown
             className="layer-selector"
             theme="theme-dropdown-native"
-            value={interactionOptionSelected}
-            options={interactionsOptions}
-            onChange={setMapInteractionSelected}
+            value={
+              useClickedPoint ? "map-clicked-point" : interactionOptionSelected
+            }
+            options={interactionOptionsWithMapPoint}
+            onChange={this.handleInteractionChange}
             native
           />
         )}
         {interactionOptionSelected?.label && !hasManyInteractions && (
           <div className="title">{interactionOptionSelected.label}</div>
         )}
-        {isBoundary && (
-          <BoundarySentence
-            data={selected}
-            onAnalyze={() => this.handleClickAction(selected)}
+
+        {useClickedPoint ? (
+          <PointSentence
+            onAnalyze={this.handleClickAction}
+            lat={latitude}
+            lon={longitude}
           />
-        )}
-        {isAoi && <AreaSentence data={selected} />}
-        {!isBoundary && !isAoi && isLayer && (
-          <DataTable
-            selected={selected}
-            map={map}
-            onClose={this.handleClose}
-            onAnalyze={() => this.handleClickAction(selected)}
-            isPoint={isPoint}
-          />
-        )}
-        {isPoint && !isLayer && (
-          <ContextualSentence
-            data={selected}
-            latitude={latitude}
-            longitude={longitude}
-          />
+        ) : (
+          <>
+            {isBoundary && (
+              <BoundarySentence
+                data={selected}
+                onAnalyze={() => this.handleClickAction(selected)}
+              />
+            )}
+            {isAoi && <AreaSentence data={selected} />}
+            {!isBoundary && !isAoi && isLayer && (
+              <DataTable
+                selected={selected}
+                map={map}
+                onClose={this.handleClose}
+                onAnalyze={() => this.handleClickAction(selected)}
+                isPoint={isPoint}
+              />
+            )}
+            {isPoint && !isLayer && (
+              <ContextualSentence
+                data={selected}
+                latitude={latitude}
+                longitude={longitude}
+              />
+            )}
+          </>
         )}
       </div>
     );
@@ -143,7 +194,7 @@ class Popup extends Component {
       <MapPopup
         latitude={latitude}
         longitude={longitude}
-        onClose={clearMapInteractions}
+        onClose={this.handlePopupClose}
         closeOnClick={false}
       >
         <div className="c-popup">{this.renderPopupBody()}</div>

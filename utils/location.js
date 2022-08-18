@@ -84,5 +84,5 @@ export const locationLevelToStr = (location) => {
   if (adm2) return 'adm2';
   if (adm1) return 'adm1';
   if (adm0) return 'adm0';
-  return type || 'ea';
+  return type || 'africa';
 };

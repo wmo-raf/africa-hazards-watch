@@ -8,6 +8,7 @@ import has from "lodash/has";
 import { trackEvent } from "utils/analytics";
 
 import WidgetComponent from "./component";
+import { isEmpty } from "lodash";
 
 class WidgetContainer extends Component {
   static propTypes = {
@@ -106,13 +107,25 @@ class WidgetContainer extends Component {
   }
 
   handleGetWidgetData = (params) => {
+    const { location } = this.props;
+
+    const isPoint =
+      location.type &&
+      location.type === "point" &&
+      location.adm0 &&
+      location.adm1;
+
+    params.isPoint = isPoint;
+
     if (params?.type) {
       const { getData, setWidgetData, geostore } = this.props;
       this.cancelWidgetDataFetch();
       this.widgetDataFetch = CancelToken.source();
       this.setState({ loading: true, error: false });
 
-      if (geostore && geostore.geojson) {
+      const canFetch = !isPoint && !isEmpty(geostore);
+
+      if (canFetch) {
         getData({ ...params, geostore, token: this.widgetDataFetch.token })
           .then((data) => {
             setWidgetData(data);

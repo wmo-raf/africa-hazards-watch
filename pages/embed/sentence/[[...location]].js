@@ -28,7 +28,7 @@ const notFoundProps = {
   errorTitle: "Dashboard Not Found",
 };
 
-const ALLOWED_TYPES = ["ea", "country", "aoi"];
+const ALLOWED_TYPES = ["africa", "country", "aoi"];
 
 export const getServerSideProps = async ({ params }) => {
   const [type] = params?.location || [];
@@ -41,7 +41,7 @@ export const getServerSideProps = async ({ params }) => {
 
   let countryData = await getCategorisedCountries(true);
 
-  if (!type || type === "ea") {
+  if (!type || type === "africa") {
     // get global data
     const data = await getSentenceData();
     const parsedSentence = parseSentence(data);

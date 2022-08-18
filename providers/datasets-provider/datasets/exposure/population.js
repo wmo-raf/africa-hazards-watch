@@ -19,9 +19,8 @@ export default [
           type: "raster",
           source: {
             type: "raster",
-            tiles: [
-              "http://localhost/ows/?service=WMS&request=GetMap&version=1.1.1&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time=2020-01-01T00:00:00.000Z&layers=population",
-            ],
+            tiles: ["http://localhost:3005/tiles/population/{z}/{x}/{y}.png"],
+            // scheme: "tms",
           },
         },
         legendConfig: {

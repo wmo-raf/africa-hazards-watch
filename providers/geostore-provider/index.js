@@ -1,14 +1,14 @@
-import { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import isEqual from 'lodash/isEqual';
-import { cancelToken } from 'utils/request';
-import reducerRegistry from 'redux/registry';
+import { PureComponent } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import isEqual from "lodash/isEqual";
+import { cancelToken } from "utils/request";
+import reducerRegistry from "redux/registry";
 
-import { getDataLocation } from 'utils/location';
+import { getDataLocation } from "utils/location";
 
-import * as actions from './actions';
-import reducers, { initialState } from './reducers';
+import * as actions from "./actions";
+import reducers, { initialState } from "./reducers";
 
 const mapStateToProps = (state) => {
   const { location, areas } = state;
@@ -27,7 +27,10 @@ class GeostoreProvider extends PureComponent {
     const {
       location: { adm0, type },
     } = this.props;
-    if (adm0 && type !== 'aoi') {
+
+    const canGetGeostore = type !== "point" && adm0 && type !== "aoi";
+
+    if (canGetGeostore) {
       this.handleGetGeostore();
     }
   }
@@ -44,33 +47,38 @@ class GeostoreProvider extends PureComponent {
     const hasAoiChanged =
       activeArea && !isEqual(activeArea, prevProps.activeArea);
 
-    if (!adm0 && adm0 !== prevProps.location.adm0) {
-      this.cancelGeostoreFetch();
-      clearGeostore({});
-    }
+    if (type !== "point") {
+      if (!adm0 && adm0 !== prevProps.location.adm0) {
+        this.cancelGeostoreFetch();
+        clearGeostore({});
+      }
 
-    if (
-      (type !== 'aoi' && hasAdm0Changed) ||
-      hasAdm1Changed ||
-      hasAdm2Changed ||
-      hasAoiChanged
-    ) {
-      this.handleGetGeostore();
+      if (
+        (type !== "aoi" && hasAdm0Changed) ||
+        hasAdm1Changed ||
+        hasAdm2Changed ||
+        hasAoiChanged
+      ) {
+        this.handleGetGeostore();
+      }
     }
   }
 
   handleGetGeostore = () => {
-    this.cancelGeostoreFetch();
-    this.geostoreFetch = cancelToken();
-    this.props.fetchGeostore({
-      ...this.props.location,
-      token: this.geostoreFetch.token,
-    });
+    const { type } = this.props.location;
+    if (type !== "point" && type !== "africa") {
+      this.cancelGeostoreFetch();
+      this.geostoreFetch = cancelToken();
+      this.props.fetchGeostore({
+        ...this.props.location,
+        token: this.geostoreFetch.token,
+      });
+    }
   };
 
   cancelGeostoreFetch = () => {
     if (this.geostoreFetch) {
-      this.geostoreFetch.cancel('Cancelling geostore fetch');
+      this.geostoreFetch.cancel("Cancelling geostore fetch");
     }
   };
 
@@ -86,7 +94,7 @@ GeostoreProvider.propTypes = {
   activeArea: PropTypes.object,
 };
 
-reducerRegistry.registerModule('geostore', {
+reducerRegistry.registerModule("geostore", {
   actions,
   reducers,
   initialState,

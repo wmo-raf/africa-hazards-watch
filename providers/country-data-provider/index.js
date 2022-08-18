@@ -16,34 +16,40 @@ const mapStateToProps = (state) => ({
 class CountryDataProvider extends PureComponent {
   componentDidMount() {
     const {
-      location: { adm0, adm1 },
+      location: { adm0, adm1, type },
       getCountries,
     } = this.props;
-    getCountries();
 
-    if (adm0) {
-      this.handleRegionFetch(adm0);
-    }
-    if (adm1) {
-      this.handleSubRegionFetch({ adm0, adm1 });
+    if (type !== "point") {
+      getCountries();
+
+      if (adm0) {
+        this.handleRegionFetch(adm0);
+      }
+      if (adm1) {
+        this.handleSubRegionFetch({ adm0, adm1 });
+      }
     }
   }
 
   componentDidUpdate(prevProps) {
     const {
-      location: { adm0, adm1 },
+      location: { adm0, adm1, type },
     } = this.props;
     const hasCountryChanged = adm0 && adm0 !== prevProps.location.adm0;
     const hasRegionChanged = adm0 && adm1 && adm1 !== prevProps.location.adm1;
-    if (hasCountryChanged) {
-      this.handleRegionFetch(adm0);
-      if (adm1) {
+
+    if (type !== "point") {
+      if (hasCountryChanged) {
+        this.handleRegionFetch(adm0);
+        if (adm1) {
+          this.handleSubRegionFetch({ adm0, adm1 });
+        }
+      }
+
+      if (hasRegionChanged) {
         this.handleSubRegionFetch({ adm0, adm1 });
       }
-    }
-
-    if (hasRegionChanged) {
-      this.handleSubRegionFetch({ adm0, adm1 });
     }
   }
 

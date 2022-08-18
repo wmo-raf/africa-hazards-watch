@@ -1,13 +1,14 @@
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
 import {
   clearMapInteractions,
   setMapInteractionSelected,
-} from 'components/map/actions';
-import Component from './component';
-import { getPopupProps } from './selectors';
+} from "components/map/actions";
 
-import './styles.scss';
+import Component from "./component";
+import { getPopupProps } from "./selectors";
+
+import "./styles.scss";
 
 export default connect(getPopupProps, {
   clearMapInteractions,

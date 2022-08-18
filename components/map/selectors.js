@@ -337,25 +337,92 @@ export const getActiveLayers = createSelector(
   (layers, geostore, location, activeArea) => {
     if (isEmpty(layers)) return [];
     const filteredLayers = layers.filter((l) => !l.confirmedOnly);
-    if (!geostore || !geostore.id) return filteredLayers;
-    const { type, adm0 } = location || {};
-    const isAoI = type === "aoi" && adm0;
 
-    const geojson = {
-      ...geostore.geojson,
-      ...(activeArea && {
-        features: [
-          {
-            ...geostore.geojson.features?.[0],
-            properties: activeArea,
+    const hasClickedPoint =
+      location.type === "point" && location.adm0 && location.adm1;
+
+    if (!hasClickedPoint) {
+      if (!geostore || !geostore.id) return filteredLayers;
+      const { type, adm0 } = location || {};
+      const isAoI = type === "aoi" && adm0;
+
+      const geojson = {
+        ...geostore.geojson,
+        ...(activeArea && {
+          features: [
+            {
+              ...geostore.geojson.features?.[0],
+              properties: activeArea,
+            },
+          ],
+        }),
+      };
+
+      const parsedLayers = filteredLayers.concat({
+        id: geostore.id,
+        name: isAoI ? "Area of Interest" : "Geojson",
+        config: {
+          type: "geojson",
+          source: {
+            data: geojson,
+            type: "geojson",
           },
-        ],
-      }),
+          render: {
+            layers: [
+              {
+                type: "fill",
+                paint: {
+                  "fill-color": "transparent",
+                },
+              },
+              {
+                type: "line",
+                paint: {
+                  "line-color": "#C0FF24",
+                  "line-width": isAoI ? 3 : 1,
+                  "line-offset": isAoI ? 2 : 0,
+                },
+              },
+              {
+                type: "line",
+                paint: {
+                  "line-color": "#000",
+                  "line-width": 2,
+                },
+              },
+            ],
+          },
+        },
+        ...(isAoI && {
+          interactionConfig: {
+            output: [],
+          },
+        }),
+        zIndex: 1060,
+      });
+
+      return parsedLayers;
+    }
+
+    const { adm0, adm1 } = location || {};
+
+    const point = {
+      type: "Feature",
+      id: "clicked-point",
+      geometry: {
+        type: "Point",
+        coordinates: [adm1, adm0],
+      },
+      properties: {},
     };
 
-    const parsedLayers = filteredLayers.concat({
-      id: geostore.id,
-      name: isAoI ? "Area of Interest" : "Geojson",
+    const geojson = {
+      ...point,
+    };
+
+    return filteredLayers.concat({
+      id: geojson.id,
+      name: "Geojson",
       config: {
         type: "geojson",
         source: {
@@ -365,38 +432,19 @@ export const getActiveLayers = createSelector(
         render: {
           layers: [
             {
-              type: "fill",
+              type: "circle",
               paint: {
-                "fill-color": "transparent",
-              },
-            },
-            {
-              type: "line",
-              paint: {
-                "line-color": "#C0FF24",
-                "line-width": isAoI ? 3 : 1,
-                "line-offset": isAoI ? 2 : 0,
-              },
-            },
-            {
-              type: "line",
-              paint: {
-                "line-color": "#000",
-                "line-width": 2,
+                "circle-color": "#fff",
+                "circle-radius": 8,
+                "circle-stroke-width": 4,
+                "circle-stroke-color": "green",
               },
             },
           ],
         },
       },
-      ...(isAoI && {
-        interactionConfig: {
-          output: [],
-        },
-      }),
-      zIndex: 1060,
+      zIndex: 9999999,
     });
-
-    return parsedLayers;
   }
 );
 
@@ -494,7 +542,9 @@ export const getInteractionsData = createSelector(
 
 export const getInteractionSelectedId = createSelector(
   [getInteractionsState],
-  (interactionData) => interactionData && interactionData.selected
+  (interactionData) => {
+    return interactionData && interactionData.selected;
+  }
 );
 
 export const getInteractions = createSelector(
@@ -521,16 +571,20 @@ export const getInteractionSelected = createSelector(
   [getInteractions, getInteractionSelectedId, getActiveLayers],
   (interactions, selected, layers) => {
     if (isEmpty(interactions)) return null;
+
     const layersWithoutBoundaries = layers.filter(
       (l) => !l.isBoundary && !isEmpty(l.interactionConfig)
     );
+
     const layersWithoutBoundariesIds =
       layersWithoutBoundaries &&
       layersWithoutBoundaries.length &&
       layersWithoutBoundaries.map((l) => l.id);
+
     // if there is an article (icon layer) then choose that
     let selectedData = interactions.find((o) => o.data.cluster);
     selectedData = interactions.find((o) => o.article);
+
     // if there is nothing selected get the top layer
     if (!selected && !!layersWithoutBoundaries.length) {
       selectedData = interactions.find(

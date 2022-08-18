@@ -1,4 +1,4 @@
-@import '~styles/settings';
+@import "~styles/settings";
 
 .c-layer-more-info {
   p,
@@ -6,11 +6,19 @@
     font-size: rem(12px);
   }
 
-  a {
-    color: $green-gfw;
-
-    &:hover {
-      color: darken($green-gfw, 10%);
+  .more-btn {
+    margin-top: 8px;
+    .go-icon {
+      margin-left: 4px;
+    }
+  }
+  .more-link {
+    margin-top: 8px;
+    a {
+      color: $green-gfw;
+      &:hover {
+        color: darken($green-gfw, 10%);
+      }
     }
   }
 }

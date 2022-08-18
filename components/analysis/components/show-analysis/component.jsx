@@ -113,6 +113,7 @@ class ShowAnalysis extends PureComponent {
       analysisDescription,
     } = this.props;
 
+    const isPoint = location && location.type === "point";
     const hasWidgets = widgetLayers && !!widgetLayers.length;
 
     return (
@@ -237,19 +238,26 @@ class ShowAnalysis extends PureComponent {
                 </p>
               </div>
             ) : (
-              <div className="content">
-                <h3>Interested in this particular area?</h3>
-                <p>
-                  Save this area to create a dashboard with a more in-depth
-                  analysis and receive email alerts about forest cover change.
-                </p>
-              </div>
+              <>
+                {!isPoint && (
+                  <div className="content">
+                    <h3>Interested in this particular area?</h3>
+                    <p>
+                      Save this area to create a dashboard with a more in-depth
+                      analysis and receive email alerts about forest cover
+                      change.
+                    </p>
+                  </div>
+                )}
+              </>
             )}
-            <img
-              src={screensImg1x}
-              srcSet={`${screensImg1x} 1x, ${screensImg2x} 2x`}
-              alt="aoi screenshots"
-            />
+            {!isPoint && (
+              <img
+                src={screensImg1x}
+                srcSet={`${screensImg1x} 1x, ${screensImg2x} 2x`}
+                alt="aoi screenshots"
+              />
+            )}
           </div>
         )}
       </div>

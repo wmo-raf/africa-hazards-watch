@@ -14,7 +14,7 @@ const getLocationFromParams = (url, params, asPath) => {
   if (url?.includes('[[...location]]')) {
     const type =
       asPath === '/map' || asPath === '/map/' || asPath?.includes('/map/?')
-        ? 'ea'
+        ? 'africa'
         : params?.location?.[0];
     const adm0 = params?.location?.[1];
     const adm1 = params?.location?.[2];
