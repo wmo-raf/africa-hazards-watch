@@ -79,6 +79,13 @@ export const getGeodescriberTitle = createSelector(
     getActiveArea,
   ],
   (geodescriber, wdpaLocation, location, adminTitle, activeArea) => {
+    if (location.type === "point" && location.adm0 && location.adm1) {
+      const lat = Number(location.adm0).toFixed(2);
+      const lng = Number(location.adm1).toFixed(2);
+
+      return { sentence: `Clicked Point - Lat ${lat}, Lng: ${lng}` };
+    }
+
     if (
       (location.type === "aoi" || location.areaId) &&
       activeArea &&

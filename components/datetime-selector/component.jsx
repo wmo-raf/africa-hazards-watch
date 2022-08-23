@@ -7,6 +7,7 @@ import { defined } from "utils/core";
 import DateTimePicker from "./components/datepicker";
 import prevIcon from "assets/icons/prev.svg?sprite";
 import nextIcon from "assets/icons/next.svg?sprite";
+import recentIcon from "assets/icons/recent.svg?sprite";
 
 import "./styles.scss";
 
@@ -46,6 +47,16 @@ class DateTimeSelectorSection extends Component {
       defined(availableDates[currentTimeIndex + 1])
     ) {
       this.changeDateTime(new Date(availableDates[currentTimeIndex + 1]));
+    }
+  };
+
+  onRecentButtonClicked = () => {
+    const { availableDates } = this.props;
+
+    const lastDateIndex = availableDates.length - 1;
+
+    if (defined(lastDateIndex) && defined(availableDates[lastDateIndex])) {
+      this.changeDateTime(new Date(availableDates[lastDateIndex]));
     }
   };
 
@@ -125,31 +136,40 @@ class DateTimeSelectorSection extends Component {
 
     return (
       <div className="datetimeSelector">
-        <div className="s-title">Time:</div>
         <div className="datetimeSelectorInner">
           <div className="datetimeAndPicker">
+            <div className="controlsContainer">
+              <button
+                className="datetimePrevious"
+                disabled={this.isPreviousTimeAvaliable()}
+                onClick={this.onPreviousButtonClicked}
+                title="Previous Time"
+              >
+                <Icon icon={prevIcon} />
+              </button>
+              <button
+                className="currentDate"
+                onClick={this.toggleOpen}
+                title="Select a time"
+              >
+                {defined(discreteTime) ? discreteTime : "Time out of range"}
+              </button>
+              <button
+                className="datetimeNext"
+                disabled={this.isNextTimeAvaliable()}
+                onClick={this.onNextButtonClicked}
+                title="Next Time"
+              >
+                <Icon icon={nextIcon} />
+              </button>
+            </div>
             <button
-              className="datetimePrevious"
-              disabled={this.isPreviousTimeAvaliable()}
-              onClick={this.onPreviousButtonClicked}
-              title="Previous Time"
-            >
-              <Icon icon={prevIcon} />
-            </button>
-            <button
-              className="currentDate"
-              onClick={this.toggleOpen}
-              title="Select a time"
-            >
-              {defined(discreteTime) ? discreteTime : "Time out of range"}
-            </button>
-            <button
-              className="datetimeNext"
+              className="datetimeRecent"
               disabled={this.isNextTimeAvaliable()}
-              onClick={this.onNextButtonClicked}
-              title="Next Time"
+              onClick={this.onRecentButtonClicked}
+              title="Latest Time"
             >
-              <Icon icon={nextIcon} />
+              <Icon icon={recentIcon} />
             </button>
           </div>
           <div title="Select a Time">

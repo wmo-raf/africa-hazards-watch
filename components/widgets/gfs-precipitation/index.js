@@ -13,7 +13,7 @@ export default {
   widget: "gfs_precipitation_1hr_widget",
   title: "Precipitation Forecast for {location}",
   categories: ["summary"],
-  types: ["country", "geostore"],
+  types: ["country", "geostore", "point"],
   admins: ["adm0", "adm1", "adm2"],
   large: true,
   metaKey: "",
@@ -75,7 +75,13 @@ export default {
           },
         ],
       };
-      return fetchGskyWps(wpsIdentifier, featurePayload, token);
+      return fetchGskyWps(
+        wpsIdentifier,
+        featurePayload,
+        startDateTimeParam,
+        endDateTimeParam,
+        token
+      );
     } else {
       const feature = geojson && geojson.features ? geojson.features[0] : {};
 

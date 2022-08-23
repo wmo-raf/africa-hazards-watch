@@ -1,17 +1,18 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { trackEvent } from 'utils/analytics';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import { trackEvent } from "utils/analytics";
 
-import Toggle from 'components/ui/toggle';
-import Button from 'components/ui/button';
-import Icon from 'components/ui/icon';
-import { Tooltip } from 'react-tippy';
-import Tip from 'components/ui/tip';
+import Toggle from "components/ui/toggle";
+import Button from "components/ui/button";
+import Icon from "components/ui/icon";
+import { Tooltip } from "react-tippy";
+import Tip from "components/ui/tip";
 
-import infoIcon from 'assets/icons/info.svg?sprite';
-import helpIcon from 'assets/icons/help.svg?sprite';
+import infoIcon from "assets/icons/info.svg?sprite";
+import helpIcon from "assets/icons/help.svg?sprite";
+import satelliteIcon from "assets/icons/satellite.svg?sprite";
 
-import './styles.scss';
+import "./styles.scss";
 
 class LayerToggle extends PureComponent {
   render() {
@@ -35,17 +36,19 @@ class LayerToggle extends PureComponent {
       color,
       citation,
       description,
+      isNearRealTime,
     } = data;
 
     return (
       <div
-        className={`c-layer-toggle ${small ? '-small' : ''} ${className || ''}`}
+        className={`c-layer-toggle ${small ? "-small" : ""} ${className || ""}`}
       >
         <Toggle
-          theme={!small ? 'toggle-large' : ''}
+          theme={!small ? "toggle-large" : ""}
           value={active}
           onToggle={(value) =>
-            onToggle({ dataset, layer, iso, category }, value)}
+            onToggle({ dataset, layer, iso, category }, value)
+          }
           color={color}
         />
         <div className="content">
@@ -59,7 +62,7 @@ class LayerToggle extends PureComponent {
               {name}
             </div>
             {((!metadata && description) ||
-              (metadata && typeof metadata === 'string')) && (
+              (metadata && typeof metadata === "string")) && (
               <Tooltip
                 theme="tip"
                 arrow
@@ -69,14 +72,15 @@ class LayerToggle extends PureComponent {
                 html={<Tip text={description} />}
                 onShow={() =>
                   trackEvent({
-                    category: 'Open modal',
-                    action: 'Hover modal button',
-                    label: `${layer}: ${metadata || description}`
-                  })}
+                    category: "Open modal",
+                    action: "Hover modal button",
+                    label: `${layer}: ${metadata || description}`,
+                  })
+                }
               >
                 <Button
                   className={`theme-button-tiny theme-button-grey-filled square info-button ${
-                    !metadata ? '-help' : ''
+                    !metadata ? "-help" : ""
                   }`}
                   onClick={metadata && (() => onInfoClick(metadata))}
                 >
@@ -93,6 +97,12 @@ class LayerToggle extends PureComponent {
               tabIndex={tabIndex}
             >
               {`${citation}`}
+            </div>
+          )}
+          {isNearRealTime && (
+            <div className="nrt-indicator">
+              <span> Near Real Time</span>
+              <Icon icon={satelliteIcon} />
             </div>
           )}
         </div>

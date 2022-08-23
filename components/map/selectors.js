@@ -150,6 +150,19 @@ export const getStateBbox = createSelector(
   (settings) => settings && settings.bbox
 );
 
+export const getGeostoreType = createSelector([selectGeostore], (geostore) => {
+  const feature =
+    geostore.geojson &&
+    geostore.geojson.features &&
+    geostore.geojson.features[0];
+
+  if (feature) {
+    return feature.geometry.type;
+  }
+
+  return null;
+});
+
 export const getMapLoading = createSelector(
   [
     selectMapLoading,
@@ -437,13 +450,12 @@ export const getActiveLayers = createSelector(
                 "circle-color": "#fff",
                 "circle-radius": 8,
                 "circle-stroke-width": 4,
-                "circle-stroke-color": "green",
+                "circle-stroke-color": "#4e8ecb",
               },
             },
           ],
         },
       },
-      zIndex: 9999999,
     });
   }
 );
@@ -624,9 +636,11 @@ export const getMapProps = createStructuredSelector({
   drawing: getDrawing,
   canBound: getCanBound,
   geostoreBbox: getGeostoreBbox,
+  geostoreType: getGeostoreType,
   stateBbox: getStateBbox,
   interaction: getInteractionSelected,
   interactiveLayerIds: getInteractiveLayerIds,
   basemap: getBasemap,
   lang: getActiveMapLang,
+  location: selectLocation,
 });

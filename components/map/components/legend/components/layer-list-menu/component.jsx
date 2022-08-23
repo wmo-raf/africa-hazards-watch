@@ -1,51 +1,27 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 
-import { LegendItemTypes } from 'vizzuality-components/dist/legend';
-import LayerToggle from '../layer-toggle';
-import LayerMoreInfo from '../layer-more-info';
+import { LegendItemTypes } from "vizzuality-components/dist/legend";
+import LayerToggle from "../layer-toggle";
+import LayerMoreInfo from "../layer-more-info";
 
-import './styles.scss';
+import "./styles.scss";
 
 class LayerListMenu extends PureComponent {
   filterLayerListMenu() {
     const { layers } = this.props;
     const activeLayer = layers && layers.find((l) => l.active);
 
-    // @TODO: cleanup handling of geographic coverage
-    return layers
-      .filter((l) => !l.default && !l.isSelector)
-      .filter((l) => {
-        if (l.id.includes('geographic-coverage')) {
-          if (activeLayer?.id === 'integrated-deforestation-alerts-8bit') {
-            return l.id === 'glad-deforestation-alerts-geographic-coverage';
-          }
-          if (
-            activeLayer?.id === 'integrated-deforestation-alerts-8bit-gladL'
-          ) {
-            return l.id === 'glad-l-deforestation-alerts-geographic-coverage';
-          }
-          if (activeLayer?.id === 'integrated-deforestation-alerts-8bit-radd') {
-            return l.id === 'radd-deforestation-alerts-geographic-coverage';
-          }
-          if (
-            activeLayer?.id === 'integrated-deforestation-alerts-8bit-gladS'
-          ) {
-            return (
-              l.id === 'glad-plus-deforestation-alerts-geographic-coverage'
-            );
-          }
-        }
-        return true;
-      });
+    return layers.filter((l) => !l.default && !l.isSelector);
   }
 
   render() {
     const { className, layers, onToggle, onInfoClick } = this.props;
     const activeLayer = layers && layers.find((l) => l.active);
     const filteredLayers = this.filterLayerListMenu();
+
     return (
-      <div className={`c-layer-list-menu ${className || ''}`}>
+      <div className={`c-layer-list-menu ${className || ""}`}>
         {filteredLayers.map((l, i) => (
           <div className="layer-toggle" key={l.id}>
             <LayerToggle
@@ -53,10 +29,6 @@ class LayerListMenu extends PureComponent {
               data={{
                 ...l,
                 layer: l.id,
-                ...(l.id === 'confirmedOnly' &&
-                  activeLayer?.highConfInfo && {
-                    description: activeLayer.highConfInfo,
-                  }),
               }}
               onToggle={onToggle}
               onInfoClick={() => onInfoClick(l.metadata)}

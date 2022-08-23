@@ -1,15 +1,16 @@
-import { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import reducerRegistry from 'redux/registry';
+import { PureComponent } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import reducerRegistry from "redux/registry";
 
-import * as actions from './actions';
-import reducers, { initialState } from './reducers';
+import * as actions from "./actions";
+import reducers, { initialState } from "./reducers";
+import { getDatasetProps } from "./selectors";
 
 class DatasetsProvider extends PureComponent {
   componentDidMount() {
-    const { fetchDatasets } = this.props;
-    fetchDatasets();
+    const { fetchDatasets, activeDatasets } = this.props;
+    fetchDatasets(activeDatasets);
   }
 
   render() {
@@ -19,12 +20,13 @@ class DatasetsProvider extends PureComponent {
 
 DatasetsProvider.propTypes = {
   fetchDatasets: PropTypes.func.isRequired,
+  activeDatasets: PropTypes.array,
 };
 
-reducerRegistry.registerModule('datasets', {
+reducerRegistry.registerModule("datasets", {
   actions,
   reducers,
   initialState,
 });
 
-export default connect(null, actions)(DatasetsProvider);
+export default connect(getDatasetProps, actions)(DatasetsProvider);

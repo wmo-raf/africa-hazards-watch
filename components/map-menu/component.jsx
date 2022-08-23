@@ -67,6 +67,7 @@ class MapMenu extends PureComponent {
   render() {
     const {
       className,
+      upperSections,
       datasetSections,
       searchSections,
       mobileSections,
@@ -100,6 +101,7 @@ class MapMenu extends PureComponent {
               datasetSections={datasetSections}
               searchSections={searchSections}
               setMenuSettings={setMenuSettings}
+              upperSections={upperSections}
             />
           )}
           {!isDesktop && (

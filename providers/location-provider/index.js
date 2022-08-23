@@ -1,30 +1,31 @@
-import { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import isEmpty from 'lodash/isEmpty';
-import useRouter from 'utils/router';
-import reducerRegistry from 'redux/registry';
+import { useEffect } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import isEmpty from "lodash/isEmpty";
+import useRouter from "utils/router";
+import reducerRegistry from "redux/registry";
 
-import { decodeQueryParams, encodeQueryParams } from 'utils/url';
+import { decodeQueryParams, encodeQueryParams } from "utils/url";
 
-import * as actions from './actions';
-import reducers, { initialState } from './reducers';
+import * as actions from "./actions";
+import reducers, { initialState } from "./reducers";
 
 const getLocationFromParams = (url, params, asPath) => {
-  if (url?.includes('[[...location]]')) {
+  if (url?.includes("[[...location]]")) {
     const type =
-      asPath === '/map' || asPath === '/map/' || asPath?.includes('/map/?')
-        ? 'africa'
+      asPath === "/map" || asPath === "/map/" || asPath?.includes("/map/?")
+        ? "africa"
         : params?.location?.[0];
     const adm0 = params?.location?.[1];
     const adm1 = params?.location?.[2];
     const adm2 = params?.location?.[3];
 
+    // dont parse point data
     return {
       type,
-      adm0: isNaN(adm0) ? adm0 : parseInt(adm0, 10),
-      adm1: isNaN(adm1) ? adm1 : parseInt(adm1, 10),
-      adm2: isNaN(adm2) ? adm2 : parseInt(adm2, 10),
+      adm0: type === "point" || isNaN(adm0) ? adm0 : parseInt(adm0, 10),
+      adm1: type === "point" || isNaN(adm1) ? adm1 : parseInt(adm1, 10),
+      adm2: type === "point" || isNaN(adm2) ? adm2 : parseInt(adm2, 10),
     };
   }
 
@@ -71,10 +72,10 @@ const LocationProvider = ({ setLocation }) => {
     handleRouteChange();
 
     if (events) {
-      events.on('routeChangeComplete', () => handleRouteChange());
+      events.on("routeChangeComplete", () => handleRouteChange());
 
       return () => {
-        events.off('routeChangeComplete');
+        events.off("routeChangeComplete");
       };
     }
 
@@ -99,7 +100,7 @@ export const reduxModule = {
   initialState,
 };
 
-reducerRegistry.registerModule('location', {
+reducerRegistry.registerModule("location", {
   actions,
   reducers,
   initialState,

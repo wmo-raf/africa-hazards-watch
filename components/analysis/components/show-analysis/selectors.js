@@ -91,10 +91,10 @@ export const getShowAnalysisProps = createStructuredSelector({
   // data: getDataFromLayers,
   loading: getLoading,
   layers: getActiveLayers,
-  downloadUrls: getDownloadLinks,
   error: selectError,
   widgetLayers: getWidgetLayers,
   zoomLevel: getMapZoom,
   analysisTitle: getGeodescriberTitle,
   analysisDescription: getGeodescriberDescription,
+  location: selectLocation,
 });

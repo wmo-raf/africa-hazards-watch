@@ -4,12 +4,21 @@
   @return calc($px / $base) * 1rem;
 }
 
-@keyframes pulse
-{
+@keyframes pulse {
   0% {
     box-shadow: 0 0 0 0px rgba(0, 0, 0, 0.2);
   }
   100% {
     box-shadow: 0 0 0 35px rgba(0, 0, 0, 0);
+  }
+}
+
+@keyframes blink {
+  from,
+  to {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
   }
 }

@@ -11,7 +11,7 @@ import {
 
 import { getEmbed } from "layouts/map/selectors";
 
-import { searchSections, mobileSections } from "./sections";
+import { searchSections, mobileSections, upperSections } from "./sections";
 import Datasets from "./components/sections/datasets";
 import icons from "./icons";
 
@@ -253,6 +253,15 @@ export const getZeroDataCountries = createSelector(
   }
 );
 
+export const getUpperSections = createSelector(
+  [getMenuSection],
+  (menuSection) =>
+    upperSections.map((s) => ({
+      ...s,
+      active: menuSection === s.slug,
+    }))
+);
+
 export const getSearchSections = createSelector(
   [getMenuSection],
   (menuSection) =>
@@ -297,6 +306,7 @@ export const getDatasetCategories = createSelector(
 );
 
 export const getMenuProps = createStructuredSelector({
+  upperSections: getUpperSections,
   datasetSections: getDatasetSectionsWithData,
   searchSections: getSearchSections,
   mobileSections: getMobileSections,

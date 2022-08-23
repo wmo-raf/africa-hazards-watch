@@ -36,7 +36,7 @@ const generateLayers = (timestamps = []) => {
         source: {
           type: "raster",
           tiles: [
-            `http://localhost/ows/?service=WMS&request=GetMap&version=1.1.1&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time={time}&layers=${layerName}&clip_wkt={clip_wkt}`,
+            `http://localhost/ows/?service=WMS&request=GetMap&version=1.1.1&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time={time}&layers=${layerName}&clip_feature={clip_feature}`,
           ],
           minzoom: 3,
           maxzoom: 12,
@@ -63,7 +63,7 @@ const generateLayers = (timestamps = []) => {
       },
       params: {
         time: `${latest}`,
-        clip_wkt: "",
+        clip_feature: "",
       },
       paramsSelectorConfig: [
         {

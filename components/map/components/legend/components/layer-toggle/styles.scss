@@ -1,4 +1,4 @@
-@import '~styles/settings';
+@import "~styles/settings";
 
 .c-layer-toggle {
   display: flex;
@@ -39,6 +39,26 @@
     max-width: calc(100% - 20px);
     padding-left: rem(6px);
     word-break: break-word;
+  }
+
+  .nrt-indicator {
+    display: inline-block;
+    font-size: 12px;
+    line-height: 1.2;
+    letter-spacing: -0.3px;
+    color: $alert;
+    border: 1px solid $alert;
+    margin-top: rem(3px);
+    padding: rem(2px) rem(6px);
+    border-radius: 20px;
+    word-break: break-word;
+
+    .c-icon {
+      fill: $alert;
+      margin-left: 2px;
+      vertical-align: middle;
+      animation: 2.5s blink ease-in-out infinite;
+    }
   }
 
   .info-button {

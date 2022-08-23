@@ -1,17 +1,17 @@
 import boundaries from "./boundaries";
-import foodSecurity from "./food-security";
-import forecast from "./forecast";
+import weather from "./weather";
 import climate from "./climate";
+import foodSecurity from "./food-security";
 
 import exposure from "./exposure";
 import { isFunction } from "lodash";
 
 const allDatasets = [
   ...boundaries,
+  ...weather,
+  ...climate,
   ...foodSecurity,
   ...exposure,
-  ...forecast,
-  ...climate,
 ];
 
 export const localDatasets = allDatasets.filter((d) => !d.getLayers);

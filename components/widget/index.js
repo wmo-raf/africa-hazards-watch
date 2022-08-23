@@ -109,11 +109,12 @@ class WidgetContainer extends Component {
   handleGetWidgetData = (params) => {
     const { location } = this.props;
 
-    const isPoint =
+    const isPoint = Boolean(
       location.type &&
-      location.type === "point" &&
-      location.adm0 &&
-      location.adm1;
+        location.type === "point" &&
+        location.adm0 &&
+        location.adm1
+    );
 
     params.isPoint = isPoint;
 
@@ -123,7 +124,11 @@ class WidgetContainer extends Component {
       this.widgetDataFetch = CancelToken.source();
       this.setState({ loading: true, error: false });
 
-      const canFetch = !isPoint && !isEmpty(geostore);
+      const canFetch = true;
+
+      if (location.type !== "point" && isEmpty(geostore)) {
+        canFetch = false;
+      }
 
       if (canFetch) {
         getData({ ...params, geostore, token: this.widgetDataFetch.token })

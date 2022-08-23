@@ -11,6 +11,7 @@ import { getGeodescriberProps } from "./selectors";
 
 class GeodescriberProvider extends PureComponent {
   static propTypes = {
+    clearGeodescriber: PropTypes.func,
     getGeodescriber: PropTypes.func,
     geojson: PropTypes.object,
     location: PropTypes.object,
@@ -19,16 +20,20 @@ class GeodescriberProvider extends PureComponent {
   };
 
   componentDidMount() {
-    const { location, loading, geojson } = this.props;
+    const { location, loading, geojson, clearGeodescriber } = this.props;
     const allowedLocationTypes = this.getAllowedLocationTypes();
 
     if (!loading && !allowedLocationTypes.includes(location.type) && geojson) {
       this.handleGetGeodescriber();
     }
+
+    if (location.type === "point") {
+      clearGeodescriber({});
+    }
   }
 
   componentDidUpdate(prevProps) {
-    const { loading, geojson, location } = this.props;
+    const { loading, geojson, location, clearGeodescriber } = this.props;
     const { geojson: prevGeojosn, location: prevLocation } = prevProps;
     const allowedLocationTypes = this.getAllowedLocationTypes();
 
@@ -47,7 +52,7 @@ class GeodescriberProvider extends PureComponent {
     let types = ["africa"];
 
     if (!embed) {
-      types = [...types, "country"];
+      types = [...types, "country", "point", "use"];
     }
     return types;
   };

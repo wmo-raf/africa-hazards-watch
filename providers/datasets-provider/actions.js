@@ -5,14 +5,17 @@ import isFunction from "lodash/isFunction";
 import { defined } from "utils/core";
 
 import { localDatasets, asyncDatasets } from "./datasets/index";
-import { getApiDatasets } from "services/datasets";
+
+import { setMapSettings } from "components/map/actions";
 
 export const setDatasetsLoading = createAction("setDatasetsLoading");
 export const setDatasets = createAction("setDatasets");
 
 export const fetchDatasets = createThunkAction(
   "fetchDatasets",
-  () => (dispatch) => {
+  (activeDatasets) => (dispatch, getState) => {
+    const currentActiveDatasets = [...activeDatasets];
+
     dispatch(setDatasetsLoading({ loading: true, error: false }));
 
     // custom async layers
@@ -38,6 +41,34 @@ export const fetchDatasets = createThunkAction(
               return d;
             });
           const allDatasets = localDatasets.concat(asyncDatasetsWithLayers);
+
+          const initialVisibleDatasets = allDatasets.filter(
+            (d) => d.initialVisible
+          );
+
+          const { query } = getState().location;
+
+          // set default visible datasets when no layer in map url state
+          if (
+            !defined(query) ||
+            (!defined(query.map) && !!initialVisibleDatasets.length)
+          ) {
+            const newDatasets = [...currentActiveDatasets].concat(
+              initialVisibleDatasets.reduce((all, dataset) => {
+                const config = {
+                  dataset: dataset.id,
+                  layers: dataset.layers.map((l) => l.id),
+                  opacity: 1,
+                  visibility: true,
+                };
+                all.push(config);
+                return all;
+              }, [])
+            );
+
+            // set new active Datasets
+            dispatch(setMapSettings({ datasets: newDatasets }));
+          }
 
           dispatch(setDatasets(allDatasets));
         })

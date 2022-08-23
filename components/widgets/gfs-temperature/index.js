@@ -14,7 +14,7 @@ export default {
   title: "Temperature Forecast for {location}",
   categories: ["summary"],
   large: true,
-  types: ["country", "geostore"],
+  types: ["country", "geostore", "point"],
   admins: ["adm0", "adm1", "adm2"],
   metaKey: "",
   sortOrder: {},
@@ -75,7 +75,13 @@ export default {
           },
         ],
       };
-      return fetchGskyWps(wpsIdentifier, featurePayload, token);
+      return fetchGskyWps(
+        wpsIdentifier,
+        featurePayload,
+        startDateTimeParam,
+        endDateTimeParam,
+        token
+      );
     } else {
       const feature = geojson && geojson.features ? geojson.features[0] : {};
 

@@ -12,6 +12,7 @@ class MenuDesktop extends PureComponent {
   render() {
     const {
       className,
+      upperSections,
       datasetSections,
       searchSections,
       setMenuSettings,
@@ -20,6 +21,30 @@ class MenuDesktop extends PureComponent {
     return (
       <div className={cx("c-menu-desktop", className)}>
         <ul className="datasets-menu">
+          {upperSections && !!upperSections.length && (
+            <div className="upper-sections">
+              {upperSections.map((s) => (
+                <MenuTile
+                  className="search-tile"
+                  key={s.slug}
+                  onClick={() => {
+                    setMenuSettings({
+                      menuSection: s.active ? "" : s.slug,
+                      datasetCategory: "",
+                    });
+                    if (!s.active) {
+                      trackEvent({
+                        category: "Map menu",
+                        action: "Select Map menu",
+                        label: s.slug,
+                      });
+                    }
+                  }}
+                  {...s}
+                />
+              ))}
+            </div>
+          )}
           {datasetSections &&
             datasetSections
               .filter((s) => !s.hiddenMobile)
@@ -74,6 +99,7 @@ class MenuDesktop extends PureComponent {
 }
 
 MenuDesktop.propTypes = {
+  upperSections: PropTypes.array,
   datasetSections: PropTypes.array,
   searchSections: PropTypes.array,
   setMenuSettings: PropTypes.func,

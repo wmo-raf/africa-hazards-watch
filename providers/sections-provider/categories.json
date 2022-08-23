@@ -12,6 +12,10 @@
           "id": 1,
           "sort_order": 1,
           "title": "Weather Forecast"
+        }, {
+          "active": true,
+          "id": 2,
+          "title": "Satellite Imagery"
         }],
         "title": "Weather"
       },

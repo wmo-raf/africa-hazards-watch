@@ -42,56 +42,12 @@ class ShowAnalysis extends PureComponent {
     zoomLevel: PropTypes.number,
     showAnalysisDisclaimer: PropTypes.bool,
     activeArea: PropTypes.object,
+    location: PropTypes.object,
   };
 
   state = {
     disclaimerModalOpen: false,
   };
-
-  renderStatItem = ({
-    color,
-    value,
-    label,
-    unit,
-    startDate,
-    endDate,
-    dateFormat,
-    threshold,
-  }) => (
-    <li className="draw-stat" key={label}>
-      <div className="title">
-        {label}
-        <span>
-          {startDate &&
-            endDate &&
-            ` (${moment(startDate).format(
-              dateFormat || "YYYY-MM-DD"
-            )} to ${moment(endDate).format(dateFormat || "YYYY-MM-DD")})`}
-          {threshold && ` with >${threshold}% canopy density`}
-        </span>
-      </div>
-      <div className="value" style={{ color }}>
-        {Array.isArray(value) && value.length ? (
-          value.map((v) => (
-            <strong key={`${v.label}-${v.value}`} style={{ color: v.color }}>
-              {formatNumber({
-                num: v.value,
-                unit: v.unit || unit,
-              })}
-              <span>{v.label}</span>
-            </strong>
-          ))
-        ) : (
-          <strong>
-            {formatNumber({
-              num: Array.isArray(value) ? 0 : value,
-              unit: unit || "ha",
-            })}
-          </strong>
-        )}
-      </div>
-    </li>
-  );
 
   render() {
     const {
@@ -111,6 +67,7 @@ class ShowAnalysis extends PureComponent {
       activeArea,
       analysisTitle,
       analysisDescription,
+      location,
     } = this.props;
 
     const isPoint = location && location.type === "point";
@@ -199,9 +156,6 @@ class ShowAnalysis extends PureComponent {
             )}
             {(hasLayers || hasWidgets) && !loading && !error && (
               <Fragment>
-                <ul className="draw-stats">
-                  {data && data.map((d) => this.renderStatItem(d))}
-                </ul>
                 <Widgets simple analysis />
                 <div className="disclaimers">
                   {zoomLevel < 11 && (

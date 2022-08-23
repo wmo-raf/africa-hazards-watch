@@ -47,13 +47,16 @@ export const mobileSections = [
   },
 ];
 
-export const searchSections = [
+export const upperSections = [
   {
     label: "alerts",
     slug: "alerts",
     icon: alertsIcon,
     Component: Alerts,
   },
+];
+
+export const searchSections = [
   {
     label: "search",
     slug: "search",

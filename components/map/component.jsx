@@ -73,7 +73,9 @@ class MapComponent extends Component {
       clearMapInteractions,
       basemap,
       location,
+      geostoreType,
     } = this.props;
+
     const {
       mapLabels: prevMapLabels,
       mapRoads: prevMapRoads,
@@ -115,21 +117,20 @@ class MapComponent extends Component {
 
     // if geostore changes
     if (canBound && geostoreBbox?.length && geostoreBbox !== prevGeostoreBbox) {
-      // eslint-disable-next-line
-      this.setState({
-        bounds: { bbox: geostoreBbox, options: { padding: 50 } },
-      });
-    }
-
-    // reset canBound after fitting bounds
-    if (
-      canBound &&
-      !isEmpty(this.state.bounds) &&
-      !isEqual(this.state.bounds, prevState.bounds)
-    ) {
-      setMapSettings({ canBound: false, bbox: [] });
-      // eslint-disable-next-line
-      this.setState({ bounds: {} });
+      if (location && location.type === "use" && geostoreType === "Point") {
+        setMapSettings({
+          zoom: 7,
+          center: {
+            lat: geostoreBbox[1],
+            lng: geostoreBbox[0],
+          },
+        });
+      } else {
+        // eslint-disable-next-line
+        this.setState({
+          bounds: { bbox: geostoreBbox, options: { padding: 50 } },
+        });
+      }
     }
 
     // if clicked point changes
@@ -150,6 +151,17 @@ class MapComponent extends Component {
           },
         });
       }
+    }
+
+    // reset canBound after fitting bounds
+    if (
+      canBound &&
+      !isEmpty(this.state.bounds) &&
+      !isEqual(this.state.bounds, prevState.bounds)
+    ) {
+      setMapSettings({ canBound: false, bbox: [] });
+      // eslint-disable-next-line
+      this.setState({ bounds: {} });
     }
 
     // fit bounds on cluster if clicked
