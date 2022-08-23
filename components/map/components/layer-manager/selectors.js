@@ -1,17 +1,22 @@
-import { createStructuredSelector } from 'reselect';
+import { createStructuredSelector } from "reselect";
 
 import {
   getActiveLayersWithDates,
   getDrawing,
   getBasemap,
-  selectGeostore
-} from 'components/map/selectors';
+  selectGeostore,
+  getActiveDatasetsFromState,
+} from "components/map/selectors";
 
-export const selectLocation = state => state.location && state.location.payload;
+export const selectLocation = (state) =>
+  state.location && state.location.payload;
+const selectDatasets = (state) => state.datasets && state.datasets.data;
 
 export const getLayerManagerProps = createStructuredSelector({
+  allDatasets: selectDatasets,
+  activeDatasets: getActiveDatasetsFromState,
   layers: getActiveLayersWithDates,
   geostore: selectGeostore,
   basemap: getBasemap,
-  drawing: getDrawing
+  drawing: getDrawing,
 });

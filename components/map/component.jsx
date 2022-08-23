@@ -253,6 +253,7 @@ class MapComponent extends Component {
   setBasemap = () => {
     const { basemap } = this.props;
     const BASEMAP_GROUPS = ["basemap"];
+
     if (this.map) {
       const { layers, metadata } = this.map.getStyle();
       const basemapGroups = Object.keys(metadata["mapbox:groups"]).filter(
@@ -287,6 +288,7 @@ class MapComponent extends Component {
 
       basemapLayers.forEach((_layer) => {
         const match = _layer.metadata["mapbox:group"] === basemapToDisplay.id;
+
         if (!match) {
           this.map.setLayoutProperty(_layer.id, "visibility", "none");
         } else {
