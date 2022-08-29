@@ -34,12 +34,6 @@ export const mobileSections = [
     embed: true,
   },
   {
-    label: "alerts",
-    slug: "alerts",
-    icon: alertsIcon,
-    Component: Alerts,
-  },
-  {
     label: "my HW",
     slug: "my-hw",
     icon: myHWIcon,
@@ -48,12 +42,12 @@ export const mobileSections = [
 ];
 
 export const upperSections = [
-  {
-    label: "alerts",
-    slug: "alerts",
-    icon: alertsIcon,
-    Component: Alerts,
-  },
+  // {
+  //   label: "alerts",
+  //   slug: "alerts",
+  //   icon: alertsIcon,
+  //   Component: Alerts,
+  // },
 ];
 
 export const searchSections = [

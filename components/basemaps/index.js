@@ -1,19 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { trackEvent } from 'utils/analytics';
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { trackEvent } from "utils/analytics";
 
-import { TOGGLE_PLANET_BASEMAP, triggerEvent } from 'utils/hotjar';
+import withTooltipEvt from "components/ui/with-tooltip-evt";
+import { setModalMetaSettings } from "components/modals/meta/actions";
+import { setAnalysisSettings } from "components/analysis/actions";
+import * as mapActions from "components/map/actions";
 
-import withTooltipEvt from 'components/ui/with-tooltip-evt';
-import { setModalMetaSettings } from 'components/modals/meta/actions';
-import * as mapActions from 'components/map/actions';
-
-import { getBasemapsProps } from './selectors';
-import BasemapsComponent from './component';
+import { getBasemapsProps } from "./selectors";
+import BasemapsComponent from "./component";
 
 const actions = {
   setModalMetaSettings,
+  setAnalysisSettings,
   ...mapActions,
 };
 
@@ -27,54 +27,37 @@ class BasemapsContainer extends React.Component {
     activeDatasets: PropTypes.array,
     activeBoundaries: PropTypes.object,
     setMapSettings: PropTypes.func.isRequired,
+    setAnalysisSettings: PropTypes.func.isRequired,
+    analysisSettings: PropTypes.object,
   };
 
-  handlePlanetName = (name, color) => {
-    const { defaultPlanetBasemapsByCategory } = this.props;
-    const { visual, cir } = defaultPlanetBasemapsByCategory;
-    if (!name) {
-      // User selects image category
-      return color === 'cir' ? cir : visual;
-    }
-    return name;
-  };
-
-  selectBasemap = ({ value, year, defaultYear, name, color } = {}) => {
+  selectBasemap = ({ value } = {}) => {
     const { setMapSettings } = this.props;
-    if (value === 'planet') {
-      triggerEvent(TOGGLE_PLANET_BASEMAP);
-    }
+
     const basemapOptions = {
       value,
-      ...(value === 'landsat' && {
-        year: year || defaultYear,
-      }),
-      ...(value === 'planet' && {
-        name: this.handlePlanetName(name, color),
-        color: color || '',
-      }),
     };
 
     setMapSettings({ basemap: basemapOptions });
     trackEvent({
-      category: 'Map data',
-      action: 'basemap changed',
+      category: "Map data",
+      action: "basemap changed",
       label: value,
     });
   };
 
   selectLabels = (label) => {
-    this.props.setMapSettings({ labels: label.value === 'showLabels' });
+    this.props.setMapSettings({ labels: label.value === "showLabels" });
     trackEvent({
-      category: 'Map data',
-      action: 'Label changed',
+      category: "Map data",
+      action: "Label changed",
       label: label?.label,
     });
   };
 
   selectRoads = (roads) => {
     this.props.setMapSettings({ roads: roads.value });
-    trackEvent('roadsChanged', {
+    trackEvent("roadsChanged", {
       roads: roads.label,
     });
   };
@@ -84,7 +67,7 @@ class BasemapsContainer extends React.Component {
     const filteredLayers = activeBoundaries
       ? activeDatasets.filter((l) => l.dataset !== activeBoundaries.dataset)
       : activeDatasets;
-    if (item.value !== 'no-boundaries') {
+    if (item.value !== "no-boundaries") {
       const newActiveDatasets = [
         {
           layers: item.layers,
@@ -99,10 +82,18 @@ class BasemapsContainer extends React.Component {
       this.props.setMapSettings({ datasets: filteredLayers });
     }
     trackEvent({
-      category: 'Map data',
-      action: 'Boundary changed',
+      category: "Map data",
+      action: "Boundary changed",
       label: item?.dataset,
     });
+  };
+
+  handleOnLayerSettingToggle = (setting) => {
+    const { setAnalysisSettings, analysisSettings } = this.props;
+
+    if (analysisSettings && analysisSettings[setting] !== undefined) {
+      setAnalysisSettings({ [setting]: !analysisSettings[setting] });
+    }
   };
 
   render() {
@@ -113,6 +104,7 @@ class BasemapsContainer extends React.Component {
         selectLabels={this.selectLabels}
         selectBoundaries={this.selectBoundaries}
         selectRoads={this.selectRoads}
+        onLayerSettingToggle={this.handleOnLayerSettingToggle}
       />
     );
   }

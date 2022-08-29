@@ -52,17 +52,6 @@ const DataTable = ({
           </div>
         ))}
       </div>
-      {!isPoint && zoomToShape && (
-        <Button
-          onClick={() => {
-            setMainMapSettings({ showAnalysis: true });
-            onAnalyze();
-            onClose();
-          }}
-        >
-          analyze
-        </Button>
-      )}
       {!isPoint && !zoomToShape && <Button onClick={onAnalyze}>analyze</Button>}
     </div>
   );

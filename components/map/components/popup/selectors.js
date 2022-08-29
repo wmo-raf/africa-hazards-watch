@@ -1,16 +1,16 @@
-import { createSelector, createStructuredSelector } from 'reselect';
+import { createSelector, createStructuredSelector } from "reselect";
 
 import {
   getActiveDatasetsFromState,
   getInteractions,
   getInteractionSelected,
-} from 'components/map/selectors';
+} from "components/map/selectors";
 
 const getLatitude = (state) => state?.map?.data?.interactions?.latlng?.lat;
 const getLongitude = (state) => state?.map?.data?.interactions?.latlng?.lng;
 
 const getIsDashboard = (state) =>
-  state?.location?.pathname.includes('dashboards');
+  state?.location?.pathname.includes("dashboards");
 
 export const getShowPopup = createSelector(
   [getLatitude, getLongitude, getInteractionSelected],
@@ -32,10 +32,11 @@ export const getInteractionWithContext = createSelector(
   [getInteractionSelected],
   (interaction = {}) => {
     const { layer, geometry } = interaction || {};
-    const isAoi = layer?.name === 'Area of Interest';
+    const isAoi = layer?.name === "Area of Interest";
     const isArticle = !!layer?.interactionConfig?.article;
+    const isCapAlert = !!layer?.interactionConfig?.capAlert;
     const isBoundary = layer?.isBoundary;
-    const isPoint = geometry?.type === 'Point';
+    const isPoint = geometry?.type === "Point";
     const isLayer = !!layer;
 
     return {
@@ -45,6 +46,7 @@ export const getInteractionWithContext = createSelector(
       isBoundary,
       isPoint,
       isLayer,
+      isCapAlert,
     };
   }
 );

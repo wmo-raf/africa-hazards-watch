@@ -11,6 +11,7 @@ import DatasetsProvider from "providers/datasets-provider";
 import AreasProvider from "providers/areas-provider";
 import LocationProvider from "providers/location-provider";
 import MyHwProvider from "providers/myhw-provider";
+import LayerClipProvider from "providers/layer-clip-provider";
 
 import ModalWelcome from "components/modals/welcome";
 import MetaModal from "components/modals/meta";
@@ -92,6 +93,7 @@ class MainMapComponent extends PureComponent {
         <MetaModal />
         <AreaOfInterestModal viewAfterSave clearAfterDelete canDelete />
         <SectionsProvider />
+        <LayerClipProvider />
         <CountryDataProvider />
         <DatasetsProvider />
         <GeostoreProvider />

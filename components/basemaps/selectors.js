@@ -13,6 +13,8 @@ import {
   getAllBoundaries,
 } from "components/analysis/selectors";
 
+export const selectAnalysisSettings = (state) => state.analysis?.settings;
+
 export const getLabelsOptions = createSelector([], () => [
   {
     label: "Show labels",
@@ -56,4 +58,5 @@ export const getBasemapsProps = createStructuredSelector({
   labels: getLabelsOptions,
   roads: getRoadsOptions,
   roadsSelected: getRoadsSelected,
+  analysisSettings: selectAnalysisSettings,
 });

@@ -124,7 +124,7 @@ class WidgetContainer extends Component {
       this.widgetDataFetch = CancelToken.source();
       this.setState({ loading: true, error: false });
 
-      const canFetch = true;
+      let canFetch = true;
 
       if (location.type !== "point" && isEmpty(geostore)) {
         canFetch = false;

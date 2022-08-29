@@ -1,22 +1,23 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
-import Dropdown from 'components/ui/dropdown';
-import cx from 'classnames';
+import { useState } from "react";
+import PropTypes from "prop-types";
+import Dropdown from "components/ui/dropdown";
+import cx from "classnames";
 
-import { Row, Column, Button, Mobile, Desktop } from 'hw-components';
+import { Row, Column, Button, Mobile, Desktop } from "hw-components";
 
-import Icon from 'components/ui/icon';
+import Icon from "components/ui/icon";
+import Toggle from "components/ui/toggle";
 
-import infoIcon from 'assets/icons/info.svg?sprite';
-import closeIcon from 'assets/icons/close.svg?sprite';
+import infoIcon from "assets/icons/info.svg?sprite";
+import closeIcon from "assets/icons/close.svg?sprite";
 
-import boundariesIcon from 'assets/icons/boundaries.svg?sprite';
-import labelsIcon from 'assets/icons/labels.svg?sprite';
-import roadsIcon from 'assets/icons/roads.svg?sprite';
+import boundariesIcon from "assets/icons/boundaries.svg?sprite";
+import labelsIcon from "assets/icons/labels.svg?sprite";
+import roadsIcon from "assets/icons/roads.svg?sprite";
 
-import BasemapsMenu from './basemaps-menu';
+import BasemapsMenu from "./basemaps-menu";
 
-import './styles.scss';
+import "./styles.scss";
 
 const Basemaps = ({
   className,
@@ -36,15 +37,19 @@ const Basemaps = ({
   setModalMetaSettings,
   selectBasemap,
   onClose,
+  onLayerSettingToggle,
+  analysisSettings,
 }) => {
   const [showBasemaps, setShowBasemaps] = useState(false);
   const selectedBoundaries = activeBoundaries
     ? { label: activeBoundaries.name }
     : boundaries?.[0];
 
+  const { clipToBoundary } = analysisSettings || {};
+
   return (
     <div
-      className={cx('c-basemaps', 'map-tour-basemaps', className)}
+      className={cx("c-basemaps", "map-tour-basemaps", className)}
       {...getTooltipContentProps()}
     >
       <Row>
@@ -57,7 +62,7 @@ const Basemaps = ({
                 size="small"
                 dark
                 round
-                onClick={() => setModalMetaSettings('flagship_basemaps')}
+                onClick={() => setModalMetaSettings("flagship_basemaps")}
               >
                 <Icon icon={infoIcon} />
               </Button>
@@ -97,9 +102,9 @@ const Basemaps = ({
           <Column width={[1 / 4, 1 / 3]} className="map-settings-col">
             <Dropdown
               className="map-settings-dropdown"
-              theme={cx('theme-dropdown-button', {
-                'theme-dropdown-dark-round theme-dropdown-no-border': !isDesktop,
-                'theme-dropdown-dark-squared': isDesktop,
+              theme={cx("theme-dropdown-button", {
+                "theme-dropdown-dark-round theme-dropdown-no-border": !isDesktop,
+                "theme-dropdown-dark-squared": isDesktop,
               })}
               value={selectedBoundaries}
               options={boundaries}
@@ -110,9 +115,9 @@ const Basemaps = ({
           <Column width={[1 / 4, 1 / 3]} className="map-settings-col">
             <Dropdown
               className="map-settings-dropdown"
-              theme={cx('theme-dropdown-button', {
-                'theme-dropdown-dark-round theme-dropdown-no-border': !isDesktop,
-                'theme-dropdown-dark-squared': isDesktop,
+              theme={cx("theme-dropdown-button", {
+                "theme-dropdown-dark-round theme-dropdown-no-border": !isDesktop,
+                "theme-dropdown-dark-squared": isDesktop,
               })}
               value={labelSelected}
               options={labels}
@@ -123,9 +128,9 @@ const Basemaps = ({
           <Column width={[1 / 4, 1 / 3]} className="map-settings-col">
             <Dropdown
               className="map-settings-dropdown"
-              theme={cx('theme-dropdown-button', {
-                'theme-dropdown-dark-round theme-dropdown-no-border': !isDesktop,
-                'theme-dropdown-dark-squared': isDesktop,
+              theme={cx("theme-dropdown-button", {
+                "theme-dropdown-dark-round theme-dropdown-no-border": !isDesktop,
+                "theme-dropdown-dark-squared": isDesktop,
               })}
               value={roadsSelected}
               options={roads}
@@ -140,6 +145,29 @@ const Basemaps = ({
             activeBasemap={activeBasemap}
             onSelectBasemap={selectBasemap}
           />
+        )}
+        {isDesktop && (
+          <div className="analysis-settings">
+            <Row>
+              <Column>
+                <Desktop>
+                  <h4>Analysis Settings</h4>
+                </Desktop>
+              </Column>
+              <Column>
+                <Row>
+                  <div className="setting-toggle ">
+                    <Toggle
+                      theme="toggle-large"
+                      value={clipToBoundary}
+                      onToggle={() => onLayerSettingToggle("clipToBoundary")}
+                    />
+                    <div>Clip To Boundary</div>
+                  </div>
+                </Row>
+              </Column>
+            </Row>
+          </div>
         )}
       </div>
     </div>
@@ -164,6 +192,8 @@ Basemaps.propTypes = {
   roadsSelected: PropTypes.object.isRequired,
   selectRoads: PropTypes.func.isRequired,
   roads: PropTypes.array.isRequired,
+  onLayerSettingToggle: PropTypes.func.isRequired,
+  analysisSettings: PropTypes.object,
 };
 
 export default Basemaps;

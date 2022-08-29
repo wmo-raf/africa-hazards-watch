@@ -8,6 +8,7 @@ import Dropdown from "components/ui/dropdown";
 
 import AreaSentence from "./components/area-sentence";
 import ArticleCard from "./components/article-card";
+import CapAlertCard from "./components/cap-alert-card";
 import DataTable from "./components/data-table";
 import BoundarySentence from "./components/boundary-sentence";
 import ContextualSentence from "./components/contextual-sentence";
@@ -108,6 +109,10 @@ class Popup extends Component {
     } = this.props;
 
     const { useClickedPoint } = this.state;
+
+    if (selected?.isCapAlert) {
+      return <CapAlertCard data={selected} />;
+    }
 
     if (selected?.isArticle) {
       return <ArticleCard data={selected} />;

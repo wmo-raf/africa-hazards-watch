@@ -12,6 +12,7 @@ import cyclone from "assets/icons/cyclone.svg?sprite";
 import pest from "assets/icons/locust.svg?sprite";
 import defaultIcon from "assets/icons/layers.svg?sprite";
 import food_security from "assets/icons/famine.svg?sprite";
+import alert from "assets/icons/alert.svg?sprite";
 
 export default {
   rainfall,
@@ -27,5 +28,6 @@ export default {
   pest,
   defaultIcon,
   food_security,
-  waterdrop
+  waterdrop,
+  alert,
 };

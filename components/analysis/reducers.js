@@ -1,14 +1,15 @@
-import * as actions from './actions';
+import * as actions from "./actions";
 
 export const initialState = {
   uploading: false,
   loading: false,
-  error: '',
-  errorMessage: '',
+  error: "",
+  errorMessage: "",
   data: {},
   location: {},
   settings: {
     showDraw: false,
+    clipToBoundary: false,
   },
 };
 
@@ -34,8 +35,8 @@ const setAnalysisLoading = (state, { payload }) => ({
 
 const clearAnalysisError = (state) => ({
   ...state,
-  error: '',
-  errorMessage: '',
+  error: "",
+  errorMessage: "",
 });
 
 const clearAnalysisData = (state) => ({

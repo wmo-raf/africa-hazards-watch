@@ -3,20 +3,38 @@
   "data": {
     "objects": [{
         "active": true,
-        "icon": "rainfall",
-        "id": 1,
+        "icon": "alert",
+        "id": 99,
         "info": null,
         "order": 1,
         "sub_categories": [{
           "active": true,
           "id": 1,
-          "sort_order": 1,
-          "title": "Weather Forecast"
-        }, {
-          "active": true,
-          "id": 2,
-          "title": "Satellite Imagery"
+          "title": "Weather Alerts"
         }],
+        "title": "Alerts"
+      }, {
+        "active": true,
+        "icon": "rainfall",
+        "id": 1,
+        "info": null,
+        "order": 1,
+        "sub_categories": [{
+            "active": true,
+            "id": 1,
+            "sort_order": 1,
+            "title": "Weather Forecast"
+          },
+          {
+            "active": true,
+            "id": 3,
+            "title": "Long Range Forecast - Seasonal"
+          }, {
+            "active": true,
+            "id": 2,
+            "title": "Satellite Imagery"
+          }
+        ],
         "title": "Weather"
       },
       {

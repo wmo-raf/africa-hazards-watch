@@ -1,4 +1,4 @@
-@import '~styles/settings.scss';
+@import "~styles/settings.scss";
 
 $item-size: 55px;
 $item-size-small: 45px;
@@ -103,6 +103,21 @@ $top-section-height: 125px;
 
       @media screen and (min-width: $screen-m) {
         margin-left: -12px;
+      }
+    }
+  }
+
+  .analysis-settings {
+    padding-bottom: 20px;
+
+    .setting-toggle {
+      display: flex;
+      align-items: center;
+      margin-top: rem(6px);
+      font-size: rem(13px);
+
+      .c-toggle {
+        margin-right: rem(6px);
       }
     }
   }
