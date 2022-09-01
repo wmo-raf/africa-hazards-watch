@@ -2,6 +2,7 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import Button from "components/ui/button";
 import Icon from "components/ui/icon";
+import isEmpty from "lodash/isEmpty";
 
 import Dotdotdot from "react-dotdotdot";
 import cx from "classnames";
@@ -18,6 +19,15 @@ const TOP_META = {
   urgency: { title: "Urgency", icon: infoIcon },
   certainty: { title: "Certainty", icon: infoIcon },
   senderName: { title: "Source", icon: infoIcon },
+  eventSent: { title: "Sent", icon: infoIcon },
+  sourceInfo: {
+    country: {
+      title: "country",
+    },
+    organisation: {
+      title: "Organisation",
+    },
+  },
 };
 
 class CapAlertCard extends PureComponent {
@@ -33,7 +43,12 @@ class CapAlertCard extends PureComponent {
   };
 
   renderMetaItem = (key, value) => {
-    const meta = TOP_META[key];
+    const meta = key.split(".").reduce((a, b) => a[b], TOP_META);
+
+    if (!meta.title) {
+      return null;
+    }
+
     return (
       <div key={key} className="meta-item">
         {meta && meta.icon && (
@@ -42,26 +57,45 @@ class CapAlertCard extends PureComponent {
           </span>
         )}
         <span className="meta-header">{meta.title} :</span>
-        <span>{value}</span>
+        <span>{value.name ? value.name : value} </span>
       </div>
     );
   };
 
   renderMeta = () => {
     const { data } = this.props;
-    return Object.keys(data).reduce((all, key) => {
+
+    const dataItems = Object.keys(data).reduce((all, key) => {
       if (TOP_META[key]) {
         all.push(this.renderMetaItem(key, data[key]));
       }
       return all;
     }, []);
+
+    const sourceInfo = data.sourceInfo;
+
+    console.log(typeof sourceInfo);
+
+    // const source = data.sourceInfo
+    //   ? [this.renderMetaItem("sourceInfo.country", data.sourceInfo.country)]
+    //   : [];
+
+    return [...dataItems];
   };
 
   // eslint-disable-line react/prefer-stateless-function
   render() {
     const { className, theme, data, active, clamp } = this.props;
-    const { image, event, description, buttons, tag, tagColor, tagFontColor } =
-      data || {};
+    const {
+      image,
+      event,
+      description,
+      buttons,
+      tag,
+      tagColor,
+      tagFontColor,
+      sourceInfo,
+    } = data || {};
 
     return (
       <div className={cx("c-card", className, theme, { active })}>

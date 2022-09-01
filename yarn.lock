@@ -10502,10 +10502,10 @@ mapbox-gl@^1.0.0:
     tinyqueue "^2.0.3"
     vt-pbf "^3.1.1"
 
-maplibre-gl@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/maplibre-gl/-/maplibre-gl-2.2.1.tgz#55cdd6778abdb715eabeaf565c1fb03d74739005"
-  integrity sha512-5WSzGRwbxcIkZ/DRDI+A3/o69IoLKFN80jtVqiqUuw0y1u24ZwVvqSr2fqLslUa0Yig1Z50w+wWdnER3JNOzPQ==
+maplibre-gl@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/maplibre-gl/-/maplibre-gl-2.4.0.tgz#2b53dbf526626bf4ee92ad4f33f13ef09e5af182"
+  integrity sha512-csNFylzntPmHWidczfgCZpvbTSmhaWvLRj9e1ezUDBEPizGgshgm3ea1T5TCNEEBq0roauu7BPuRZjA3wO4KqA==
   dependencies:
     "@mapbox/geojson-rewind" "^0.5.2"
     "@mapbox/jsonlint-lines-primitives" "^2.0.2"
@@ -10523,6 +10523,7 @@ maplibre-gl@^2.2.1:
     earcut "^2.2.4"
     geojson-vt "^3.2.1"
     gl-matrix "^3.4.3"
+    global-prefix "^3.0.0"
     murmurhash-js "^1.0.0"
     pbf "^3.2.1"
     potpack "^1.0.2"
