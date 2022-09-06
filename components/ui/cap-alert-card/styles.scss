@@ -92,7 +92,8 @@ $summary-color: #aaa;
     }
 
     .summary,
-    .summary p {
+    .summary p,
+    .instruction {
       font-size: rem(16px);
       margin-bottom: rem(20px);
       line-height: 1.5;

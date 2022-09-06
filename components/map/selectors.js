@@ -1,14 +1,14 @@
 import { createSelector, createStructuredSelector } from "reselect";
 import flatten from "lodash/flatten";
 import isEmpty from "lodash/isEmpty";
-import moment from "moment";
 import flatMap from "lodash/flatMap";
 import sortBy from "lodash/sortBy";
+
+import { defined } from "utils/core";
 
 import { selectActiveLang, getMapboxLang } from "utils/lang";
 import { getActiveArea } from "providers/areas-provider/selectors";
 
-import { getDayRange, handleDynamicTimeline } from "./utils";
 import basemaps from "./basemaps";
 
 // map state
@@ -22,10 +22,17 @@ const selectRecentImageryLoading = (state) =>
   state.recentImagery && state.recentImagery.loading;
 const selectMapData = (state) => state.map && state.map.data;
 const selectDatasets = (state) => state.datasets && state.datasets.data;
-const selectLatest = (state) => state.latest && state.latest.data;
 export const selectGeostore = (state) => state.geostore && state.geostore.data;
 const getLocation = (state) => state.location;
 const selectLocation = (state) => state.location && state.location.payload;
+const selectLayersGeojsonData = (state) =>
+  state.datasetsUpdate && state.datasetsUpdate.geojsonData;
+
+const selectLayersUpdatingStatus = (state) =>
+  state.datasetsUpdate && state.datasetsUpdate.layerUpdatingStatus;
+
+const selectLayersLoadingStatus = (state) =>
+  state.datasetsUpdate && state.datasetsUpdate.layerLoadingStatus;
 
 // CONSTS
 export const getMapSettings = (state) => state.map?.settings || {};
@@ -163,6 +170,19 @@ export const getGeostoreType = createSelector([selectGeostore], (geostore) => {
   return null;
 });
 
+const someDataLayerLoading = createSelector(
+  [selectLayersLoadingStatus],
+  (layerLoadingStatus) => {
+    const loading = Object.keys(layerLoadingStatus)
+      .map((k) => {
+        return { layer: k, loading: layerLoadingStatus[k] };
+      })
+      .some((item) => item.loading);
+
+    return loading;
+  }
+);
+
 export const getMapLoading = createSelector(
   [
     selectMapLoading,
@@ -170,26 +190,32 @@ export const getMapLoading = createSelector(
     selectLatestLoading,
     selectDatasetsLoading,
     selectRecentImageryLoading,
+    someDataLayerLoading,
   ],
   (
     mapLoading,
     geostoreLoading,
     latestLoading,
     datasetsLoading,
-    recentLoading
-  ) =>
-    mapLoading ||
-    geostoreLoading ||
-    latestLoading ||
-    datasetsLoading ||
-    recentLoading
+    recentLoading,
+    someLayerLoading
+  ) => {
+    return (
+      mapLoading ||
+      geostoreLoading ||
+      latestLoading ||
+      datasetsLoading ||
+      recentLoading ||
+      someLayerLoading
+    );
+  }
 );
 
 export const getLoadingMessage = createSelector(
-  [selectRecentImageryLoading, selectLatestLoading],
-  (recentLoading, latestLoading) => {
+  [selectRecentImageryLoading, selectLatestLoading, someDataLayerLoading],
+  (recentLoading, latestLoading, someLayerLoading) => {
     if (recentLoading) return "Fetching the most recent satellite image...";
-    if (latestLoading) return "Fetching latest data...";
+    if (latestLoading || someLayerLoading) return "Fetching latest data...";
     return "";
   }
 );
@@ -224,6 +250,7 @@ export const getDatasetsWithConfig = createSelector(
     return datasets.map((d) => {
       const layerConfig =
         activeDatasetsState.find((l) => l.dataset === d.id) || {};
+
       const {
         layers,
         params,
@@ -246,25 +273,6 @@ export const getDatasetsWithConfig = createSelector(
           },
         }),
         layers: d.layers.map((l) => {
-          const timestampParams = {};
-          const layerTimeParamsSelectorConfig =
-            l.paramsSelectorConfig &&
-            l.paramsSelectorConfig.find((p) => p.key === "time");
-
-          let paramsSelectorConfig = l.paramsSelectorConfig;
-
-          // update paramsSelectorConfig
-          if (layerTimeParamsSelectorConfig) {
-            paramsSelectorConfig = paramsSelectorConfig.reduce((all, item) => {
-              if (item.key === layerTimeParamsSelectorConfig.key) {
-                all.push(layerTimeParamsSelectorConfig);
-              } else {
-                all.push(item);
-              }
-              return all;
-            }, []);
-          }
-
           const layerParams = {
             ...l.params,
           };
@@ -306,6 +314,7 @@ export const getLayerGroups = createSelector(
     return activeDatasetsState
       .map((layer) => {
         const dataset = datasets.find((d) => d.id === layer.dataset);
+
         const { metadata } =
           (dataset && dataset.layers.find((l) => l.active)) || {};
         const newMetadata = metadata || (dataset && dataset.metadata);
@@ -322,26 +331,69 @@ export const getLayerGroups = createSelector(
 );
 
 // flatten datasets into layers for the layer manager
-export const getAllLayers = createSelector(getLayerGroups, (layerGroups) => {
-  if (isEmpty(layerGroups)) return null;
+export const getLayersFlattened = createSelector(
+  getLayerGroups,
+  (layerGroups) => {
+    if (isEmpty(layerGroups)) return null;
 
-  return sortBy(
-    flatten(layerGroups.map((d) => d.layers))
-      .filter((l) => l && l.active && (!l.isRecentImagery || l.params.url))
-      .map((l, i) => {
-        let zIndex = 1000 - i;
-        if (l.isRecentImagery) zIndex = 500;
-        if (l.isBoundary) zIndex = 1050 - i;
-        return {
-          ...l,
-          zIndex,
-          ...(l.isRecentImagery && {
-            id: l.params.url,
-          }),
+    return sortBy(
+      flatten(layerGroups.map((d) => d.layers))
+        .filter((l) => l && l.active && (!l.isRecentImagery || l.params.url))
+        .map((l, i) => {
+          let zIndex = 1000 - i;
+          if (l.isRecentImagery) zIndex = 500;
+          if (l.isBoundary) zIndex = 1050 - i;
+          return {
+            ...l,
+            zIndex,
+            ...(l.isRecentImagery && {
+              id: l.params.url,
+            }),
+          };
+        }),
+      "zIndex"
+    );
+  }
+);
+
+export const getLayersWithData = createSelector(
+  [
+    getLayersFlattened,
+    selectLayersGeojsonData,
+    selectLayersUpdatingStatus,
+    selectLayersLoadingStatus,
+  ],
+  (layers, geojsonData, layersUpdatingStatus, layersLoadingStatus) => {
+    if (isEmpty(layers)) return null;
+
+    return layers.map((l) => {
+      const layerConfig = { ...l.layerConfig };
+
+      if (geojsonData[l.id]) {
+        layerConfig.source = {
+          ...layerConfig.source,
+          data: geojsonData[l.id],
         };
-      }),
-    "zIndex"
-  );
+      }
+
+      if (defined(layersUpdatingStatus[l.id])) {
+        l.isUpdating = layersUpdatingStatus[l.id];
+      }
+
+      if (defined(layersLoadingStatus[l.id])) {
+        l.isLoading = layersLoadingStatus[l.id];
+      }
+
+      return { ...l, layerConfig: layerConfig };
+    });
+  }
+);
+
+// flatten datasets into layers for the layer manager
+export const getAllLayers = createSelector(getLayersWithData, (layers) => {
+  if (isEmpty(layers)) return null;
+
+  return layers;
 });
 
 // all layers for importing by other components
@@ -456,56 +508,6 @@ export const getActiveLayers = createSelector(
           ],
         },
       },
-    });
-  }
-);
-
-export const getActiveLayersWithDates = createSelector(
-  getActiveLayers,
-  (layers) => {
-    if (isEmpty(layers)) return [];
-    return layers.map((l) => {
-      const { decodeFunction, decodeParams, params } = l;
-      const { startDate, endDate } = decodeParams || {};
-      return {
-        ...l,
-        ...(decodeFunction &&
-          decodeParams && {
-            decodeParams: {
-              ...decodeParams,
-              ...(startDate && {
-                startDate: params?.startDate || startDate,
-                startYear: moment(startDate).year(),
-                startMonth: moment(startDate).month(),
-                startDay: moment(startDate).dayOfYear(),
-              }),
-              ...(endDate && {
-                endYear: moment(endDate).year(),
-                endMonth: moment(endDate).month(),
-                endDay: moment(endDate).dayOfYear(),
-              }),
-              ...getDayRange(decodeParams),
-            },
-          }),
-        ...(params &&
-          params.startDate && {
-            params: {
-              ...params,
-              ...(params.startDate && {
-                startDate: params.startDate,
-                startYear: moment(params.startDate).year(),
-                startMonth: moment(params.startDate).month(),
-                startDay: moment(params.startDate).dayOfYear(),
-              }),
-              ...(params?.endDate && {
-                endYear: moment(params.endDate).year(),
-                endMonth: moment(params.endDate).month(),
-                endDay: moment(params.endDate).dayOfYear(),
-              }),
-              ...getDayRange(params),
-            },
-          }),
-      };
     });
   }
 );

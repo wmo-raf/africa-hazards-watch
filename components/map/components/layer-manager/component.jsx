@@ -1,8 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import omit from "lodash/omit";
 import { LayerManager, Layer } from "layer-manager/dist/components";
-import { PluginMapboxGl, fetch } from "layer-manager";
+import { PluginMapboxGl } from "layer-manager";
 
 class LayerManagerComponent extends PureComponent {
   static propTypes = {
@@ -80,41 +79,9 @@ class LayerManagerComponent extends PureComponent {
         : null;
 
     const allLayers = [basemapLayer].concat(layers).filter((l) => l);
-    return (
-      <LayerManager
-        map={map}
-        plugin={PluginMapboxGl}
-        providers={{
-          stories: (layerModel, layer, resolve, reject) => {
-            const { source } = layerModel;
-            const { provider } = source;
 
-            fetch("get", provider.url, provider.options, layerModel)
-              .then((response) =>
-                resolve({
-                  ...layer,
-                  source: {
-                    ...omit(layer.source, "provider"),
-                    data: {
-                      type: "FeatureCollection",
-                      features: response.rows.map((r) => ({
-                        type: "Feature",
-                        properties: r,
-                        geometry: {
-                          type: "Point",
-                          coordinates: [r.lon, r.lat],
-                        },
-                      })),
-                    },
-                  },
-                })
-              )
-              .catch((e) => {
-                reject(e);
-              });
-          },
-        }}
-      >
+    return (
+      <LayerManager map={map} plugin={PluginMapboxGl} providers={{}}>
         {allLayers &&
           allLayers.map((l) => {
             const config = l.config ? l.config : l.layerConfig;

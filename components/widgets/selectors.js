@@ -12,7 +12,7 @@ import { translateText } from "utils/lang";
 
 import { getAllAreas } from "providers/areas-provider/selectors";
 import { getGeodescriberTitleFull } from "providers/geodescriber-provider/selectors";
-import { getActiveLayersWithDates } from "components/map/selectors";
+import { getActiveLayers } from "components/map/selectors";
 import { getDataLocation } from "utils/location";
 
 import colors from "data/colors.json";
@@ -214,7 +214,7 @@ export const filterWidgetsByLocation = createSelector(
     selectEmbed,
     selectActiveWidget,
     getDatasetLayersWithAnalysis,
-    getActiveLayersWithDates,
+    getActiveLayers,
     selectAnalysis,
   ],
   (
@@ -390,7 +390,7 @@ export const filterWidgetsByCategory = createSelector(
 );
 
 export const getLayerEndpoints = createSelector(
-  [getDatasetLayersWithAnalysis, getActiveLayersWithDates, getDataLocation],
+  [getDatasetLayersWithAnalysis, getActiveLayers, getDataLocation],
   (layers, activeLayers, location) => {
     const { type } = location;
 
@@ -441,7 +441,7 @@ export const getWidgets = createSelector(
     selectWidgetInteractions,
     selectLocationSearch,
     getDatasetLayersWithAnalysis,
-    getActiveLayersWithDates,
+    getActiveLayers,
     selectAnalysis,
     selectActiveWidget,
     getLayerEndpoints,

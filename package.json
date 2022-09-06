@@ -28,11 +28,6 @@
     "url": "https://github.com/icpac-igad/eahw/issues"
   },
   "homepage": "https://eahazardswatch.icpac.net",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.scss": "stylelint --config .stylelintrc.json",
     "*.{js,jsx}": [

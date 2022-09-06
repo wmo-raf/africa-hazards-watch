@@ -109,13 +109,23 @@ export const getCardData = createSelector(
       tagFontColor: category.fontColor && category.fontColor,
     };
 
-    const { detailLink } = capData || {};
+    if (capData && capData.alertDetail) {
+      capData.alertDetail = JSON.parse(capData.alertDetail);
+    }
 
-    const buttons = detailLink
+    const sourceInfo = capData && capData.sourceInfo;
+
+    if (sourceInfo) {
+      capData.sourceInfo = JSON.parse(sourceInfo);
+    }
+
+    const { website } = (capData.sourceInfo && capData.sourceInfo) || {};
+
+    const buttons = website
       ? [
           {
             text: "MORE DETAILS",
-            extLink: detailLink,
+            extLink: website,
             theme: `theme-button-small`,
           },
         ]

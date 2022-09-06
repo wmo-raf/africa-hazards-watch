@@ -1,7 +1,7 @@
 import { createStructuredSelector } from "reselect";
 
 import {
-  getActiveLayersWithDates,
+  getActiveLayers,
   getDrawing,
   getBasemap,
   selectGeostore,
@@ -15,7 +15,7 @@ const selectDatasets = (state) => state.datasets && state.datasets.data;
 export const getLayerManagerProps = createStructuredSelector({
   allDatasets: selectDatasets,
   activeDatasets: getActiveDatasetsFromState,
-  layers: getActiveLayersWithDates,
+  layers: getActiveLayers,
   geostore: selectGeostore,
   basemap: getBasemap,
   drawing: getDrawing,

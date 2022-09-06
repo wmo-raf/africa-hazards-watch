@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
+import isEmpty from "lodash/isEmpty";
 
 import {
   Legend,
@@ -18,6 +19,7 @@ import NoContent from "components/ui/no-content";
 import SentenceSelector from "components/sentence-selector";
 import DateTimeSelector from "components/datetime-selector";
 import WidgetCaution from "components/widget/components/widget-caution";
+import Icon from "components/ui/icon";
 
 import Timeline from "./components/timeline";
 import LayerListMenu from "./components/layer-list-menu";
@@ -26,6 +28,8 @@ import LayerSelectorMenu from "./components/layer-selector-menu";
 import LayerStatement from "./components/layer-statement";
 import LayerAnalysisStatement from "./components/layer-analysis-statement";
 import LayerMoreInfo from "./components/layer-more-info";
+
+import updateIcon from "assets/icons/refresh.svg?sprite";
 
 import "./styles.scss";
 import "./themes/vizzuality-legend.scss";
@@ -43,6 +47,8 @@ const MapLegend = ({
   onChangeInfo,
   loading,
   className,
+  layerTimestamps,
+  activeLayers,
   ...rest
 }) => {
   const noLayers = !layerGroups || !layerGroups.length;
@@ -76,6 +82,7 @@ const MapLegend = ({
             } = lg || {};
 
             const activeLayer = layers && layers.find((l) => l.active);
+
             const getWarningLabel = () => {
               switch (activeLayer.id) {
                 case "integrated-deforestation-alerts-8bit":
@@ -105,6 +112,10 @@ const MapLegend = ({
               paramsFilterConfig,
               legendImage,
             } = activeLayer || {};
+
+            const isUpdating = activeLayers.find(
+              (l) => l.id === activeLayer.id && l.isUpdating
+            );
 
             return (
               <LegendListItem
@@ -148,11 +159,18 @@ const MapLegend = ({
               >
                 {citation && <div>{citation}</div>}
                 {disclaimer && <div className="disclaimer">{disclaimer}</div>}
+                {isUpdating && (
+                  <div className="updating-indicator">
+                    <Icon icon={updateIcon} />
+                    <div>Updating ...</div>
+                  </div>
+                )}
                 {legendImage && legendImage.url && (
                   <div className="legend-image">
                     <img src={legendImage.url} />
                   </div>
                 )}
+
                 {!legendImage && <LegendItemTypes />}
                 {statement && (
                   <LayerAnalysisStatement statementHtml={statement} />
@@ -182,12 +200,18 @@ const MapLegend = ({
                     paramsSelectorConfig &&
                     params &&
                     paramsSelectorConfig.map((paramConfig) =>
-                      paramConfig.type === "datetime" ? (
+                      paramConfig.type === "datetime" && !isUpdating ? (
                         <DateTimeSelector
                           key={`${activeLayer.name}-${paramConfig.key}`}
                           name={name}
                           className="param-selector"
                           {...paramConfig}
+                          availableDates={
+                            layerTimestamps[activeLayer.id] &&
+                            !isEmpty(layerTimestamps[activeLayer.id])
+                              ? layerTimestamps[activeLayer.id]
+                              : paramConfig.availableDates
+                          }
                           selectedTime={
                             params[paramConfig.key] || paramConfig.default
                           }

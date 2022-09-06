@@ -1,7 +1,7 @@
 import { createStructuredSelector } from "reselect";
 
 import {
-  getActiveLayersWithDates,
+  getActiveLayers,
   selectGeostore,
   getActiveDatasetsFromState,
 } from "components/map/selectors";
@@ -14,7 +14,7 @@ export const selectClipToBoundary = (state) =>
 
 export const getProps = createStructuredSelector({
   activeDatasets: getActiveDatasetsFromState,
-  layers: getActiveLayersWithDates,
+  layers: getActiveLayers,
   geostore: selectGeostore,
   location: selectLocation,
   clipToBoundary: selectClipToBoundary,

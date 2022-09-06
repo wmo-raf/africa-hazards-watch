@@ -22,10 +22,12 @@ const TOP_META = {
   eventSent: { title: "Sent", icon: infoIcon },
   sourceInfo: {
     country: {
-      title: "country",
+      title: "Country",
+      icon: infoIcon,
     },
     organisation: {
-      title: "Organisation",
+      title: "Source",
+      icon: infoIcon,
     },
   },
 };
@@ -40,6 +42,26 @@ class CapAlertCard extends PureComponent {
     tag: PropTypes.string,
     tagColor: PropTypes.string,
     clamp: PropTypes.number,
+  };
+
+  renderCountryInfo = (key, value) => {
+    const meta = key.split(".").reduce((a, b) => a[b], TOP_META.sourceInfo);
+
+    if (!meta.title) {
+      return null;
+    }
+
+    return (
+      <div key={key} className="meta-item">
+        {meta && meta.icon && (
+          <span>
+            <Icon className="meta-icon" icon={meta.icon} />
+          </span>
+        )}
+        <span className="meta-header">{meta.title} :</span>
+        <span>{value.name ? value.name : value} </span>
+      </div>
+    );
   };
 
   renderMetaItem = (key, value) => {
@@ -74,28 +96,27 @@ class CapAlertCard extends PureComponent {
 
     const sourceInfo = data.sourceInfo;
 
-    console.log(typeof sourceInfo);
+    const sourceItems = Object.keys(sourceInfo).reduce((all, key) => {
+      if (TOP_META.sourceInfo[key]) {
+        all.push(this.renderCountryInfo(key, sourceInfo[key]));
+      }
+      return all;
+    }, []);
 
-    // const source = data.sourceInfo
-    //   ? [this.renderMetaItem("sourceInfo.country", data.sourceInfo.country)]
-    //   : [];
-
-    return [...dataItems];
+    return [...dataItems, ...sourceItems];
   };
 
   // eslint-disable-line react/prefer-stateless-function
   render() {
     const { className, theme, data, active, clamp } = this.props;
-    const {
-      image,
-      event,
-      description,
-      buttons,
-      tag,
-      tagColor,
-      tagFontColor,
-      sourceInfo,
-    } = data || {};
+    const { event, buttons, tag, tagColor, tagFontColor, alertDetail } =
+      data || {};
+
+    const description =
+      alertDetail && alertDetail.info && alertDetail.info.description;
+
+    const instruction =
+      alertDetail && alertDetail.info && alertDetail.info.instruction;
 
     return (
       <div className={cx("c-card", className, theme, { active })}>
@@ -111,6 +132,15 @@ class CapAlertCard extends PureComponent {
             {description && (
               <div className="summary">
                 <Dotdotdot clamp={clamp || 3}>{description}</Dotdotdot>
+              </div>
+            )}
+
+            {instruction && (
+              <div className="instruction">
+                <h3 className="title" style={{ backgroundColor: tagColor }}>
+                  Instruction
+                </h3>
+                <div className="instruction-text">{instruction}</div>
               </div>
             )}
           </div>
