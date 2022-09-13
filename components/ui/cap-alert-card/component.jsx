@@ -2,7 +2,6 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import Button from "components/ui/button";
 import Icon from "components/ui/icon";
-import isEmpty from "lodash/isEmpty";
 
 import Dotdotdot from "react-dotdotdot";
 import cx from "classnames";
@@ -96,12 +95,15 @@ class CapAlertCard extends PureComponent {
 
     const sourceInfo = data.sourceInfo;
 
-    const sourceItems = Object.keys(sourceInfo).reduce((all, key) => {
-      if (TOP_META.sourceInfo[key]) {
-        all.push(this.renderCountryInfo(key, sourceInfo[key]));
-      }
-      return all;
-    }, []);
+    const sourceItems =
+      (sourceInfo &&
+        Object.keys(sourceInfo).reduce((all, key) => {
+          if (TOP_META.sourceInfo[key]) {
+            all.push(this.renderCountryInfo(key, sourceInfo[key]));
+          }
+          return all;
+        }, [])) ||
+      [];
 
     return [...dataItems, ...sourceItems];
   };

@@ -32,9 +32,9 @@ export const cmsApiRequest = create({
   baseURL: EAHW_CMS_API,
 });
 
-export const mapboxGeocodingRequest = create({
+export const nominatimGeocodingRequest = create({
   timeout: TIMEOUT,
-  baseURL: `${MAPBOX_API}/geocoding/v5/mapbox.places`,
+  baseURL: "https://nominatim.openstreetmap.org",
 });
 
 export const pgFeatureServRequest = create({

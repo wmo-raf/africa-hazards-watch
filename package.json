@@ -76,6 +76,7 @@
     "@mapbox/mapbox-gl-draw": "^1.1.2",
     "@next/bundle-analyzer": "^10.0.1",
     "@reduxjs/toolkit": "^1.4.0",
+    "@turf/boolean-intersects": "^6.5.0",
     "@zeit/next-sass": "^1.0.1",
     "axios": "^0.21.1",
     "chroma-js": "^2.1.0",

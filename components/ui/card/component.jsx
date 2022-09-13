@@ -1,15 +1,15 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import Button from 'components/ui/button';
-import Dropdown from 'components/ui/dropdown';
-import Dotdotdot from 'react-dotdotdot';
-import cx from 'classnames';
-import Icon from 'components/ui/icon';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import Button from "components/ui/button";
+import Dropdown from "components/ui/dropdown";
+import Dotdotdot from "react-dotdotdot";
+import cx from "classnames";
+import Icon from "components/ui/icon";
 
-import arrowIcon from 'assets/icons/arrow-down.svg?sprite';
-import './styles.scss';
-import './themes/card-small.scss';
-import './themes/card-dark.scss';
+import arrowIcon from "assets/icons/arrow-down.svg?sprite";
+import "./styles.scss";
+import "./themes/card-small.scss";
+import "./themes/card-dark.scss";
 
 class Card extends PureComponent {
   static propTypes = {
@@ -44,14 +44,15 @@ class Card extends PureComponent {
       tag,
       tagColor,
       selector,
+      tagFontColor,
     } = data || {};
     const { selectorValue } = this.state;
 
     return (
-      <div className={cx('c-card', className, theme, { active })}>
+      <div className={cx("c-card", className, theme, { active })}>
         {tag && tagColor && (
           <span className="tag" style={{ backgroundColor: tagColor }}>
-            <p>{tag}</p>
+            <p style={{ color: tagFontColor && tagFontColor }}>{tag}</p>
           </span>
         )}
         <>
@@ -74,9 +75,9 @@ class Card extends PureComponent {
         </>
         <div
           className={cx(
-            'body',
-            { 'no-image': !image },
-            { 'top-padding': tag && tagColor && !image }
+            "body",
+            { "no-image": !image },
+            { "top-padding": tag && tagColor && !image }
           )}
         >
           <div className="text-content">
@@ -147,7 +148,8 @@ class Card extends PureComponent {
                     selectorValue:
                       selector.options &&
                       selector.options.find((o) => o.value === value),
-                  })}
+                  })
+                }
                 native
               />
               <a

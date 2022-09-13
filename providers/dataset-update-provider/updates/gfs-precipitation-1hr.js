@@ -12,6 +12,5 @@ export default {
       return timestamps;
     });
   },
-
-  updateInterval: 5000,
+  // updateInterval: 3.6e6,
 };

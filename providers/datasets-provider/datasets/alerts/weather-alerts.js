@@ -1,16 +1,11 @@
-import { getAlerts } from "services/cap-alerts";
-
-const category = 99;
-const subCategory = 1;
-
 export default [
   {
     id: "cap_alerts",
     dataset: "cap_alerts",
-    name: "CAP Alerts",
+    name: "Show CAP Alerts",
     layer: "cap_alerts",
-    category: category,
-    sub_category: subCategory,
+    initialVisible: true,
+    isCapAlert: true,
     metadata: "",
     layers: [
       {
@@ -41,6 +36,7 @@ export default [
                     "#03ffff",
                     "#3366ff",
                   ],
+                  "fill-opacity": 0.8,
                 },
                 type: "fill",
                 // filter: ["==", "$type", "Polygon"],
@@ -51,16 +47,16 @@ export default [
                     "match",
                     ["get", "severity"], // get the property
                     4,
-                    "#d72f2a",
+                    "#ac2420",
                     3,
-                    "#fe9900",
+                    "#ca7a00",
                     2,
-                    "#ffff00",
+                    "#cbcb00",
                     1,
-                    "#03ffff",
-                    "#3366ff",
+                    "#00cdcd",
+                    "#003df4",
                   ],
-                  "line-width": 1.5,
+                  "line-width": 0.1,
                 },
                 type: "line",
               },

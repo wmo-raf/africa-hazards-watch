@@ -30,6 +30,7 @@ export const initialState = {
     bbox: [],
     canBound: true,
     drawing: false,
+    mapBounds: [],
     datasets: [
       // admin boundaries
       {

@@ -137,7 +137,7 @@ class MapMenu extends PureComponent {
               setMenuSettings={setMenuSettings}
               onToggleLayer={this.onToggleLayer}
               {...props}
-              {...(menuSection === "datasets" && {
+              {...((menuSection === "datasets" || menuSection === "alerts") && {
                 ...rest,
               })}
             />

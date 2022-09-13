@@ -1,5 +1,7 @@
 import { PureComponent } from "react";
 import { connect } from "react-redux";
+import bbox from "turf-bbox";
+import { isEmpty } from "lodash";
 
 import { getDatasetUpdateProps } from "./selectors";
 import { setMapSettings } from "components/map/actions";
@@ -16,14 +18,18 @@ class LayerUpdateProvider extends PureComponent {
 
     this.doUpdate({ isInitial: true });
 
-    this.interval = setInterval(
-      () => this.doUpdate({}),
-      updateInterval || 1000
-    );
+    if (updateInterval) {
+      this.interval = setInterval(
+        () => this.doUpdate({}),
+        updateInterval || 1000
+      );
+    }
   }
 
   componentWillUnmount() {
-    clearInterval(this.interval);
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
   }
 
   doUpdate = ({ isInitial }) => {
@@ -37,6 +43,7 @@ class LayerUpdateProvider extends PureComponent {
       activeDatasets,
       setLayerUpdatingStatus,
       setLayerLoadingStatus,
+      zoomToDataExtent,
     } = this.props;
 
     // update timestamps
@@ -99,6 +106,11 @@ class LayerUpdateProvider extends PureComponent {
 
             if (isInitial) {
               setLayerLoadingStatus({ [layer]: false });
+            }
+
+            // zoom to data extents
+            if (isInitial && zoomToDataExtent && !isEmpty(data.features)) {
+              setMapSettings({ bbox: bbox(data), padding: 20 });
             }
           }
         })

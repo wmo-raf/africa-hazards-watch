@@ -208,7 +208,10 @@ export const getAllSections = createSelector(
   (datasetSections) => {
     if (!datasetSections) return null;
 
-    return datasetSections.concat(searchSections).concat(mobileSections);
+    return datasetSections
+      .concat(upperSections)
+      .concat(searchSections)
+      .concat(mobileSections);
   }
 );
 
@@ -305,6 +308,27 @@ export const getDatasetCategories = createSelector(
     }))
 );
 
+export const getAlertDataset = createSelector(
+  [getDatasets, getActiveDatasetsFromState],
+  (datasets, activeDatasets) => {
+    const activeDatasetIds = activeDatasets.map((d) => d.dataset);
+
+    // get CAP alert dataset
+    const alertDataset = (datasets && datasets.find((d) => d.isCapAlert)) || {};
+
+    // new dataset to prevent state mutation error
+    const alertDs = { ...alertDataset };
+
+    if (isEmpty(alertDs)) {
+      return null;
+    }
+
+    alertDs.active = activeDatasetIds.includes(alertDs.id);
+
+    return alertDs;
+  }
+);
+
 export const getMenuProps = createStructuredSelector({
   upperSections: getUpperSections,
   datasetSections: getDatasetSectionsWithData,
@@ -326,4 +350,5 @@ export const getMenuProps = createStructuredSelector({
   loading: getLoading,
   analysisLoading: getAnalysisLoading,
   zoom: getMapZoom,
+  alertDataset: getAlertDataset,
 });

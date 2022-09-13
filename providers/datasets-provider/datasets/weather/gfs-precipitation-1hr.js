@@ -104,7 +104,7 @@ export default [
     sub_category: subCategory,
     metadata: metadataId,
     citation: "Hourly Forecast, GFS",
-    initialVisible: true,
+    // initialVisible: true,
     getLayers: async () => {
       return await fetchTimestamps(dataPath)
         .then((res) => {

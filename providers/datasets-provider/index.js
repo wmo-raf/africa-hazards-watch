@@ -16,16 +16,6 @@ class DatasetsProvider extends PureComponent {
     fetchDatasets(activeDatasets);
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   const { autoTimeProviders } = this.props;
-  //   console.log(autoTimeProviders);
-  // }
-
-  // getAutoTimeCompoments = () => {
-  //   const { autoTimeProviders } = this.props;
-  //   return autoTimeProviders.map((t) => <TimeProvider key={t.layer} {...t} />);
-  // };
-
   render() {
     return null;
   }

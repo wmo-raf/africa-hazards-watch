@@ -3,64 +3,79 @@ import moment from "moment";
 
 const getInteractionData = (state, { data }) => data;
 
-const SEVERITY_MAPPING = {
+export const SEVERITY_MAPPING = {
   4: {
     color: "#d72f2a",
     name: "Extreme Severity",
+    value: 4,
   },
   3: {
     color: "#fe9900",
     name: "Severe Severity",
+    value: 3,
   },
   2: {
     color: "#ffff00",
     fontColor: "#000",
     name: "Moderate Severity",
+    value: 2,
   },
   1: {
     color: "#03ffff",
     fontColor: "#000",
     name: "Minor Severity",
+    value: 1,
   },
   uknown: {
     color: "#3366ff",
     name: "Unknown Severity",
+    value: 0,
   },
 };
 
-const URGENCY_MAPPING = {
+export const URGENCY_MAPPING = {
   4: {
     name: "Immediate",
+    value: 4,
   },
   3: {
     name: "Expected",
+    value: 3,
   },
   2: {
     name: "Future",
+    value: 2,
   },
   1: {
     name: "Past",
+    value: 1,
   },
   uknown: {
     name: "Unknown",
+    value: 0,
   },
 };
 
-const CERTAINTY_MAPPING = {
+export const CERTAINTY_MAPPING = {
   4: {
     name: "Observed",
+    value: 4,
   },
   3: {
     name: "Likely",
+    value: 3,
   },
   2: {
     name: "Possible",
+    value: 2,
   },
   1: {
     name: "Unlikely",
+    value: 1,
   },
   uknown: {
     name: "Unknown",
+    value: 0,
   },
 };
 

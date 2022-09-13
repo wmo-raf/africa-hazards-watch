@@ -1,20 +1,31 @@
 @import "~styles/settings.scss";
 
-.c-map-menu-alerts {
-  height: 100%;
+$alerts-nav-height: rem(40px);
 
-  h3 {
-    padding: 20px 10px;
-    text-transform: uppercase;
-    color: $slate;
-    font-size: rem(14px);
-    font-weight: 500;
-    border-bottom: 1px solid rgba($hot-grey, 0.3);
+.c-alerts {
+  .alerts-wrapper {
+    .alerts-header {
+      padding: 20px rem(20px);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .alerts-content {
+      height: calc(100vh - #{$alerts-nav-height});
+      position: relative;
+
+      @media screen and (min-width: $screen-m) {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 0 rem(10px);
+      }
+    }
   }
 
-  .alerts-wrapper {
-    display: flex;
-    justify-content: space-between;
-    height: calc(100% - 62px);
+  .column,
+  .columns {
+    padding-right: rem(15px);
+    padding-left: rem(15px);
+    margin-bottom: rem(30px);
   }
 }

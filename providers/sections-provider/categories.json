@@ -3,18 +3,6 @@
   "data": {
     "objects": [{
         "active": true,
-        "icon": "alert",
-        "id": 99,
-        "info": null,
-        "order": 1,
-        "sub_categories": [{
-          "active": true,
-          "id": 1,
-          "title": "Weather Alerts"
-        }],
-        "title": "Alerts"
-      }, {
-        "active": true,
         "icon": "rainfall",
         "id": 1,
         "info": null,

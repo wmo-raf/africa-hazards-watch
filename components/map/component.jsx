@@ -196,11 +196,15 @@ class MapComponent extends Component {
   onViewportChange = debounce((viewport) => {
     const { setMapSettings, location } = this.props;
     const { latitude, longitude, bearing, pitch, zoom } = viewport;
+
+    const mapBounds = this.map && this.map.getBounds().toArray();
+
     setMapSettings({
       center: {
         lat: latitude,
         lng: longitude,
       },
+      mapBounds,
       bearing,
       pitch,
       zoom,
@@ -215,12 +219,19 @@ class MapComponent extends Component {
   };
 
   onLoad = ({ map }) => {
+    const { setMapSettings } = this.props;
     this.map = map;
 
     // Labels
     this.setBasemap();
     this.setLabels();
     this.setRoads();
+
+    const mapBounds = this.map.getBounds().toArray();
+
+    setMapSettings({
+      mapBounds,
+    });
 
     // Listeners
     if (this.map) {
