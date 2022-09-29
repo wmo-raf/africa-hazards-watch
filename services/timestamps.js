@@ -1,6 +1,6 @@
 import { gskyTimestampsRequest } from "utils/request";
 
 export const fetchTimestamps = (dataPath) => {
-  const url = `${dataPath}?timestamps&until=2030-01-01`;
+  const url = `${dataPath}?timestamps`;
   return gskyTimestampsRequest.get(url);
 };

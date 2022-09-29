@@ -11,13 +11,23 @@ export const fetchGskyWps = (
 ) => {
   const params = {
     identifier: identifier,
-    start_datetime: startDateTimeParam,
-    end_datetime: endDateTimeParam,
   };
 
+  if (startDateTimeParam) {
+    params.start_datetime = startDateTimeParam;
+  }
+
+  if (endDateTimeParam) {
+    params.end_datetime = endDateTimeParam;
+  }
+
   return request
-    .post(`${GSKY_WPS_URL}`, { ...feature }, { params, cancelToken: token })
+    .post(
+      `${GSKY_WPS_URL}`,
+      { ...feature },
+      { params, cancelToken: token, timeout: 120 * 1000 }
+    )
     .then((res) => {
-      return res.data[identifier];
+      return { identifier: identifier, data: res.data.data };
     });
 };

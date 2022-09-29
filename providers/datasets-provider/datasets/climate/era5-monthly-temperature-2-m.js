@@ -1,10 +1,10 @@
 import { fetchTimestamps } from "services/timestamps";
 import { parseISO, format, addDays } from "date-fns";
 
-const datasetName = "ERA5 Monthly Average Temperature at 2M";
-const layerName = "temperature_2m";
+const datasetName = "Monthly Surface Temperature Average";
+const layerName = "era5monthly_temperature_2_m";
 const metadataId = "60fcce77-8b70-4acf-b2a7-e18208db4cde";
-const dataPath = "/gskydata/tera/era5monthly-temperature-2-m";
+const dataPath = "/gskydata/mdi/era5monthly-temperature-2-m";
 
 const category = 2;
 const subCategory = 1;
@@ -38,7 +38,7 @@ const generateLayers = (timestamps = []) => {
         source: {
           type: "raster",
           tiles: [
-            `http://localhost/ows/?service=WMS&request=GetMap&version=1.1.1&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time={time}&layers=${layerName}&clip_wkt={clip_wkt}`,
+            `http://localhost/ows/?service=WMS&request=GetMap&version=1.1.1&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time={time}&layers=${layerName}`,
           ],
           minzoom: 3,
           maxzoom: 12,
@@ -65,7 +65,6 @@ const generateLayers = (timestamps = []) => {
       },
       params: {
         time: `${latest}`,
-        clip_wkt: "",
       },
       paramsSelectorConfig: [
         {
@@ -85,6 +84,12 @@ const generateLayers = (timestamps = []) => {
       },
       hidePastTimestamps: true, // we might need to hide past forecast
       data_path: dataPath,
+      analysisConfig: [
+        {
+          key: "era5_mean",
+          type: "admin",
+        },
+      ],
     },
   ];
 };
@@ -98,7 +103,7 @@ export default [
     category: category,
     sub_category: subCategory,
     metadata: metadataId,
-    citation: "ERA5 reanalysis, monthly means",
+    citation: "ERA5 reanalysis, From 1959 to recent",
     getLayers: async () => {
       return await fetchTimestamps(dataPath)
         .then((res) => {

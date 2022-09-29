@@ -6,5 +6,5 @@ export default {
     return getAlerts();
   },
   updateInterval: 1000 * 60 * 5, // every 5 minutes
-  zoomToDataExtent: true,
+  zoomToDataExtent: false,
 };

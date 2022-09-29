@@ -21,7 +21,7 @@ import { setMapPrompts } from "components/prompts/map-prompts/actions";
 
 const notFoundProps = {
   error: 404,
-  title: "Location Not Found | East Africa Hazards Watch",
+  title: "Location Not Found | Africa Hazards Watch",
   errorTitle: "Location Not Found",
 };
 

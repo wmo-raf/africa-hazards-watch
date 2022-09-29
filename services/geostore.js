@@ -1,8 +1,7 @@
+import { GEOSTORE_URL } from "utils/apis";
 import { apiRequest } from "utils/request";
 
-const LARGE_ISOS = ["USA", "RUS", "CAN", "CHN", "BRA", "IDN", "AUS"];
-
-const GEOSTORE_URL = "http://localhost:3100/api/v1/geostore";
+const LARGE_ISOS = [];
 
 export const getGeostore = ({ type, adm0, adm1, adm2, token }) => {
   if (!type || !adm0) return null;

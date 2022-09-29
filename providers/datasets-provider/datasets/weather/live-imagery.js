@@ -7,15 +7,17 @@ export default [
   {
     id: "msg_fes:rgb_naturalenhncd",
     dataset: "msg_fes:rgb_naturalenhncd",
-    name: "Eumestat - Natural Colour Enhanced RGB",
+    name: "Natural Colour Enhanced RGB",
     layer: "msg_fes:rgb_naturalenhncd",
     category: category,
     sub_category: subCategory,
     metadata: "f4530e0b-6981-48b8-9121-163669099ee4",
     isNearRealTime: true,
+    initialVisible: true,
+    citation: "EUMETSAT, Updated every 15 minutes",
     layers: [
       {
-        name: "Eumestat - Natural Colour Enhanced RGB",
+        name: "Natural Colour Enhanced RGB",
         id: "msg_fes:rgb_naturalenhncd",
         type: "layer",
         default: true,
@@ -51,15 +53,16 @@ export default [
   {
     id: "msg_iodc:mpe",
     dataset: "msg_iodc:mpe",
-    name: "Eumestat - Multi-Sensor Precipitation Estimate",
+    name: "Multi-Sensor Precipitation Estimate",
     layer: "msg_iodc:mpe",
     category: category,
     sub_category: subCategory,
     metadata: "be96986f-f751-4530-a62a-d29aac0c39d9",
     isNearRealTime: true,
+    citation: "EUMETSAT, Updated every 15 minutes",
     layers: [
       {
-        name: "Eumestat - Multi-Sensor Precipitation Estimate",
+        name: "Multi-Sensor Precipitation Estimate",
         id: "msg_iodc:mpe",
         type: "layer",
         default: true,

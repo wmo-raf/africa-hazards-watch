@@ -91,6 +91,7 @@ class CustomComposedChart extends PureComponent {
     const isVertical = !!xKeys;
     const dataKeys = yKeys || xKeys;
     const { lines, bars, areas } = dataKeys;
+
     const maxYValue = this.findMaxValue(data, config);
     let rightMargin = 0;
     if (isVertical) rightMargin = 10;

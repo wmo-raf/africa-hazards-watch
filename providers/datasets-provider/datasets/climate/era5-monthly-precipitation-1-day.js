@@ -1,10 +1,10 @@
 import { fetchTimestamps } from "services/timestamps";
 import { parseISO, format, addDays } from "date-fns";
 
-const datasetName = "ERA5 Monthly Average Precipitation per day";
-const layerName = "total_precipitation";
+const datasetName = "Monthly Total Precipitation Average";
+const layerName = "era5monthly_precipitation_1_day";
 const metadataId = "0cf9e8d5-42eb-426c-811b-e89661eb2ff3";
-const dataPath = "/gskydata/tera/era5monthly-precipitation-1-day";
+const dataPath = "/gskydata/mdi/era5monthly-precipitation-1-day";
 
 const category = 2;
 const subCategory = 1;
@@ -38,7 +38,7 @@ const generateLayers = (timestamps = []) => {
         source: {
           type: "raster",
           tiles: [
-            `http://localhost/ows/?service=WMS&request=GetMap&version=1.1.1&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time={time}&layers=${layerName}&clip_wkt={clip_wkt}`,
+            `http://localhost/ows/?service=WMS&request=GetMap&version=1.1.1&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time={time}&layers=${layerName}`,
           ],
           minzoom: 3,
           maxzoom: 12,
@@ -100,7 +100,7 @@ export default [
     category: category,
     sub_category: subCategory,
     metadata: metadataId,
-    citation: "ERA5 reanalysis, monthly means",
+    citation: "ERA5 reanalysis, From 1959 to recent",
     getLayers: async () => {
       return await fetchTimestamps(dataPath)
         .then((res) => {

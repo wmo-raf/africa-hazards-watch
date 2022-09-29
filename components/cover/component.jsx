@@ -22,7 +22,7 @@ class Cover extends PureComponent {
     return (
       <div className={cx('c-cover', { large }, className)}>
         <Row>
-          <Column width={[1, 2 / 3]}>
+          <Column width={[1, 1]}>
             <div className="cover-texts">
               <h1
                 className={cx('cover-title', { '-with-background': !!bgImage })}

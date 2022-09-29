@@ -18,7 +18,7 @@ export default [
     category: category,
     sub_category: subCategory,
     metadata: metadataId,
-    citation: "Seasonal Forecast, Multi-Model Ensemble",
+    citation: "Multi-Model Ensemble",
     layers: [
       {
         name: datasetName,

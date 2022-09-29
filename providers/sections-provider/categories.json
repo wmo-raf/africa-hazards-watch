@@ -11,16 +11,21 @@
             "active": true,
             "id": 1,
             "sort_order": 1,
-            "title": "Weather Forecast"
+            "title": "Daily Forecast"
           },
           {
             "active": true,
             "id": 3,
-            "title": "Long Range Forecast - Seasonal"
+            "title": "Long Range Forecast"
           }, {
             "active": true,
             "id": 2,
             "title": "Satellite Imagery"
+          },
+          {
+            "active": true,
+            "id": 4,
+            "title": "Tropical Cyclones"
           }
         ],
         "title": "Weather"
@@ -32,14 +37,20 @@
         "info": null,
         "order": 2,
         "sub_categories": [{
-          "active": true,
-          "id": 1,
-          "title": "Monthly Monitoring"
-        }, {
-          "active": true,
-          "id": 2,
-          "title": "Climate Projections"
-        }],
+            "active": true,
+            "id": 1,
+            "title": "Monthly Averages"
+          },
+          {
+            "active": true,
+            "id": 2,
+            "title": "Monthly Anomalies"
+          }, {
+            "active": true,
+            "id": 3,
+            "title": "Climate Projections"
+          }
+        ],
         "title": "Climate"
       },
       {

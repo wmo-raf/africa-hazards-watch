@@ -9,11 +9,11 @@ import { isFunction } from "lodash";
 
 const allDatasets = [
   ...boundaries,
+  ...alerts,
   ...weather,
   ...climate,
   ...foodSecurity,
   ...exposure,
-  ...alerts,
 ];
 
 const datasetsWithLayers = allDatasets.filter(

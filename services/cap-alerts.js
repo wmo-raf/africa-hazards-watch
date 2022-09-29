@@ -1,7 +1,6 @@
+import { CAP_ALERTS_URL } from "utils/apis";
 import request from "utils/request";
 
-const ALERTS_ENDPOINT = "http://localhost:3200/api/v1/alerts";
-
 export const getAlerts = () => {
-  return request.get(ALERTS_ENDPOINT).then((res) => res.data);
+  return request.get(CAP_ALERTS_URL).then((res) => res.data);
 };

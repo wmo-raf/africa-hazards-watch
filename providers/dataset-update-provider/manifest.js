@@ -4,7 +4,7 @@ import liveImageryMultisensorPrecipitation from "./updates/live-imagery-multisen
 import capAlerts from "./updates/cap-alerts";
 
 export default {
-  gfsPrecipitation1hr,
+  // gfsPrecipitation1hr,
   liveImageryNaturalColor,
   capAlerts,
   liveImageryMultisensorPrecipitation,

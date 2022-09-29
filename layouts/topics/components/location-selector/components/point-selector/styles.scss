@@ -1,0 +1,22 @@
+@import "~styles/settings.scss";
+
+.c-select {
+  margin: 20px 0;
+  max-width: 400px;
+}
+
+.selected-option {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+
+  .location-icon {
+    height: 24px;
+    width: 24px;
+    margin-right: 4px;
+  }
+
+  .location-name {
+    font-size: 18px;
+  }
+}

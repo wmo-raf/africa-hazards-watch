@@ -1,11 +1,6 @@
 import { CancelToken, create } from "axios";
 
-import {
-  EAHW_API,
-  EAHW_CMS_API,
-  MAPBOX_API,
-  PG_FEATURESERV_URL,
-} from "utils/apis";
+import { EAHW_API, EAHW_CMS_API, PG_FEATURESERV_URL } from "utils/apis";
 
 const isServer = typeof window === "undefined";
 

@@ -102,7 +102,7 @@ export default [
     category: category,
     sub_category: subCategory,
     metadata: metadataId,
-    citation: "Hourly Forecast, GFS",
+    citation: "GFS, Hourly for the next 5 days",
     getLayers: async () => {
       return await fetchTimestamps(dataPath)
         .then((res) => {

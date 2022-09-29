@@ -1,0 +1,33 @@
+@import "~styles/settings.scss";
+
+.c-widget {
+  padding: 50px 0;
+}
+
+.chart-wrapper {
+  .chart-header {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.4em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-bottom: 10px;
+  }
+
+  .chart-container {
+    margin-bottom: 20px;
+    height: 420px;
+    background-color: $white;
+
+    .chart-loader {
+      position: relative;
+      height: 100%;
+      text-align: center;
+      vertical-align: middle;
+    }
+  }
+
+  .chart-description {
+    padding-top: 20px;
+  }
+}
