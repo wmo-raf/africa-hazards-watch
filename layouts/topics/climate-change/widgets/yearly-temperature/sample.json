@@ -11,7 +11,6 @@
     "useHTML": true
   },
   "subtitle": {
-    "text": "Naipaipai 0.91 N, 37.89 E.",
     "style": {
       "color": "#333333",
       "fontSize": "1em"
@@ -20,7 +19,7 @@
   },
   "credits": {
     "enabled": false,
-    "text": "africahazardswatch.org",
+    "text": "",
     "href": "",
     "position": {
       "align": "right",

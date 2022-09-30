@@ -1,15 +1,13 @@
 import React, { Component } from "react";
 import HighChart from "components/highcharts";
-import { gskyWpsDataByYear } from "utils/data";
-
-import "./styles.scss";
+import { gskyWpsPrecipitationDataByYear } from "utils/data";
 
 const OPTIONS = {
   accessibility: {
     enabled: false,
   },
   title: {
-    text: "Mean yearly temperature, trend and anomaly, 1959-2022.",
+    text: "Mean yearly precipitation, trend and anomaly, 1959-2022.",
     style: {
       color: "#333333",
       fontSize: "1em",
@@ -38,7 +36,6 @@ const OPTIONS = {
     },
   },
   exporting: {
-    enabled: true,
     chartOptions: {
       chart: {
         backgroundColor: "#FFFFFF",
@@ -95,10 +92,13 @@ const OPTIONS = {
   yAxis: [
     {
       title: {
-        text: "mean [°C]",
+        text: "mean [mm]",
       },
       height: "45%",
       offset: 10,
+      labels: {
+        format: "{value}",
+      },
     },
     {
       title: {
@@ -121,94 +121,94 @@ const OPTIONS = {
     {
       dataClasses: [
         {
-          color: "#08306b",
-          from: -2.0,
-          to: -3.0,
+          color: "#543005",
+          from: -776.0,
+          to: -1381.5320714712143,
         },
         {
-          color: "#08306b",
-          from: -3.0,
-          to: -2.625,
+          color: "#543005",
+          from: -1381.5320714712143,
+          to: -1208.8405625373125,
         },
         {
-          color: "#08519c",
-          from: -2.625,
-          to: -2.25,
+          color: "#774508",
+          from: -1208.8405625373125,
+          to: -1036.1490536034107,
         },
         {
-          color: "#2171b5",
-          from: -2.25,
-          to: -1.875,
+          color: "#995d13",
+          from: -1036.1490536034107,
+          to: -863.4575446695089,
         },
         {
-          color: "#4292c6",
-          from: -1.875,
-          to: -1.5,
+          color: "#b97b29",
+          from: -863.4575446695089,
+          to: -690.7660357356071,
         },
         {
-          color: "#6baed6",
-          from: -1.5,
-          to: -1.125,
+          color: "#cfa155",
+          from: -690.7660357356071,
+          to: -518.0745268017054,
         },
         {
-          color: "#9ecae1",
-          from: -1.125,
-          to: -0.75,
+          color: "#e2c786",
+          from: -518.0745268017054,
+          to: -345.3830178678036,
         },
         {
-          color: "#c6dbef",
-          from: -0.75,
-          to: -0.375,
+          color: "#f0deb1",
+          from: -345.3830178678036,
+          to: -172.6915089339018,
         },
         {
-          color: "#deebf7",
-          from: -0.375,
+          color: "#f6edd6",
+          from: -172.6915089339018,
           to: 0.0,
         },
         {
-          color: "#fee0d2",
+          color: "#f5f5f5",
           from: 0.0,
-          to: 0.375,
+          to: 172.6915089339018,
         },
         {
-          color: "#fcbba1",
-          from: 0.375,
-          to: 0.75,
+          color: "#d8eeeb",
+          from: 172.6915089339018,
+          to: 345.3830178678036,
         },
         {
-          color: "#fc9272",
-          from: 0.75,
-          to: 1.125,
+          color: "#b5e3dc",
+          from: 345.3830178678036,
+          to: 518.0745268017054,
         },
         {
-          color: "#fb6a4a",
-          from: 1.125,
-          to: 1.5,
+          color: "#89d1c6",
+          from: 518.0745268017054,
+          to: 690.7660357356071,
         },
         {
-          color: "#ef3b2c",
-          from: 1.5,
-          to: 1.875,
+          color: "#5bb2a8",
+          from: 690.7660357356071,
+          to: 863.4575446695089,
         },
         {
-          color: "#cb181d",
-          from: 1.875,
-          to: 2.25,
+          color: "#2f9189",
+          from: 863.4575446695089,
+          to: 1036.1490536034107,
         },
         {
-          color: "#a50f15",
-          from: 2.25,
-          to: 2.625,
+          color: "#0e726a",
+          from: 1036.1490536034107,
+          to: 1208.8405625373125,
         },
         {
-          color: "#67000d",
-          from: 2.625,
-          to: 3.0,
+          color: "#01564d",
+          from: 1208.8405625373125,
+          to: 1381.5320714712143,
         },
         {
-          color: "#67000d",
-          from: 3.0,
-          to: 2.0,
+          color: "#01564d",
+          from: 1381.5320714712143,
+          to: 776.0,
         },
       ],
       showInLegend: false,
@@ -218,7 +218,7 @@ const OPTIONS = {
   series: [],
 };
 
-class YearlyTemperature extends Component {
+class YearlyPrecipitation extends Component {
   componentDidUpdate(prevProps, prevState) {}
 
   getChartOptions = () => {
@@ -227,10 +227,10 @@ class YearlyTemperature extends Component {
     const chartOptions = { ...OPTIONS };
 
     const averagesDataByYear =
-      averagesData && gskyWpsDataByYear(averagesData, { subtract: 273.15 }); // convert from K to °C
+      averagesData && gskyWpsPrecipitationDataByYear(averagesData);
 
     const anomaliesDataByYear =
-      anomaliesData && gskyWpsDataByYear(anomaliesData);
+      anomaliesData && gskyWpsPrecipitationDataByYear(anomaliesData);
 
     const series = [];
 
@@ -242,7 +242,7 @@ class YearlyTemperature extends Component {
       }));
 
       const meanSeries = {
-        name: "mean temperature",
+        name: "mean precipitation",
         type: "line",
         marker: {
           enabled: false,
@@ -251,8 +251,8 @@ class YearlyTemperature extends Component {
         color: "purple",
         colorAxis: 1,
         colorKey: "colorValue",
+        id: "mean_precipitation",
         xAxis: 1,
-        id: "mean_temp",
         yAxis: 0,
         tooltip: {
           pointFormat:
@@ -266,7 +266,7 @@ class YearlyTemperature extends Component {
       const trendSeries = {
         name: "trend",
         type: "trendline",
-        linkedTo: "mean_temp",
+        linkedTo: "mean_precipitation",
         marker: {
           enabled: false,
           fillColor: "blue",
@@ -290,11 +290,10 @@ class YearlyTemperature extends Component {
       }));
 
       const anomalySeries = {
-        name: "temperature anomaly",
+        name: "precipitation anomaly",
         type: "column",
         colorAxis: 1,
         colorKey: "colorValue",
-        data: [],
         xAxis: 1,
         yAxis: 1,
         pointPadding: 0,
@@ -302,10 +301,10 @@ class YearlyTemperature extends Component {
         borderWidth: 0,
         tooltip: {
           pointFormat: "{series.name}: <b>{point.colorValue:.1f}</b><br/>",
-          valueSuffix: " °C",
+          valueSuffix: " mm",
         },
         showInLegend: false,
-        data: data,
+        data,
       };
 
       series.push(anomalySeries);
@@ -329,4 +328,4 @@ class YearlyTemperature extends Component {
   }
 }
 
-export default YearlyTemperature;
+export default YearlyPrecipitation;
