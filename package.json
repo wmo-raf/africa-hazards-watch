@@ -20,14 +20,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/icpac-igad/eahw.git"
+    "url": "https://github.com/wmo-raf/africa-hazards-watch.git"
   },
-  "author": "ICPAC <https://icpac.net>",
+  "author": "WMO Africa",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/icpac-igad/eahw/issues"
+    "url": "https://github.com/wmo-raf/africa-hazards-watch/issues"
   },
-  "homepage": "https://eahazardswatch.icpac.net",
+  "homepage": "https://github.com/wmo-raf/africa-hazards-watch.git",
   "lint-staged": {
     "*.scss": "stylelint --config .stylelintrc.json",
     "*.{js,jsx}": [
