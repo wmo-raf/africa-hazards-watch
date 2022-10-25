@@ -135,7 +135,7 @@ class DateTimeSelectorSection extends Component {
     const dates = availableDates.map((d) => new Date(d));
 
     return (
-      <div className="datetimeSelector">
+      <div className="datetime-selector">
         <div className="datetimeSelectorInner">
           <div className="datetimeAndPicker">
             <div className="controlsContainer">

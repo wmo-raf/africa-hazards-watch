@@ -1,30 +1,12 @@
-import { fetchTimestamps } from "services/timestamps";
-import { parseISO, format, addDays, startOfHour } from "date-fns";
+import { GFS_CLOUD_WATER_TOTAL } from "data/layers";
 
-const datasetName = "Precipitation Forecast";
-const layerName = "gfs_precipitation_1_hr";
-const metadataId = "4ba0fb8c-3e9e-42ea-8956-f961dc80f71f";
-const dataPath = "/gskydata/gfs/gfs-precipitation-1-hr";
+const datasetName = "Water in Clouds";
+const layerName = GFS_CLOUD_WATER_TOTAL;
+const metadataId = "73c163c2-606c-4f27-85dc-4762268c8b9f";
+const timestampsDataPath = "/gskydata/gfs/gfs-cloud-water-total";
 
 const category = 1;
 const subCategory = 1;
-
-const generateLayers = (timestamps = []) => {
-  // get current hour
-  const currentHour = startOfHour(new Date());
-  const latest = currentHour.toISOString();
-
-  const time = parseISO(latest);
-  const end = addDays(time, 7);
-  const dateFormat = "do MMM y hh:mmm";
-
-  const periodStr = `Latest: ${format(time, dateFormat)} to ${format(
-    end,
-    dateFormat
-  )}`;
-
-  return;
-};
 
 export default [
   {
@@ -36,15 +18,13 @@ export default [
     sub_category: subCategory,
     metadata: metadataId,
     citation: "GFS, Hourly for the next 5 days",
-    // initialVisible: true,
     layers: [
       {
         name: datasetName,
         id: layerName,
         type: "layer",
-        // citation: periodStr,
+        citation: "",
         default: true,
-        active: true,
         dataset: layerName,
         layerConfig: {
           type: "raster",
@@ -60,26 +40,13 @@ export default [
         },
         legendConfig: {
           type: "gradient",
-          items: [
-            { name: "", color: "#4f57b7" },
-            { name: 0.2, color: "#554eb1" },
-            { name: "", color: "#4369c4" },
-            { name: 1, color: "#40a0b4" },
-            { name: "", color: "#4ec262" },
-            { name: 4, color: "#95db46" },
-            { name: "", color: "#dcea37" },
-            { name: 8, color: "#ebc038" },
-            { name: "", color: "#eaa43e" },
-            { name: 15, color: "#e97b48" },
-            { name: "", color: "#e1545d" },
-            { name: 30, color: "#be3066" },
-            { name: "40 mm", color: "#93174e" },
-          ],
+          items: [],
         },
         params: {
           time: "",
           clip_feature: "",
         },
+        paramsSelectorColumnView: true,
         paramsSelectorConfig: [
           {
             key: "time",
@@ -97,13 +64,7 @@ export default [
           template: "Selected Period : {time}",
         },
         hidePastTimestamps: true, // we might need to hide past forecast
-        data_path: dataPath,
-        analysisConfig: [
-          {
-            key: "forecast",
-            type: "admin",
-          },
-        ],
+        data_path: timestampsDataPath,
       },
     ],
   },

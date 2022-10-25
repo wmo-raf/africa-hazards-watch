@@ -12,7 +12,7 @@ export default {
     hasSettings: false,
     basemapGroup: "basemap-light",
     labelsGroup: "labels-light",
-    mapStyle: "http://34.148.22.253:8080/styles/eahw/style.json",
+    mapStyle: "http://197.254.13.228:8082/styles/eahw/style.json",
   },
   dark: {
     label: "dark matter",
@@ -23,7 +23,7 @@ export default {
     hasSettings: false,
     basemapGroup: "basemap-dark",
     labelsGroup: "labels-dark",
-    mapStyle: "http://34.148.22.253:8080/styles/eahw/style.json",
+    mapStyle: "http://197.254.13.228:8082/styles/eahw/style.json",
   },
   satellite: {
     label: "satellite",
@@ -36,7 +36,7 @@ export default {
     image: satelliteImage,
     basemapGroup: "basemap-satellite",
     labelsGroup: "labels-dark",
-    mapStyle: "http://34.148.22.253:8080/styles/eahw/style.json",
+    mapStyle: "http://197.254.13.228:8082/styles/eahw/style.json",
     url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
   },
 };

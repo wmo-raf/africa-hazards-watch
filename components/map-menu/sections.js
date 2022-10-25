@@ -27,12 +27,6 @@ export const mobileSections = [
     embed: true,
   },
   {
-    label: "alerts",
-    slug: "alerts",
-    icon: alertsIcon,
-    Component: Alerts,
-  },
-  {
     label: "analysis",
     slug: "analysis",
     icon: analysisIcon,
@@ -49,13 +43,13 @@ export const mobileSections = [
 ];
 
 export const upperSections = [
-  {
-    label: "alerts",
-    slug: "alerts",
-    icon: alertsIcon,
-    Component: Alerts,
-    // large: true,
-  },
+  // {
+  //   label: "alerts",
+  //   slug: "alerts",
+  //   icon: alertsIcon,
+  //   Component: Alerts,
+  //   // large: true,
+  // },
 ];
 
 export const searchSections = [

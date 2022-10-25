@@ -6,7 +6,7 @@ const isServer = typeof window === "undefined";
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-const TIMEOUT = 20 * 1000;
+const TIMEOUT = 50 * 1000;
 
 export const apiRequest = create({
   timeout: TIMEOUT,
@@ -54,5 +54,5 @@ export default create({
 
 export const gskyTimestampsRequest = create({
   timeout: TIMEOUT,
-  baseURL: "http://localhost/mas",
+  baseURL: "http://197.254.13.228:8081/mas",
 });

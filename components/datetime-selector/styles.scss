@@ -1,11 +1,5 @@
 .datetime-selector {
-  clear: both;
-  &:before,
-  &:after {
-    content: " ";
-    display: table;
-    clear: both;
-  }
+  padding: 16px 0;
 }
 
 .s-title {

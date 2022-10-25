@@ -13,7 +13,7 @@ export default [
     sub_category: subCategory,
     metadata: "f4530e0b-6981-48b8-9121-163669099ee4",
     isNearRealTime: true,
-    initialVisible: true,
+    initialVisible: false,
     citation: "EUMETSAT, Updated every 15 minutes",
     layers: [
       {

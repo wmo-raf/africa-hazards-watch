@@ -1,6 +1,6 @@
 import request from "utils/request";
 
-const GSKY_WPS_URL = "http://localhost/data-api/v1/gsky/timeseries";
+const GSKY_WPS_URL = "http://197.254.13.228:8081/data-api/v1/gsky/timeseries";
 
 export const fetchGskyWps = (
   identifier,

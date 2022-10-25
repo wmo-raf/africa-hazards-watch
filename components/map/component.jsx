@@ -22,6 +22,7 @@ import Attributions from "./components/attributions";
 
 // Components
 import LayerManagerWrapper from "./components/layer-manager";
+import { pulsingDot } from "./mapImages";
 
 // Styles
 import "./styles.scss";
@@ -237,6 +238,10 @@ class MapComponent extends Component {
     if (this.map) {
       this.map.once("styledata", this.onStyleLoad);
     }
+
+    // add images
+
+    map.addImage("pulsing-dot", pulsingDot, { pixelRatio: 2 });
   };
 
   onClick = (e) => {

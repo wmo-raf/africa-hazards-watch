@@ -39,6 +39,7 @@ class LayerUpdateProvider extends PureComponent {
       getData,
       setMapSettings,
       setTimestamps,
+      getCurrentLayerTime,
       setGeojsonData,
       activeDatasets,
       setLayerUpdatingStatus,
@@ -60,7 +61,13 @@ class LayerUpdateProvider extends PureComponent {
         .then((timestamps) => {
           setTimestamps({ [layer]: timestamps });
 
-          const newParam = { time: timestamps[timestamps.length - 1] };
+          const newParams = { time: timestamps[timestamps.length - 1] };
+
+          if (getCurrentLayerTime) {
+            const newTime = getCurrentLayerTime(timestamps);
+
+            newParams.time = newTime;
+          }
 
           setMapSettings({
             datasets: activeDatasets.map((l) => {
@@ -68,7 +75,7 @@ class LayerUpdateProvider extends PureComponent {
               if (l.layers.includes(layer)) {
                 dataset.params = {
                   ...dataset.params,
-                  ...newParam,
+                  ...newParams,
                 };
               }
               return dataset;
@@ -115,6 +122,7 @@ class LayerUpdateProvider extends PureComponent {
           }
         })
         .catch((err) => {
+          console.log(err);
           setLayerUpdatingStatus({ [layer]: false });
           setLayerLoadingStatus({ [layer]: false });
         });

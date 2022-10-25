@@ -1,12 +1,17 @@
+const category = "alerts";
+const subCategory = "alerts";
+
 export default [
   {
     id: "cap_alerts",
     dataset: "cap_alerts",
-    name: "Show CAP Alerts",
+    name: "Severe Weather Alerts",
     layer: "cap_alerts",
-    initialVisible: true,
+    initialVisible: false,
     isCapAlert: true,
     metadata: "",
+    category: category,
+    sub_category: subCategory,
     layers: [
       {
         id: "cap_alerts",
@@ -17,7 +22,7 @@ export default [
           type: "vector",
           source: {
             type: "geojson",
-            data: { type: "FeatureCollection", features: [] },
+            data: "http://127.0.0.1:3200/api/v1/alerts",
           },
           render: {
             layers: [

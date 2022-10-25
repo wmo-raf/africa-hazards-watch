@@ -99,7 +99,7 @@ class ClimateChangeWidgets extends Component {
       }, {})
     );
 
-    const startDateTimeParam = "1979-01-01T00:00";
+    const startDateTimeParam = "1959-01-01T00:00";
 
     // get up to last year dec
     const endDateTime = Number(new Date().getFullYear() - 1);

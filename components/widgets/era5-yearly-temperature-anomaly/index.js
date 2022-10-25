@@ -52,7 +52,7 @@ export default {
       isAnalysis,
     } = params;
 
-    const startDateTimeParam = "1959-01-01T00:00";
+    const startDateTimeParam = "1979-01-01T00:00";
 
     // get up to last year dec
     const endDateTime = Number(new Date().getFullYear() - 1);
@@ -80,7 +80,7 @@ export default {
         startDateTimeParam,
         endDateTimeParam,
         token
-      );
+      ).then((res) => res.data);
     } else {
       const feature = geojson && geojson.features ? geojson.features[0] : {};
 
@@ -103,8 +103,15 @@ export default {
         startDateTimeParam,
         endDateTimeParam,
         token
-      );
+      ).then((res) => res.data);
     }
   },
   getWidgetProps,
+  detailReport: {
+    point: {
+      visible: ["analysis"],
+      linkTemplate: "/topics/climate-change/point/{adm0}/{adm1}",
+      locationParams: ["adm0", "adm1"],
+    },
+  },
 };

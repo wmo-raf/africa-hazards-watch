@@ -25,11 +25,13 @@ export const fetchSections = createThunkAction(
           category: s.title,
           id: s.id,
           icon: s.icon,
-          subCategories: s.sub_categories.map((subcat) => ({
-            id: subcat.id,
-            title: subcat.title,
-            slug: subcat.id,
-          })),
+          subCategories: s.sub_categories
+            .filter((s) => s.active)
+            .map((subcat) => ({
+              id: subcat.id,
+              title: subcat.title,
+              slug: subcat.id,
+            })),
         }));
 
     dispatch(setSections(sections));

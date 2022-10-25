@@ -81,7 +81,7 @@ export default {
         startDateTimeParam,
         endDateTimeParam,
         token
-      );
+      ).then((res) => res.data);
     } else {
       const feature = geojson && geojson.features ? geojson.features[0] : {};
 
@@ -104,7 +104,7 @@ export default {
         startDateTimeParam,
         endDateTimeParam,
         token
-      );
+      ).then((res) => res.data);
     }
   },
   getWidgetProps,

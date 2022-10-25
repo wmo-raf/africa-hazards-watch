@@ -20,17 +20,19 @@ export const parseData = createSelector(
   (data, colors) => {
     if (!data) return null;
 
-    const byYear = data.reduce((all, item) => {
-      const date = parseISO(item.date);
-      const year = date.getFullYear();
-      const dValue = { value: item.value };
-      if (all[year]) {
-        all[year].push(dValue);
-      } else {
-        all[year] = [dValue];
-      }
-      return all;
-    }, {});
+    const byYear =
+      data &&
+      data.reduce((all, item) => {
+        const date = parseISO(item.date);
+        const year = date.getFullYear();
+        const dValue = { value: item.value };
+        if (all[year]) {
+          all[year].push(dValue);
+        } else {
+          all[year] = [dValue];
+        }
+        return all;
+      }, {});
 
     const dataByYear = Object.keys(byYear).reduce((all, year) => {
       const mean = byYear[year].reduce((avg, item, _, { length }) => {

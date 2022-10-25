@@ -1,11 +1,11 @@
 import { fetchTimestamps } from "services/timestamps";
 
-import { GFS_PRECIPITATION_FORECAST } from "data/layers";
+import { GFS_SUNSHINE } from "data/layers";
 
-const dataPath = "/gskydata/gfs/gfs-precipitation-1-hr";
+const dataPath = "/gskydata/gfs/gfs-sunshine-1-hr";
 
 export default {
-  layer: GFS_PRECIPITATION_FORECAST,
+  layer: GFS_SUNSHINE,
   getTimestamps: (params = {}, token) => {
     return fetchTimestamps(dataPath).then((res) => {
       const timestamps = (res.data && res.data.timestamps) || [];

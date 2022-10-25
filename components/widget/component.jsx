@@ -5,6 +5,7 @@ import cx from "classnames";
 import WidgetHeader from "./components/widget-header";
 import WidgetBody from "./components/widget-body";
 import WidgetFooter from "./components/widget-footer";
+import WidgetDetailButton from "./components/widget-detail-report-button";
 
 import "./styles.scss";
 
@@ -126,6 +127,7 @@ class Widget extends PureComponent {
       proxyOn,
       customComponent,
       authenticated,
+      detailReport,
     } = this.props;
 
     const { main } = colors || {};
@@ -209,6 +211,11 @@ class Widget extends PureComponent {
           settingsBtnConfig={settingsBtnConfig}
           customComponent={customComponent}
         />
+
+        {detailReport && (
+          <WidgetDetailButton detailReport={detailReport} location={location} />
+        )}
+
         {sentence && data && (
           <WidgetFooter
             showAttributionLink={showAttributionLink}

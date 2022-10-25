@@ -4,7 +4,7 @@ import { parseISO, format, addDays } from "date-fns";
 const datasetName = "Monthly Total Precipitation Average";
 const layerName = "era5monthly_precipitation_1_day";
 const metadataId = "0cf9e8d5-42eb-426c-811b-e89661eb2ff3";
-const dataPath = "/gskydata/mdi/era5monthly-precipitation-1-day";
+const dataPath = "/gskydata/era5/era5monthly-precipitation-1-day";
 
 const category = 2;
 const subCategory = 1;
@@ -38,7 +38,7 @@ const generateLayers = (timestamps = []) => {
         source: {
           type: "raster",
           tiles: [
-            `http://localhost/ows/?service=WMS&request=GetMap&version=1.1.1&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time={time}&layers=${layerName}`,
+            `http://197.254.13.228:8081/ows/era5?service=WMS&request=GetMap&version=1.1.1&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time={time}&layers=${layerName}`,
           ],
           minzoom: 3,
           maxzoom: 12,
