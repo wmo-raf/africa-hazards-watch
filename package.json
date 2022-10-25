@@ -3,7 +3,7 @@
   "version": "6.4.5",
   "description": "Africa Hazards Watch",
   "engines": {
-    "node": "14.19.1"
+    "node": ">=14"
   },
   "scripts": {
     "dev": "NODE_OPTIONS=--max_old_space_size=4096 next",
