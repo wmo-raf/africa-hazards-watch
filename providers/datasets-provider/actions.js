@@ -48,11 +48,14 @@ export const fetchDatasets = createThunkAction(
 
           const { query } = getState().location;
 
-          // set default visible datasets when no layer in map url state
-          if (
-            !defined(query) ||
-            (!defined(query.map) && !!initialVisibleDatasets.length)
-          ) {
+          const hasDatasetsInUrlState =
+            query &&
+            query.map &&
+            query.map.datasets &&
+            !!query.map.datasets.length;
+
+          // set default visible datasets when no datasets in map url state
+          if (!hasDatasetsInUrlState && !!initialVisibleDatasets.length) {
             const newDatasets = [...currentActiveDatasets].concat(
               initialVisibleDatasets.reduce((all, dataset) => {
                 const config = {
