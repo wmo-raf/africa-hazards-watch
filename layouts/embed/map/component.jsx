@@ -1,6 +1,6 @@
 import MapPage from 'layouts/map';
 
-import ahwLogo from 'assets/logos/ahw.png';
+import ahwLogo from 'assets/logos/logo.png';
 
 import './styles.scss';
 
