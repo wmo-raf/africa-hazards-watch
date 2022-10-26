@@ -19,7 +19,9 @@ export default [
           type: "raster",
           source: {
             type: "raster",
-            tiles: ["http://localhost:3005/tiles/population/{z}/{x}/{y}.png"],
+            tiles: [
+              "http://197.254.13.228:8084/data/population/{z}/{x}/{y}.png",
+            ],
             // scheme: "tms",
           },
         },
