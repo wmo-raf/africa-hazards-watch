@@ -3,7 +3,7 @@ import React from "react";
 import Document, { Html, Main, NextScript, Head } from "next/document";
 import sprite from "svg-sprite-loader/runtime/sprite.build";
 
-import { mediaStyles } from "hw-components";
+import { mediaStyles } from "@erick-otenyo/hw-components";
 
 const isProduction = process.env.NODE_ENV === "production";
 

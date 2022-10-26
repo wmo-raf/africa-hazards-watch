@@ -2,7 +2,7 @@ import Cover from "components/cover";
 import LocationProvider from "providers/location-provider";
 import LocationSelector from "../components/location-selector";
 
-import { Row, Column, Desktop, Mobile } from "hw-components";
+import { Row, Column, Desktop, Mobile } from "@erick-otenyo/hw-components";
 import Widgets from "./widgets";
 
 import bgImage from "../assets/africa-temperature.png";

@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
-import Head from 'next/head';
+import { useState, useEffect } from "react";
+import Head from "next/head";
 
-import { CookiesBanner } from 'hw-components';
+import { CookiesBanner } from "@erick-otenyo/hw-components";
 
-import { trackEvent, initAnalytics, trackPage } from 'utils/analytics';
-import { getAgreedCookies, setAgreedCookies } from 'utils/cookies';
+import { trackEvent, initAnalytics, trackPage } from "utils/analytics";
+import { getAgreedCookies, setAgreedCookies } from "utils/cookies";
 
-import './styles.scss';
+import "./styles.scss";
 
 const Cookies = () => {
   const [accepted, setAccepted] = useState(false);
@@ -25,9 +25,9 @@ const Cookies = () => {
     initAnalytics();
     trackPage();
     trackEvent({
-      category: 'Cookies banner',
-      action: 'User accepts cookies',
-      label: 'cookies',
+      category: "Cookies banner",
+      action: "User accepts cookies",
+      label: "cookies",
     });
   };
   return (

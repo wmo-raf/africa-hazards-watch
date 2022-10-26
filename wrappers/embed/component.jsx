@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
 
-import { Loader, MediaContextProvider, Button } from 'hw-components';
+import { Loader, MediaContextProvider, Button } from "@erick-otenyo/hw-components";
 
 import { useTrackPage } from 'utils/analytics';
 import { useSetLanguage } from 'utils/lang';

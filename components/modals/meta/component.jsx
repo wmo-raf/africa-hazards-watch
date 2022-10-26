@@ -6,7 +6,7 @@ import moment from 'moment';
 import ReactHtmlParser from 'react-html-parser';
 import { trackEvent } from 'utils/analytics';
 
-import { Button, NoContent } from 'hw-components';
+import { Button, NoContent } from "@erick-otenyo/hw-components";
 
 import Modal from 'components/modal';
 

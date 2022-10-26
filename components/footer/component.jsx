@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Footer as FooterComponent } from "hw-components";
+import { Footer as FooterComponent } from "@erick-otenyo/hw-components";
 
 import config from "./config";
 import partners from "./partners";

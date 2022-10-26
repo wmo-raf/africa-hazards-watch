@@ -6,7 +6,7 @@ import isEqual from "lodash/isEqual";
 
 import Loader from "components/ui/loader";
 
-import { Row, Column, Desktop, Mobile } from "hw-components";
+import { Row, Column, Desktop, Mobile } from "@erick-otenyo/hw-components";
 
 import YearlyTemperature from "./yearly-temperature";
 import YearlyPrecipitation from "./yearly-precipitation/component";

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import { Row, Column, Desktop } from 'hw-components';
+import { Row, Column, Desktop } from "@erick-otenyo/hw-components";
 
 import BasemapButton from '../basemap-button';
 

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Dropdown from "components/ui/dropdown";
 import cx from "classnames";
 
-import { Row, Column, Button, Mobile, Desktop } from "hw-components";
+import { Row, Column, Button, Mobile, Desktop } from "@erick-otenyo/hw-components";
 
 import Icon from "components/ui/icon";
 import Toggle from "components/ui/toggle";

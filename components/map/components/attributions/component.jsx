@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 
-import { Button } from "hw-components";
+import { Button } from "@erick-otenyo/hw-components";
 
 import Icon from "components/ui/icon";
 

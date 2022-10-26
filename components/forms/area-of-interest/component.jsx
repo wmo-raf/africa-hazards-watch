@@ -4,7 +4,7 @@ import { Form } from 'react-final-form';
 import { languages } from 'utils/lang';
 import request from 'utils/request';
 
-import { Loader } from 'hw-components';
+import { Loader } from "@erick-otenyo/hw-components";
 
 import Input from 'components/forms/components/input';
 import InputTags from 'components/forms/components/input-tags';

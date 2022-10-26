@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import useRouter from "utils/router";
 import { checkLoggedIn } from "services/user";
 
-import { Header as HeaderComponent } from "hw-components";
+import { Header as HeaderComponent } from "@erick-otenyo/hw-components";
 
 import eahwLogo from "assets/logos/logo.png";
 import NavLink from "components/nav-link";

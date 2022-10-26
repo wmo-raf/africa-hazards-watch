@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 // import YouTube from 'react-youtube';
 import Link from "next/link";
 
-import { Desktop, Mobile, Carousel, Button, Row, Column } from "hw-components";
+import { Desktop, Mobile, Carousel, Button, Row, Column } from "@erick-otenyo/hw-components";
 
 import Cover from "components/cover";
 import Icon from "components/ui/icon";

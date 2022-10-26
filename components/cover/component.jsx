@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-import { Row, Column } from 'hw-components';
+import { Row, Column } from "@erick-otenyo/hw-components";
 
 import './styles.scss';
 

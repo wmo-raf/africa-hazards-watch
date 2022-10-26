@@ -1,6 +1,6 @@
 import { CancelToken, create } from "axios";
 
-import { EAHW_API, EAHW_CMS_API, PG_FEATURESERV_URL } from "utils/apis";
+import { HW_API, HW_CMS_API, PG_FEATURESERV_URL } from "utils/apis";
 
 const isServer = typeof window === "undefined";
 
@@ -10,12 +10,12 @@ const TIMEOUT = 50 * 1000;
 
 export const apiRequest = create({
   timeout: TIMEOUT,
-  baseURL: EAHW_API,
+  baseURL: HW_API,
 });
 
 export const apiAuthRequest = create({
   timeout: TIMEOUT,
-  baseURL: EAHW_API,
+  baseURL: HW_API,
   headers: {
     "content-type": "application/json",
     Authorization: `Bearer ${!isServer && localStorage.getItem("userToken")}`,
@@ -24,7 +24,7 @@ export const apiAuthRequest = create({
 
 export const cmsApiRequest = create({
   timeout: TIMEOUT,
-  baseURL: EAHW_CMS_API,
+  baseURL: HW_CMS_API,
 });
 
 export const nominatimGeocodingRequest = create({

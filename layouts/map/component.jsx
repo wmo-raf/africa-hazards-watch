@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
-import { Desktop, Mobile } from "hw-components";
+import { Desktop, Mobile } from "@erick-otenyo/hw-components";
 
 import SectionsProvider from "~/providers/sections-provider";
 import CountryDataProvider from "providers/country-data-provider";

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import { Loader, MediaContextProvider } from 'hw-components';
+import { Loader, MediaContextProvider } from "@erick-otenyo/hw-components";
 import cx from 'classnames';
 
 import { useTrackPage } from 'utils/analytics';

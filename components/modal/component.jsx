@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { trackEvent } from 'utils/analytics';
 
-import { Modal as ModalComponent } from 'hw-components';
+import { Modal as ModalComponent } from "@erick-otenyo/hw-components";
 
 const Modal = ({ children, ...props }) => (
   <ModalComponent

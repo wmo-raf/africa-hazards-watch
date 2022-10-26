@@ -4,7 +4,7 @@ import ReactHtmlParser from 'react-html-parser';
 
 import { resendSubscriptionConfirmation } from 'services/subscriptions';
 
-import { Loader, Button } from 'hw-components';
+import { Loader, Button } from "@erick-otenyo/hw-components";
 
 import Modal from 'components/modal';
 

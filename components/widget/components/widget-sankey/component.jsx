@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
 
-import { Desktop, Mobile } from 'hw-components';
+import { Desktop, Mobile } from "@erick-otenyo/hw-components";
 
 import SankeyChart from 'components/charts/sankey-chart';
 

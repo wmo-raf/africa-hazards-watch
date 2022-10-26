@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-import { Row, Column, Loader } from "hw-components";
+import { Row, Column, Loader } from "@erick-otenyo/hw-components";
 
 import AreasTable from "../areas-table";
 import NoAreas from "../no-areas";

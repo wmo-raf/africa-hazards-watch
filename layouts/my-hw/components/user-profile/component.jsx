@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import { Button } from 'hw-components';
+import { Button } from "@erick-otenyo/hw-components";
 
 import { logout } from 'services/user';
 

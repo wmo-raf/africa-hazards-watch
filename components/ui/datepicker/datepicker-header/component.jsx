@@ -2,7 +2,7 @@ import { getMonth, getYear, eachMonthOfInterval, format } from 'date-fns';
 import range from 'lodash/range';
 import PropTypes from 'prop-types';
 
-import { Button } from 'hw-components';
+import { Button } from "@erick-otenyo/hw-components";
 
 import Icon from 'components/ui/icon';
 import Dropdown from 'components/ui/dropdown';

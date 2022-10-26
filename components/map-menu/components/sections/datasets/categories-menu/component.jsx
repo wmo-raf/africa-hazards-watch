@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 
-import { Row, Column, Button } from "hw-components";
+import { Row, Column, Button } from "@erick-otenyo/hw-components";
 
 import Icon from "components/ui/icon";
 

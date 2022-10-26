@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 
-import { Loader } from 'hw-components';
+import { Loader } from "@erick-otenyo/hw-components";
 
 import { checkUserProfileFilled } from 'utils/user';
 

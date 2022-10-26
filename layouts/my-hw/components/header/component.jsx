@@ -1,4 +1,4 @@
-import { Row, Column } from "hw-components";
+import { Row, Column } from "@erick-otenyo/hw-components";
 
 import UserProfile from "../user-profile";
 

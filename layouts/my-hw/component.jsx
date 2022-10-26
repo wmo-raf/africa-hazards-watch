@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import PropTypes from "prop-types";
 
-import { Row, Column, Loader } from "hw-components";
+import { Row, Column, Loader } from "@erick-otenyo/hw-components";
 
 import ShareModal from "components/modals/share";
 import LoginForm from "components/forms/login";

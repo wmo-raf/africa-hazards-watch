@@ -1,4 +1,4 @@
-import { Row, Column, Button } from "hw-components";
+import { Row, Column, Button } from "@erick-otenyo/hw-components";
 
 import Link from "next/link";
 
