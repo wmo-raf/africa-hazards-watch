@@ -11,6 +11,10 @@ export const initialState = {
       interactions: {},
       selected: "",
     },
+    hoverInteraction: {
+      feature: null,
+      latlng: {},
+    },
   },
   settings: {
     center: {
@@ -119,6 +123,41 @@ const clearMapInteractions = (state) => ({
   },
 });
 
+const setMapHoverInteraction = (state, { payload }) => {
+  const hoverFeature = payload && {
+    id: payload.feature.id,
+    data: payload.feature.properties,
+    geometry: payload.feature.geometry,
+    source: payload.feature.source,
+    layer: payload.feature.layer,
+  };
+
+  return {
+    ...state,
+    data: {
+      ...state.data,
+      hoverInteraction: {
+        feature: hoverFeature,
+        latlng: {
+          lat: payload.lngLat[1],
+          lng: payload.lngLat[0],
+        },
+      },
+    },
+  };
+};
+
+const clearMapHoverInteraction = (state) => ({
+  ...state,
+  data: {
+    ...state.data,
+    hoverInteraction: {
+      feature: null,
+      latlng: null,
+    },
+  },
+});
+
 export default {
   [actions.setMapBasemap]: setMapBasemap,
   [actions.setMapLoading]: setMapLoading,
@@ -126,4 +165,6 @@ export default {
   [actions.setMapInteractions]: setMapInteractions,
   [actions.setMapInteractionSelected]: setMapInteractionSelected,
   [actions.clearMapInteractions]: clearMapInteractions,
+  [actions.setMapHoverInteraction]: setMapHoverInteraction,
+  [actions.clearMapHoverInteraction]: clearMapHoverInteraction,
 };

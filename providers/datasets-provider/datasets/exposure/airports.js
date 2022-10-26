@@ -71,7 +71,6 @@ export default [
             { column: "name", property: "Name" },
             { column: "type", property: "Type" },
           ],
-          type: "intersection",
         },
       },
     ],

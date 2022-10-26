@@ -17,6 +17,7 @@ import iconCrosshair from "assets/icons/crosshair.svg?sprite";
 
 import Scale from "./components/scale";
 import Popup from "./components/popup";
+import MapToolTip from "./components/map-tooltip";
 import Draw from "./components/draw";
 import Attributions from "./components/attributions";
 
@@ -35,10 +36,14 @@ class MapComponent extends Component {
     setMapSettings: PropTypes.func.isRequired,
     setMapInteractions: PropTypes.func.isRequired,
     clearMapInteractions: PropTypes.func.isRequired,
+    setMapHoverInteraction: PropTypes.func.isRequired,
+    clearMapHoverInteraction: PropTypes.func.isRequired,
+    hasHoverFeature: PropTypes.bool,
     mapLabels: PropTypes.bool,
     mapRoads: PropTypes.bool,
     location: PropTypes.object,
     interactiveLayerIds: PropTypes.array,
+    hoverableLayerIds: PropTypes.array,
     canBound: PropTypes.bool,
     stateBbox: PropTypes.array,
     geostoreBbox: PropTypes.array,
@@ -228,11 +233,11 @@ class MapComponent extends Component {
     this.setLabels();
     this.setRoads();
 
-    const mapBounds = this.map.getBounds().toArray();
+    // const mapBounds = this.map.getBounds().toArray();
 
-    setMapSettings({
-      mapBounds,
-    });
+    // setMapSettings({
+    //   mapBounds,
+    // });
 
     // Listeners
     if (this.map) {
@@ -249,6 +254,7 @@ class MapComponent extends Component {
     if (!drawing && e.features && e.features.length) {
       const { features, lngLat } = e;
       const { setMapInteractions } = this.props;
+
       setMapInteractions({
         features: features.map((f) => ({
           ...f,
@@ -263,6 +269,28 @@ class MapComponent extends Component {
       this.setState({ drawClicks: this.state.drawClicks + 1 });
     } else {
       clearMapInteractions();
+    }
+  };
+
+  onMouseMove = (e) => {
+    const {
+      hoverableLayerIds,
+      clearMapHoverInteraction,
+      hasHoverFeature,
+      setMapHoverInteraction,
+    } = this.props;
+
+    if (hoverableLayerIds && !!hoverableLayerIds.length) {
+      const features =
+        this.map &&
+        this.map.queryRenderedFeatures(e.point, { layers: hoverableLayerIds });
+      if (features && !!features.length) {
+        const { lngLat } = e;
+
+        setMapHoverInteraction({ feature: features[0], lngLat });
+      } else {
+        hasHoverFeature && clearMapHoverInteraction();
+      }
     }
   };
 
@@ -413,6 +441,7 @@ class MapComponent extends Component {
       minZoom,
       maxZoom,
       interactiveLayerIds,
+      hoverableLayerIds,
       drawing,
       loading,
       loadingMessage,
@@ -429,6 +458,11 @@ class MapComponent extends Component {
     } else {
       tipText = "Click to add a point or close shape.";
     }
+
+    const mapInteractiveLayerIds = [
+      ...interactiveLayerIds,
+      ...hoverableLayerIds,
+    ];
 
     return (
       <div
@@ -451,8 +485,9 @@ class MapComponent extends Component {
             bounds={this.state.bounds}
             onViewportChange={this.onViewportChange}
             onClick={this.onClick}
+            onMouseMove={this.onMouseMove}
             onLoad={this.onLoad}
-            interactiveLayerIds={interactiveLayerIds}
+            interactiveLayerIds={mapInteractiveLayerIds}
             attributionControl={false}
             minZoom={minZoom}
             maxZoom={maxZoom}
@@ -467,6 +502,10 @@ class MapComponent extends Component {
               <Fragment>
                 {/* POPUP */}
                 <Popup map={this.map} onClickAnalysis={onClickAnalysis} />
+
+                {/* Hover POPUP */}
+                <MapToolTip />
+
                 {/* LAYER MANAGER */}
                 <LayerManagerWrapper map={map} />
                 {/* DRAWING */}

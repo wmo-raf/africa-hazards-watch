@@ -70,6 +70,9 @@ export default [
                   "circle-radius": 5,
                 },
                 filter: ["==", "$type", "Point"],
+                metadata: {
+                  hoverable: true,
+                },
               },
             ],
           },
@@ -77,6 +80,22 @@ export default [
         legendConfig: {
           items: [],
           type: "basic",
+        },
+        hoverInteractionConfig: {
+          output: [
+            {
+              column: "date",
+              property: "Date",
+              type: "date",
+              format: "MMM dd, h b",
+              hideLabel: true,
+            },
+            {
+              column: "wind",
+              hideLabel: true,
+              units: "km/h",
+            },
+          ],
         },
       },
     ],

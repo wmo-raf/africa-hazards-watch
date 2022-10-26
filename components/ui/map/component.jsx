@@ -1,16 +1,16 @@
-import React, { Component, createRef } from 'react';
-import classnames from 'classnames';
-import PropTypes from 'prop-types';
+import React, { Component, createRef } from "react";
+import classnames from "classnames";
+import PropTypes from "prop-types";
 
-import isEqual from 'lodash/isEqual';
-import isEmpty from 'lodash/isEmpty';
+import isEqual from "lodash/isEqual";
+import isEmpty from "lodash/isEmpty";
 
-import ReactMapGL, { FlyToInterpolator, TRANSITION_EVENTS } from 'react-map-gl';
-import WebMercatorViewport from 'viewport-mercator-project';
+import ReactMapGL, { FlyToInterpolator, TRANSITION_EVENTS } from "react-map-gl";
+import WebMercatorViewport from "viewport-mercator-project";
 
-import { easeCubic } from 'd3-ease';
+import { easeCubic } from "d3-ease";
 
-import './styles.scss';
+import "./styles.scss";
 
 const DEFAULT_VIEWPORT = {
   zoom: 2,
@@ -78,9 +78,9 @@ class Map extends Component {
     onViewportChange: () => {},
     onLoad: () => {},
     getCursor: ({ isHovering, isDragging }) => {
-      if (isDragging) return 'grabbing';
-      if (isHovering) return 'pointer';
-      return 'grab';
+      if (isDragging) return "grabbing";
+      if (isHovering) return "pointer";
+      return "grab";
     },
   };
 
@@ -249,7 +249,7 @@ class Map extends Component {
       <div
         ref={this.mapContainer}
         className={classnames({
-          'c-mapbox-map': true,
+          "c-mapbox-map": true,
           [customClass]: !!customClass,
         })}
       >
@@ -281,7 +281,7 @@ class Map extends Component {
         >
           {loaded &&
             !!this.map &&
-            typeof children === 'function' &&
+            typeof children === "function" &&
             children(this.map)}
         </ReactMapGL>
       </div>

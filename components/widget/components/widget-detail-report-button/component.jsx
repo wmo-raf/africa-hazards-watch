@@ -30,8 +30,6 @@ class WidgetDetailButton extends PureComponent {
           if (location[param]) {
             const paramVal = Number(location[param]);
 
-            console.log(param, paramVal);
-
             const tpl = "{" + param + "}";
 
             link = link.replace(`${tpl}`, paramVal);

@@ -57,8 +57,6 @@ export default {
           }
         }
 
-        console.log(includeForecast);
-
         for (let index = 0; index < sortedTrack.length; index++) {
           const point = sortedTrack[index];
 

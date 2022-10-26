@@ -122,7 +122,6 @@ class LayerUpdateProvider extends PureComponent {
           }
         })
         .catch((err) => {
-          console.log(err);
           setLayerUpdatingStatus({ [layer]: false });
           setLayerLoadingStatus({ [layer]: false });
         });

@@ -193,6 +193,11 @@ class Popup extends Component {
     } = this.props;
     const { isBoundary } = selected || {};
 
+    // confirm if the selected layer has interactionConfig setup
+    if (selected && selected.layer && !selected.layer.interactionConfig) {
+      return null;
+    }
+
     if (showPopup && isBoundary && isDashboard) return null;
 
     return showPopup ? (

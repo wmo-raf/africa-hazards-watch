@@ -27,6 +27,8 @@ const getLocation = (state) => state.location;
 const selectLocation = (state) => state.location && state.location.payload;
 const selectLayersGeojsonData = (state) =>
   state.datasetsUpdate && state.datasetsUpdate.geojsonData;
+const selectHoverFeature = (state) =>
+  state.map && state.map.data.hoverInteraction.feature;
 
 const selectLayersUpdatingStatus = (state) =>
   state.datasetsUpdate && state.datasetsUpdate.layerUpdatingStatus;
@@ -539,6 +541,36 @@ export const getInteractiveLayerIds = createSelector(
   }
 );
 
+export const getHoverableLayerIds = createSelector(
+  getActiveLayers,
+  (layers) => {
+    if (isEmpty(layers)) return [];
+
+    const hoverableLayers = layers.filter(
+      (l) =>
+        !isEmpty(l.hoverInteractionConfig) &&
+        l.layerConfig &&
+        l.layerConfig.render &&
+        l.layerConfig.render.layers
+    );
+
+    return flatMap(
+      hoverableLayers.reduce((arr, layer) => {
+        const hoverLayers =
+          layer.layerConfig.render &&
+          layer.layerConfig.render.layers
+            .map((l, i) => ({ ...l, pIndex: i }))
+            .filter((l) => l.metadata && l.metadata.hoverable);
+
+        return [
+          ...arr,
+          hoverLayers.map((l, i) => `${layer.id}-${l.type}-${l.pIndex}`),
+        ];
+      }, [])
+    );
+  }
+);
+
 export const getInteractionsState = createSelector(
   [selectMapData],
   (mapData) => mapData && mapData.interactions
@@ -642,7 +674,9 @@ export const getMapProps = createStructuredSelector({
   stateBbox: getStateBbox,
   interaction: getInteractionSelected,
   interactiveLayerIds: getInteractiveLayerIds,
+  hoverableLayerIds: getHoverableLayerIds,
   basemap: getBasemap,
   lang: getActiveMapLang,
   location: selectLocation,
+  hasHoverFeature: selectHoverFeature,
 });
