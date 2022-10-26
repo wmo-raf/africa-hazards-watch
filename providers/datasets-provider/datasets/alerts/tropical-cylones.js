@@ -7,7 +7,7 @@ export default [
     dataset: "tropical_cyclones",
     name: "Tropical Cyclones",
     layer: "tropical_cyclones",
-    initialVisible: false,
+    initialVisible: true,
     metadata: "",
     category: category,
     sub_category: subCategory,

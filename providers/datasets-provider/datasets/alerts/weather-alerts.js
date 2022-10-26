@@ -7,7 +7,7 @@ export default [
     dataset: "cap_alerts",
     name: "Severe Weather Alerts",
     layer: "cap_alerts",
-    initialVisible: false,
+    initialVisible: true,
     isCapAlert: true,
     metadata: "",
     category: category,
@@ -22,7 +22,7 @@ export default [
           type: "vector",
           source: {
             type: "geojson",
-            data: "http://127.0.0.1:3200/api/v1/alerts",
+            data: "http://197.254.13.228:3200/api/v1/alerts",
           },
           render: {
             layers: [
