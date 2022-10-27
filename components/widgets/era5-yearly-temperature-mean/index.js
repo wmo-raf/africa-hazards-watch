@@ -13,7 +13,7 @@ import getWidgetProps from "./selectors";
 
 export default {
   widget: "era5monthly_temperature_2_m_widget",
-  title: "Yearly Temperature Change for {location}",
+  title: "Yearly Temperature Mean for {location}",
   categories: ["summary"],
   types: ["country", "geostore", "point"],
   admins: ["adm0", "adm1", "adm2"],
@@ -73,13 +73,14 @@ export default {
           },
         ],
       };
-      return fetchGskyWps(
-        wpsIdentifier,
-        featurePayload,
-        startDateTimeParam,
-        endDateTimeParam,
-        token
-      ).then((res) => res.data);
+      return fetchGskyWps({
+        identifier: wpsIdentifier,
+        feature: featurePayload,
+        startDateTimeParam: startDateTimeParam,
+        endDateTimeParam: endDateTimeParam,
+        owsNameSpace: "era5",
+        token: token,
+      }).then((res) => res.data);
     } else {
       const feature = geojson && geojson.features ? geojson.features[0] : {};
 
@@ -96,13 +97,14 @@ export default {
         ],
       };
 
-      return fetchGskyWps(
-        wpsIdentifier,
-        featurePayload,
-        startDateTimeParam,
-        endDateTimeParam,
-        token
-      ).then((res) => res.data);
+      return fetchGskyWps({
+        identifier: wpsIdentifier,
+        feature: featurePayload,
+        startDateTimeParam: startDateTimeParam,
+        endDateTimeParam: endDateTimeParam,
+        owsNameSpace: "era5",
+        token: token,
+      }).then((res) => res.data);
     }
   },
   getWidgetProps,

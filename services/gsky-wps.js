@@ -2,13 +2,14 @@ import request from "utils/request";
 
 const GSKY_WPS_URL = "http://197.254.13.228:8081/data-api/v1/gsky/timeseries";
 
-export const fetchGskyWps = (
+export const fetchGskyWps = ({
   identifier,
   feature,
   startDateTimeParam,
   endDateTimeParam,
-  token
-) => {
+  token,
+  owsNameSpace,
+}) => {
   const params = {
     identifier: identifier,
   };
@@ -19,6 +20,10 @@ export const fetchGskyWps = (
 
   if (endDateTimeParam) {
     params.end_datetime = endDateTimeParam;
+  }
+
+  if (owsNameSpace) {
+    params.ows_namespace = owsNameSpace;
   }
 
   return request

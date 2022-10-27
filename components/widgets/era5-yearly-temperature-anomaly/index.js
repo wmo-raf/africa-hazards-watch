@@ -37,7 +37,7 @@ export default {
     {
       dataset: ERA5_MONTHLY_SURFACE_TEMPERATURE_ANOMALY_DATASET,
       layers: [ERA5_MONTHLY_SURFACE_TEMPERATURE_ANOMALY],
-      keys: ["era5_anomaly"],
+      keys: ["era5_temperature_anomaly"],
     },
   ],
   getData: (params = {}, token) => {
@@ -52,7 +52,7 @@ export default {
       isAnalysis,
     } = params;
 
-    const startDateTimeParam = "1979-01-01T00:00";
+    const startDateTimeParam = "1959-01-01T00:00";
 
     // get up to last year dec
     const endDateTime = Number(new Date().getFullYear() - 1);
@@ -74,13 +74,14 @@ export default {
           },
         ],
       };
-      return fetchGskyWps(
-        wpsIdentifier,
-        featurePayload,
-        startDateTimeParam,
-        endDateTimeParam,
-        token
-      ).then((res) => res.data);
+      return fetchGskyWps({
+        identifier: wpsIdentifier,
+        feature: featurePayload,
+        startDateTimeParam: startDateTimeParam,
+        endDateTimeParam: endDateTimeParam,
+        owsNameSpace: "era5",
+        token: token,
+      }).then((res) => res.data);
     } else {
       const feature = geojson && geojson.features ? geojson.features[0] : {};
 
@@ -97,13 +98,14 @@ export default {
         ],
       };
 
-      return fetchGskyWps(
-        wpsIdentifier,
-        featurePayload,
-        startDateTimeParam,
-        endDateTimeParam,
-        token
-      ).then((res) => res.data);
+      return fetchGskyWps({
+        identifier: wpsIdentifier,
+        feature: featurePayload,
+        startDateTimeParam: startDateTimeParam,
+        endDateTimeParam: endDateTimeParam,
+        owsNameSpace: "era5",
+        token: token,
+      }).then((res) => res.data);
     }
   },
   getWidgetProps,

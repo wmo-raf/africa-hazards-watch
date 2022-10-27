@@ -1,6 +1,6 @@
 import { createSelector, createStructuredSelector } from "reselect";
+import { gskyWpsPrecipitationDataByYear } from "utils/data";
 import { formatNumber, formatWeekday } from "utils/format";
-import { parseISO, addDays } from "date-fns";
 
 const getData = (state) => state.data && state.data;
 const getCurrentLocation = (state) => state.locationLabel;
@@ -9,10 +9,10 @@ const getSentences = (state) => state.sentences;
 
 export const getColor = (val) => {
   if (val > 0) {
-    return "#c82808";
+    return "#38a090";
   }
 
-  return "#4582b5";
+  return "#c08729";
 };
 
 export const parseData = createSelector(
@@ -20,37 +20,12 @@ export const parseData = createSelector(
   (data, colors) => {
     if (!data) return null;
 
-    const byYear =
-      data &&
-      data.reduce((all, item) => {
-        const date = parseISO(item.date);
-        const year = date.getFullYear();
-        const dValue = { value: item.value };
-        if (all[year]) {
-          all[year].push(dValue);
-        } else {
-          all[year] = [dValue];
-        }
-        return all;
-      }, {});
-
-    const dataByYear = Object.keys(byYear).reduce((all, year) => {
-      const mean = byYear[year].reduce((avg, item, _, { length }) => {
-        return avg + item.value / length;
-      }, 0);
-
-      all.push({ year, mean, color: getColor(mean) });
-
-      return all;
-    }, []);
+    const dataByYear = gskyWpsPrecipitationDataByYear(data).map((v) => ({
+      ...v,
+      color: getColor(v.mean),
+    }));
 
     return dataByYear;
-
-    // return data.map((d) => ({
-    //   month: d.date,
-    //   value: d.value,
-    //   color: getColor(d.value),
-    // }));
   }
 );
 
@@ -66,7 +41,7 @@ const parseConfig = createSelector([getColors], (colors) => ({
       },
     },
   },
-  unit: " °C",
+  unit: " mm",
   yAxis: {
     yAxisId: "mean",
     domain: ["auto", "auto"],
@@ -83,8 +58,7 @@ const parseConfig = createSelector([getColors], (colors) => ({
     {
       key: "mean",
       label: "Anomaly",
-      unitFormat: (value) =>
-        formatNumber({ num: value, precision: 3, unit: " °C" }),
+      unitFormat: (value) => formatNumber({ num: value, unit: " mm" }),
     },
   ],
 }));

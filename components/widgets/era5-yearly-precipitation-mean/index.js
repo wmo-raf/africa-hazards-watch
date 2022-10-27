@@ -1,17 +1,19 @@
 import { fetchGskyWps } from "services/gsky-wps";
-import { parseISO, addDays } from "date-fns";
 
 import {
   POLITICAL_BOUNDARIES_DATASET,
-  GFS_PRECIPITATION_FORECAST_DATASET,
+  ERA5_MONTHLY_TOTAL_PRECIPITATION_MEAN_DATASET,
 } from "data/datasets";
-import { POLITICAL_BOUNDARIES, GFS_PRECIPITATION_FORECAST } from "data/layers";
+import {
+  POLITICAL_BOUNDARIES,
+  ERA5_MONTHLY_TOTAL_PRECIPITATION_MEAN,
+} from "data/layers";
 
 import getWidgetProps from "./selectors";
 
 export default {
-  widget: "gfs_precipitation_1hr_widget",
-  title: "Precipitation Forecast for {location}",
+  widget: "era5monthly_precipitation_widget",
+  title: "Yearly Precipitation Mean for {location}",
   categories: ["summary"],
   types: ["country", "geostore", "point"],
   admins: ["adm0", "adm1", "adm2"],
@@ -31,11 +33,10 @@ export default {
       layers: [POLITICAL_BOUNDARIES],
       boundary: true,
     },
-    // forecast
     {
-      dataset: GFS_PRECIPITATION_FORECAST_DATASET,
-      layers: [GFS_PRECIPITATION_FORECAST],
-      keys: ["forecast"],
+      dataset: ERA5_MONTHLY_TOTAL_PRECIPITATION_MEAN_DATASET,
+      layers: [ERA5_MONTHLY_TOTAL_PRECIPITATION_MEAN],
+      keys: ["era5_yearly_precipitation"],
     },
   ],
   getData: (params = {}, token) => {
@@ -50,16 +51,13 @@ export default {
       isAnalysis,
     } = params;
 
-    const { time } = params;
+    const startDateTimeParam = "1959-01-01T00:00";
 
-    const startDateTime = parseISO(time);
+    // get up to last year dec
+    const endDateTime = Number(new Date().getFullYear() - 1);
+    const endDateTimeParam = `${endDateTime}-12-31T00:00`;
 
-    const endDateTime = addDays(startDateTime, 5).toISOString();
-
-    const startDateTimeParam = time.substring(0, 16);
-    const endDateTimeParam = endDateTime.substring(0, 16);
-
-    const wpsIdentifier = "gfs_precipitation_1hr_GeometryDrill";
+    const wpsIdentifier = "era5monthly_precipitation_1_day";
 
     // if point, make a FeatureCollection and run analysis
     if (isPoint) {
@@ -80,7 +78,7 @@ export default {
         feature: featurePayload,
         startDateTimeParam: startDateTimeParam,
         endDateTimeParam: endDateTimeParam,
-        owsNameSpace: "gfs",
+        owsNameSpace: "era5",
         token: token,
       }).then((res) => res.data);
     } else {
@@ -104,7 +102,7 @@ export default {
         feature: featurePayload,
         startDateTimeParam: startDateTimeParam,
         endDateTimeParam: endDateTimeParam,
-        owsNameSpace: "gfs",
+        owsNameSpace: "era5",
         token: token,
       }).then((res) => res.data);
     }

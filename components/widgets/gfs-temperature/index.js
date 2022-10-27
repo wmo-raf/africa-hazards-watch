@@ -75,13 +75,14 @@ export default {
           },
         ],
       };
-      return fetchGskyWps(
-        wpsIdentifier,
-        featurePayload,
-        startDateTimeParam,
-        endDateTimeParam,
-        token
-      ).then((res) => res.data);
+      return fetchGskyWps({
+        identifier: wpsIdentifier,
+        feature: featurePayload,
+        startDateTimeParam: startDateTimeParam,
+        endDateTimeParam: endDateTimeParam,
+        owsNameSpace: "gfs",
+        token: token,
+      }).then((res) => res.data);
     } else {
       const feature = geojson && geojson.features ? geojson.features[0] : {};
 
@@ -98,13 +99,14 @@ export default {
         ],
       };
 
-      return fetchGskyWps(
-        wpsIdentifier,
-        featurePayload,
-        startDateTimeParam,
-        endDateTimeParam,
-        token
-      ).then((res) => res.data);
+      return fetchGskyWps({
+        identifier: wpsIdentifier,
+        feature: featurePayload,
+        startDateTimeParam: startDateTimeParam,
+        endDateTimeParam: endDateTimeParam,
+        owsNameSpace: "gfs",
+        token: token,
+      }).then((res) => res.data);
     }
   },
   getWidgetProps,

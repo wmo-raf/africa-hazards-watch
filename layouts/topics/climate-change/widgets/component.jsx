@@ -119,13 +119,14 @@ class ClimateChangeWidgets extends Component {
         ],
       };
 
-      return fetchGskyWps(
-        l.id,
-        featurePayload,
-        startDateTimeParam,
-        endDateTimeParam,
-        null
-      );
+      return fetchGskyWps({
+        identifier: l.id,
+        feature: featurePayload,
+        startDateTimeParam: startDateTimeParam,
+        endDateTimeParam: endDateTimeParam,
+        owsNameSpace: "era5",
+        token: null,
+      });
     });
 
     setClimateChangeDataLoading(true);

@@ -87,6 +87,12 @@ const generateLayers = (timestamps = []) => {
       },
       hidePastTimestamps: true, // we might need to hide past forecast
       data_path: dataPath,
+      analysisConfig: [
+        {
+          key: "era5_yearly_precipitation",
+          type: "admin",
+        },
+      ],
     },
   ];
 };

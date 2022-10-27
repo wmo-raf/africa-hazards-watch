@@ -72,7 +72,7 @@ const generateLayers = (timestamps = []) => {
       data_path: dataPath,
       analysisConfig: [
         {
-          key: "era5_anomaly",
+          key: "era5_temperature_anomaly",
           type: "admin",
         },
       ],
