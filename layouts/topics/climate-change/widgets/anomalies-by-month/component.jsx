@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import cx from "classnames";
+
 import HighChart from "components/highcharts";
 import {
   gskyWpsTemperatureAnomaliesByMonth,
@@ -6,6 +8,23 @@ import {
 } from "utils/data";
 
 import { toMonthName } from "utils/time";
+
+import "./styles.scss";
+
+const MONTHS_OPTIONS = [
+  { label: "Jan", value: "01" },
+  { label: "Feb", value: "02" },
+  { label: "Mar", value: "03" },
+  { label: "Apr", value: "04" },
+  { label: "May", value: "05" },
+  { label: "Jun", value: "06" },
+  { label: "Jul", value: "07" },
+  { label: "Aug", value: "08" },
+  { label: "Sep", value: "09" },
+  { label: "Oct", value: "10" },
+  { label: "Nov", value: "11" },
+  { label: "Dec", value: "12" },
+];
 
 const OPTIONS = {
   accessibility: {
@@ -247,16 +266,43 @@ class AnomaliesByMonth extends Component {
     chartOptions.yAxis = yAxis;
     chartOptions.series = series;
 
+    chartOptions.title.text = `${monthName} monthly anomalies for temperature and precipitation 1959-2022.`;
+
     chartOptions.subtitle.text = placeName;
 
     return chartOptions;
   };
 
+  setSelectedMonth = (month) => {
+    this.setState({ selectedMonth: month });
+  };
+
   render() {
     const chartOptions = this.getChartOptions();
 
+    const { selectedMonth } = this.state;
+
     if (chartOptions) {
-      return <HighChart options={chartOptions} />;
+      return (
+        <div className="widget-toolbar">
+          <div className="months-options">
+            {MONTHS_OPTIONS.map((m) => {
+              return (
+                <div
+                  className={cx("m-option", {
+                    active: m.value === selectedMonth,
+                  })}
+                  key={m.label}
+                  onClick={() => this.setSelectedMonth(m.value)}
+                >
+                  {m.label}
+                </div>
+              );
+            })}
+          </div>
+          <HighChart options={chartOptions} />
+        </div>
+      );
     }
 
     return null;
