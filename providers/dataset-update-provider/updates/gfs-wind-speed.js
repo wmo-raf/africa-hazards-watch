@@ -1,11 +1,11 @@
 import { fetchTimestamps } from "services/timestamps";
 
-import { GFS_WIND } from "data/layers";
+import { GFS_WIND_SPEED } from "data/layers";
 
-const dataPath = "/gskydata/gfs/gfs-wind-10-m";
+const dataPath = "/gskydata/gfs/gfs-wind-speed-10-m";
 
 export default {
-  layer: GFS_WIND,
+  layer: GFS_WIND_SPEED,
   getTimestamps: (params = {}, token) => {
     return fetchTimestamps(dataPath).then((res) => {
       const timestamps = (res.data && res.data.timestamps) || [];

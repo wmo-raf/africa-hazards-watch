@@ -5,7 +5,7 @@ import gfsPrecipitableWaterTotal from "./updates/gfs-precipitable-water-total";
 import gfsRelativeHumidity from "./updates/gfs-relative-humidity";
 import gfsSunshine from "./updates/gfs-sunshine";
 import gfsTemperature from "./updates/gfs-temperature";
-import gfsWind from "./updates/gfs-wind";
+import gfsWindSpeed from "./updates/gfs-wind-speed";
 
 import liveImageryNaturalColor from "./updates/live-imagery-natural-color";
 import liveImageryMultisensorPrecipitation from "./updates/live-imagery-multisensor-precipitation";
@@ -20,7 +20,7 @@ export default {
   gfsRelativeHumidity,
   gfsSunshine,
   gfsTemperature,
-  gfsWind,
+  gfsWindSpeed,
   liveImageryNaturalColor,
   capAlerts,
   liveImageryMultisensorPrecipitation,

@@ -1,9 +1,9 @@
-import { GFS_WIND } from "data/layers";
+import { GFS_WIND_SPEED } from "data/layers";
 
-const datasetName = "Wind Forecast ";
-const layerName = GFS_WIND;
+const datasetName = "Wind Forecast";
+const layerName = GFS_WIND_SPEED;
 const metadataId = "73c163c2-606c-4f27-85dc-4762268c8b9f";
-const timestampsDataPath = "/gskydata/gfs/gfs-wind-10-m";
+const timestampsDataPath = "/gskydata/gfs/gfs-wind-speed-10-m";
 
 const category = 1;
 const subCategory = 1;
@@ -45,7 +45,7 @@ export default [
         params: {
           time: "",
           clip_feature: "",
-          height: "gfs_wind_10_m",
+          height: "gfs_wind_speed_10_m",
         },
         paramsSelectorColumnView: true,
         paramsSelectorConfig: [
@@ -62,9 +62,9 @@ export default [
             required: true,
             type: "radio",
             options: [
-              { label: "Surface", value: "gfs_wind_10_m" },
-              { label: "Cloud - 500 mb", value: "gfs_wind_200_mb" },
-              { label: "Cruise - 200 mb", value: "gfs_wind_500_mb" },
+              { label: "Surface", value: "gfs_wind_speed_10_m" },
+              { label: "Cloud - 500 mb", value: "gfs_wind_speed_200_mb" },
+              { label: "Cruise - 200 mb", value: "gfs_wind_speed_500_mb" },
             ],
             sentence: "Height {selector}",
           },
