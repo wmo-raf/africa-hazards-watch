@@ -1,20 +1,22 @@
 const category = "alerts";
 const subCategory = "alerts";
 
+const layerId = "tropical_cyclones";
+
 export default [
   {
-    id: "tropical_cyclones",
-    dataset: "tropical_cyclones",
+    id: layerId,
+    dataset: layerId,
     name: "Tropical Cyclones",
-    layer: "tropical_cyclones",
+    layer: layerId,
     initialVisible: true,
-    metadata: "",
+    metadata: layerId,
     category: category,
     sub_category: subCategory,
     layers: [
       {
-        id: "tropical_cyclones",
-        dataset: "tropical_cyclones",
+        id: layerId,
+        dataset: layerId,
         name: "Tropical Cyclones",
         type: "layer",
         layerConfig: {
@@ -78,7 +80,36 @@ export default [
           },
         },
         legendConfig: {
-          items: [],
+          items: [
+            {
+              name: "Tropical Depression",
+              color: "#8fc2f2",
+            },
+            {
+              name: "Tropical Storm",
+              color: "#3f85d3",
+            },
+            {
+              name: "Category 1 - Very dangerous winds",
+              color: "#f9ff05",
+            },
+            {
+              name: "Category 2 - Extremely dangerous winds",
+              color: "#f49e08",
+            },
+            {
+              name: "Category 3 - Devastating damage",
+              color: "#dd0101",
+            },
+            {
+              name: "Category 4 - Catastrophic damage",
+              color: "#f701fc",
+            },
+            {
+              name: "Category 5 - Catastrophic damage",
+              color: "#8b0088",
+            },
+          ],
           type: "basic",
         },
         hoverInteractionConfig: {
