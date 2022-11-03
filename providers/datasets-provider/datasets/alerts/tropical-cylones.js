@@ -109,6 +109,16 @@ export default [
               name: "Category 5 - Catastrophic damage",
               color: "#8b0088",
             },
+            {
+              name: "Solid line - Observed Path",
+              color: "#3f85d3",
+              icon: "line",
+            },
+            {
+              name: "Dashed line - Forecasted Path",
+              color: "#3f85d3",
+              icon: "/assets/layer-icons/dashed-line.svg",
+            },
           ],
           type: "basic",
         },
