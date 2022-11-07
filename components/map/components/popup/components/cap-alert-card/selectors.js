@@ -6,29 +6,29 @@ const getInteractionData = (state, { data }) => data;
 export const SEVERITY_MAPPING = {
   4: {
     color: "#d72f2a",
-    name: "Extreme Severity",
+    name: "Extreme",
     value: 4,
   },
   3: {
     color: "#fe9900",
-    name: "Severe Severity",
+    name: "Severe",
     value: 3,
   },
   2: {
     color: "#ffff00",
     fontColor: "#000",
-    name: "Moderate Severity",
+    name: "Moderate",
     value: 2,
   },
   1: {
     color: "#03ffff",
     fontColor: "#000",
-    name: "Minor Severity",
+    name: "Minor",
     value: 1,
   },
   uknown: {
     color: "#3366ff",
-    name: "Unknown Severity",
+    name: "Unknown",
     value: 0,
   },
 };
