@@ -490,7 +490,7 @@ export const getActiveLayers = createSelector(
     return filteredLayers.concat({
       id: geojson.id,
       name: "Geojson",
-      config: {
+      layerConfig: {
         type: "geojson",
         source: {
           data: geojson,
@@ -505,6 +505,9 @@ export const getActiveLayers = createSelector(
                 "circle-radius": 8,
                 "circle-stroke-width": 4,
                 "circle-stroke-color": "#4e8ecb",
+              },
+              metadata: {
+                position: "top",
               },
             },
           ],
