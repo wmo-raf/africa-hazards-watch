@@ -51,7 +51,7 @@ class WidgetDetailButton extends PureComponent {
     if (link) {
       return (
         <div className="c-widget-detail-report-btn">
-          <Button theme="theme-button-small" link={link}>
+          <Button theme="theme-button-small" extLink={link}>
             View detailed report
           </Button>
         </div>
