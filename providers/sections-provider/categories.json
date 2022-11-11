@@ -91,13 +91,16 @@
         "title": "Floods"
       },
       {
+        "title": "Environment",
         "active": true,
         "icon": "env",
         "id": 6,
         "info": null,
-        "order": 6,
-        "sub_categories": [],
-        "title": "Environment"
+        "sub_categories": [{
+          "active": true,
+          "id": 1,
+          "title": "LandCover"
+        }]
       },
       {
         "active": true,

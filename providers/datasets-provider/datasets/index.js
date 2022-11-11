@@ -3,6 +3,7 @@ import weather from "./weather";
 import climate from "./climate";
 import foodSecurity from "./food-security";
 import alerts from "./alerts";
+import environment from "./environment";
 
 import exposure from "./exposure";
 import { isFunction } from "lodash";
@@ -13,6 +14,7 @@ const allDatasets = [
   ...weather,
   ...climate,
   ...foodSecurity,
+  ...environment,
   ...exposure,
 ];
 
