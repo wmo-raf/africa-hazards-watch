@@ -107,7 +107,7 @@ class WidgetContainer extends Component {
   }
 
   handleGetWidgetData = (params) => {
-    const { location } = this.props;
+    const { location, requiresTime } = this.props;
 
     const isPoint = Boolean(
       location.type &&
@@ -125,6 +125,10 @@ class WidgetContainer extends Component {
       this.setState({ loading: true, error: false });
 
       let canFetch = true;
+
+      if (requiresTime && !params.time) {
+        canFetch = false;
+      }
 
       if (location.type !== "point" && isEmpty(geostore)) {
         canFetch = false;

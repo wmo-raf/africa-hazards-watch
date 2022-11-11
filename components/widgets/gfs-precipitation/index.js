@@ -25,6 +25,8 @@ export default {
   settings: {
     time: "",
   },
+  refetchKeys: ["time"],
+  requiresTime: true,
   datasets: [
     {
       dataset: POLITICAL_BOUNDARIES_DATASET,

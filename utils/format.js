@@ -3,9 +3,11 @@ import { parseISO, format as dateFormat } from "date-fns";
 
 export const formatYear = (day) => dateFormat(parseISO(day), "yyyy");
 
-export const formatDate = (day) => dateFormat(parseISO(day), "MMM dd");
+export const formatDate = (day) => {
+  return dateFormat(parseISO(day), "MMM dd");
+};
 
-export const formatHour = (day) => dateFormat(parseISO(day), "MMM dd HH");
+export const formatHour = (day) => dateFormat(parseISO(day), "MMM dd HH:mm");
 export const formatWeekday = (day) => dateFormat(parseISO(day), "ccc HH:mm");
 
 export const formatMonth = (day) => dateFormat(parseISO(day), "MMM");

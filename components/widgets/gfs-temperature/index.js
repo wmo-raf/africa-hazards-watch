@@ -35,6 +35,8 @@ export default {
       keys: ["temperature_forecast"],
     },
   ],
+  refetchKeys: ["time"],
+  requiresTime: true,
   settings: {
     time: "",
   },
