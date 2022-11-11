@@ -89,6 +89,7 @@ export const getCardData = createSelector(
   [getInteractionData],
   (interaction = {}) => {
     const { data, layer } = interaction;
+
     const { interactionConfig } = layer || {};
 
     const properties = interactionConfig && data.properties;

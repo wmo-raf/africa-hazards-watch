@@ -53,6 +53,13 @@ $summary-color: #aaa;
       display: flex;
       align-items: center;
 
+      .cap-source-logo {
+        height: 70px;
+        width: 100px;
+        object-fit: contain;
+        margin-left: 80px;
+      }
+
       .meta-icon {
         height: 14px;
         width: 14px;

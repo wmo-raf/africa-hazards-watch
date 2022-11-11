@@ -43,9 +43,7 @@ class PointSelector extends PureComponent {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    // console.log(this.state);
-  }
+  componentDidUpdate(prevProps, prevState) {}
 
   handleInputChange = (option) => {
     const { onChange, setSelectedPlaceName } = this.props;

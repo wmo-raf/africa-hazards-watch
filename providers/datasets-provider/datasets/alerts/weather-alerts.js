@@ -41,7 +41,7 @@ export default [
                     "#03ffff",
                     "#3366ff",
                   ],
-                  "fill-opacity": 0.8,
+                  "fill-opacity": 1,
                 },
                 type: "fill",
                 // filter: ["==", "$type", "Polygon"],

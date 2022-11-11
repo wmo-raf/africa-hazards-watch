@@ -28,6 +28,10 @@ const TOP_META = {
       title: "Source",
       icon: infoIcon,
     },
+    logo: {
+      icon: false,
+      image: true,
+    },
   },
 };
 
@@ -46,9 +50,9 @@ class CapAlertCard extends PureComponent {
   renderCountryInfo = (key, value) => {
     const meta = key.split(".").reduce((a, b) => a[b], TOP_META.sourceInfo);
 
-    if (!meta.title) {
-      return null;
-    }
+    // if (!meta.title) {
+    //   return null;
+    // }
 
     return (
       <div key={key} className="meta-item">
@@ -57,8 +61,12 @@ class CapAlertCard extends PureComponent {
             <Icon className="meta-icon" icon={meta.icon} />
           </span>
         )}
-        <span className="meta-header">{meta.title} :</span>
-        <span>{value.name ? value.name : value} </span>
+        {meta.title && <span className="meta-header">{meta.title} :</span>}
+        {meta.image && value ? (
+          <img className="cap-source-logo" src={value} />
+        ) : (
+          <span>{value.name ? value.name : value} </span>
+        )}
       </div>
     );
   };
@@ -77,7 +85,7 @@ class CapAlertCard extends PureComponent {
             <Icon className="meta-icon" icon={meta.icon} />
           </span>
         )}
-        <span className="meta-header">{meta.title} :</span>
+        {meta.title && <span className="meta-header">{meta.title} :</span>}
         <span>{value.name ? value.name : value} </span>
       </div>
     );
