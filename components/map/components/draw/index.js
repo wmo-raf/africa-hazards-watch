@@ -1,12 +1,14 @@
-import { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import isEqual from 'lodash/isEqual';
-import MapboxDraw from '@mapbox/mapbox-gl-draw';
-import { trackEvent } from 'utils/analytics';
+import { PureComponent } from "react";
+import PropTypes from "prop-types";
+import isEqual from "lodash/isEqual";
+import MapboxDraw from "@mapbox/mapbox-gl-draw";
+import DrawRectangle from "mapbox-gl-draw-rectangle-mode";
 
-import './styles.scss';
+import { trackEvent } from "utils/analytics";
 
-import drawConfig from './config';
+import "./styles.scss";
+
+import drawConfig from "./config";
 
 class Draw extends PureComponent {
   componentDidMount() {
@@ -30,31 +32,35 @@ class Draw extends PureComponent {
   }
 
   initDrawing = () => {
-    const { map, onDrawComplete } = this.props;
+    const { map, onDrawComplete, drawingMode } = this.props;
 
-    this.draw = new MapboxDraw(drawConfig);
+    const modes = MapboxDraw.modes;
+    modes.draw_rectangle = DrawRectangle;
+
+    this.draw = new MapboxDraw({ ...drawConfig, modes: modes });
+
     map.addControl(this.draw);
 
     if (this.draw.changeMode) {
-      this.draw.changeMode('draw_polygon');
+      this.draw.changeMode(drawingMode);
     }
 
-    map.on('draw.create', (e) => {
+    map.on("draw.create", (e) => {
       const geoJSON = e.features && e.features[0];
       if (geoJSON) {
         onDrawComplete(geoJSON);
         trackEvent({
-          category: 'Map analysis',
-          action: 'User drawn shape',
-          label: 'Complete'
-        })
+          category: "Map analysis",
+          action: "User drawn shape",
+          label: "Complete",
+        });
       }
     });
   };
 
   closeDrawing = () => {
     const { map } = this.props;
-    map.off('draw.create');
+    map.off("draw.create");
     map.removeControl(this.draw);
   };
 

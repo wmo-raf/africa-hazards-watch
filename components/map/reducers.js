@@ -34,6 +34,7 @@ export const initialState = {
     bbox: [],
     canBound: true,
     drawing: false,
+    drawingMode: "draw_polygon",
     mapBounds: [],
     datasets: [
       // admin boundaries
