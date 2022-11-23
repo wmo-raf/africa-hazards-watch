@@ -157,8 +157,19 @@ class Legend extends PureComponent {
     });
   };
 
-  onChangeParam = (currentLayer, newParam) => {
+  onChangeParam = (currentLayer, newParam, paramConfig) => {
     const { setMapSettings, activeDatasets } = this.props;
+
+    const linkedParams = {};
+
+    // check for linkedParams that should change
+    if (paramConfig) {
+      if (paramConfig.linkedParams) {
+        Object.keys(paramConfig.linkedParams).forEach((key) => {
+          linkedParams[key] = paramConfig.linkedParams[key];
+        });
+      }
+    }
 
     setMapSettings({
       datasets: activeDatasets.map((l) => {
@@ -167,6 +178,7 @@ class Legend extends PureComponent {
           dataset.params = {
             ...dataset.params,
             ...newParam,
+            ...linkedParams,
           };
         }
         return dataset;

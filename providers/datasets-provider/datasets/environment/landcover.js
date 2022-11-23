@@ -43,6 +43,7 @@ export default [
         legendConfig: {
           type: "basic",
           items: [
+            { name: "Tree Cover", color: "#006400" },
             {
               name: "Shrubland",
               color: "#ffbb22",

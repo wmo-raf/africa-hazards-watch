@@ -22,7 +22,7 @@
             "active": true,
             "id": 1,
             "sort_order": 1,
-            "title": "Hourly Forecast"
+            "title": "Short Range Forecast"
           },
           {
             "active": false,
