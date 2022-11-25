@@ -9,6 +9,14 @@ import gfsMeanSeaLevelPressure from "./gfs-mean-sea-level-pressure";
 // import gfsSunshine from "./gfs-sunshine";
 
 import longRangeForecast from "./long-range-forecast";
+import synopTemperature from "./observations/synop-air-temperature";
+import synopHumidity from "./observations/synop-humidity";
+import synopDewTemperature from "./observations/synop-dew-temperature";
+import synopWind from "./observations/synop-wind";
+import synopSkyCover from "./observations/synop-sky-cover";
+import synopCloudType from "./observations/synop-cloud-type";
+import synopCloudBaseHeight from "./observations/synop-cloud-base-height";
+import synopLiquidPrecipitation from "./observations/synop-liquid-precipitation";
 
 export default [
   ...precipitationForecast,
@@ -18,6 +26,14 @@ export default [
   ...gfsMeanSeaLevelPressure,
   ...liveImagery,
   ...longRangeForecast,
+  ...synopTemperature,
+  ...synopDewTemperature,
+  ...synopHumidity,
+  ...synopWind,
+  ...synopLiquidPrecipitation,
+  ...synopSkyCover,
+  ...synopCloudType,
+  ...synopCloudBaseHeight,
   // ...gfsPrecipitableWaterTotal,
   // ...gfsCloudWaterTotal,
   // ...gfsSunshine,

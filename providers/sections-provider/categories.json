@@ -18,7 +18,12 @@
         "id": 1,
         "info": null,
         "order": 1,
-        "sub_categories": [{
+        "sub_categories": [
+          {
+            "active": true,
+            "id": 4,
+            "title": "3 Hour SYNOP Observations"
+          },{
             "active": true,
             "id": 1,
             "sort_order": 1,
@@ -33,6 +38,8 @@
             "id": 2,
             "title": "Satellite Imagery"
           }
+
+
         ],
         "title": "Weather"
       },
