@@ -51,11 +51,14 @@ const generateLayers = (timestamps = []) => {
                   position: "top",
                 },
                 'layout': {
-                  'icon-image': ["concat", "okta-", ["get", "sky_cover"]],
+                  'icon-image': ["concat", "okta-", ["get", "sky_coverage"]],
                   'icon-size':
                   {
-                    'base': 1,
-                    'stops': [[2, 0.35], [6, 0.7]]
+                    base: 4,
+                    stops: [
+                      [2, 0.1],
+                      [22, 120],
+                    ],
                   },
                   'icon-allow-overlap': true,
                 }

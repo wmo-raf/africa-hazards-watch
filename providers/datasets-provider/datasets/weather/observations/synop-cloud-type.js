@@ -9,6 +9,14 @@ const category = 1;
 const subCategory = 4;
 const dataPath = "/cloud_type";
 
+const fmtClouds = (val) => {
+  if(val == '1'){
+    return 'cumulus'
+  }
+
+  return 'dont know'
+}
+
 const generateLayers = (timestamps = []) => {
   const latest = timestamps[timestamps.length - 1];
 
@@ -50,11 +58,14 @@ const generateLayers = (timestamps = []) => {
                   position: "top",
                 },
                 'layout': {
-                  'icon-image': ["concat", "cloud-", ["get", "cloud_type"]],
+                  'icon-image': ["concat", "cloud-",["get", "cloud_type"] ],
                   'icon-size':
                   {
-                    'base': 1,
-                    'stops': [[2, 0.35], [6, 0.7]]
+                    base: 4,
+                    stops: [
+                      [2, 0.1],
+                      [22, 120],
+                    ],
                   },
                   'icon-allow-overlap': true,
                 }
@@ -82,11 +93,25 @@ const generateLayers = (timestamps = []) => {
           },
         ],
         interactionConfig: {
+          intersect: true,
           output: [
             { column: "name", property: "Name" },
-            { column: "cloud_type", property: "Value" },
+            { column: "cloud_type", property: "Cloud Type", intersection: true },
           ],
         },
+        intersectionMap:{
+          0:'Cirrus',
+          1:'Cirrocumulus',
+          2:'Cirrostratus',
+          3:'Altocumulus',
+          4:'Altostratus',
+          5:'Nimbostratus',
+          6:'Stratocumulus',
+          7:'Stratus',
+          8:'Cumulus',
+          9:'Cumulonimbus',
+          10:'Cloud not visible owing to darkness, fog, duststorm, sandstorm, or other analogous phenonomena/sky obcured'
+        }
       },
     ]
   }
