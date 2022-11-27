@@ -34,6 +34,7 @@ export default [
   ...synopSkyCover,
   ...synopCloudType,
   ...synopCloudBaseHeight,
+
   // ...gfsPrecipitableWaterTotal,
   // ...gfsCloudWaterTotal,
   // ...gfsSunshine,

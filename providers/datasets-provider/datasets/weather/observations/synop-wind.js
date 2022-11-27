@@ -1,3 +1,14 @@
+import { fetchSynopTimestamps } from "services/timestamps";
+import { parseISO, format, addDays } from "date-fns";
+
+const datasetName = "Wind Speed & Direction";
+const layerName = "3_hour_wind";
+const metadataId = "60fcce77-8b70-4acf-b2a7-e18208db4cde";
+
+const category = 1;
+const subCategory = 4;
+const dataPath = "/wind_speed";
+
 const barbCutoffs = [0, 3, 8, 13, 18, 23, 28, 33, 38, 43, 48, 53, 58, 63, 68, 73, 78, 83, 87, 93, 97, 103, 107]
 
 const layers = []
@@ -42,63 +53,105 @@ for (let b = 0; b < barbCutoffs.length - 1; b++) {
     }
   })
 }
-export default [
-  {
-    name: "Wind Speed & Direction",
-    id: "3_hour_wind",
-    dataset: "3_hour_wind",
-    type: "dataset",
-    published: true,
-    status: "saved",
-    layer: "3_hour_wind",
-    citation: "GTS Synop, 3 Hourly",
-    category: 1,
-    sub_category: 4,
-    metadata: "ecf74a56-2106-441e-8932-44b68a57c197",
-    layers: [
-      {
-        id: "3_hour_wind",
-        dataset: "3_hour_wind",
-        name: "3 Hour Wind Speed & Direction",
-        type: "layer",
-        layerConfig: {
-          type: "vector",
-          source: {
-            tiles: [
-              "http://localhost:7800/public.hourly_wind/{z}/{x}/{y}.pbf?selected_date={time}",
-            ],
-            type: "vector",
-          },
-          render: {
-            layers
-          },
-        },
-        legendConfig: {
-          type: "",
-          items: []
-        },
-        params: {
-          time: "2022-10-03 03:00",
-        },
-        paramsSelectorColumnView: true,
-        paramsSelectorConfig: [
-          {
-            key: "time",
-            required: true,
-            sentence: "{selector}",
-            type: "datetime",
-            dateFormat: { currentTime: "yyyy-mm-dd HH:MM" },
-            availableDates: ["2022-10-03 03:00", "2022-10-03 06:00"],
-          },
-        ],
-        interactionConfig: {
-          output: [
-            { column: "name", property: "Name" },
-            { column: "wind_speed", property: "Speed (knots)" },
-            { column: "wind_direction", property: "Direction (°)" },
+
+const generateLayers = (timestamps = []) => {
+  const latest = timestamps[timestamps.length - 1];
+
+  if (!latest) {
+    return [];
+  }
+
+  const time = parseISO(latest);
+  const end = addDays(time, 7);
+  const dateFormat = "mmm, yyyy";
+
+  const periodStr = `Latest: ${format(time, dateFormat)} to ${format(
+    end,
+    dateFormat
+  )}`;
+
+  return [
+    {
+      name: datasetName,
+      id: layerName,
+      type: "layer",
+      citation: periodStr,
+      default: false,
+      dataset: layerName,
+      layerConfig: {
+        type: "vector",
+        source: {
+          tiles: [
+            "http://localhost:7800/public.hourly_wind/{z}/{x}/{y}.pbf?selected_date={time}",
           ],
+          type: "vector",
+        },
+        render: {
+          layers
         },
       },
-    ],
+      legendConfig: {
+        type: "",
+        items: []
+      },
+      params: {
+        time: `${latest}`,
+      },
+
+      paramsSelectorColumnView: true,
+      paramsSelectorConfig: [
+        {
+          key: "time",
+          required: true,
+          sentence: "{selector}",
+          type: "datetime",
+          dateFormat: { currentTime: "yyyy-mm-dd HH:MM" },
+          availableDates: timestamps
+        },
+      ],
+
+      timeParamSentenceConfig: {
+        param: "time",
+        format: "mmm, yyyy",
+        add: 1,
+        template: "Selected Period : {time}",
+      },
+      data_path: dataPath,
+
+      interactionConfig: {
+        output: [
+          { column: "name", property: "Name" },
+          { column: "wind_speed", property: "Speed (knots)" },
+          { column: "wind_direction", property: "Direction (°)" },
+        ],
+      },
+    }
+  ]
+
+
+
+}
+
+export default [
+  {
+    name: datasetName,
+    id: layerName,
+    dataset: layerName,
+    layer: layerName,
+    category,
+    sub_category: subCategory,
+    metadata: metadataId,
+    citation: "GTS Synop, 3 Hourly",
+    getLayers: async () => {
+      return await fetchSynopTimestamps(dataPath)
+        .then((res) => {
+          const timestamps = (res.data && res.data.timestamps) || [];
+          return generateLayers(timestamps);
+
+        })
+        .catch(() => {
+          return generateLayers([]);
+        });
+    },
   },
 ];

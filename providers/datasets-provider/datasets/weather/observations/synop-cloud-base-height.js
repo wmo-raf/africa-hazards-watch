@@ -1,22 +1,38 @@
-export default [
-  {
-    name: "Cloud Base Height",
-    id: "3_hour_cloud_base_height",
-    dataset: "3_hour_cloud_base_height",
-    type: "dataset",
-    published: true,
-    status: "saved",
-    layer: "3_hour_cloud_base_height",
-    citation: "GTS Synop, 3 Hourly",
-    category: 1,
-    sub_category: 4,
-    metadata: "ecf74a56-2106-441e-8932-44b68a57c197",
-    layers: [
-      {
-        id: "3_hour_cloud_base_height",
-        dataset: "3_hour_cloud_base_height",
-        name: "3 Hour Cloud Base Height",
-        type: "layer",
+import { fetchSynopTimestamps } from "services/timestamps";
+import { parseISO, format, addDays } from "date-fns";
+
+const datasetName = "Cloud Base Height";
+const layerName = "3_hour_cloud_base_height";
+const metadataId = "60fcce77-8b70-4acf-b2a7-e18208db4cde";
+
+const category = 1;
+const subCategory = 4;
+const dataPath = "/cloud_base_height";
+
+const generateLayers = (timestamps = []) => {
+  const latest = timestamps[timestamps.length - 1];
+
+  if (!latest) {
+    return [];
+  }
+
+  const time = parseISO(latest);
+  const end = addDays(time, 7);
+  const dateFormat = "mmm, yyyy";
+
+  const periodStr = `Latest: ${format(time, dateFormat)} to ${format(
+    end,
+    dateFormat
+  )}`;
+
+  return [
+    {
+      name: datasetName,
+      id: layerName,
+      type: "layer",
+      citation: periodStr,
+      default: false,
+      dataset: layerName,
         layerConfig: {
           type: "vector",
           source: {
@@ -113,7 +129,7 @@ export default [
           ],
         },
         params: {
-          time: "2022-10-03 03:00",
+          time: `${latest}`,
         },
         paramsSelectorColumnView: true,
         paramsSelectorConfig: [
@@ -123,7 +139,7 @@ export default [
             sentence: "{selector}",
             type: "datetime",
             dateFormat: { currentTime: "yyyy-mm-dd HH:MM" },
-            availableDates: ["2022-10-03 03:00", "2022-10-03 06:00"],
+            availableDates: timestamps,
           },
         ],
         interactionConfig: {
@@ -133,6 +149,31 @@ export default [
           ],
         },
       },
-    ],
-  },
-];
+    ]
+  }
+
+  export default [
+    {
+      name: datasetName,
+      id: layerName,
+      dataset: layerName,
+      layer: layerName,
+      category,
+      sub_category: subCategory,
+      metadata: metadataId,
+      citation: "GTS Synop, 3 Hourly",
+      getLayers: async () => {
+        return await fetchSynopTimestamps(dataPath)
+          .then((res) => {
+            const timestamps = (res.data && res.data.timestamps) || [];
+            console.log(timestamps)
+
+            return generateLayers(timestamps);
+
+          })
+          .catch(() => {
+            return generateLayers([]);
+          });
+      },
+    },
+  ];
