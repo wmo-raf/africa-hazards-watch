@@ -106,7 +106,6 @@ const generateLayers = (timestamps = []) => {
         return await fetchSynopTimestamps(dataPath)
           .then((res) => {
             const timestamps = (res.data && res.data.timestamps) || [];
-            console.log(timestamps)
 
             return generateLayers(timestamps);
 
