@@ -1,13 +1,18 @@
-import { fetchTimestamps } from "services/timestamps";
+import { fetchSynopTimestamps } from "services/timestamps";
 import { parseISO, format, addDays } from "date-fns";
+import { airTemperature } from "./synop-air-temperature";
+import { dewTemperature } from "./synop-dew-temperature";
+import { atmosphericPressure } from "./synop-atmos-pressure";
+import { windSpeedDirection } from "./synop-wind";
+import { skyCoverage } from "./synop-sky-cover";
 
-const datasetName = "Monthly Surface Temperature Anomaly";
-const layerName = "era5monthly_temperature_2_m_anomaly";
+const datasetName = "Synoptic Charts";
+const layerName = "synoptic_charts";
 const metadataId = "60fcce77-8b70-4acf-b2a7-e18208db4cde";
-const dataPath = "/gskydata/era5/era5monthly-temperature-2-m-anomaly";
 
-const category = 2;
-const subCategory = 2;
+const category = 1;
+const subCategory = 4;
+const dataPath = "/air_temperature";
 
 const generateLayers = (timestamps = []) => {
   const latest = timestamps[timestamps.length - 1];
@@ -32,53 +37,58 @@ const generateLayers = (timestamps = []) => {
       type: "layer",
       citation: periodStr,
       default: true,
+      "active": true,
+
       dataset: layerName,
       layerConfig: {
-        type: "raster",
-        source: {
-          type: "raster",
-          tiles: [
-            `http://197.254.13.228:8081/ows/era5?service=WMS&request=GetMap&version=1.1.1&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time={time}&layers=${layerName}`,
-          ],
-          minzoom: 3,
-          maxzoom: 12,
+        type: "vector",
+        source: {},
+        render: {
+          layers: [ ],
+
         },
-        canClipToGeom: true,
       },
       legendConfig: {
-        type: "gradient",
-        items: [],
+
       },
       params: {
         time: `2022-11-24T18:00:00Z`,
       },
+      paramsSelectorColumnView: true,
       paramsSelectorConfig: [
         {
           key: "time",
           required: true,
           sentence: "{selector}",
           type: "datetime",
-          dateFormat: { currentTime: "mmmm, yyyy" },
+          dateFormat: { currentTime: "yyyy-mm-dd HH:MM" },
           availableDates: timestamps,
         },
       ],
-      timeParamSentenceConfig: {
-        param: "time",
-        format: "mmm, yyyy",
-        add: 7,
-        template: "Selected Period : {time}",
+      interactionConfig: {
+        // output: [
+        //   { column: "name", property: "Name" },
+        //   { column: "air_temperature", property: "Air Temperature" ,
+        //   units:"°C"},
+        //   { column: "message", property: "Message", },
+        // ],
       },
-      hidePastTimestamps: true, // we might need to hide past forecast
-      data_path: dataPath,
-      analysisConfig: [
-        {
-          key: "era5_temperature_anomaly",
-          type: "admin",
-        },
-      ],
+
+      "isMultiLayer": true,
+      "nestedLegend": true
     },
-  ];
-};
+
+    ...airTemperature(timestamps),
+    ...dewTemperature(timestamps),
+    ...atmosphericPressure(timestamps),
+    ...skyCoverage(timestamps),
+    ...windSpeedDirection(timestamps),
+
+
+
+  ]
+}
+
 
 export default [
   {
@@ -86,17 +96,20 @@ export default [
     id: layerName,
     dataset: layerName,
     layer: layerName,
-    category: category,
+    category,
     sub_category: subCategory,
     metadata: metadataId,
-    citation: "ERA5 reanalysis, Reference 1991 - 2020",
+    citation: "GTS Synop, 3 Hourly",
+    "isMultiLayer": true,
+
     getLayers: async () => {
-      return await fetchTimestamps(dataPath)
+      return await fetchSynopTimestamps(dataPath)
         .then((res) => {
           const timestamps = (res.data && res.data.timestamps) || [];
           return generateLayers(timestamps);
+
         })
-        .catch((err) => {
+        .catch(() => {
           return generateLayers([]);
         });
     },

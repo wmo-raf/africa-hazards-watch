@@ -129,7 +129,7 @@ const generateLayers = (timestamps = []) => {
           ],
         },
         params: {
-          time: `${latest}`,
+          time: `2022-11-24T18:00:00Z`,
         },
         paramsSelectorColumnView: true,
         paramsSelectorConfig: [
@@ -145,7 +145,8 @@ const generateLayers = (timestamps = []) => {
         interactionConfig: {
           output: [
             { column: "name", property: "Name" },
-            { column: "cloud_base_height", property: "Humidity (%)" },
+            { column: "cloud_base_height", property: "Base height",units:"m"},
+            { column: "message", property: "Message", },
           ],
         },
       },

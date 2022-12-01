@@ -1,15 +1,9 @@
-import { fetchSynopTimestamps } from "services/timestamps";
 import { parseISO, format, addDays } from "date-fns";
 
 const datasetName = "Sky Cover (okta)";
 const layerName = "3_hour_sky_cover";
-const metadataId = "60fcce77-8b70-4acf-b2a7-e18208db4cde";
 
-const category = 1;
-const subCategory = 4;
-const dataPath = "/sky_coverage";
-
-const generateLayers = (timestamps = []) => {
+export const skyCoverage = (timestamps = []) => {
   const latest = timestamps[timestamps.length - 1];
 
   if (!latest) {
@@ -32,7 +26,10 @@ const generateLayers = (timestamps = []) => {
       type: "layer",
       citation: periodStr,
       default: false,
-      dataset: layerName,
+      dataset: 'synoptic_charts',
+      active:false,
+      "isMultiLayer": true,
+      "nestedLegend": true,
         layerConfig: {
           type: "vector",
           source: {
@@ -61,6 +58,7 @@ const generateLayers = (timestamps = []) => {
                     ],
                   },
                   'icon-allow-overlap': true,
+                  'icon-offset':[0, 1]
                 }
 
               }
@@ -72,7 +70,7 @@ const generateLayers = (timestamps = []) => {
           items: []
         },
         params: {
-          time: `${latest}`,
+          time: `2022-11-24T18:00:00Z`,
         },
         paramsSelectorColumnView: true,
         paramsSelectorConfig: [
@@ -88,34 +86,10 @@ const generateLayers = (timestamps = []) => {
         interactionConfig: {
           output: [
             { column: "name", property: "Name" },
-            { column: "sky_coverage", property: "Sky Coverage (okta)" },
+            { column: "sky_coverage", property: "Sky Coverage",units:"okta"},
+            { column: "message", property: "Message", },
           ],
         },
       },
     ]
   }
-
-  export default [
-    {
-      name: datasetName,
-      id: layerName,
-      dataset: layerName,
-      layer: layerName,
-      category,
-      sub_category: subCategory,
-      metadata: metadataId,
-      citation: "GTS Synop, 3 Hourly",
-      getLayers: async () => {
-        return await fetchSynopTimestamps(dataPath)
-          .then((res) => {
-            const timestamps = (res.data && res.data.timestamps) || [];
-
-            return generateLayers(timestamps);
-
-          })
-          .catch(() => {
-            return generateLayers([]);
-          });
-      },
-    },
-  ];

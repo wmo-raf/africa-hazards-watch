@@ -1,60 +1,59 @@
-import { fetchSynopTimestamps } from "services/timestamps";
 import { parseISO, format, addDays } from "date-fns";
 
 const datasetName = "Wind Speed & Direction";
 const layerName = "3_hour_wind";
-const metadataId = "60fcce77-8b70-4acf-b2a7-e18208db4cde";
-
-const category = 1;
-const subCategory = 4;
 const dataPath = "/wind_speed";
 
-const barbCutoffs = [0, 3, 8, 13, 18, 23, 28, 33, 38, 43, 48, 53, 58, 63, 68, 73, 78, 83, 87, 93, 97, 103, 107]
+// const barbCutoffs = [0, 3, 8, 13, 18, 23, 28, 33, 38, 43, 48, 53, 58, 63, 68, 73, 78, 83, 87, 93, 97, 103, 107]
 
-const layers = []
+// const layers = []
 
-// eslint-disable-next-line no-plusplus
-for (let b = 0; b < barbCutoffs.length - 1; b++) {
-  layers.push({
-    'type': 'symbol',
-    'filter': [
-      'all',
-      ['>=', 'wind_speed', barbCutoffs[b]],
-      ['<', 'wind_speed', barbCutoffs[b + 1]],
-      // ['==', 'UTC time', '21Z'],
-    ],
-    "source-layer": "public.hourly_wind",
-    metadata: {
-      position: "top",
-    },
-    'paint': {
-      // 'icon-opacity': 0.8 + b * 0.008,
-      // 'icon-color': 'red'
+// // eslint-disable-next-line no-plusplus
+// for (let b = 0; b < barbCutoffs.length - 1; b++) {
+//   layers.push({
+//     'type': 'symbol',
+//     'filter': [
+//       'all',
+//       ['>=', 'wind_speed', barbCutoffs[b]],
+//       ['<', 'wind_speed', barbCutoffs[b + 1]],
+//       // ['==', 'UTC time', '21Z'],
+//     ],
+//     "source-layer": "public.hourly_wind",
+//     metadata: {
+//       position: "top",
+//     },
+//     'paint': {
+//       // 'icon-opacity': 0.8 + b * 0.008,
+//       // 'icon-color': 'red'
 
-    },
-    'layout': {
-      'icon-image': `barbs-${(b + 1) < 11 ? `0${b + 1}` : (b + 1)}`,
-      'icon-size':
-      {
-        // 'base': 1,
-        // 'stops': [[2, 0.35], [6, 0.7]]
-        base: 4,
-        stops: [
-          [2, 0.4],
-          [22, 120],
-        ],
-      },
-      'icon-allow-overlap': true,
-      'icon-rotation-alignment': 'map',
-      'icon-rotate': {
-        'property': 'wind_direction',
-        'stops': [[0, 90], [360, 450]]
-      }
-    }
-  })
-}
+//     },
+//     'layout': {
+//       'icon-image': `barbs-${(b + 1) < 11 ? `0${b + 1}` : (b + 1)}`,
+//       'icon-size':
+//       {
+//         // 'base': 1,
+//         // 'stops': [[2, 0.35], [6, 0.7]]
+//         base: 4,
+//         stops: [
+//           [2, 0.4],
+//           [22, 120],
+//         ],
+//       },
+//       'icon-allow-overlap': true,
+//       'icon-rotation-alignment': 'map',
+//       'icon-rotate': {
+//         'property': 'wind_direction',
+//         'stops': [[0, 90], [360, 450]]
+//       },
+//       "icon-anchor":'bottom',
+//       'icon-translate':[0, 2]
+//     }
+//   })
+// }
 
-const generateLayers = (timestamps = []) => {
+// console.log(layers)
+
+export const windSpeedDirection = (timestamps = []) => {
   const latest = timestamps[timestamps.length - 1];
 
   if (!latest) {
@@ -71,13 +70,17 @@ const generateLayers = (timestamps = []) => {
   )}`;
 
   return [
+
     {
       name: datasetName,
       id: layerName,
       type: "layer",
       citation: periodStr,
       default: false,
-      dataset: layerName,
+      dataset: 'synoptic_charts',
+      active: false,
+      "isMultiLayer": true,
+      "nestedLegend": true,
       layerConfig: {
         type: "vector",
         source: {
@@ -87,15 +90,98 @@ const generateLayers = (timestamps = []) => {
           type: "vector",
         },
         render: {
-          layers
-        },
+          layers: [
+            {
+              'type': 'symbol',
+              "source-layer": "public.hourly_wind",
+              metadata: {
+                position: "top",
+              },
+              'paint': {
+                // 'icon-opacity': 0.8 + b * 0.008,
+                // 'icon-color': 'red'
+
+              },
+              'layout': {
+                "icon-image":[
+                  "case",
+                  [">=", ["to-number", ["get", "wind_speed"]], 107],
+                  "barbs-22",
+                  [">=", ["to-number", ["get", "wind_speed"]], 103],
+                  "barbs-21",
+                  [">=", ["to-number", ["get", "wind_speed"]], 97],
+                  "barbs-20",
+                  [">=", ["to-number", ["get", "wind_speed"]], 93],
+                  "barbs-19",
+                  [">=", ["to-number", ["get", "wind_speed"]], 87],
+                  "barbs-18",
+                  [">=", ["to-number", ["get", "wind_speed"]], 83],
+                  "barbs-17",
+                  [">=", ["to-number", ["get", "wind_speed"]], 78],
+                  "barbs-16",
+                  [">=", ["to-number", ["get", "wind_speed"]], 73],
+                  "barbs-15",
+                  [">=", ["to-number", ["get", "wind_speed"]], 68],
+                  "barbs-14",
+                  [">=", ["to-number", ["get", "wind_speed"]], 63],
+                  "barbs-13",
+                  [">=", ["to-number", ["get", "wind_speed"]], 58],
+                  "barbs-12",
+                  [">=", ["to-number", ["get", "wind_speed"]], 53],
+                  "barbs-11",
+                  [">=", ["to-number", ["get", "wind_speed"]], 48],
+                  "barbs-10",
+                  [">=", ["to-number", ["get", "wind_speed"]], 43],
+                  "barbs-09",
+                  [">=", ["to-number", ["get", "wind_speed"]], 38],
+                  "barbs-08",
+                  [">=", ["to-number", ["get", "wind_speed"]], 33],
+                  "barbs-07",
+                  [">=", ["to-number", ["get", "wind_speed"]], 28],
+                  "barbs-06",
+                  [">=", ["to-number", ["get", "wind_speed"]], 23],
+                  "barbs-05",
+                  [">=", ["to-number", ["get", "wind_speed"]], 18],
+                  "barbs-04",
+                  [">=", ["to-number", ["get", "wind_speed"]], 8],
+                  "barbs-03",
+                  [">=", ["to-number", ["get", "wind_speed"]], 3],
+                  "barbs-02",
+                  [">=", ["to-number", ["get", "wind_speed"]], 0],
+                  "okta-0",
+                  "okta-0",
+                ],
+                'icon-size':[
+                  "case",
+                  [">=", ["to-number", ["get", "wind_speed"]], 3],
+                  ["literal", 0.4],
+                  ["literal", 0.1],
+                ] ,
+                'icon-allow-overlap': true,
+                'icon-rotation-alignment': 'map',
+                'icon-rotate': {
+                  'property': 'wind_direction',
+                  'stops': [[0, 90], [360, 450]]
+                },
+                "icon-anchor": 'bottom',
+                "icon-offset":[
+                  "case",
+                  [">=", ["to-number", ["get", "wind_speed"]], 3],
+                  ["literal", [5,-15]],
+                  ["literal", [0,65]],
+                ]
+              }
+
+            },
+          ]
+        }
       },
       legendConfig: {
         type: "",
         items: []
       },
       params: {
-        time: `${latest}`,
+        time: `2022-11-24T18:00:00Z`,
       },
 
       paramsSelectorColumnView: true,
@@ -116,7 +202,7 @@ const generateLayers = (timestamps = []) => {
         add: 1,
         template: "Selected Period : {time}",
       },
-      data_path: dataPath,
+      // data_path: dataPath,
 
       interactionConfig: {
         output: [
@@ -127,31 +213,5 @@ const generateLayers = (timestamps = []) => {
       },
     }
   ]
-
-
-
 }
 
-export default [
-  {
-    name: datasetName,
-    id: layerName,
-    dataset: layerName,
-    layer: layerName,
-    category,
-    sub_category: subCategory,
-    metadata: metadataId,
-    citation: "GTS Synop, 3 Hourly",
-    getLayers: async () => {
-      return await fetchSynopTimestamps(dataPath)
-        .then((res) => {
-          const timestamps = (res.data && res.data.timestamps) || [];
-          return generateLayers(timestamps);
-
-        })
-        .catch(() => {
-          return generateLayers([]);
-        });
-    },
-  },
-];

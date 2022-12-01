@@ -49,7 +49,7 @@ const DataTable = ({
                 d?.type === "link" && d?.linkText ? "table-link" : "value"
               }
             >
-              {renderString(d)}
+              {renderString(d)} {d?.units}
             </div>
           </div>
         ))}

@@ -1,15 +1,9 @@
-import { fetchSynopTimestamps } from "services/timestamps";
 import { parseISO, format, addDays } from "date-fns";
 
 const datasetName = "Air Temperature";
 const layerName = "air_temperature";
-const metadataId = "60fcce77-8b70-4acf-b2a7-e18208db4cde";
 
-const category = 1;
-const subCategory = 4;
-const dataPath = "/air_temperature";
-
-const generateLayers = (timestamps = []) => {
+export const airTemperature = (timestamps = []) => {
   const latest = timestamps[timestamps.length - 1];
 
   if (!latest) {
@@ -32,7 +26,10 @@ const generateLayers = (timestamps = []) => {
       type: "layer",
       citation: periodStr,
       default: false,
-      dataset: layerName,
+      active: true,
+      "isMultiLayer": true,
+      "nestedLegend": true,
+      dataset: 'synoptic_charts',
       layerConfig: {
         type: "vector",
         source: {
@@ -43,25 +40,26 @@ const generateLayers = (timestamps = []) => {
         },
         render: {
           layers: [
-
             {
               "source-layer": "public.hourly_air_temperature",
               metadata: {
                 position: "top",
               },
-              type: "circle",
-              paint: {
-                "circle-stroke-color": "#fff",
-                "circle-stroke-width": 0.8,
-                // "circle-stroke-opacity": 0.7,
-                "circle-radius": {
-                  base: 4,
-                  stops: [
-                    [12, 9],
-                    [22, 180],
-                  ],
-                },
-                "circle-color": [
+              type: "symbol",
+              layout: {
+                "text-field": "{air_temperature}",
+                "text-font": ["Noto Sans Regular"],
+                'text-size': 12,
+                "text-allow-overlap": true,
+                "text-offset":[-2, -1]
+
+                // "icon-text-fit":"both"
+              },
+              paint:{
+                "text-halo-width":0.1,
+                "text-halo-blur":0,
+                "text-halo-color":"#000",
+                "text-color": [
                   "case",
                   [">=", ["to-number", ["get", "air_temperature"]], 53],
                   "rgb(229, 59, 46)",
@@ -93,23 +91,6 @@ const generateLayers = (timestamps = []) => {
                   "rgb(5, 48, 97)",
                   "#fff"
                 ]
-
-              }
-            },
-
-            {
-              "source-layer": "public.hourly_air_temperature",
-              metadata: {
-                position: "top",
-              },
-              type: "symbol",
-              layout: {
-                "text-field": "{air_temperature}",
-                "text-font": ["Noto Sans Regular"],
-                'text-size': 6,
-                "text-allow-overlap": false,
-
-                // "icon-text-fit":"both"
               }
 
             },
@@ -139,7 +120,7 @@ const generateLayers = (timestamps = []) => {
         ],
       },
       params: {
-        time: `${latest}`,
+        time: `2022-11-24T18:00:00Z`,
       },
       paramsSelectorColumnView: true,
       paramsSelectorConfig: [
@@ -155,34 +136,12 @@ const generateLayers = (timestamps = []) => {
       interactionConfig: {
         output: [
           { column: "name", property: "Name" },
-          { column: "air_temperature", property: "Air Temperature (°C)" },
+          { column: "air_temperature", property: "Air Temperature" ,
+          units:"°C"},
+          { column: "message", property: "Message", },
         ],
       },
+
     },
   ]
 }
-
-
-export default [
-  {
-    name: datasetName,
-    id: layerName,
-    dataset: layerName,
-    layer: layerName,
-    category,
-    sub_category: subCategory,
-    metadata: metadataId,
-    citation: "GTS Synop, 3 Hourly",
-    getLayers: async () => {
-      return await fetchSynopTimestamps(dataPath)
-        .then((res) => {
-          const timestamps = (res.data && res.data.timestamps) || [];
-          return generateLayers(timestamps);
-
-        })
-        .catch(() => {
-          return generateLayers([]);
-        });
-    },
-  },
-];

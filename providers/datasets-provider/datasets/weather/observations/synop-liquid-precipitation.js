@@ -135,7 +135,7 @@ const generateLayers = (timestamps = []) => {
           ],
         },
         params: {
-          time: `${latest}`,
+          time: `2022-11-24T18:00:00Z`,
         },
         paramsSelectorColumnView: true,
         paramsSelectorConfig: [
@@ -151,7 +151,8 @@ const generateLayers = (timestamps = []) => {
         interactionConfig: {
           output: [
             { column: "name", property: "Name" },
-            { column: "liquid_precipitation", property: "Precipitation (mm)" },
+            { column: "liquid_precipitation", property: "Precipitation" ,units:"mm"},
+            { column: "message", property: "Message", },
           ],
         },
       },

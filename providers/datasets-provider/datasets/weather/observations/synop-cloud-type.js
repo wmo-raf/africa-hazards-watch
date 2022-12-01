@@ -79,7 +79,7 @@ const generateLayers = (timestamps = []) => {
           items: []
         },
         params: {
-          time: `${latest}`,
+          time: `2022-11-24T18:00:00Z`,
         },
         paramsSelectorColumnView: true,
         paramsSelectorConfig: [
@@ -96,7 +96,8 @@ const generateLayers = (timestamps = []) => {
           intersect: true,
           output: [
             { column: "name", property: "Name" },
-            { column: "cloud_type", property: "Cloud Type", intersection: true },
+            { column: "cloud_type", property: "Cloud Type", intersection: true},
+          { column: "message", property: "Message", },
           ],
         },
         intersectionMap:{
