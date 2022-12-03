@@ -50,7 +50,7 @@ const generateLayers = (timestamps = []) => {
         items: [],
       },
       params: {
-        time: `2022-11-24T18:00:00Z`,
+        time: `${latest}`,
       },
       paramsSelectorConfig: [
         {

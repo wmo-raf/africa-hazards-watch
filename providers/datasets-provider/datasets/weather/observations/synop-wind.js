@@ -2,56 +2,6 @@ import { parseISO, format, addDays } from "date-fns";
 
 const datasetName = "Wind Speed & Direction";
 const layerName = "3_hour_wind";
-const dataPath = "/wind_speed";
-
-// const barbCutoffs = [0, 3, 8, 13, 18, 23, 28, 33, 38, 43, 48, 53, 58, 63, 68, 73, 78, 83, 87, 93, 97, 103, 107]
-
-// const layers = []
-
-// // eslint-disable-next-line no-plusplus
-// for (let b = 0; b < barbCutoffs.length - 1; b++) {
-//   layers.push({
-//     'type': 'symbol',
-//     'filter': [
-//       'all',
-//       ['>=', 'wind_speed', barbCutoffs[b]],
-//       ['<', 'wind_speed', barbCutoffs[b + 1]],
-//       // ['==', 'UTC time', '21Z'],
-//     ],
-//     "source-layer": "public.hourly_wind",
-//     metadata: {
-//       position: "top",
-//     },
-//     'paint': {
-//       // 'icon-opacity': 0.8 + b * 0.008,
-//       // 'icon-color': 'red'
-
-//     },
-//     'layout': {
-//       'icon-image': `barbs-${(b + 1) < 11 ? `0${b + 1}` : (b + 1)}`,
-//       'icon-size':
-//       {
-//         // 'base': 1,
-//         // 'stops': [[2, 0.35], [6, 0.7]]
-//         base: 4,
-//         stops: [
-//           [2, 0.4],
-//           [22, 120],
-//         ],
-//       },
-//       'icon-allow-overlap': true,
-//       'icon-rotation-alignment': 'map',
-//       'icon-rotate': {
-//         'property': 'wind_direction',
-//         'stops': [[0, 90], [360, 450]]
-//       },
-//       "icon-anchor":'bottom',
-//       'icon-translate':[0, 2]
-//     }
-//   })
-// }
-
-// console.log(layers)
 
 export const windSpeedDirection = (timestamps = []) => {
   const latest = timestamps[timestamps.length - 1];
@@ -181,7 +131,7 @@ export const windSpeedDirection = (timestamps = []) => {
         items: []
       },
       params: {
-        time: `2022-11-24T18:00:00Z`,
+        time: `${latest}`,
       },
 
       paramsSelectorColumnView: true,
@@ -204,13 +154,13 @@ export const windSpeedDirection = (timestamps = []) => {
       },
       // data_path: dataPath,
 
-      interactionConfig: {
-        output: [
-          { column: "name", property: "Name" },
-          { column: "wind_speed", property: "Speed (knots)" },
-          { column: "wind_direction", property: "Direction (°)" },
-        ],
-      },
+      // interactionConfig: {
+      //   output: [
+      //     { column: "name", property: "Name" },
+      //     { column: "wind_speed", property: "Speed (knots)" },
+      //     { column: "wind_direction", property: "Direction (°)" },
+      //   ],
+      // },
     }
   ]
 }

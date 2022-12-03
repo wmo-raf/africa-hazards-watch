@@ -172,7 +172,7 @@ export const dewTemperature = (timestamps = []) => {
         ],
       },
       params: {
-        time: `2022-11-24T18:00:00Z`,
+        time: `${latest}`
       },
       paramsSelectorColumnView: true,
       paramsSelectorConfig: [
@@ -185,13 +185,13 @@ export const dewTemperature = (timestamps = []) => {
           availableDates: timestamps,
         },
       ],
-      interactionConfig: {
-        output: [
-          { column: "name", property: "Name" },
-          { column: "dewpoint_temperature", property: "Dew Temperature (°C)", units:"°C"},
-          { column: "message", property: "Message", },
-        ],
-      },
+      // interactionConfig: {
+      //   output: [
+      //     { column: "name", property: "Name" },
+      //     { column: "dewpoint_temperature", property: "Dew Temperature (°C)", units:"°C"},
+      //     { column: "message", property: "Message", },
+      //   ],
+      // },
     },
   ]
 }

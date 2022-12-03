@@ -122,10 +122,6 @@ export const atmosphericPressure = (timestamps = []) => {
                   [">=", ["to-number", ["get", "atm_pressure"]], 1038],
                   "rgb(158, 45, 90)",
                   [">=", ["to-number", ["get", "atm_pressure"]], 1030],
-                  "rgb(212, 134, 72)",
-                  [">=", ["to-number", ["get", "atm_pressure"]], 1021],
-                  "rgb(212, 134, 72)",
-                  [">=", ["to-number", ["get", "atm_pressure"]], 1030],
                   "rgb(200, 73, 109)",
                   [">=", ["to-number", ["get", "atm_pressure"]], 1021],
                   "rgb(212, 134, 72)",
@@ -165,25 +161,24 @@ export const atmosphericPressure = (timestamps = []) => {
       legendConfig: {
         type: "choropleth",
         items: [
-          { name: "", color: "rgb(5, 48, 97)" },
-          { name: -32.5, color: "rgb(33, 102, 172)" },
-          { name: "", color: "rgb(146, 197, 222)" },
-          { name: -13, color: "rgb(209, 229, 240)" },
-          { name: "", color: "rgb(247, 247, 247)" },
-          { name: -1, color: "rgb(254, 227, 145)" },
-          { name: "", color: "rgb(254, 196, 79)" },
-          { name: 11, color: "rgb(254, 153, 41)" },
-          { name: "", color: "rgb(236, 112, 20)" },
-          { name: 29, color: "rgb(204, 76, 2)" },
-          { name: "", color: "rgb(153, 52, 4)" },
-          { name: 41, color: "rgb(103, 38, 11)" },
-          { name: "", color: "rgb(166, 15, 20)" },
-          { name: "53 °C", color: "rgb(229, 59, 46)" },
+          { name: 948, color: "rgb(255, 51, 255)" },
+          { name: "", color: "rgb(157, 19, 157)" },
+          { name: 964, color: "rgb(40, 29, 102)" },
+          { name: "", color: "rgb(88, 82, 163)" },
+          { name: 981, color: "rgb(67, 121, 183)" },
+          { name: "", color: "rgb(80, 173, 131)" },
+          { name: 997, color: "rgb(107, 193, 83)" },
+          { name: "", color: "rgb(195, 212, 64)" },
+          { name: 1013, color: "rgb(213, 182, 61)" },
+          { name: "", color: "rgb(212, 134, 72)" },
+          { name: 1030, color: "rgb(200, 73, 109)" },
+          { name: "", color: "rgb(158, 45, 90)" },
+          { name: "1046 Hpa", color: "rgb(109, 27, 50)" },
         ],
       },
       params: {
-        time: `2022-11-24T18:00:00Z`,
-      },
+        time: `${latest}`
+            },
       paramsSelectorColumnView: true,
       paramsSelectorConfig: [
         {
@@ -195,14 +190,14 @@ export const atmosphericPressure = (timestamps = []) => {
           availableDates: timestamps,
         },
       ],
-      interactionConfig: {
-        output: [
-          { column: "name", property: "Name" },
-          { column: "atm_pressure", property: "Atmospheric Pressure",
-          units:"Hpa"},
-          { column: "message", property: "Message", },
-        ],
-      },
+      // interactionConfig: {
+      //   output: [
+      //     { column: "name", property: "Name" },
+      //     { column: "atm_pressure", property: "Atmospheric Pressure",
+      //     units:"Hpa"},
+      //     { column: "message", property: "Message", },
+      //   ],
+      // },
     },
   ]
 }

@@ -120,8 +120,7 @@ export const airTemperature = (timestamps = []) => {
         ],
       },
       params: {
-        time: `2022-11-24T18:00:00Z`,
-      },
+        time: `${latest}`      },
       paramsSelectorColumnView: true,
       paramsSelectorConfig: [
         {
@@ -133,14 +132,14 @@ export const airTemperature = (timestamps = []) => {
           availableDates: timestamps,
         },
       ],
-      interactionConfig: {
-        output: [
-          { column: "name", property: "Name" },
-          { column: "air_temperature", property: "Air Temperature" ,
-          units:"°C"},
-          { column: "message", property: "Message", },
-        ],
-      },
+      // interactionConfig: {
+      //   output: [
+      //     { column: "name", property: "Name" },
+      //     { column: "air_temperature", property: "Air Temperature" ,
+      //     units:"°C"},
+      //     { column: "message", property: "Message", },
+      //   ],
+      // },
 
     },
   ]

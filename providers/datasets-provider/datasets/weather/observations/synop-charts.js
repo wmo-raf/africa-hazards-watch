@@ -38,13 +38,32 @@ const generateLayers = (timestamps = []) => {
       citation: periodStr,
       default: true,
       "active": true,
-
       dataset: layerName,
       layerConfig: {
         type: "vector",
-        source: {},
+        source: {
+          tiles: [
+            "http://localhost:7800/public.hourly_synop/{z}/{x}/{y}.pbf?selected_date={time}",
+          ],
+          type: "vector",
+        },
         render: {
-          layers: [ ],
+          layers: [
+            {
+              'type': 'circle',
+
+              "source-layer": "default",
+              metadata: {
+                position: "top",
+              },
+              'paint': {
+                "circle-color": "white",
+                "circle-opacity":0,
+                "circle-radius":40
+              }
+
+            }
+          ],
 
         },
       },
@@ -52,7 +71,7 @@ const generateLayers = (timestamps = []) => {
 
       },
       params: {
-        time: `2022-11-24T18:00:00Z`,
+        time: `${latest}`
       },
       paramsSelectorColumnView: true,
       paramsSelectorConfig: [
@@ -66,12 +85,30 @@ const generateLayers = (timestamps = []) => {
         },
       ],
       interactionConfig: {
-        // output: [
-        //   { column: "name", property: "Name" },
-        //   { column: "air_temperature", property: "Air Temperature" ,
-        //   units:"°C"},
-        //   { column: "message", property: "Message", },
-        // ],
+        output: [
+          { column: "name", property: "Name" },
+          {
+            column: "air_temperature", property: "Air Temperature",
+            units: "°C"
+          },
+          {
+            column: "dewpoint_temperature", property: "Dew Point Temperature",
+            units: "°C"
+          },
+          {
+            column: "atm_pressure", property: "Atmospheric Pressure",
+            units: "Hpa"
+          },
+          {
+            column: "wind_speed", property: "Wind Speed",
+            units: "Knots"
+          },
+          {
+            column: "wind_direction", property: "Wind Direction",
+            units: "°"
+          },
+          { column: "message", property: "Message", },
+        ],
       },
 
       "isMultiLayer": true,
