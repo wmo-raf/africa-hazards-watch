@@ -1,5 +1,7 @@
 import { fetchSynopTimestamps } from "services/timestamps";
 import { parseISO, format, addDays } from "date-fns";
+import { PG_WEATHER_FEATURESERV_URL } from "utils/apis";
+
 
 const datasetName = "Cloud Base Height";
 const layerName = "3_hour_cloud_base_height";
@@ -37,7 +39,7 @@ const generateLayers = (timestamps = []) => {
           type: "vector",
           source: {
             tiles: [
-              "http://localhost:7800/public.hourly_cloud_base_height/{z}/{x}/{y}.pbf?selected_date={time}",
+              `${PG_WEATHER_FEATURESERV_URL}/public.hourly_cloud_base_height/{z}/{x}/{y}.pbf?selected_date={time}`,
             ],
             type: "vector",
           },

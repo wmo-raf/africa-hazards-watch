@@ -1,5 +1,6 @@
 import { fetchSynopTimestamps } from "services/timestamps";
 import { parseISO, format, addDays } from "date-fns";
+import { PG_WEATHER_FEATURESERV_URL } from "utils/apis";
 
 const datasetName = "Relative Humidity";
 const layerName = "3_hour_humidity";
@@ -37,7 +38,7 @@ const generateLayers = (timestamps = []) => {
           type: "vector",
           source: {
             tiles: [
-              "http://localhost:7800/public.hourly_humidity/{z}/{x}/{y}.pbf?selected_date={time}",
+              `${PG_WEATHER_FEATURESERV_URL}/public.hourly_humidity/{z}/{x}/{y}.pbf?selected_date={time}`,
             ],
             type: "vector",
           },

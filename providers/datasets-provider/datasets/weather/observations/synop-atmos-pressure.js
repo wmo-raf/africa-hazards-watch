@@ -1,4 +1,5 @@
 import { parseISO, format, addDays } from "date-fns";
+import { PG_WEATHER_FEATURESERV_URL } from "utils/apis";
 
 const datasetName = "Atmospheric Pressure";
 const layerName = "atmospheric_pressure";
@@ -34,7 +35,7 @@ export const atmosphericPressure = (timestamps = []) => {
         type: "vector",
         source: {
           tiles: [
-            "http://localhost:7800/public.hourly_atm_pressure/{z}/{x}/{y}.pbf?selected_date={time}",
+            `${PG_WEATHER_FEATURESERV_URL}/public.hourly_atm_pressure/{z}/{x}/{y}.pbf?selected_date={time}`,
           ],
           type: "vector",
         },

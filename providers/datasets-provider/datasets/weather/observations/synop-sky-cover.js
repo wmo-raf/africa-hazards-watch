@@ -1,4 +1,5 @@
 import { parseISO, format, addDays } from "date-fns";
+import { PG_WEATHER_FEATURESERV_URL } from "utils/apis";
 
 const datasetName = "Sky Cover (okta)";
 const layerName = "3_hour_sky_cover";
@@ -34,7 +35,7 @@ export const skyCoverage = (timestamps = []) => {
         type: "vector",
         source: {
           tiles: [
-            "http://localhost:7800/public.hourly_sky_cover/{z}/{x}/{y}.pbf?selected_date={time}",
+            `${PG_WEATHER_FEATURESERV_URL}/public.hourly_sky_cover/{z}/{x}/{y}.pbf?selected_date={time}`,
           ],
           type: "vector",
         },

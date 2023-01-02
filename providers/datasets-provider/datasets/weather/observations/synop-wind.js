@@ -1,4 +1,5 @@
 import { parseISO, format, addDays } from "date-fns";
+import { PG_WEATHER_FEATURESERV_URL } from "utils/apis";
 
 const datasetName = "Wind Speed & Direction";
 const layerName = "3_hour_wind";
@@ -35,7 +36,7 @@ export const windSpeedDirection = (timestamps = []) => {
         type: "vector",
         source: {
           tiles: [
-            "http://localhost:7800/public.hourly_wind/{z}/{x}/{y}.pbf?selected_date={time}",
+            `${PG_WEATHER_FEATURESERV_URL}/public.hourly_wind/{z}/{x}/{y}.pbf?selected_date={time}`,
           ],
           type: "vector",
         },

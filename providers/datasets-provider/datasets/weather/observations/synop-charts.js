@@ -5,6 +5,7 @@ import { dewTemperature } from "./synop-dew-temperature";
 import { atmosphericPressure } from "./synop-atmos-pressure";
 import { windSpeedDirection } from "./synop-wind";
 import { skyCoverage } from "./synop-sky-cover";
+import { PG_WEATHER_FEATURESERV_URL } from "utils/apis";
 
 const datasetName = "Synoptic Charts";
 const layerName = "synoptic_charts";
@@ -43,7 +44,7 @@ const generateLayers = (timestamps = []) => {
         type: "vector",
         source: {
           tiles: [
-            "http://localhost:7800/public.hourly_synop/{z}/{x}/{y}.pbf?selected_date={time}",
+            `${PG_WEATHER_FEATURESERV_URL}/public.hourly_synop/{z}/{x}/{y}.pbf?selected_date={time}`,
           ],
           type: "vector",
         },
