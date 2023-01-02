@@ -62,5 +62,5 @@ export const synopTimestampsRequest = create({
     "content-type": "application/json",
   },
   timeout: TIMEOUT,
-  baseURL: "http://localhost:8000/date_ls",
+  baseURL: "http://localhost:8000/date_ls", // TODO : SET TO PRODUCTION
 });
