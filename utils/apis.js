@@ -5,7 +5,8 @@ export const PG_FEATURESERV_URL =
   "https://eahazardswatch.icpac.net/pg/featureserv/";
 
 export const PG_WEATHER_FEATURESERV_URL =
-  "http://localhost:7800"; // TODO : SET TO PRODUCTION
+  "http://localhost:7800";
+  // "http://197.254.13.228:9001/met_tileserv"; // TODO : ENABLE IN PRODUCTION
 
 export const GEOSTORE_URL = "http://197.254.13.228:3100/api/v1/geostore";
 
