@@ -8,8 +8,8 @@ import {
 import allUpdateProviders from "./manifest";
 
 export const getUpdateProviders = createSelector(
-  [getActiveLayers],
-  (activeLayers) => {
+  [getActiveLayers, getActiveDatasetsFromState],
+  (activeLayers, activeDatasets) => {
     const updateProviders = Object.values(allUpdateProviders).filter((p) =>
       activeLayers.find((l) => l.id === p.layer)
     );

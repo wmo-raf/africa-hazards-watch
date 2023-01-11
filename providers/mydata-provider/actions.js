@@ -18,13 +18,12 @@ export const getMyDatasetsProvider = createThunkAction(
         if (myDatasets && !!myDatasets.length) {
           dispatch(setMyDatasets(myDatasets));
 
-          const datasets = myDatasets.map((d) => ({ ...d.mapDataset }));
-
-          console.log(datasets)
+          const datasets = myDatasets.map((d) => ({
+            ...d.mapDataset,
+            userDataset: true,
+          }));
 
           dispatch(updateDatasets(datasets));
-
-
         }
         dispatch(setMyDataLoading({ loading: false, error: false }));
       })

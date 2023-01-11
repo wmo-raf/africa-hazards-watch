@@ -1,3 +1,4 @@
+import findIndex from "lodash/findIndex";
 import * as actions from "./actions";
 
 export const initialState = {
@@ -25,30 +26,23 @@ const updateDatasets = (state, { payload }) => {
 
   const data = [...datasets];
 
-  for (let i = 0; i < newDatasets.length; index++) {
+  for (let i = 0; i < newDatasets.length; i++) {
     const dataset = newDatasets[i];
 
     const index = findIndex(datasets, ["id", dataset.id]);
 
     if (index > -1) {
-      data.splice(index, 1, area); // substitution
+      data.splice(index, 1, dataset); // substitution
     } else {
-      data.push(area); // addition
+      data.push(dataset); // addition
     }
   }
-
-  console.log(data);
 
   return {
     ...state,
     data,
   };
 };
-
-const setDatasetsWithMetadata = (state, { payload }) => ({
-  ...state,
-  ...payload,
-});
 
 export default {
   [actions.setDatasets]: setDatasets,

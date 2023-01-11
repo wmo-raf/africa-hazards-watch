@@ -36,9 +36,7 @@ class MyData extends Component {
 
     return (
       <div className="mydata-list">
-        {myDatasets.map((dataset) => {
-          const { mapDataset: d } = dataset;
-
+        {myDatasets.map((d) => {
           return (
             <LayerToggle
               key={d.id}

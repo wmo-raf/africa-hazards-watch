@@ -35,6 +35,7 @@ class MapMenu extends PureComponent {
         },
       ].concat([...newActiveDatasets]);
     }
+
     this.props.setMapSettings({
       datasets: newActiveDatasets || [],
       ...(enable && { canBound: true }),
