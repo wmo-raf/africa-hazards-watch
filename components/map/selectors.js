@@ -144,6 +144,11 @@ export const getDrawing = createSelector(
   (settings) => settings.drawing
 );
 
+export const getDrawingMode = createSelector(
+  [getMapSettings],
+  (settings) => settings.drawingMode
+);
+
 export const getCanBound = createSelector(
   getMapSettings,
   (settings) => settings.canBound
@@ -671,6 +676,7 @@ export const getMapProps = createStructuredSelector({
   mapLabels: getMapLabels,
   mapRoads: getMapRoads,
   drawing: getDrawing,
+  drawingMode: getDrawingMode,
   canBound: getCanBound,
   geostoreBbox: getGeostoreBbox,
   geostoreType: getGeostoreType,

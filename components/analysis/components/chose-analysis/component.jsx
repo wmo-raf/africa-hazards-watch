@@ -13,8 +13,10 @@ import infoIcon from "assets/icons/info.svg?sprite";
 import closeIcon from "assets/icons/close.svg?sprite";
 import squarePointIcon from "assets/icons/square-point.svg?sprite";
 import polygonIcon from "assets/icons/polygon.svg?sprite";
+import rectangleIcon from "assets/icons/draw_rectangle.svg?sprite";
 
 import UploadShapeModal from "./upload-shape-modal";
+import DrawingModeSelector from "./drawing-mode-selector/component";
 
 import "./styles.scss";
 
@@ -81,14 +83,27 @@ class ChoseAnalysis extends PureComponent {
       uploading,
       uploadStatus,
       file,
+      drawingMode,
     } = this.props;
     const hasError = error && errorMessage;
+
+    const drawingModes = [
+      { label: "Polygon", value: "draw_polygon", icon: polygonIcon },
+      { label: "Rectangle", value: "draw_rectangle", icon: rectangleIcon },
+    ];
 
     return (
       <div className="draw-menu">
         <div className="draw-menu-title">
           Draw in the map the area you want to analyze
         </div>
+        <DrawingModeSelector
+          options={drawingModes}
+          activeMode={drawingMode}
+          onChange={(mode) => {
+            setMapSettings({ drawingMode: mode });
+          }}
+        />
         <Button
           className="draw-menu-button"
           theme={drawing ? "theme-button-light wide" : "wide"}

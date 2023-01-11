@@ -31,7 +31,7 @@ export default [
     id: layerName,
     dataset: layerName,
     layer: layerName,
-    category,
+    category: category,
     sub_category: subCategory,
     metadata: metadataId,
     citation: "GFS, Hourly for the next 5 days",

@@ -18,16 +18,11 @@
         "id": 1,
         "info": null,
         "order": 1,
-        "sub_categories": [
-          {
-            "active": true,
-            "id": 4,
-            "title": "3 Hour SYNOP Observations"
-          },{
+        "sub_categories": [{
             "active": true,
             "id": 1,
             "sort_order": 1,
-            "title": "Hourly Forecast"
+            "title": "Short Range Forecast"
           },
           {
             "active": false,
@@ -38,8 +33,6 @@
             "id": 2,
             "title": "Satellite Imagery"
           }
-
-
         ],
         "title": "Weather"
       },
@@ -98,13 +91,16 @@
         "title": "Floods"
       },
       {
+        "title": "Environment",
         "active": true,
         "icon": "env",
         "id": 6,
         "info": null,
-        "order": 6,
-        "sub_categories": [],
-        "title": "Environment"
+        "sub_categories": [{
+          "active": true,
+          "id": 1,
+          "title": "LandCover"
+        }]
       },
       {
         "active": true,

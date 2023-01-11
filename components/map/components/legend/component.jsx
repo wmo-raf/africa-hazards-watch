@@ -199,11 +199,15 @@ const MapLegend = ({
                           selectedTime={
                             params[paramConfig.key] || paramConfig.default
                           }
-                          onChange={(value) =>
-                            onChangeParam(activeLayer, {
-                              [paramConfig.key]: value,
-                            })
-                          }
+                          onChange={(value) => {
+                            onChangeParam(
+                              activeLayer,
+                              {
+                                [paramConfig.key]: value,
+                              },
+                              selec
+                            );
+                          }}
                         />
                       ) : paramConfig.options ? (
                         <SentenceSelector
@@ -213,37 +217,24 @@ const MapLegend = ({
                           {...paramConfig}
                           value={params[paramConfig.key] || paramConfig.default}
                           columnView={paramsSelectorColumnView}
-                          onChange={(e) =>
-                            onChangeParam(activeLayer, {
-                              [paramConfig.key]: e,
-                            })
-                          }
+                          onChange={(value) => {
+                            const selectedOption = paramConfig.options.find(
+                              (o) => o.value === value
+                            );
+
+                            onChangeParam(
+                              activeLayer,
+                              {
+                                [paramConfig.key]: value,
+                              },
+                              selectedOption
+                            );
+                          }}
                         />
                       ) : null
                     )}
                 </div>
 
-                {activeLayer &&
-                  decodeParamsSelectorConfig &&
-                  decodeParams &&
-                  decodeParamsSelectorConfig.map((paramConfig) =>
-                    paramConfig.options ? (
-                      <SentenceSelector
-                        key={`${activeLayer.name}-${paramConfig.key}`}
-                        name={name}
-                        className="param-selector"
-                        {...paramConfig}
-                        value={
-                          decodeParams[paramConfig.key] || paramConfig.default
-                        }
-                        onChange={(e) =>
-                          onChangeDecodeParam(activeLayer, {
-                            [paramConfig.key]: parseInt(e, 10),
-                          })
-                        }
-                      />
-                    ) : null
-                  )}
                 {(isSelectorLayer || isMultiSelectorLayer) &&
                   selectorLayerConfig && (
                     <LayerSelectorMenu

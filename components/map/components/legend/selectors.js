@@ -22,7 +22,33 @@ export const getLoading = createSelector(
 
 const getLegendLayerGroups = createSelector([getLayerGroups], (groups) => {
   if (!groups) return null;
-  return groups.filter((g) => !g.isBoundary && !g.isRecentImagery);
+
+  const lGroups = groups.filter((g) => !g.isBoundary && !g.isRecentImagery);
+
+  return lGroups.map((group) => {
+    const layers = group.layers.map((l) => {
+      if (l.dynamicLegendByParamConfig) {
+        const params = l.params;
+
+        for (const param in params) {
+          if (l.dynamicLegendByParamConfig[param]) {
+            const val = params[param];
+
+            if (l.dynamicLegendByParamConfig[param][val]) {
+              l.legendConfig = l.dynamicLegendByParamConfig[param][val];
+              break;
+            } else {
+              l.legendConfig = {};
+            }
+          }
+        }
+      }
+
+      return { ...l };
+    });
+
+    return { ...group, layers: layers };
+  });
 });
 
 export const getLegendProps = createStructuredSelector({

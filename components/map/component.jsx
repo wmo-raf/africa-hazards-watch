@@ -448,6 +448,7 @@ class MapComponent extends Component {
       basemap,
       onClickAnalysis,
       onDrawComplete,
+      drawingMode,
     } = this.props;
 
     let tipText;
@@ -513,6 +514,7 @@ class MapComponent extends Component {
                   map={map}
                   drawing={drawing}
                   onDrawComplete={onDrawComplete}
+                  drawingMode={drawingMode}
                 />
                 {/* SCALE */}
                 <Scale className="map-scale" map={map} viewport={viewport} />
