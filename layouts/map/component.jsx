@@ -10,6 +10,7 @@ import GeodescriberProvider from "providers/geodescriber-provider";
 import DatasetsProvider from "providers/datasets-provider";
 import DatasetUpdateProvider from "providers/dataset-update-provider";
 import AreasProvider from "providers/areas-provider";
+import MyDataProvider from "providers/mydata-provider";
 import LocationProvider from "providers/location-provider";
 import MyHwProvider from "providers/myhw-provider";
 import LayerClipProvider from "providers/layer-clip-provider";
@@ -18,6 +19,7 @@ import ModalWelcome from "components/modals/welcome";
 import MetaModal from "components/modals/meta";
 import ShareModal from "components/modals/share";
 import AreaOfInterestModal from "components/modals/area-of-interest";
+import MyDataModal from "components/modals/my-data";
 
 import Map from "components/map";
 import MapPrompts from "components/prompts/map-prompts";
@@ -93,6 +95,7 @@ class MainMapComponent extends PureComponent {
         <ShareModal />
         <MetaModal />
         <AreaOfInterestModal viewAfterSave clearAfterDelete canDelete />
+        <MyDataModal />
         <SectionsProvider />
         <LayerClipProvider />
         <CountryDataProvider />
@@ -100,6 +103,7 @@ class MainMapComponent extends PureComponent {
         <DatasetUpdateProvider />
         <GeostoreProvider />
         <GeodescriberProvider />
+        <MyDataProvider />
         <AreasProvider />
         <LocationProvider />
         <MyHwProvider />

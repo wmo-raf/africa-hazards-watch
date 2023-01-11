@@ -3,43 +3,43 @@ import { parseISO, addDays } from "date-fns";
 
 import {
   POLITICAL_BOUNDARIES_DATASET,
-  GFS_PRECIPITATION_FORECAST_DATASET,
+  TEMPERATURE_PROJECTION_DATASET,
 } from "data/datasets";
-import { POLITICAL_BOUNDARIES, GFS_PRECIPITATION_FORECAST } from "data/layers";
+import { POLITICAL_BOUNDARIES, TEMPERATURE_PROJECTION } from "data/layers";
 
 import getWidgetProps from "./selectors";
 
 export default {
-  widget: "gfs_precipitation_1hr_widget",
-  title: "Precipitation Forecast for {location}",
+  widget: "temperature_projections_widget",
+  title: "Temperature Change for {location}",
   categories: ["summary"],
+  large: true,
   types: ["country", "geostore", "point"],
   admins: ["adm0", "adm1", "adm2"],
-  large: true,
   metaKey: "",
   sortOrder: {},
   visible: ["analysis", "dashboard"],
-  chartType: "composedChart",
+  chartType: "changeInfographic",
   colors: "weather",
   sentences: {},
-  settings: {
-    time: "",
-  },
-  refetchKeys: ["time"],
-  requiresTime: true,
   datasets: [
     {
       dataset: POLITICAL_BOUNDARIES_DATASET,
       layers: [POLITICAL_BOUNDARIES],
       boundary: true,
     },
-    // forecast
+    // projection
     {
-      dataset: GFS_PRECIPITATION_FORECAST_DATASET,
-      layers: [GFS_PRECIPITATION_FORECAST],
-      keys: ["forecast"],
+      dataset: TEMPERATURE_PROJECTION_DATASET,
+      layers: [TEMPERATURE_PROJECTION],
+      keys: ["temperature_projections"],
     },
   ],
+  refetchKeys: ["time"],
+  requiresTime: true,
+  settings: {
+    time: "",
+  },
   getData: (params = {}, token) => {
     const {
       endpoint,
@@ -50,11 +50,11 @@ export default {
       type,
       adm2,
       isAnalysis,
+      quantity,
+      scenario,
+      time,
+      period,
     } = params;
-
-    console.log(id)
-
-    const { time } = params;
 
     const startDateTime = parseISO(time);
 
@@ -63,7 +63,7 @@ export default {
     const startDateTimeParam = time.substring(0, 16);
     const endDateTimeParam = endDateTime.substring(0, 16);
 
-    const wpsIdentifier = "gfs_precipitation_1hr_GeometryDrill";
+    const wpsIdentifier = "gfs_temperature_2m_GeometryDrill";
 
     // if point, make a FeatureCollection and run analysis
     if (isPoint) {

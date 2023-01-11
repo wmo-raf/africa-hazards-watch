@@ -20,3 +20,5 @@ export const ERA5_MONTHLY_TOTAL_PRECIPITATION_MEAN =
 
 export const ERA5_MONTHLY_TOTAL_PRECIPITATION_ANOMALY =
   "era5monthly_precipitation_1_day_anomaly";
+
+export const TEMPERATURE_PROJECTION = "mean_temperature_projections";

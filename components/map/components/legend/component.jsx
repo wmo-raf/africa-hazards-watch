@@ -200,13 +200,9 @@ const MapLegend = ({
                             params[paramConfig.key] || paramConfig.default
                           }
                           onChange={(value) => {
-                            onChangeParam(
-                              activeLayer,
-                              {
-                                [paramConfig.key]: value,
-                              },
-                              selec
-                            );
+                            onChangeParam(activeLayer, {
+                              [paramConfig.key]: value,
+                            });
                           }}
                         />
                       ) : paramConfig.options ? (

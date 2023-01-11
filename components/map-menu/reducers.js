@@ -8,6 +8,7 @@ export const initialState = {
     datasetCategory: "",
     exploreType: "topics",
     searchType: "location",
+    myHWType: "myAOI",
     search: "",
     selectedCountries: [],
   },

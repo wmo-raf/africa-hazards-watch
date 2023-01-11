@@ -56,3 +56,12 @@ export const gskyTimestampsRequest = create({
   timeout: TIMEOUT,
   baseURL: "http://197.254.13.228:8081/mas",
 });
+
+export const myDataRequest = create({
+  timeout: TIMEOUT,
+  baseURL: "http://localhost:8000/api/v1",
+  headers: {
+    "content-type": "application/json",
+    Authorization: `Bearer ${!isServer && localStorage.getItem("userToken")}`,
+  },
+});

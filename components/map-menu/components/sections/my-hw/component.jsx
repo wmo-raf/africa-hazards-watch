@@ -25,6 +25,9 @@ import logoutIcon from "assets/icons/logout.svg?sprite";
 import screenImg1x from "assets/images/aois/aoi-dashboard.png";
 import screenImg2x from "assets/images/aois/aoi-dashboard@2x.png";
 
+import SubnavMenu from "components/subnav-menu";
+import MyData from "./components/my-data";
+
 import "./styles.scss";
 
 const isServer = typeof window === "undefined";
@@ -82,20 +85,36 @@ class MapMenuMyHW extends PureComponent {
     };
   }
 
-  renderLoginWindow() {
+  renderLoginWindow(section) {
     const { isDesktop } = this.props;
+
+    const sectionsMessages = {
+      myAOI: (
+        <>
+          <p>
+            Log in is required so you can manage your Areas of Interest and
+            upload your data for visualization
+          </p>
+          <p>
+            Creating an Area of Interest lets you customize and perform an
+            in-depth analysis of the area, as well as receiving email
+            notifications when new alerts are available.
+          </p>
+        </>
+      ),
+      myData: (
+        <>
+          <p>Log in is required so you can upload your data</p>
+        </>
+      ),
+    };
+
     return (
       <div className="aoi-header">
         {isDesktop && <h3 className="title-login">Please log in</h3>}
-        <p>
-          Log in is required so you can view, manage, and delete your Areas of
-          Interest.
-        </p>
-        <p>
-          Creating an Area of Interest lets you customize and perform an
-          in-depth analysis of the area, as well as receiving email
-          notifications when new alerts are available.
-        </p>
+
+        {section && sectionsMessages[section] && sectionsMessages[section]}
+
         <LoginForm className="mygfw-login" simple narrow />
       </div>
     );
@@ -322,9 +341,13 @@ class MapMenuMyHW extends PureComponent {
     );
   }
 
-  renderMyHW() {
-    const { areas, userData } = this.props;
+  renderMyAOI() {
+    const { areas, userData, loggedIn } = this.props;
     const { email, fullName } = userData || {};
+
+    if (!loggedIn) {
+      return this.renderLoginWindow("myAOI");
+    }
 
     return (
       <div className="my-hw">
@@ -357,15 +380,72 @@ class MapMenuMyHW extends PureComponent {
       </div>
     );
   }
+  renderMyData() {
+    const { loggedIn } = this.props;
+
+    if (!loggedIn) {
+      return this.renderLoginWindow("myData");
+    }
+    return <MyData {...this.props} />;
+  }
 
   render() {
-    const { loggedIn, areas, isDesktop, loading } = this.props;
+    const {
+      loggedIn,
+      areas,
+      isDesktop,
+      loading,
+      section,
+      setMenuSettings,
+    } = this.props;
+
+    const links = [
+      {
+        label: "My AOI",
+        active: section === "myAOI",
+        onClick: () => {
+          setMenuSettings({ myHWType: "myAOI" });
+          trackEvent({
+            category: "Map menu",
+            action: "Select myHW category",
+            label: "My AOI",
+          });
+        },
+      },
+      {
+        label: "My Data",
+        active: section === "MyData",
+        onClick: () => {
+          setMenuSettings({ myHWType: "MyData" });
+          trackEvent({
+            category: "Map menu",
+            action: "Select myHW category",
+            label: "My Data",
+          });
+        },
+      },
+    ];
 
     return (
       <div className="c-map-menu-my-hw">
         {loading && <Loader />}
-        {!loading && loggedIn && this.renderMyHW()}
-        {!loading && !loggedIn && this.renderLoginWindow()}
+        <SubnavMenu
+          links={links}
+          className="myhw-menu"
+          theme="theme-subnav-small-light"
+        />
+        <div className="content">
+          <div className="row">
+            <div className="column small-12">
+              <div className="description">
+                {section === "myAOI" ? this.renderMyAOI() : this.renderMyData()}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* {!loading && loggedIn && this.renderMyHW()} */}
+        {/* {!loading && !loggedIn && this.renderLoginWindow()} */}
         {!loading && loggedIn && !(areas && areas.length > 0) && isDesktop && (
           <img
             className={cx("my-hw-login-image", { "--login": !loggedIn })}
