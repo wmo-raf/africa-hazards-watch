@@ -33,6 +33,7 @@ export const getInteractionWithContext = createSelector(
   (interaction = {}) => {
     const { layer, geometry } = interaction || {};
     const isAoi = layer?.name === "Area of Interest";
+
     const isArticle = !!layer?.interactionConfig?.article;
     const isCapAlert = !!layer?.interactionConfig?.capAlert;
     const isBoundary = layer?.isBoundary;

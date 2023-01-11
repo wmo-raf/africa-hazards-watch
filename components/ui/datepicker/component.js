@@ -51,13 +51,13 @@ const Datepicker = ({ lang, selected, minDate, maxDate, ...props }) => {
   );
 
   const selectedUTC = new Date(
-    selected.getTime() + selected.getTimezoneOffset() * 60000
+    selected.getTime() - selected.getTimezoneOffset() * 60000
   );
   const minDateUTC = new Date(
-    minDate.getTime() + minDate.getTimezoneOffset() * 60000
+    minDate.getTime() - minDate.getTimezoneOffset() * 60000
   );
   const maxDateUTC = new Date(
-    maxDate.getTime() + maxDate.getTimezoneOffset() * 60000
+    maxDate.getTime() - maxDate.getTimezoneOffset() * 60000
   );
 
   return (
