@@ -109,7 +109,7 @@ class DateTimeSelectorSection extends Component {
   getCurrentTimeIndex = () => {
     const { availableDates, selectedTime } = this.props;
 
-    return availableDates.findIndex((d) => d === selectedTime)-1;
+    return availableDates.findIndex((d) => d === selectedTime);
   };
 
   render() {

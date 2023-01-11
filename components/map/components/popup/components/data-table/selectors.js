@@ -10,7 +10,7 @@ export const getTableData = createSelector(
   [getInteractionData],
   (interaction = {}) => {
     const { data, layer, isBoundary } = interaction;
-    const { interactionConfig,intersectionMap } = layer || {};
+    const { interactionConfig } = layer || {};
     if (isBoundary && interactionConfig) {
       return interactionConfig.output.reduce(
         (obj, c) => ({
@@ -29,7 +29,7 @@ export const getTableData = createSelector(
         .map((c) => ({
           ...c,
           label: c.property,
-          value: c.intersection ? intersectionMap[data[c.column]] : data[c.column],
+          value: data[c.column],
         }))
     );
   }

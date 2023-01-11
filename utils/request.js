@@ -56,12 +56,3 @@ export const gskyTimestampsRequest = create({
   timeout: TIMEOUT,
   baseURL: "http://197.254.13.228:8081/mas",
 });
-
-export const synopTimestampsRequest = create({
-  headers: {
-    "content-type": "application/json",
-  },
-  timeout: TIMEOUT,
-  baseURL: "http://197.254.13.228:9001/met_web/date_ls", // TODO : ENABLE IN PRODUCTION
-  // baseURL: "http://localhost:9001/met_web/date_ls", // TODO : SET TO PRODUCTION
-});
