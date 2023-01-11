@@ -10,6 +10,7 @@ export const airTemperature = (timestamps = []) => {
   if (!latest) {
     return [];
   }
+
   const time = parseISO(latest);
   const end = addDays(time, 7);
   const dateFormat = "mmm, yyyy";
