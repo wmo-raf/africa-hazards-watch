@@ -36,20 +36,18 @@ const DataTable = ({
   setAnalysisSettings,
   setMainMapSettings,
 }) => {
-
   return (
     <div className="c-data-table">
       <div className="table">
         {data?.map((d) => (
           <div key={`${d.label}-${d?.value}`} className="wrapper">
             <div className="label">{d?.label}:</div>
-
             <div
               className={
                 d?.type === "link" && d?.linkText ? "table-link" : "value"
               }
             >
-              {renderString(d)} {d?.units}
+              {renderString(d)}
             </div>
           </div>
         ))}
