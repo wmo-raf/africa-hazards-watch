@@ -205,6 +205,7 @@ const MapLegend = ({
                               {
                                 [paramConfig.key]: value,
                               },
+                              selec
                             );
                           }}
                         />
