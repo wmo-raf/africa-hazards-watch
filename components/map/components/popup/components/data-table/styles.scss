@@ -16,7 +16,7 @@
       .value {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: flex-start;
       }
 
@@ -28,9 +28,9 @@
         width: 40%;
         min-width: 40%;
         font-weight: 500;
-        margin-right: 15px;
+        margin-right: 10px;
         text-transform: uppercase;
-        word-break: break-all;
+        word-break: break-word;
       }
     }
   }
