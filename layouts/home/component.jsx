@@ -28,8 +28,9 @@ import mailIcon from "assets/icons/mail.svg?sprite";
 
 import config from "./config";
 // import newsImage from "./assets/news-bg.jpg";
-import bgImage from "./assets/home-bg.jpg";
+
 import globeImage from "./assets/globe.png";
+import bgImage from "./assets/home-bg.png";
 import bgImageWebP from "./assets/home-bg.webp";
 import feedbackBg from "./assets/feedback-bg.png";
 
@@ -53,7 +54,7 @@ const HomePage = ({ summary, uses, apps, news }) => {
         title="Climate Intelligence for Action"
         description="Africa Hazards Watch offers the latest risk information and near real-time weather and climate data to empower people and organizations to make better decisions."
         bgImage={bgImage}
-        // webP={bgImageWebP}
+        webP={bgImageWebP}
         large
       >
         <ButtonComponent link="/map" className="explore-btn">
