@@ -192,7 +192,10 @@
 
     .section-involve-wrapper {
       padding: 40px 0;
-      border-radius: 8px;
+
+      @media screen and (min-width: $screen-l) {
+        border-radius: 8px;
+      }
 
       .involve-title {
         font-size: rem(34px);
