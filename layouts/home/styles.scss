@@ -30,9 +30,9 @@
     background-color: rgba($slate, 0.7);
   }
 
-  .subscribe-btn {
+  .explore-btn {
     position: relative;
-    z-index: 1;
+    z-index: 999;
     cursor: pointer;
     display: flex;
     align-items: center;

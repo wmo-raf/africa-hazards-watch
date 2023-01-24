@@ -56,16 +56,9 @@ const HomePage = ({ summary, uses, apps, news }) => {
         // webP={bgImageWebP}
         large
       >
-        <>
-          <Link href="/subscribe">
-            <a className="subscribe-btn">
-              <Button round className="subscribe-icon">
-                <Icon icon={mailIcon} />
-              </Button>
-              <p className="subscribe-msg">SUBSCRIBE TO THE AHW NEWSLETTER</p>
-            </a>
-          </Link>
-        </>
+        <ButtonComponent link="/map" className="explore-btn">
+          EXPLORE MAP
+        </ButtonComponent>
       </Cover>
       <div className="section-summary">
         <Row>
