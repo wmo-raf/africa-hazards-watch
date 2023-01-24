@@ -65,3 +65,12 @@ export const synopTimestampsRequest = create({
   baseURL: "http://197.254.13.228:9001/met_web/date_ls", // TODO : ENABLE IN PRODUCTION
   // baseURL: "http://localhost:9001/met_web/date_ls", // TODO : SET TO PRODUCTION
 });
+
+export const myDataRequest = create({
+  timeout: TIMEOUT,
+  baseURL: "http://localhost:8000/api/v1",
+  headers: {
+    "content-type": "application/json",
+    Authorization: `Bearer ${!isServer && localStorage.getItem("userToken")}`,
+  },
+});
