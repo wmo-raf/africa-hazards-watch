@@ -4,6 +4,7 @@ import Button from "components/ui/button";
 import Icon from "components/ui/icon";
 
 import plusIcon from "assets/icons/plus.svg?sprite";
+import editIcon from "assets/icons/edit.svg?sprite";
 import LayerToggle from "components/map/components/legend/components/layer-toggle";
 
 import "./styles.scss";
@@ -12,7 +13,7 @@ class MyData extends Component {
   renderNoDatasets() {
     const { isDesktop, setMyDataModalSettings } = this.props;
     return (
-      <div className="mydata-header">
+      <div className="my-data-header">
         {isDesktop && (
           <h2 className="title-no-data">
             You have not added any Datasets yet.
@@ -22,7 +23,12 @@ class MyData extends Component {
         <Button
           theme="theme-button-medium"
           className="add-btn"
-          onClick={() => setMyDataModalSettings(true)}
+          onClick={() =>
+            setMyDataModalSettings({
+              myDatasetId: true,
+              myDataIntent: "create",
+            })
+          }
         >
           <div>Add</div>
           <Icon icon={plusIcon} className="add-icon" />
@@ -32,22 +38,71 @@ class MyData extends Component {
   }
 
   renderDatasets() {
-    const { myDatasets, onToggleLayer } = this.props;
+    const { myDatasets, onToggleLayer, setMyDataModalSettings } = this.props;
 
     return (
-      <div className="mydata-list">
-        {myDatasets.map((d) => {
-          return (
-            <LayerToggle
-              key={d.id}
-              className="dataset-toggle"
-              data={{ ...d, dataset: d.id }}
-              onToggle={onToggleLayer}
-              showSubtitle
-            />
-          );
-        })}
-      </div>
+      <>
+        <div className="my-data-toolbar">
+          <div>
+            <Button
+              theme="theme-button-medium"
+              className="add-btn"
+              onClick={() =>
+                setMyDataModalSettings({
+                  myDatasetId: true,
+                  myDataIntent: "create",
+                })
+              }
+            >
+              <div>Create Dataset</div>
+              <Icon icon={plusIcon} className="add-icon" />
+            </Button>
+          </div>
+        </div>
+        <div className="my-data-list">
+          {myDatasets.map((d) => {
+            return (
+              <div key={d.id} className="dataset-toggle">
+                <LayerToggle
+                  data={{ ...d, dataset: d.id }}
+                  onToggle={onToggleLayer}
+                  showSubtitle
+                />
+                <div className="dataset-toolbar">
+                  <div className="dataset-tool">
+                    <Button
+                      className="theme-button-tiny theme-button-light"
+                      onClick={() =>
+                        setMyDataModalSettings({
+                          myDatasetId: d.id,
+                          myDataIntent: "edit",
+                        })
+                      }
+                    >
+                      <div>Edit</div>
+                      <Icon icon={editIcon} className="tool-icon" />
+                    </Button>
+                  </div>
+                  <div className="dataset-tool">
+                    <Button
+                      className="theme-button-tiny theme-button-light"
+                      onClick={() =>
+                        setMyDataModalSettings({
+                          myDatasetId: d.id,
+                          myDataIntent: "upload",
+                        })
+                      }
+                    >
+                      <div>Add Files</div>
+                      <Icon icon={plusIcon} className="tool-icon" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </>
     );
   }
 
@@ -56,11 +111,9 @@ class MyData extends Component {
 
     return (
       <div className="my-data">
-        <div className="my-data-list">
-          {myDatasets && myDatasets.length > 0
-            ? this.renderDatasets()
-            : this.renderNoDatasets()}
-        </div>
+        {myDatasets && myDatasets.length > 0
+          ? this.renderDatasets()
+          : this.renderNoDatasets()}
       </div>
     );
   }

@@ -50,7 +50,7 @@ class MyDataProvider extends PureComponent {
   }
 }
 
-reducerRegistry.registerModule("mydata", {
+reducerRegistry.registerModule("myData", {
   actions,
   reducers,
   initialState,

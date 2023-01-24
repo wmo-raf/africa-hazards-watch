@@ -191,6 +191,7 @@ const MapLegend = ({
                           className="param-selector"
                           {...paramConfig}
                           availableDates={
+                            // use dates from update provider else use dates from  initial config
                             layerTimestamps[activeLayer.id] &&
                             !isEmpty(layerTimestamps[activeLayer.id])
                               ? layerTimestamps[activeLayer.id]

@@ -7,6 +7,13 @@ import { updateDatasets } from "providers/datasets-provider/actions";
 export const setMyDataLoading = createAction("setMyDataLoading");
 export const setMyDatasets = createAction("setMyDatasets");
 export const setMyDataset = createAction("setMyDataset");
+export const removeMyDataset = createAction("removeMyDataset");
+export const setMyDataSettings = createAction("setMyDataSettings");
+export const setMyDataUploads = createAction("setMyDataUploads");
+export const setMyDataRasterFiles = createAction("setMyDataRasterFiles");
+export const updateMyDataUploads = createAction("updateMyDataUploads");
+export const setMyDataUploading = createAction("setMyDataUploading");
+export const removeMyDataUploads = createAction("removeMyDataUploads");
 
 export const getMyDatasetsProvider = createThunkAction(
   "getMyDatasetsProvider",

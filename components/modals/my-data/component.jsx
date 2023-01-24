@@ -22,7 +22,7 @@ const MyDataModal = ({
   setMyDataModalSettings,
 }) => {
   const {
-    query: { myDatasetId },
+    query: { myDatasetId, myDataIntent },
   } = useRouter();
 
   const activeDataset = myDatasets?.find((a) => a.id === myDatasetId);
@@ -49,7 +49,14 @@ const MyDataModal = ({
         {!loading && loggedIn && !profileComplete && (
           <ProfileForm source="MyDataModal" />
         )}
-        {!loading && loggedIn && profileComplete && <MyDataForm />}
+        {!loading && loggedIn && profileComplete && (
+          <MyDataForm
+            canDelete={canDelete}
+            closeForm={handleCloseModal}
+            myDatasetId={activeDataset?.id}
+            myDataIntent={myDataIntent}
+          />
+        )}
       </div>
     </Modal>
   );

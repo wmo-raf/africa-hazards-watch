@@ -1,31 +1,35 @@
 import { createThunkAction } from "redux/actions";
 import { FORM_ERROR } from "final-form";
 
-import { saveArea, deleteArea } from "services/areas";
-
 import {
-  setArea,
-  setAreas,
-  viewArea,
-  clearArea,
-} from "providers/areas-provider/actions";
+  saveMyDataset as saveMyDataseReq,
+  deleteMyDataset as deleteMyDatasetReq,
+} from "services/mydata";
+
+import { setMyDataset } from "providers/mydata-provider/actions";
+import { updateDatasets } from "providers/datasets-provider/actions";
 
 export const saveMyDataset = createThunkAction(
   "saveMyDataset",
-  ({ user_id, name, viewAfterSave }) => (dispatch, getState) => {
-    const postData = {
-      id,
-      name,
-    };
+  ({ user_id, name, data_type, data_variable }) => (dispatch, getState) => {
+    const postData = { user_id, name, data_type, data_variable };
 
-    return saveMyDataset(postData)
+    return saveMyDataseReq(postData)
       .then((myDataset) => {
-        // dispatch(setMyDataset({ ...myDataset }));
+        dispatch(setMyDataset(myDataset));
+
+        const dataset = {
+          ...myDataset.mapDataset,
+          userDataset: true,
+        };
+
+        // update main datasets
+        dispatch(updateDatasets([dataset]));
       })
       .catch((error) => {
-        let { errors } = (error.response && error.response.data) || [];
+        let err = (error.response && error.response.data) || [];
 
-        let err = errors && errors[0] && errors[0].detail;
+        err = err && err.detail;
 
         if (!err && error.message) {
           err = error.message;
@@ -41,7 +45,7 @@ export const saveMyDataset = createThunkAction(
 export const deleteMyDataset = createThunkAction(
   "deleteMyDataset",
   ({ id, clearAfterDelete, callBack }) => (dispatch, getState) => {
-    return deleteMyDataset(id)
+    return deleteMyDatasetReq(id)
       .then(() => {})
       .catch((error) => {
         const { errors } = error.response.data;

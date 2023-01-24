@@ -3,7 +3,7 @@
   position: relative;
   height: 100%;
 
-  .mydata-header {
+  .my-data-header {
     padding: rem(5px) rem(15px);
     @media screen and (min-width: $screen-m) {
       padding: rem(20px);
@@ -38,14 +38,45 @@
     }
   }
 
-  .mydata-list {
+  .my-data-toolbar {
+    margin-top: 20px;
+  }
+
+  .my-data-list {
     margin-top: 20px;
 
     .dataset-toggle {
+      display: flex;
+      flex-direction: column;
+
       margin-bottom: rem(20px);
 
       &:last-child {
         margin-bottom: rem(5px);
+      }
+
+      .dataset-toolbar {
+        display: flex;
+        margin-left: 28px;
+        font-size: 14px;
+        padding: 8px 0 0 0;
+
+        .dataset-tool {
+          display: flex;
+          align-items: center;
+          padding: 0 8px 0 0;
+          .tool-button {
+          }
+
+          .tool-icon {
+            margin-left: 4px;
+            fill: $green-gfw;
+          }
+
+          .tool-title {
+            font-size: 14px;
+          }
+        }
       }
     }
   }

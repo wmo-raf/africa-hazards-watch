@@ -95,7 +95,7 @@ class MainMapComponent extends PureComponent {
         <ShareModal />
         <MetaModal />
         <AreaOfInterestModal viewAfterSave clearAfterDelete canDelete />
-        <MyDataModal />
+        <MyDataModal canDelete />
         <SectionsProvider />
         <LayerClipProvider />
         <CountryDataProvider />

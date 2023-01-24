@@ -3,20 +3,26 @@ import sortBy from "lodash/sortBy";
 import isEmpty from "lodash/isEmpty";
 
 export const selectMyDataLoading = (state) =>
-  state.mydata && state.mydata.loading;
+  state.myData && state.myData.loading;
 export const selectLoggedIn = (state) =>
   state && !!state.myHw && !isEmpty(state.myHw.data);
+const getMyDataSettings = (state) => state.myData?.settings || {};
 
 export const getAllMyDatasets = (state) =>
   state &&
-  state.mydata &&
+  state.myData &&
   sortBy(
-    state.mydata.data.map((a) => ({
+    state.myData.data.map((a) => ({
       ...a,
       lowercaseName: a.name && a.name.toLowerCase(),
     })),
     "lowercaseName"
   );
+
+export const getUploadSection = createSelector(
+  [getMyDataSettings],
+  (settings) => settings.uploadSection
+);
 
 export const getMyDataProps = createStructuredSelector({
   myDatasets: getAllMyDatasets,

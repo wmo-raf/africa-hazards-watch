@@ -1,6 +1,8 @@
 import { createSelector, createStructuredSelector } from "reselect";
 
-const selectMyDataLoading = (state) => state.mydata && state.areas?.loading;
+import { getAllMyDatasets } from "providers/mydata-provider/selectors";
+
+const selectMyDataLoading = (state) => state.myData && state.areas?.loading;
 const selectMyHwLoading = (state) => state.areas && state.myHw?.loading;
 const selectUserData = (state) => state.myHw && state.myHw?.data;
 
@@ -12,4 +14,5 @@ const getLoading = createSelector(
 export const getMyDataModalProps = createStructuredSelector({
   loading: getLoading,
   userData: selectUserData,
+  myDatasets: getAllMyDatasets,
 });

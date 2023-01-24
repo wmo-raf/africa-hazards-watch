@@ -44,8 +44,28 @@ const updateDatasets = (state, { payload }) => {
   };
 };
 
+const removeDataset = (state, { payload }) => {
+  const datasetToRemove = { ...payload };
+
+  const { data: datasets } = state;
+
+  const data = [...datasets];
+
+  const index = findIndex(datasets, ["id", datasetToRemove.id]);
+
+  if (index > -1) {
+    data.splice(index, 1); // remove from array
+  }
+
+  return {
+    ...state,
+    data,
+  };
+};
+
 export default {
   [actions.setDatasets]: setDatasets,
   [actions.setDatasetsLoading]: setDatasetsLoading,
   [actions.updateDatasets]: updateDatasets,
+  [actions.removeDataset]: removeDataset,
 };

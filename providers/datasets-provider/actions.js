@@ -11,6 +11,7 @@ import { setMapSettings } from "components/map/actions";
 export const setDatasetsLoading = createAction("setDatasetsLoading");
 export const setDatasets = createAction("setDatasets");
 export const updateDatasets = createAction("updateDatasets");
+export const removeDataset = createAction("removeDataset");
 
 export const fetchDatasets = createThunkAction(
   "fetchDatasets",
