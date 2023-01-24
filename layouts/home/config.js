@@ -2,16 +2,24 @@
 // import proIcon from "assets/icons/gfw-pro.svg";
 
 import conservationOrgs from "./assets/conservation-orgs.jpg";
+import NMHSs from "./assets/nmhss.png";
+import drr from "./assets/drr.png";
 // import policyMakers from "./assets/policy-makers.jpg";
 // import journalists from "./assets/journalists.jpg";
 // import company from "./assets/company.jpg";
 
-import card1 from "./assets/card-0.png";
-import card1Webp from "./assets/card-0.webp";
-import card2 from "./assets/card-1.png";
-import card2Webp from "./assets/card-1.webp";
-import card3 from "./assets/card-2.png";
-import card3Webp from "./assets/card-2.webp";
+import cardAlert from "./assets/card-alerts.png";
+import cardAlertWebp from "./assets/card-alerts.webp";
+
+import cardTopic from "./assets/card-topic.png";
+import cardTopicWebp from "./assets/card-topic.webp";
+
+import cardClimate from "./assets/card-climate.png";
+import cardClimateWebp from "./assets/card-climate.webp";
+
+import cardDashboard from "./assets/card-dashboard.png";
+import cardDashboardWebp from "./assets/card-dashboard.webp";
+
 import card4 from "./assets/card-3.png";
 import card4Webp from "./assets/card-3.webp";
 import card5 from "./assets/card-4.png";
@@ -24,76 +32,79 @@ export default {
   summary: [
     {
       title: "Monitor warnings, alerts, risks and potential hazards",
-      summary: "Explore our data to monitor hazards in Africa",
+      summary:
+        "Explore and visualize weather alerts for severe weather conditions as published by NMHSs in Africa.",
       buttons: [
         {
-          text: "EXPLORE OUR DATA",
+          text: "VIEW CURRENT ALERTS",
           link: "/map",
         },
       ],
-      image: card1,
-      webPImage: card1Webp,
+      image: cardAlert,
+      webPImage: cardAlertWebp,
     },
     {
       title: "Quick analysis for any location in Africa",
       summary:
-        "Analyze data and investigate trends anywhere in the continent with just a few clicks.",
+        "Analyze by an administrative boundary, a specific point or upload/draw your custom area on the map",
       buttons: [
         {
-          text: "EXPLORE THE DASHBOARDS",
-          link: "/dashboards/africa",
-        },
-      ],
-      image: card3,
-      webPImage: card3Webp,
-    },
-    {
-      title: "Analyze trends using data",
-      summary:
-        "Monitor near real-time conditions and analyze future projections",
-      buttons: [
-        {
-          text: "VIEW ALERTS",
+          text: "EXPLORE",
           link: "/map",
         },
       ],
-      image: card2,
-      webPImage: card2Webp,
+      image: cardClimate,
+      webPImage: cardClimateWebp,
+    },
+    {
+      title: "Analyze climate change for any location in Africa",
+      summary:
+        "Explore historical data, current conditions and future projected climate conditions for any location",
+      buttons: [
+        {
+          text: "VIEW CLIMATE CHANGE DATA",
+          link: "/map",
+        },
+      ],
+      image: cardTopic,
+      webPImage: cardTopicWebp,
     },
     {
       title: "Receive email updates for your chosen location and products",
       summary:
-        "View, analyze, and subscribe to get periodic alerts that show areas at risk of being affected",
+        "View, analyze, and subscribe to get periodic notifications for areas and products you are interested in",
       buttons: [
         {
-          text: "VIEW ALERTS",
-          link: "/map",
+          text: "SIGN IN TO MY HW",
+          link: "/my-hw",
         },
       ],
-      image: card2,
-      webPImage: card2Webp,
+      image: cardDashboard,
+      webPImage: cardDashboardWebp,
     },
   ],
   uses: [
     {
       profile: "NMHSs",
+      heading: "National Meteorological and Hydrological Services",
       example:
-        "The Amazon Conservation Association (ACA) works to protect biodiversity in the Amazon. With GLAD deforestation alerts on Global Forest Watch, we can detect illegal gold mining and logging in protected areas within days. By getting timely and precise information into the hands of policymakers, we've seen government authorities on the ground taking action within 24-48 hours of receiving an alert.",
+        "Upload and visualize local Numerical Weather Prediction data and compare with data from Global Producing Centers",
       credit: {
-        name: "MINAMPERÚ",
-        extLink: "https://www.flickr.com/photos/minamperu/9966829933",
+        name: "AHW",
+        // extLink: "",
       },
-      img: conservationOrgs,
+      img: NMHSs,
     },
     {
       profile: "DRR",
+      heading: "Disaster Risk Reduction Agencies",
       example:
-        "The Amazon Conservation Association (ACA) works to protect biodiversity in the Amazon. With GLAD deforestation alerts on Global Forest Watch, we can detect illegal gold mining and logging in protected areas within days. By getting timely and precise information into the hands of policymakers, we've seen government authorities on the ground taking action within 24-48 hours of receiving an alert.",
+        "Monitor and forecast hazards in the region, and provide early warning to communities and government agencies to help them prepare for and respond to potential disasters",
       credit: {
-        name: "MINAMPERÚ",
-        extLink: "https://www.flickr.com/photos/minamperu/9966829933",
+        name: "AHW",
+        // extLink: "/map",
       },
-      img: conservationOrgs,
+      img: drr,
     },
   ],
   apps: [],

@@ -17,6 +17,11 @@ import Cover from "components/cover";
 import Icon from "components/ui/icon";
 import Card from "components/ui/card";
 
+import weatherIcon from "assets/icons/rainfall.svg?sprite";
+import forecastIcon from "assets/icons/forecast.svg?sprite";
+import analyticsIcon from "assets/icons/data-analytics.svg?sprite";
+import impactIcon from "assets/icons/affected-population.svg?sprite";
+
 import arrowIcon from "assets/icons/arrow-down.svg?sprite";
 import profileIcon from "assets/icons/profile.svg?sprite";
 import mailIcon from "assets/icons/mail.svg?sprite";
@@ -26,7 +31,7 @@ import config from "./config";
 import bgImage from "./assets/home-bg.jpg";
 import globeImage from "./assets/globe.png";
 import bgImageWebP from "./assets/home-bg.webp";
-import satDish from "./assets/satellite-dish.jpeg";
+import feedbackBg from "./assets/feedback-bg.png";
 
 import "./styles.scss";
 
@@ -133,58 +138,50 @@ const HomePage = ({ summary, uses, apps, news }) => {
             <Column width={[1, 1 / 4]}>
               <div className="feature-item">
                 <div className="feature-icon">
-                  <Icon icon={profileIcon} />
+                  <Icon icon={weatherIcon} />
                 </div>
                 <div className="feature-header"> Current Conditions</div>
                 <div className="feature-detail">
-                  Planet Monitoring passively images the Earth’s landmass every
-                  day, empowering you with comprehensive, accurate data about
-                  our changing planet.
+                  Weather conditions for different locations as reported by
+                  NMHSs weather stations across Africa
                 </div>
               </div>
             </Column>
             <Column width={[1, 1 / 4]}>
               <div className="feature-item">
                 <div className="feature-icon">
-                  <Icon icon={arrowIcon} />
+                  <Icon icon={forecastIcon} />
                 </div>
                 <div className="feature-header"> Forecasts</div>
                 <div className="feature-detail">
-                  Planet Monitoring passively images the Earth’s landmass every
-                  day, empowering you with comprehensive, accurate data about
-                  our changing planet.
+                  Expected weather conditions for any location in Africa for
+                  different time periods
                 </div>
               </div>
             </Column>
             <Column width={[1, 1 / 4]}>
               <div className="feature-item">
                 <div className="feature-icon">
-                  <Icon icon={profileIcon} />
+                  <Icon icon={analyticsIcon} />
                 </div>
                 <div className="feature-header">
-                  {" "}
                   Historical & Projections Data
                 </div>
                 <div className="feature-detail">
-                  Planet Monitoring passively images the Earth’s landmass every
-                  day, empowering you with comprehensive, accurate data about
-                  our changing planet.
+                  Past observations of climatological variables and predictions
+                  of future climate conditions
                 </div>
               </div>
             </Column>
             <Column width={[1, 1 / 4]}>
               <div className="feature-item">
                 <div className="feature-icon">
-                  <Icon icon={profileIcon} />
+                  <Icon icon={impactIcon} />
                 </div>
-                <div className="feature-header">
-                  {" "}
-                  Exposure & Impact Analysis
-                </div>
+                <div className="feature-header">Exposure & Impact Analysis</div>
                 <div className="feature-detail">
-                  Planet Monitoring passively images the Earth’s landmass every
-                  day, empowering you with comprehensive, accurate data about
-                  our changing planet.
+                  Susceptibility to extreme weather events and the potential
+                  consequences
                 </div>
               </div>
             </Column>
@@ -214,13 +211,10 @@ const HomePage = ({ summary, uses, apps, news }) => {
             {uses.map((c) => (
               <Row className="uses" key={c.example}>
                 <Column width={[1, 1 / 2]}>
-                  <p className="use-example">
-                    <i>
-                      <span>“</span>
-                      {c.example}
-                      <span>”</span>
-                    </i>
-                  </p>
+                  <div className="use-example">
+                    <h3 className="use-header">{c.heading}</h3>
+                    <p className="use-description">{c.example}</p>
+                  </div>
                 </Column>
                 <Column width={[1, 1 / 2]}>
                   <div
@@ -242,37 +236,46 @@ const HomePage = ({ summary, uses, apps, news }) => {
           </Carousel>
         )}
       </div>
-      <div
-        className="section-involve"
-        style={{ backgroundImage: `url(${satDish})` }}
-      >
+      <div className="section-involve">
         <Row>
-          <Column>
-            <h3 className="involve-title">Get Involved</h3>
-            <div className="involve-text">
-              Africa Hazards Watch is a User Driven system. Give us feedback and
-              let us know how to improve the system.
-            </div>
-          </Column>
-        </Row>
+          <div
+            className="section-involve-wrapper"
+            style={{
+              width: "100%",
+              backgroundImage: `url(${feedbackBg})`,
+            }}
+          >
+            <Column>
+              <Row>
+                <Column>
+                  <h3 className="involve-title">Get Involved</h3>
+                  <div className="involve-text">
+                    Africa Hazards Watch is a User Driven system. Give us
+                    feedback and let us know how to improve the system.
+                  </div>
+                </Column>
+              </Row>
 
-        <div className="involve-actions">
-          <Row>
-            <Column width={[1, 1 / 5]}>
-              <ButtonComponent> Give Feedback </ButtonComponent>
+              <div className="involve-actions">
+                <Row>
+                  <Column width={[1, 1 / 5]}>
+                    <ButtonComponent> Give Feedback </ButtonComponent>
+                  </Column>
+                  <Column width={[1, 1 / 5]}>
+                    <ButtonComponent className="theme-button-light">
+                      Contribute Data
+                    </ButtonComponent>
+                  </Column>
+                  <Column width={[1, 1 / 5]}>
+                    <ButtonComponent className="theme-button-light">
+                      Partner with us
+                    </ButtonComponent>
+                  </Column>
+                </Row>
+              </div>
             </Column>
-            <Column width={[1, 1 / 5]}>
-              <ButtonComponent className="theme-button-light">
-                Contribute Data
-              </ButtonComponent>
-            </Column>
-            <Column width={[1, 1 / 5]}>
-              <ButtonComponent className="theme-button-light">
-                Partner with us
-              </ButtonComponent>
-            </Column>
-          </Row>
-        </div>
+          </div>
+        </Row>
       </div>
     </div>
   );

@@ -43,7 +43,10 @@ export const getMyDatasets = () =>
             },
             legendConfig: {},
             params: {
-              time:"2023-01-22T21:00:00.000Z"
+              time:
+                d.raster_dates &&
+                !!d.raster_dates.length &&
+                d.raster_dates[d.raster_dates.length - 1],
             },
             paramsSelectorConfig: [
               {
@@ -54,7 +57,7 @@ export const getMyDatasets = () =>
                 dateFormat: {
                   currentTime: "yyyy-mm-dd HH:MM",
                 },
-                availableDates: ["2023-01-22T21:00:00.000Z"],
+                availableDates: d.raster_dates,
               },
             ],
             data_path: d.data_path,
@@ -101,7 +104,10 @@ export const saveMyDataset = (data) => {
             },
             legendConfig: {},
             params: {
-              time:"2023-01-22T21:00:00.000Z"
+              time:
+                d.raster_dates &&
+                !!d.raster_dates.length &&
+                d.raster_dates[d.raster_dates.length - 1],
             },
             paramsSelectorConfig: [
               {
@@ -112,7 +118,7 @@ export const saveMyDataset = (data) => {
                 dateFormat: {
                   currentTime: "yyyy-mm-dd HH:MM",
                 },
-                availableDates: ["2023-01-22T21:00:00.000Z"],
+                availableDates: d.raster_dates,
               },
             ],
             data_path: d.data_path,
