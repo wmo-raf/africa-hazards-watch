@@ -182,6 +182,7 @@ const HomePage = ({ summary, uses, apps, news }) => {
           </Row>
         </div>
       </div>
+      
       <div className="section-uses">
         <h3 className="section-title">
           What can you do with Africa Hazards Watch?
@@ -230,6 +231,9 @@ const HomePage = ({ summary, uses, apps, news }) => {
           </Carousel>
         )}
       </div>
+
+
+
       <div className="section-involve">
         <Row>
           <div
