@@ -20,7 +20,7 @@ export default [
           source: {
             type: "raster",
             tiles: [
-              "http://197.254.13.228:8084/data/population/{z}/{x}/{y}.png",
+              "http://20.56.94.119/static-data/tiles/population/{z}/{x}/{y}.png",
             ],
             // scheme: "tms",
           },

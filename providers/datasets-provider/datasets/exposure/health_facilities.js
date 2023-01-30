@@ -20,7 +20,7 @@ export default [
           type: "vector",
           source: {
             tiles: [
-              "https://eahazardswatch.icpac.net/pg/tileserv/pgadapter.africa_healthsites/{z}/{x}/{y}.pbf",
+              "http://20.56.94.119/pg4w/tileserv/pgadapter.africa_healthsites/{z}/{x}/{y}.pbf",
             ],
             type: "vector",
           },

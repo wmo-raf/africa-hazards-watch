@@ -10,5 +10,5 @@ export default [
   ...era5Precipitation,
   ...era5monthlyTemperature2MAnomaly,
   ...era5monthlyPrecipitation1DayAnomaly,
-  ...projections,
+  // ...projections,
 ];

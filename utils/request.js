@@ -54,7 +54,7 @@ export default create({
 
 export const gskyTimestampsRequest = create({
   timeout: TIMEOUT,
-  baseURL: "http://197.254.13.228:8081/mas",
+  baseURL: "http://20.56.94.119/gsky/mas",
 });
 
 export const synopTimestampsRequest = create({

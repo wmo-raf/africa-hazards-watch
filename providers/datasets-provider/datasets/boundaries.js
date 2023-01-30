@@ -20,7 +20,7 @@ export default [
           type: "vector",
           source: {
             tiles: [
-              "https://eahazardswatch.icpac.net/pg/tileserv/pgadapter.africa_gadm36_political_boundaries/{z}/{x}/{y}.pbf?properties=gid_0,gid_1,gid_2,name_0,name_1,name_2,level,area,gid,size",
+              "http://20.56.94.119/pg4w/tileserv/pgadapter.africa_gadm36_political_boundaries/{z}/{x}/{y}.pbf?properties=gid_0,gid_1,gid_2,name_0,name_1,name_2,level,area,gid,size",
             ],
             type: "vector",
           },

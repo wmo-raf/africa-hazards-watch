@@ -26,6 +26,8 @@ export const getGeostore = ({ type, adm0, adm1, adm2, token }) => {
       return false;
   }
 
+  url = url.replace(/([^:]\/)\/+/g, "$1");
+  
   return apiRequest
     .get(`${url}?thresh=${thresh}`, { cancelToken: token })
     .then((response) => {

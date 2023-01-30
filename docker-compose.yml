@@ -1,0 +1,14 @@
+services:
+  hazardswatch:
+    platform: linux/x86_64
+    build:
+      context: .
+      args:
+        - NODE_ENV=development
+    ports:
+      - '3000:3000'
+
+networks:
+    default:
+      name:  ${AHW_DOCKER_NETWORK}
+      external: true

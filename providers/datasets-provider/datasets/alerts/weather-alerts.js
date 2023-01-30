@@ -22,7 +22,7 @@ export default [
           type: "vector",
           source: {
             type: "geojson",
-            data: "http://197.254.13.228:3200/api/v1/alerts",
+            data: "http://20.56.94.119/api/cap-alerts",
           },
           render: {
             layers: [
