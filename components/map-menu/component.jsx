@@ -8,7 +8,7 @@ import MenuPanel from "./components/menu-panel";
 import MenuDesktop from "./components/menu-desktop";
 import MenuMobile from "./components/menu-mobile";
 
-import "./styles.scss";
+import styles from "./map-menu.module.scss";
 
 class MapMenu extends PureComponent {
   onToggleLayer = (data, enable) => {
@@ -94,11 +94,15 @@ class MapMenu extends PureComponent {
     } = activeSection || {};
 
     return (
-      <div className={cx("c-map-menu", className)}>
-        <div className={cx("menu-tiles", "map-tour-data-layers", { embed })}>
+      <div className={cx(styles["c-map-menu"], className)}>
+        <div
+          className={cx(styles["menu-tiles"], styles["map-tour-data-layers"], {
+            [styles.embed]: embed,
+          })}
+        >
           {isDesktop && !embed && (
             <MenuDesktop
-              className="menu-desktop"
+              className={styles["menu-desktop"]}
               datasetSections={datasetSections}
               searchSections={searchSections}
               setMenuSettings={setMenuSettings}
@@ -113,7 +117,7 @@ class MapMenu extends PureComponent {
           )}
         </div>
         <MenuPanel
-          className={cx("menu-panel", menuSection)}
+          className={cx(styles["menu-panel"], styles.menuSection)}
           label={label}
           category={category}
           active={!!menuSection}

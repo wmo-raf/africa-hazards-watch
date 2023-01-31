@@ -7,13 +7,14 @@ import DatePicker from "react-datepicker";
 import moment from "moment";
 import { defined } from "utils/core";
 import { formatDateTime } from "utils/date-format";
-import classNames from "classnames";
+import cx from "classnames";
 
 import Icon from "components/ui/icon";
 import backIcon from "assets/icons/chevron-left.svg?sprite";
 
 import RelativePortal from "react-relative-portal";
-import "./styles.scss";
+
+import styles from "./datepicker.module.scss";
 
 function daysInMonth(month, year) {
   const n = new Date(year, month, 0).getDate();
@@ -117,12 +118,12 @@ class DateTimePicker extends Component {
     const centuries = datesObject.indice;
     if (datesObject.dates && datesObject.dates.length >= 12) {
       return (
-        <div className="grid">
-          <div className="gridHeading">Select a century</div>
+        <div className={styles.grid}>
+          <div className={styles.gridHeading}>Select a century</div>
           {centuries.map((c) => (
             <button
               key={c}
-              className="centuryBtn"
+              className={styles.centuryBtn}
               onClick={() => this.setState({ century: c })}
             >
               {c}00
@@ -143,22 +144,22 @@ class DateTimePicker extends Component {
         Number
       );
       return (
-        <div className="grid">
-          <div className="gridHeading">Select a year</div>
-          <div className="gridBody">
+        <div className={styles.grid}>
+          <div className={styles.gridHeading}>Select a year</div>
+          <div className={styles.gridBody}>
             {years.map((y) => (
               <div
-                className="gridRow"
+                className={styles.gridRow}
                 key={y}
                 onClick={() =>
                   this.setState({ year: y, month: null, day: null, time: null })
                 }
               >
-                <span className="gridLabel">{y}</span>
-                <span className="gridRowInner12">
+                <span className={styles.gridLabel}>{y}</span>
+                <span className={styles.gridRowInner12}>
                   {monthOfYear.map((m) => (
                     <span
-                      className={datesObject[y][m] ? "activeGrid" : ""}
+                      className={datesObject[y][m] ? styles["activeGrid"] : ""}
                       key={m}
                     />
                   ))}
@@ -177,10 +178,10 @@ class DateTimePicker extends Component {
     const year = this.state.year;
     if (datesObject[year].dates && datesObject[year].dates.length > 12) {
       return (
-        <div className="grid">
-          <div className="gridHeading">
+        <div className={styles.grid}>
+          <div className={styles.gridHeading}>
             <button
-              className="backbtn"
+              className={styles.backbtn}
               onClick={() => {
                 this.setState({
                   year: null,
@@ -193,11 +194,11 @@ class DateTimePicker extends Component {
               {this.state.year}
             </button>
           </div>
-          <div className="gridBody">
+          <div className={styles.gridBody}>
             {monthNames.map((m, i) => (
               <div
-                className={classNames("gridRow", {
-                  inactiveGridRow: !defined(datesObject[year][i]),
+                className={cx(styles["gridRow"], {
+                  [styles.inactiveGridRow]: !defined(datesObject[year][i]),
                 })}
                 key={m}
                 onClick={() =>
@@ -205,8 +206,8 @@ class DateTimePicker extends Component {
                   this.setState({ month: i, day: null, time: null })
                 }
               >
-                <span className="gridLabel">{m}</span>
-                <span className="gridRowInner31">
+                <span className={styles.gridLabel}>{m}</span>
+                <span className={styles.gridRowInner31}>
                   {daysInMonth(i + 1, year).map((d) => (
                     <span
                       className={
@@ -240,10 +241,10 @@ class DateTimePicker extends Component {
       // const daysToDisplay = Object.keys(monthObject).map(dayNumber => monthObject[dayNumber][0]);
       // const selected = defined(this.state.day) ? this.props.datesObject[this.state.year][this.state.month][this.state.day][0] : null;
       return (
-        <div className="dayPicker">
+        <div className={styles.dayPicker}>
           <div>
             <button
-              className="backbtn"
+              className={styles.backbtn}
               onClick={() => {
                 this.setState({
                   year: null,
@@ -256,7 +257,7 @@ class DateTimePicker extends Component {
               {this.state.year}
             </button>
             <button
-              className="backbtn"
+              className={styles.backbtn}
               onClick={() => {
                 this.setState({ month: null, day: null, time: null });
               }}
@@ -284,13 +285,13 @@ class DateTimePicker extends Component {
   renderList = (items) => {
     if (defined(items)) {
       return (
-        <div className="grid">
-          <div className="gridHeading">Select a time</div>
-          <div className="gridBody">
+        <div className={styles.grid}>
+          <div className={styles.gridHeading}>Select a time</div>
+          <div className={styles.gridBody}>
             {items.map((item) => (
               <button
                 key={formatDateTime(item)}
-                className="dateBtn"
+                className={styles.dateBtn}
                 onClick={() => {
                   this.closePicker(item);
                   this.props.onChange(item);
@@ -317,19 +318,19 @@ class DateTimePicker extends Component {
 
     if (timeOptions.length > 24) {
       return (
-        <div className="grid">
-          <div className="gridHeading">
+        <div className={styles.grid}>
+          <div className={styles.gridHeading}>
             {`Select an hour on ${this.state.day} ${
               monthNames[this.state.month + 1]
             } ${this.state.year}`}{" "}
           </div>
-          <div className="gridBody">
+          <div className={styles.gridBody}>
             {datesObject[this.state.year][this.state.month][
               this.state.day
             ].indice.map((item) => (
               <button
                 key={item}
-                className="dateBtn"
+                className={styles.dateBtn}
                 onClick={() => this.setState({ hour: item })}
               >
                 <span>
@@ -461,17 +462,17 @@ class DateTimePicker extends Component {
           component="div"
           left={0}
           top={24}
-          // className="datepicker-portal"
+          // className={styles["datepicker-portal"]}
         >
           <div
-            className="timelineDatePicker"
+            className={styles.timelineDatePicker}
             onClick={(event) => {
               event.stopPropagation();
             }}
           >
             {this.props.showCalendarButton && (
               <button
-                className="togglebutton"
+                className={styles.togglebutton}
                 onClick={() => {
                   this.toggleDatePicker();
                 }}
@@ -481,12 +482,16 @@ class DateTimePicker extends Component {
             )}
             {this.props.isOpen && (
               <div
-                className={classNames("datePicker", this.props.popupStyle, {
-                  openBelow: this.props.openDirection === "down",
-                })}
+                className={cx(
+                  styles["datePicker"],
+                  styles[this.props.popupStyle],
+                  {
+                    [styles.openBelow]: this.props.openDirection === "down",
+                  }
+                )}
               >
                 <button
-                  className="backbutton"
+                  className={styles.backbutton}
                   disabled={!this.state[this.state.granularity]}
                   type="button"
                   onClick={() => this.goBack()}

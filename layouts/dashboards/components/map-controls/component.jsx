@@ -1,16 +1,16 @@
-import React, { PureComponent, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { trackEvent } from 'utils/analytics';
-import Sticky from 'react-stickynode';
+import React, { PureComponent, Fragment } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { trackEvent } from "utils/analytics";
+import Sticky from "react-stickynode";
 
-import plusIcon from 'assets/icons/plus.svg?sprite';
-import minusIcon from 'assets/icons/minus.svg?sprite';
+import plusIcon from "assets/icons/plus.svg?sprite";
+import minusIcon from "assets/icons/minus.svg?sprite";
 
-import Button from 'components/ui/button';
-import Icon from 'components/ui/icon';
+import Button from "components/ui/button";
+import Icon from "components/ui/icon";
 
-import './styles.scss';
+import styles from "./map-controls.module.scss";
 
 class MapControlsButtons extends PureComponent {
   renderZoomButtons = () => {
@@ -28,30 +28,30 @@ class MapControlsButtons extends PureComponent {
           onClick={() => {
             setMapSettings({ zoom: zoom + 1 > maxZoom ? maxZoom : zoom + 1 });
             trackEvent({
-              category: 'Map settings',
-              action: 'Other buttons',
-              label: 'Zoom in',
+              category: "Map settings",
+              action: "Other buttons",
+              label: "Zoom in",
             });
           }}
-          tooltip={{ text: 'Zoom in' }}
+          tooltip={{ text: "Zoom in" }}
           disabled={zoom >= maxZoom}
         >
-          <Icon icon={plusIcon} className="plus-icon" />
+          <Icon icon={plusIcon} className={styles["plus-icon"]} />
         </Button>
         <Button
           theme="theme-button-map-control"
           onClick={() => {
             setMapSettings({ zoom: zoom - 1 < minZoom ? minZoom : zoom - 1 });
             trackEvent({
-              category: 'Map settings',
-              action: 'Other buttons',
-              label: 'Zoom out',
+              category: "Map settings",
+              action: "Other buttons",
+              label: "Zoom out",
             });
           }}
-          tooltip={{ text: 'Zoom out' }}
+          tooltip={{ text: "Zoom out" }}
           disabled={zoom <= minZoom}
         >
-          <Icon icon={minusIcon} className="minus-icon" />
+          <Icon icon={minusIcon} className={styles["minus-icon"]} />
         </Button>
       </Fragment>
     );
@@ -61,7 +61,9 @@ class MapControlsButtons extends PureComponent {
     const { className } = this.props;
 
     return (
-      <div className={`c-dashboard-map-controls ${className || ''}`}>
+      <div
+        className={`${styles["c-dashboard-map-controls"]} ${className || ""}`}
+      >
         <Sticky top={15}>{this.renderZoomButtons()}</Sticky>
       </div>
     );

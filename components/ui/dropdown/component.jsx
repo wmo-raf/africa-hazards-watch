@@ -1,40 +1,25 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 
-import Downshift from 'downshift';
-import { Tooltip } from 'react-tippy';
-import cx from 'classnames';
+import Downshift from "downshift";
+import { Tooltip } from "react-tippy";
+import cx from "classnames";
 
-import Button from 'components/ui/button';
-import Icon from 'components/ui/icon';
-import Tip from 'components/ui/tip';
+import Button from "components/ui/button";
+import Icon from "components/ui/icon";
+import Tip from "components/ui/tip";
 
-import infoIcon from 'assets/icons/info.svg?sprite';
-import arrowIcon from 'assets/icons/arrow-down.svg?sprite';
+import infoIcon from "assets/icons/info.svg?sprite";
+import arrowIcon from "assets/icons/arrow-down.svg?sprite";
 
-import Selector from './components/selector';
-import Menu from './components/menu';
+import Selector from "./components/selector";
+import Menu from "./components/menu";
 
-import './styles.scss';
-import './themes/dropdown-dark.scss';
-import './themes/dropdown-light.scss';
-import './themes/dropdown-button.scss';
-import './themes/dropdown-button-small.scss';
-import './themes/dropdown-native.scss';
-import './themes/dropdown-native-button.scss';
-import './themes/dropdown-native-button-green.scss';
-import './themes/dropdown-native-plain.scss';
-import './themes/dropdown-native-inline.scss';
-import './themes/dropdown-native-form.scss';
-import './themes/dropdown-dark-round.scss';
-import './themes/dropdown-dark-squared.scss';
-import './themes/dropdown-no-border.scss';
-import './themes/dropdown-full-width.scss';
-import './themes/dropdown-native-label-inline.scss';
+import styles from "./dropdown.module.scss";
 
 class Dropdown extends PureComponent {
   static propTypes = {
-    layout: PropTypes.oneOf(['overflow-menu', 'actions-menu']),
+    layout: PropTypes.oneOf(["overflow-menu", "actions-menu"]),
     className: PropTypes.string,
     label: PropTypes.string,
     theme: PropTypes.string,
@@ -150,9 +135,13 @@ class Dropdown extends PureComponent {
       >
         {({ getInputProps, getItemProps, getRootProps }) =>
           native ? (
-            <div className={cx('select-wrapper', { multiple })}>
+            <div
+              className={cx(styles["select-wrapper"], {
+                [styles.multiple]: multiple,
+              })}
+            >
               <select
-                value={(value && (value.value || value)) || ''}
+                value={(value && (value.value || value)) || ""}
                 onChange={(e) => onChange(e.target.value)}
                 multiple={multiple}
               >
@@ -167,7 +156,7 @@ class Dropdown extends PureComponent {
                       )
                   )}
               </select>
-              {!multiple && <Icon icon={arrowIcon} className="arrow-icon" />}
+              {!multiple && <Icon icon={arrowIcon} className={styles["arrow-icon"]} />}
             </div>
           ) : (
             <Selector
@@ -182,7 +171,7 @@ class Dropdown extends PureComponent {
               inputProps={() => buildInputProps(getInputProps)}
               handleClearSelection={() => handleClearSelection()}
               selectorIcon={selectorIcon}
-              {...getRootProps({ refKey: 'innerRef' })}
+              {...getRootProps({ refKey: "innerRef" })}
             >
               <Menu
                 layout={layout}
@@ -199,28 +188,30 @@ class Dropdown extends PureComponent {
                 handleSelectGroup={handleSelectGroup}
               />
             </Selector>
-          )}
+          )
+        }
       </Downshift>
     );
 
     return (
       <div
         className={cx(
-          'c-dropdown',
-          { 'theme-dropdown-native': native },
+          styles["c-dropdown"],
+          { [styles["theme-dropdown-native"]]: native },
           theme,
           className
         )}
       >
         {label && (
-          <div className="label">
+          <div className={styles.label}>
             {label}
             {infoAction && (
               <Button
-                className="theme-button-small square info-button"
+                className={`${styles.square} ${styles["info-button"]}`}
+                theme="theme-button-small "
                 onClick={infoAction}
               >
-                <Icon icon={infoIcon} className="info-icon" />
+                <Icon icon={infoIcon} className={styles["info-icon"]} />
               </Button>
             )}
           </div>

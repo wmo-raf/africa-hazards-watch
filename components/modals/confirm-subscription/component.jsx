@@ -1,14 +1,14 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import ReactHtmlParser from 'react-html-parser';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import ReactHtmlParser from "react-html-parser";
 
-import { resendSubscriptionConfirmation } from 'services/subscriptions';
+import { resendSubscriptionConfirmation } from "services/subscriptions";
 
 import { Loader, Button } from "@erick-otenyo/hw-components";
 
-import Modal from 'components/modal';
+import Modal from "components/modal";
 
-import './styles.scss';
+import styles from "./confirm-subscription.module.scss";
 
 class ConfirmSubscriptionModal extends PureComponent {
   static propTypes = {
@@ -58,7 +58,7 @@ class ConfirmSubscriptionModal extends PureComponent {
         open={open}
         contentLabel="confirm subscription"
         onRequestClose={this.handleCloseModal}
-        className="c-confirm-subscription-modal"
+        className={styles["c-confirm-subscription-modal"]}
         title="Please confirm this subscription"
       >
         <p>
@@ -70,20 +70,20 @@ class ConfirmSubscriptionModal extends PureComponent {
           Please check your inbox and click the confirmation link. If you
           don&apos;t see this email, try checking your spam folder.
         </p>
-        <div className="resend-footer">
+        <div className={styles["resend-footer"]}>
           <Button
-            className="resend-btn"
+            className={styles["resend-btn"]}
             light
             onClick={this.handleResendConfirmation}
           >
             resend email
             {this.state.sendingConfirmation && (
-              <Loader className="resend-loader" />
+              <Loader className={styles["resend-loader"]} />
             )}
           </Button>
           {this.state.sent && <span>confirmation resent</span>}
           {this.state.failed && (
-            <span className="error">
+            <span className={styles.error}>
               there was an issue resending your confirmation
             </span>
           )}

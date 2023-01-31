@@ -1,20 +1,20 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
-import { trackEvent } from 'utils/analytics';
-import moment from 'moment';
-import lowerCase from 'lodash/lowerCase';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
+import { trackEvent } from "utils/analytics";
+import moment from "moment";
+import lowerCase from "lodash/lowerCase";
 
-import Button from 'components/ui/button';
-import Icon from 'components/ui/icon';
-import Tip from 'components/ui/tip';
+import Button from "components/ui/button";
+import Icon from "components/ui/icon";
+import Tip from "components/ui/tip";
 // import SatelliteBasemaps from 'components/satellite-basemaps';
 
-import linkIcon from 'assets/icons/link.svg?sprite';
+import linkIcon from "assets/icons/link.svg?sprite";
 
-import { LegendItemButtonOpacity, Icons } from 'vizzuality-components';
+import { LegendItemButtonOpacity, Icons } from "vizzuality-components";
 
-import './styles.scss';
+import styles from "./mini-legend.module.scss";
 
 class MiniLegend extends PureComponent {
   handleOpacity(layer, opacity) {
@@ -33,10 +33,10 @@ class MiniLegend extends PureComponent {
   render() {
     const { layers, activeDatasets, setMainMapView, className } = this.props;
     return layers && layers.length ? (
-      <div className={cx('c-mini-legend', className)}>
+      <div className={cx(styles["c-mini-legend"], className)}>
         <Icons />
-        <div className="mini-legend-items">
-          <ul className="mini-legend-layers">
+        <div className={styles["mini-legend-items"]}>
+          <ul className={styles["mini-legend-layers"]}>
             {layers.map((l) => {
               const { layers: subLayers, params: stateParams, name, layerId } =
                 l || {};
@@ -44,8 +44,8 @@ class MiniLegend extends PureComponent {
                 stateParams ||
                 (subLayers && subLayers[0] && subLayers[0].timelineParams);
               const { startDateAbsolute, endDateAbsolute } = params || {};
-              const isVIIRS = name && lowerCase(name).includes('viirs');
-              const isMODISBurnedArea = layerId === 'burned-area-modis';
+              const isVIIRS = name && lowerCase(name).includes("viirs");
+              const isMODISBurnedArea = layerId === "burned-area-modis";
 
               return (
                 <li key={l.name}>
@@ -53,35 +53,35 @@ class MiniLegend extends PureComponent {
                   <div>
                     <p>{l.name}</p>
                     {startDateAbsolute && endDateAbsolute && (
-                      <p className="time-range">
+                      <p className={styles["time-range"]}>
                         {`${moment(startDateAbsolute).format(
-                          'MMM DD YYYY'
-                        )} - ${moment(endDateAbsolute).format('MMM DD YYYY')}`}
+                          "MMM DD YYYY"
+                        )} - ${moment(endDateAbsolute).format("MMM DD YYYY")}`}
                       </p>
                     )}
                     {(isVIIRS || isMODISBurnedArea) && (
-                      <p className="time-range-disclaimer">
+                      <p className={styles["time-range-disclaimer"]}>
                         *a maximum of 3 months of fires data can be shown on the
                         map
                       </p>
                     )}
                   </div>
                   <LegendItemButtonOpacity
-                    className="-plain"
+                    className={styles["-plain"]}
                     activeLayer={l}
-                    defaultStyle={{ fill: 'rgb(153, 153, 153)' }}
-                    focusStyle={{ fill: 'rgb(153, 153, 153)' }}
+                    defaultStyle={{ fill: "rgb(153, 153, 153)" }}
+                    focusStyle={{ fill: "rgb(153, 153, 153)" }}
                     enabledStyle={{ fill: l.color }}
-                    disabledStyle={{ fill: 'rgb(153, 153, 153)' }}
+                    disabledStyle={{ fill: "rgb(153, 153, 153)" }}
                     handleStyle={{
-                      backgroundColor: '#fff',
-                      borderRadius: '4px',
+                      backgroundColor: "#fff",
+                      borderRadius: "4px",
                       border: 0,
-                      boxShadow: 'rgba(0, 0, 0, 0.29) 0px 1px 2px 0px',
+                      boxShadow: "rgba(0, 0, 0, 0.29) 0px 1px 2px 0px",
                     }}
                     trackStyle={[
-                      { backgroundColor: '#97be32' },
-                      { backgroundColor: '#d6d6d9' },
+                      { backgroundColor: "#97be32" },
+                      { backgroundColor: "#d6d6d9" },
                     ]}
                     onChangeOpacity={(_, op) => this.handleOpacity(l, op)}
                   />
@@ -89,29 +89,29 @@ class MiniLegend extends PureComponent {
               );
             })}
           </ul>
-          <div className="link-to-map">
+          <div className={styles["link-to-map"]}>
             <Button
               theme="theme-button-small square"
               onClick={() => {
                 setMainMapView(activeDatasets);
                 trackEvent({
-                  category: 'Dashboards page',
-                  action: 'User clicks through to main map',
-                  label: layers?.map((l) => l.name).join(', '),
+                  category: "Dashboards page",
+                  action: "User clicks through to main map",
+                  label: layers?.map((l) => l.name).join(", "),
                 });
               }}
               tooltip={{
-                theme: 'tip',
-                position: 'top',
+                theme: "tip",
+                position: "top",
                 arrow: true,
                 html: <Tip text="Explore the data on the global map" />,
               }}
             >
-              <Icon icon={linkIcon} className="info-icon" />
+              <Icon icon={linkIcon} className={styles["info-icon"]} />
             </Button>
           </div>
         </div>
-        <div className="satellite-basemaps-wrapper">
+        <div className={styles["satellite-basemaps-wrapper"]}>
           {/* <SatelliteBasemaps /> */}
         </div>
       </div>

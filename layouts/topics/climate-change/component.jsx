@@ -7,7 +7,7 @@ import Widgets from "./widgets";
 
 import bgImage from "../assets/africa-temperature.png";
 
-import "./styles.scss";
+import styles from "./climate-change.module.scss";
 
 const LayoutClimateChange = ({ location }) => {
   const { type, adm0, adm1 } = location;
@@ -16,7 +16,7 @@ const LayoutClimateChange = ({ location }) => {
     type === "point" && !isNaN(Number(adm0)) && !isNaN(Number(adm1));
 
   return (
-    <div className="l-climatechange-page">
+    <div className={styles["l-climatechange-page"]}>
       <LocationProvider />
       <Cover
         title="Climate Change"
@@ -27,7 +27,7 @@ const LayoutClimateChange = ({ location }) => {
       <div>
         <Row>
           <Column>
-            <div className="topic-header">
+            <div className={styles["topic-header"]}>
               The data source used in the analysis is ERA5, the fifth generation
               ECMWF atmospheric reanalysis of the global climate, covering the
               time range from 1959 to 2021, with a spatial resolution of 30 km.

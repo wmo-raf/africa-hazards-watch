@@ -1,16 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import Modal from 'components/modal';
+import Modal from "components/modal";
 
-import './styles.scss';
+import styles from "./video.module.scss";
 
 const ModalVideo = ({ open, src, onRequestClose }) => (
   <Modal
     open={open}
     contentLabel="What is global forest wathc video"
     onRequestClose={onRequestClose}
-    className="c-modal-video"
+    className={styles["c-modal-video"]}
   >
     <iframe
       src={src}

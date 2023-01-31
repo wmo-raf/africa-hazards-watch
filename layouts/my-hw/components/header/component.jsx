@@ -2,10 +2,10 @@ import { Row, Column } from "@erick-otenyo/hw-components";
 
 import UserProfile from "../user-profile";
 
-import "./styles.scss";
+import styles from "./heade.module.scss";
 
 const MyHwHeader = () => (
-  <div className="c-myhw-header">
+  <div className={styles["c-myhw-header"]}>
     <Row>
       <Column width={[1, 1 / 2]}>
         <h1>my HW</h1>

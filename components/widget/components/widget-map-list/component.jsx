@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 
-import WorldMap from 'components/world-map';
-import NumberedList from 'components/widget/components/widget-numbered-list';
+import WorldMap from "components/world-map";
+import NumberedList from "components/widget/components/widget-numbered-list";
 
-import './styles.scss';
+import styles from "./widget-map-list.module.scss";
 
 class WidgetMapList extends PureComponent {
   static propTypes = {
@@ -21,11 +21,11 @@ class WidgetMapList extends PureComponent {
     const { rankedData } = data;
 
     return (
-      <div className="c-widget-map-list">
-        {data && <WorldMap className="simple-map" {...data} />}
+      <div className={styles["c-widget-map-list"]}>
+        {data && <WorldMap className={styles["simple-map"]} {...data} />}
         {rankedData && (
           <NumberedList
-            className="locations-list"
+            className={styles["locations-list"]}
             data={rankedData}
             settings={settings}
             linkExt={embed}

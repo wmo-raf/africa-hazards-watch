@@ -13,7 +13,7 @@ import YearlyPrecipitation from "./yearly-precipitation/component";
 import MonthlyAnomalies from "./monthly-anomalies/component";
 import AnomaliesByMonth from "./anomalies-by-month/component";
 
-import "./styles.scss";
+import styles from "./widgets.module.scss";
 
 const LAYERS = [
   { label: "Temperature Mean", id: "era5monthly_temperature_2_m" },
@@ -33,18 +33,18 @@ const Widget = ({
   ...rest
 }) => {
   return (
-    <div className="chart-wrapper">
-      {title && <h2 className="chart-header">{title}</h2>}
+    <div className={styles["chart-wrapper"]}>
+      {title && <h2 className={styles["chart-header"]}>{title}</h2>}
       {ChartComponent && (
-        <div className="chart-container">
+        <div className={styles["chart-container"]}>
           {loading ? (
-            <Loader className="chart-loader" />
+            <Loader className={styles["chart-loader"]} />
           ) : (
             <ChartComponent {...rest} />
           )}
         </div>
       )}
-      {children && <div className="chart-description">{children}</div>}
+      {children && <div className={styles["chart-description"]}>{children}</div>}
     </div>
   );
 };
@@ -161,7 +161,7 @@ class ClimateChangeWidgets extends Component {
 
     return (
       <div>
-        <div className="c-chart-widget">
+        <div className={styles["c-chart-widget"]}>
           <Row>
             <Column>
               <Widget
@@ -191,7 +191,7 @@ class ClimateChangeWidgets extends Component {
             </Column>
           </Row>
         </div>
-        <div className="c-chart-widget">
+        <div className={styles["c-chart-widget"]}>
           <Row>
             <Column>
               <Widget
@@ -221,7 +221,7 @@ class ClimateChangeWidgets extends Component {
             </Column>
           </Row>
         </div>
-        <div className="c-chart-widget">
+        <div className={styles["c-chart-widget"]}>
           <Row>
             <Column>
               <Widget
@@ -254,7 +254,7 @@ class ClimateChangeWidgets extends Component {
             </Column>
           </Row>
         </div>
-        <div className="c-chart-widget">
+        <div className={styles["c-chart-widget"]}>
           <Row>
             <Column>
               <Widget

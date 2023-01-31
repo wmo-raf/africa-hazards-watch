@@ -1,15 +1,15 @@
-import React, { PureComponent } from 'react';
-import Link from 'next/link';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
+import React, { PureComponent } from "react";
+import Link from "next/link";
+import PropTypes from "prop-types";
+import cx from "classnames";
 
-import { formatNumber } from 'utils/format';
+import { formatNumber } from "utils/format";
 
-import Paginate from 'components/paginate';
+import Paginate from "components/paginate";
 
-import './styles.scss';
+import styles from "./numbered-list.module.scss";
 
-const isServer = typeof window === 'undefined';
+const isServer = typeof window === "undefined";
 
 class NumberedList extends PureComponent {
   render() {
@@ -28,7 +28,7 @@ class NumberedList extends PureComponent {
       : data;
 
     const unitsConfig =
-      settingsConfig && settingsConfig.find((conf) => conf.key === 'unit');
+      settingsConfig && settingsConfig.find((conf) => conf.key === "unit");
     const selectedUnitConfig =
       unitsConfig &&
       unitsConfig.options &&
@@ -43,34 +43,38 @@ class NumberedList extends PureComponent {
     }
 
     return (
-      <div className={`c-numbered-list ${className}`}>
-        <ul className="list">
+      <div className={`${styles["c-numbered-list"]} ${className}`}>
+        <ul className={styles.list}>
           {data.length > 0 &&
             pageData.map((item, index) => {
-              const showBar = item.unit === '%' || unit === '%';
+              const showBar = item.unit === "%" || unit === "%";
               const linkContent = (
-                <div className={cx('list-item', { '-bar': showBar })}>
-                  <div className="item-label">
+                <div
+                  className={cx(styles["list-item"], {
+                    [styles["-bar"]]: showBar,
+                  })}
+                >
+                  <div className={styles["item-label"]}>
                     <div
-                      className="item-bubble"
+                      className={styles["item-bubble"]}
                       style={{ backgroundColor: item.color }}
                     >
                       {item.rank || index + 1 + pageSize * page}
                     </div>
-                    <div className="item-name">{item.label}</div>
+                    <div className={styles["item-name"]}>{item.label}</div>
                   </div>
                   {showBar ? (
-                    <div className="item-bar-container">
-                      <div className="item-bar">
+                    <div className={styles["item-bar-container"]}>
+                      <div className={styles["item-bar"]}>
                         <div
-                          className="item-bar -data"
+                          className={`${styles["item-bar"]} ${styles["-data"]}`}
                           style={{
                             width: `${item.value > 100 ? 100 : item.value}%`,
                             backgroundColor: item.color,
                           }}
                         />
                       </div>
-                      <div className="item-value">
+                      <div className={styles["item-value"]}>
                         {formatNumber({
                           num: item.value,
                           unit: item.unit || formatUnit,
@@ -78,7 +82,7 @@ class NumberedList extends PureComponent {
                       </div>
                     </div>
                   ) : (
-                    <div className="item-value">
+                    <div className={styles["item-value"]}>
                       {formatNumber({
                         num: item.value,
                         unit: item.unit || formatUnit,
@@ -102,13 +106,17 @@ class NumberedList extends PureComponent {
                   )}
                   {item.path && !linksExt && (
                     <Link {...item?.path}>
-                      <a className={`${linksDisabled ? 'disabled' : ''}`}>
+                      <a
+                        className={`${linksDisabled ? styles["disabled"] : ""}`}
+                      >
                         {linkContent}
                       </a>
                     </Link>
                   )}
                   {!item.path && (
-                    <div className={`${linksDisabled ? 'disabled' : ''}`}>
+                    <div
+                      className={`${linksDisabled ? styles["disabled"] : ""}`}
+                    >
                       {linkContent}
                     </div>
                   )}

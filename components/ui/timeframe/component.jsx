@@ -1,14 +1,14 @@
-import PropTypes from 'prop-types';
-import { useEffect, useRef, useState } from 'react';
-import { useSpring, animated } from 'react-spring';
-import { Tooltip } from 'react-tippy';
-import Tip from 'components/ui/tip';
+import PropTypes from "prop-types";
+import { useEffect, useRef, useState } from "react";
+import { useSpring, animated } from "react-spring";
+import { Tooltip } from "react-tippy";
+import Tip from "components/ui/tip";
 
-import Icon from './right.svg';
+import Icon from "./right.svg?sprite";
 
-import useTimeline from './hook';
+import useTimeline from "./hook";
 
-import './styles.scss';
+import styles from "./timeframe.module.scss";
 
 const DOT_SIZE = 12;
 
@@ -48,26 +48,28 @@ const TimeSlider = ({
 
   return (
     <>
-      <section className="c-timeframe">
-        <span className="year-label year-label-start">
+      <section className={styles["c-timeframe"]}>
+        <span
+          className={`${styles["year-label"]} ${styles["year-label-start"]}`}
+        >
           {periods[labels[0]].year}
         </span>
-        <span className="year-label year-label-end">
+        <span className={`${styles["year-label"]} ${styles["year-label-end"]}`}>
           {periods[labels[1]].year}
         </span>
         <button
-          className="prev"
+          className={styles.prev}
           style={{ width: `${timeline.buttonWidth}px` }}
-          onClick={() => moveTimeline('prev')}
+          onClick={() => moveTimeline("prev")}
         >
           <img src={Icon} alt="arrow-prev" />
         </button>
-        <div ref={ref} className="timeframe">
+        <div ref={ref} className={styles.timeframe}>
           <animated.ol
             style={{
               width: `${timeline.dataWidth}px`,
-              height: '100%',
-              position: 'relative',
+              height: "100%",
+              position: "relative",
               zIndex: 2,
               ...styles,
             }}
@@ -79,7 +81,7 @@ const TimeSlider = ({
                   tileRefs.current[i] = el;
                 }}
                 data-index={i}
-                className="tile"
+                className={styles.tile}
                 style={{
                   width: `${timeline.tileWidth}px`,
                 }}
@@ -89,8 +91,8 @@ const TimeSlider = ({
                   role="button"
                   tabIndex={0}
                   area-label="Select timeframe"
-                  className={`timeline-position ${
-                    selected === i ? 'active' : ''
+                  className={`${styles["timeline-position"]} ${
+                    selected === i ? styles["active"] : ""
                   }`}
                   onClick={() => {
                     setSelected(i);
@@ -104,15 +106,17 @@ const TimeSlider = ({
                     trigger="mouseenter"
                     position="top"
                     theme="tip"
-                    html={<Tip text={d.period} className="tooltip-dark" />}
+                    html={
+                      <Tip text={d.period} className={styles["tooltip-dark"]} />
+                    }
                     distance={5}
                   >
-                    <span className="tooltip-item" />
+                    <span className={styles["tooltip-item"]} />
                   </Tooltip>
                   <span
-                    className={`label
-                      ${i === 0 ? 'x-start' : ''}
-                      ${i === periods.length - 1 ? 'x-end' : ''}`}
+                    className={`${styles["label"]}
+                      ${i === 0 ? styles["x-start"] : ""}
+                      ${i === periods.length - 1 ? styles["x-end"] : ""}`}
                   >
                     {d.label}
                   </span>
@@ -120,12 +124,12 @@ const TimeSlider = ({
               </li>
             ))}
           </animated.ol>
-          <span className="line" />
+          <span className={styles.line} />
         </div>
         <button
-          className="next"
+          className={styles.next}
           style={{ width: `${timeline.buttonWidth}px` }}
-          onClick={() => moveTimeline('next')}
+          onClick={() => moveTimeline("next")}
         >
           <img src={Icon} alt="arrow-next" />
         </button>

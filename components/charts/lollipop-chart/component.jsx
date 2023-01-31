@@ -1,24 +1,24 @@
-import React, { PureComponent } from 'react';
-import Link from 'next/link';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
-import { format } from 'd3-format';
-import { formatNumber } from 'utils/format';
+import React, { PureComponent } from "react";
+import Link from "next/link";
+import PropTypes from "prop-types";
+import cx from "classnames";
+import { format } from "d3-format";
+import { formatNumber } from "utils/format";
 
 import { Desktop, Mobile } from "@erick-otenyo/hw-components";
 
-import Legend from 'components/charts/components/chart-legend';
+import Legend from "components/charts/components/chart-legend";
 
-import './styles.scss';
+import styles from "./lollipop-chart.module.scss";
 
 class LollipopChart extends PureComponent {
   interpolate = (num, dataMin, dataMax) =>
     (Math.abs(num) * 100) / (dataMax + Math.abs(dataMin) || 1);
 
   customFormat = ({ num, roundTo }) => {
-    if (num === 0) return '0';
+    if (num === 0) return "0";
     let number = format(`.${roundTo || 2}f`)(num);
-    if (number.charAt(number.length - 1) === '0') {
+    if (number.charAt(number.length - 1) === "0") {
       number = number.substring(0, number.length - 1);
     }
     return number;
@@ -29,7 +29,7 @@ class LollipopChart extends PureComponent {
       <div
         key={tick}
         style={{
-          position: 'absolute',
+          position: "absolute",
           right:
             tick < 0 &&
             (allNegative
@@ -70,7 +70,7 @@ class LollipopChart extends PureComponent {
     const { unit } = settings;
     const { legend, showStickUnit, showLegendUnit } = config || {};
 
-    const unitsConfig = settingsConfig.find((conf) => conf.key === 'unit');
+    const unitsConfig = settingsConfig.find((conf) => conf.key === "unit");
     const selectedUnitConfig =
       unitsConfig &&
       unitsConfig.options &&
@@ -99,24 +99,24 @@ class LollipopChart extends PureComponent {
     const allNegative = !data.some((item) => item.value > 0);
     const allPositive = !data.some((item) => item.value < 0);
     return (
-      <div className={cx('c-lollipop-chart', className)}>
+      <div className={cx(styles["c-lollipop-chart"], className)}>
         {!simple && legend && <Legend config={legend} simple={simple} />}
-        <div className="unit-legend">
-          {`${selectedUnitConfig?.label || ''} ${
-            showLegendUnit ? `(${formatUnit.trim()})` : ''
+        <div className={styles["unit-legend"]}>
+          {`${selectedUnitConfig?.label || ""} ${
+            showLegendUnit ? `(${formatUnit.trim()})` : ""
           }`}
         </div>
-        <div className="custom-xAxis">
-          <div className="axis-wrapper">
+        <div className={styles["custom-xAxis"]}>
+          <div className={styles["axis-wrapper"]}>
             <Desktop>
               <div
-                className="custom-xAxis-ticks"
+                className={styles["custom-xAxis-ticks"]}
                 style={{
                   ...((allNegative || (!allPositive && !allNegative)) && {
-                    marginLeft: '67px',
+                    marginLeft: "67px",
                   }),
                   ...((allPositive || (!allPositive && !allNegative)) && {
-                    marginRight: '67px',
+                    marginRight: "67px",
                   }),
                 }}
               >
@@ -125,13 +125,13 @@ class LollipopChart extends PureComponent {
             </Desktop>
             <Mobile>
               <div
-                className="custom-xAxis-ticks"
+                className={styles["custom-xAxis-ticks"]}
                 style={{
                   ...((allNegative || (!allPositive && !allNegative)) && {
-                    marginLeft: '50px',
+                    marginLeft: "50px",
                   }),
                   ...((allPositive || (!allPositive && !allNegative)) && {
-                    marginRight: '50px',
+                    marginRight: "50px",
                   }),
                 }}
               >
@@ -140,30 +140,30 @@ class LollipopChart extends PureComponent {
             </Mobile>
           </div>
         </div>
-        <div className="list-wrapper">
+        <div className={styles["list-wrapper"]}>
           <ul>
             {data.length > 0 &&
               data.map((item, index) => {
                 const isNegative = item.value < 0;
                 const linkContent = (
-                  <div className="list-item" key={item.label}>
-                    <div className="item-label">
-                      <div className="item-bubble">
+                  <div className={styles["list-item"]} key={item.label}>
+                    <div className={styles["item-label"]}>
+                      <div className={styles["item-bubble"]}>
                         {item.rank || index + 1}
                       </div>
-                      <div className="item-name">{item.label}</div>
+                      <div className={styles["item-name"]}>{item.label}</div>
                     </div>
                     <div
-                      className={cx('item-lollipop-bar', {
-                        'space-left':
+                      className={cx(styles["item-lollipop-bar"], {
+                        [styles["space-left"]]:
                           allNegative || (!allPositive && !allNegative),
-                        'space-right':
+                        [styles["space-right"]]:
                           allPositive || (!allPositive && !allNegative),
                       })}
-                      style={isNegative ? { flexDirection: 'row-reverse' } : {}}
+                      style={isNegative ? { flexDirection: "row-reverse" } : {}}
                     >
                       <div
-                        className="item-spacer"
+                        className={styles["item-spacer"]}
                         style={{
                           width: `${this.interpolate(
                             isNegative ? dataMax : dataMin,
@@ -173,7 +173,7 @@ class LollipopChart extends PureComponent {
                         }}
                       />
                       <div
-                        className="lollipop"
+                        className={styles.lollipop}
                         style={{
                           width: `calc(${this.interpolate(
                             item.value,
@@ -184,32 +184,32 @@ class LollipopChart extends PureComponent {
                         }}
                       >
                         <div
-                          className="item-bar"
+                          className={styles["item-bar"]}
                           style={{
                             backgroundColor: item.color,
                           }}
                         />
                         <div
-                          className="item-bubble -lollipop"
+                          className={`${styles["item-bubble"]} ${styles["-lollipop"]}`}
                           style={{
                             backgroundColor: item.color,
                             transform: `translateX(${
-                              isNegative ? '-8px' : '8px'
+                              isNegative ? "-8px" : "8px"
                             })`,
-                            [isNegative ? 'left' : 'right']: 0,
+                            [isNegative ? "left" : "right"]: 0,
                           }}
                         />
                         <div
-                          className="item-value"
+                          className={styles["item-value"]}
                           style={
                             isNegative
                               ? {
-                                  left: '0',
-                                  transform: 'translateX(-67px)',
+                                  left: "0",
+                                  transform: "translateX(-67px)",
                                 }
                               : {
-                                  right: '0',
-                                  transform: 'translateX(67px)',
+                                  right: "0",
+                                  transform: "translateX(67px)",
                                 }
                           }
                         >
@@ -236,13 +236,13 @@ class LollipopChart extends PureComponent {
                     )}
                     {item.path && !linksExt && (
                       <Link {...item.path}>
-                        <a className={`${linksDisabled ? 'disabled' : ''}`}>
+                        <a className={`${linksDisabled ? "disabled" : ""}`}>
                           {linkContent}
                         </a>
                       </Link>
                     )}
                     {!item.path && (
-                      <div className={`${linksDisabled ? 'disabled' : ''}`}>
+                      <div className={`${linksDisabled ? "disabled" : ""}`}>
                         {linkContent}
                       </div>
                     )}
@@ -253,32 +253,32 @@ class LollipopChart extends PureComponent {
         </div>
         <Desktop>
           <div
-            className="cartesian-grid"
+            className={styles["cartesian-grid"]}
             style={{
               ...(allNegative && {
-                left: 'calc(40% + 67px)',
+                left: "calc(40% + 67px)",
                 right: 0,
-                width: 'calc(100% - 40% - 67px)',
+                width: "calc(100% - 40% - 67px)",
               }),
               ...(allPositive && {
-                left: '40%',
+                left: "40%",
                 right: 0,
-                width: 'calc(100% - 40% - 67px)',
+                width: "calc(100% - 40% - 67px)",
               }),
               ...(!allPositive &&
                 !allNegative && {
-                  left: 'calc(40% + 67px)',
+                  left: "calc(40% + 67px)",
                   right: 0,
-                  width: 'calc(100% - 40% - 67px - 67px)',
+                  width: "calc(100% - 40% - 67px - 67px)",
                 }),
             }}
           >
             {ticks.map((tick) => (
               <div
-                className="grid-line"
+                className={styles["grid-line"]}
                 key={tick}
                 style={{
-                  position: 'absolute',
+                  position: "absolute",
                   right:
                     tick < 0 &&
                     (allNegative

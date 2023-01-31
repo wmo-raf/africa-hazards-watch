@@ -1,15 +1,15 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 
-import Map from 'components/map';
-import MiniLegend from '../mini-legend';
+import Map from "components/map";
+import MiniLegend from "../mini-legend";
 
-import './styles.scss';
+import styles from "./map.module.scss";
 
 class MainMapComponent extends PureComponent {
   renderInfoTooltip = (string) => (
     <div>
-      <p className="tooltip-info">{string}</p>
+      <p className={styles["tooltip-info"]}>{string}</p>
     </div>
   );
 
@@ -17,9 +17,9 @@ class MainMapComponent extends PureComponent {
     const { handleLocationChange } = this.props;
 
     return (
-      <div className="c-dashboard-map">
-        <Map className="dashboard-map" onClickAnalysis={handleLocationChange} />
-        <MiniLegend className="mini-legend" />
+      <div className={styles["c-dashboard-map"]}>
+        <Map className={styles["dashboard-map"]} onClickAnalysis={handleLocationChange} />
+        <MiniLegend className={styles["mini-legend"]} />
       </div>
     );
   }

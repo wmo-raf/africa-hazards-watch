@@ -5,11 +5,11 @@ import { Row, Column, Loader } from "@erick-otenyo/hw-components";
 import AreasTable from "../areas-table";
 import NoAreas from "../no-areas";
 
-import "./styles.scss";
+import styles from "./areas.module.scss";
 
 const MyHwAreas = ({ hasAreas, loading }) => (
-  <div className="c-myhw-areas">
-    {loading && <Loader className="myhw-loader" />}
+  <div className={styles["c-myhw-areas"]}>
+    {loading && <Loader className={styles["myhw-loader"]} />}
     {!loading && hasAreas && (
       <Row>
         <Column>

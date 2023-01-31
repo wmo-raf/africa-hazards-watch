@@ -3,10 +3,10 @@ import { Field } from "react-final-form";
 
 import ReactDatePicker from "react-datepicker";
 
-import "./styles.scss";
+import styles from "./datepicker.module.scss";
 
 const DatePickerAdapter = ({ input: { onChange, value }, ...rest }) => (
-  <div className="c-datepicker">
+  <div className={styles["c-datepicker"]}>
     <ReactDatePicker
       showTimeSelect
       dateFormat="dd MMM yyyy HH:mm"

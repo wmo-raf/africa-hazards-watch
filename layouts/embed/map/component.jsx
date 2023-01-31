@@ -1,12 +1,12 @@
-import MapPage from 'layouts/map';
+import MapPage from "layouts/map";
 
-import ahwLogo from 'assets/logos/logo.png';
+import ahwLogo from "assets/logos/logo.png";
 
-import './styles.scss';
+import styles from "./map.module.scss";
 
 const MapEmbedPage = () => (
-  <div className="l-embed-map-page">
-    <a className="embed-logo" href="/" target="_blank">
+  <div className={styles["l-embed-map-page"]}>
+    <a className={styles["embed-logo"]} href="/" target="_blank">
       <img src={ahwLogo} alt="Africa Hazards Watch" />
     </a>
     <MapPage embed />

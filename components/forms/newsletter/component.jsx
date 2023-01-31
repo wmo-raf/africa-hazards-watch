@@ -1,29 +1,29 @@
-import React, { PureComponent, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { Form } from 'react-final-form';
-import { FORM_ERROR } from 'final-form';
+import React, { PureComponent, Fragment } from "react";
+import PropTypes from "prop-types";
+import { Form } from "react-final-form";
+import { FORM_ERROR } from "final-form";
 
-import { submitNewsletterSubscription } from 'services/forms';
+import { submitNewsletterSubscription } from "services/forms";
 
-import CountryDataProvider from 'providers/country-data-provider';
-import Input from 'components/forms/components/input';
-import Select from 'components/forms/components/select';
-import Checkbox from 'components/forms/components/checkbox';
-import Submit from 'components/forms/components/submit';
-import SuccessMessage from 'components/success-message';
-import Error from 'components/forms/components/error';
+import CountryDataProvider from "providers/country-data-provider";
+import Input from "components/forms/components/input";
+import Select from "components/forms/components/select";
+import Checkbox from "components/forms/components/checkbox";
+import Submit from "components/forms/components/submit";
+import SuccessMessage from "components/success-message";
+import Error from "components/forms/components/error";
 
-import { email as validateEmail } from 'components/forms/validations';
+import { email as validateEmail } from "components/forms/validations";
 
-import './styles.scss';
+import styles from "./newsletter.module.scss";
 
 const subscriptions = [
-  { label: 'Innovations in Monitoring', value: 'monitoring' },
-  { label: 'Fires', value: 'fires' },
-  { label: 'Forest Watcher Mobile App', value: 'fwapp' },
-  { label: 'Climate and Biodiversity', value: 'climate' },
-  { label: 'Agricultural Supply Chains', value: 'supplychains' },
-  { label: 'Small Grants Fund and Tech Fellowship', value: 'sgf' },
+  { label: "Innovations in Monitoring", value: "monitoring" },
+  { label: "Fires", value: "fires" },
+  { label: "Forest Watcher Mobile App", value: "fwapp" },
+  { label: "Climate and Biodiversity", value: "climate" },
+  { label: "Agricultural Supply Chains", value: "supplychains" },
+  { label: "Small Grants Fund and Tech Fellowship", value: "sgf" },
 ];
 
 class NewsletterForm extends PureComponent {
@@ -55,8 +55,8 @@ class NewsletterForm extends PureComponent {
         ? Object.entries(gfwInterests)
             .filter(([, val]) => val)
             .map(([key]) => key)
-            .join(', ')
-        : '',
+            .join(", ")
+        : "",
       pardot_extra_field: comments,
     };
 
@@ -68,7 +68,7 @@ class NewsletterForm extends PureComponent {
         }
 
         return {
-          [FORM_ERROR]: 'Service unavailable',
+          [FORM_ERROR]: "Service unavailable",
         };
       });
   };
@@ -89,7 +89,7 @@ class NewsletterForm extends PureComponent {
             submitError,
             submitSucceeded,
           }) => (
-            <form className="c-newsletter-form" onSubmit={handleSubmit}>
+            <form className={styles["c-newsletter-form"]} onSubmit={handleSubmit}>
               {submitSucceeded ? (
                 <SuccessMessage
                   title="Thank you for subscribing to Global Forest Watch newsletters and updates!"

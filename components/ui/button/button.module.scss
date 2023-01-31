@@ -1,4 +1,4 @@
-@import '~styles/settings';
+@import "~styles/settings";
 $button-height: rem(40px);
 
 .c-button {
@@ -69,3 +69,17 @@ $button-height: rem(40px);
     width: 100%;
   }
 }
+
+@import "./themes/button-light.scss";
+@import "./themes/button-small.scss";
+@import "./themes/button-xsmall.scss";
+@import "./themes/button-medium.scss";
+@import "./themes/button-tiny.scss";
+@import "./themes/button-grey.scss";
+@import "./themes/button-grey-filled.scss";
+@import "./themes/button-clear.scss";
+@import "./themes/button-map-control.scss";
+@import "./themes/button-dashed.scss";
+@import "./themes/button-dark-round.scss";
+@import "./themes/button-inline.scss";
+@import "./themes/button-full-width.scss";

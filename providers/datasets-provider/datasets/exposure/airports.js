@@ -60,7 +60,7 @@ export default [
         legendConfig: {
           items: [
             {
-              icon: "/assets/layer-icons/airport-1.svg",
+              icon: "/assets/layer-icons/airport-1.svg?sprite",
               name: "Airport",
             },
           ],

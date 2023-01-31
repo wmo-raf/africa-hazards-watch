@@ -1,16 +1,16 @@
-import React, { PureComponent, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import isEqual from 'lodash/isEqual';
-import { trackEvent } from 'utils/analytics';
-import ReactHtmlParser from 'react-html-parser';
+import React, { PureComponent, Fragment } from "react";
+import PropTypes from "prop-types";
+import isEqual from "lodash/isEqual";
+import { trackEvent } from "utils/analytics";
+import ReactHtmlParser from "react-html-parser";
 
-import SubnavMenu from 'components/subnav-menu';
-import Dropdown from 'components/ui/dropdown';
-import Card from 'components/ui/card';
-import Loader from 'components/ui/loader';
-import PTWProvider from 'providers/ptw-provider';
+import SubnavMenu from "components/subnav-menu";
+import Dropdown from "components/ui/dropdown";
+import Card from "components/ui/card";
+import Loader from "components/ui/loader";
+import PTWProvider from "providers/ptw-provider";
 
-import './styles.scss';
+import styles from "./explore.module.scss";
 
 class Explore extends PureComponent {
   render() {
@@ -23,85 +23,85 @@ class Explore extends PureComponent {
       mapState,
       loading,
       ptwType,
-      setMapPromptsSettings
+      setMapPromptsSettings,
     } = this.props;
     const links = [
       {
-        label: 'Forest Topics',
-        active: section === 'topics',
+        label: "Forest Topics",
+        active: section === "topics",
         onClick: () => {
-          setMenuSettings({ exploreType: 'topics' });
+          setMenuSettings({ exploreType: "topics" });
           trackEvent({
-            category: 'Map menu',
-            action: 'Select explore category',
-            label: 'Topics'
-          })
-        }
+            category: "Map menu",
+            action: "Select explore category",
+            label: "Topics",
+          });
+        },
       },
       {
-        label: 'Places to Watch',
-        active: section === 'placesToWatch',
+        label: "Places to Watch",
+        active: section === "placesToWatch",
         onClick: () => {
-          setMenuSettings({ exploreType: 'placesToWatch' });
+          setMenuSettings({ exploreType: "placesToWatch" });
           trackEvent({
-            category: 'Map menu',
-            action: 'Select explore category',
-            label: 'Places to watch'
-          })
-        }
+            category: "Map menu",
+            action: "Select explore category",
+            label: "Places to watch",
+          });
+        },
       },
       {
-        label: 'Stories',
-        active: section === 'stories',
+        label: "Stories",
+        active: section === "stories",
         onClick: () => {
-          setMenuSettings({ exploreType: 'stories' });
+          setMenuSettings({ exploreType: "stories" });
           trackEvent({
-            category: 'Map menu',
-            action: 'Select explore category',
-            label: 'Stories'
-          })
-        }
-      }
+            category: "Map menu",
+            action: "Select explore category",
+            label: "Stories",
+          });
+        },
+      },
     ];
 
     return (
-      <div className="c-explore">
+      <div className={styles["c-explore"]}>
         <SubnavMenu
           links={links}
-          className="explore-menu"
+          className={styles["explore-menu"]}
           theme="theme-subnav-small-light"
         />
-        <div className="content">
-          <div className="row">
-            <div className="column small-12">
-              <div className="description">
-                {section === 'placesToWatch' ? (
+        <div className={styles.content}>
+          <div className={styles.row}>
+            <div className={`${styles.column} ${styles["small-12"]}`}>
+              <div className={styles.description}>
+                {section === "placesToWatch" ? (
                   <Fragment>
                     <p>{ReactHtmlParser(description)}</p>
-                    <p className="ptw-type-intro">Showing information about</p>
+                    <p className={styles["ptw-type-intro"]}>Showing information about</p>
                     <Dropdown
-                      className="ptw-type-selector"
+                      className={styles["ptw-type-selector"]}
                       theme="theme-dropdown-native-button"
                       value={ptwType}
                       options={[
                         {
-                          label: 'All Places to Watch',
-                          value: 'all'
+                          label: "All Places to Watch",
+                          value: "all",
                         },
                         {
-                          label: 'Mongabay reporting',
-                          value: 'mongabay'
+                          label: "Mongabay reporting",
+                          value: "mongabay",
                         },
                         {
-                          label: 'Soy',
-                          value: 'soy'
+                          label: "Soy",
+                          value: "soy",
                         },
                         {
-                          label: 'Oil palm',
-                          value: 'palm'
-                        }
+                          label: "Oil palm",
+                          value: "palm",
+                        },
                       ]}
-                      onChange={value => setMenuSettings({ ptwType: value })}
+                      onChange={(value) => setMenuSettings({ ptwType: value })}
                       native
                     />
                     <PTWProvider />
@@ -113,35 +113,35 @@ class Explore extends PureComponent {
             </div>
             {!loading &&
               data &&
-              data.map(item => (
+              data.map((item) => (
                 <div
                   key={item.slug || item.id}
-                  className="column small-12 medium-6"
+                  className={`${styles.column} ${styles["small-12"]} ${styles["medium-6"]}`}
                 >
                   <Card
-                    className="map-card"
+                    className={styles["map-card"]}
                     theme="theme-card-small"
                     clamp={5}
                     data={{
                       ...item,
-                      buttons: item.buttons.map(b => ({
+                      buttons: item.buttons.map((b) => ({
                         ...b,
-                        ...(b.text === 'VIEW ON MAP' && {
+                        ...(b.text === "VIEW ON MAP" && {
                           onClick: () => {
                             handleViewOnMap({ ...item.payload });
                             setMapPromptsSettings({
                               open: true,
                               stepIndex: 0,
-                              stepsKey: `topics${item.title}`
+                              stepsKey: `topics${item.title}`,
                             });
                             trackEvent({
-                              category: 'Map data',
-                              action: 'User loads a topic',
-                              label: item.title
-                            })
-                          }
-                        })
-                      }))
+                              category: "Map data",
+                              action: "User loads a topic",
+                              label: item.title,
+                            });
+                          },
+                        }),
+                      })),
                     }}
                     active={isEqual(item.payload.map, mapState)}
                   />
@@ -164,7 +164,7 @@ Explore.propTypes = {
   loading: PropTypes.bool,
   handleViewOnMap: PropTypes.func,
   ptwType: PropTypes.string,
-  setMapPromptsSettings: PropTypes.func
+  setMapPromptsSettings: PropTypes.func,
 };
 
 export default Explore;

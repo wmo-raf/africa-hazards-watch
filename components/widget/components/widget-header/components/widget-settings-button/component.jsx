@@ -1,17 +1,17 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { Tooltip } from 'react-tippy';
-import { isParent } from 'utils/dom';
-import { trackEvent } from 'utils/analytics';
-import cx from 'classnames';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import { Tooltip } from "react-tippy";
+import { isParent } from "utils/dom";
+import { trackEvent } from "utils/analytics";
+import cx from "classnames";
 
-import Button from 'components/ui/button';
-import Icon from 'components/ui/icon';
+import Button from "components/ui/button";
+import Icon from "components/ui/icon";
 
-import settingsIcon from 'assets/icons/settings.svg?sprite';
-import WidgetSettings from '../widget-settings';
+import settingsIcon from "assets/icons/settings.svg?sprite";
+import WidgetSettings from "../widget-settings";
 
-import './styles.scss';
+import styles from "./widget-settings-button.module.scss";
 
 class WidgetSettingsButton extends PureComponent {
   static propTypes = {
@@ -63,8 +63,8 @@ class WidgetSettingsButton extends PureComponent {
 
     return (
       <Tooltip
-        className={cx('c-widget-settings-button', {
-          'widget-settings-btn-active': active,
+        className={cx(styles["c-widget-settings-button"], {
+          [styles["widget-settings-btn-active"]]: active,
         })}
         theme="widget-tooltip-theme light"
         position="bottom-right"
@@ -86,15 +86,15 @@ class WidgetSettingsButton extends PureComponent {
         onShow={() => {
           this.setState({ tooltipOpen: true });
           trackEvent({
-            category: 'Widget Settings',
-            action: 'User opens settings menu',
+            category: "Widget Settings",
+            action: "User opens settings menu",
             label: widget,
           });
         }}
         arrow
         useContext
         open={tooltipOpen}
-        html={(
+        html={
           <WidgetSettings
             ref={(node) => {
               this.widgetSettingsRef = node;
@@ -109,13 +109,13 @@ class WidgetSettingsButton extends PureComponent {
             handleShowInfo={handleShowInfo}
             showYears={shouldSettingsOpen}
           />
-        )}
+        }
       >
         <Button
           theme="theme-button-small square"
-          tooltip={{ text: 'Filter and customize the data' }}
+          tooltip={{ text: "Filter and customize the data" }}
         >
-          <Icon icon={settingsIcon} className="settings-icon" />
+          <Icon icon={settingsIcon} className={styles["settings-icon"]} />
         </Button>
       </Tooltip>
     );

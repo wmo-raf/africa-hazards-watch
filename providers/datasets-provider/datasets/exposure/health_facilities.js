@@ -46,7 +46,7 @@ export default [
         legendConfig: {
           items: [
             {
-              icon: "/assets/layer-icons/hospital-1.svg",
+              icon: "/assets/layer-icons/hospital-1.svg?sprite",
               name: "Hospital",
             },
           ],

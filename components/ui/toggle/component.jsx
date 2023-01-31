@@ -1,8 +1,7 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 
-import './styles.scss';
-import './themes/large.scss';
+import styles from "./toggle.module.scss";
 
 class Toggle extends PureComponent {
   render() {
@@ -13,7 +12,9 @@ class Toggle extends PureComponent {
         role="switch"
         aria-label="toggle"
         aria-checked={value && value.toString()}
-        className={`c-toggle ${value ? '-active' : ''} ${theme || ''}`}
+        className={`${styles["c-toggle"]} ${value ? styles["-active"] : ""} ${
+          theme || ""
+        }`}
         style={{ backgroundColor: value && color ? color : null }}
         onClick={(e) => onToggle(!value, e)}
       />

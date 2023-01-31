@@ -11,7 +11,7 @@ import Basemaps from "components/basemaps";
 import DatasetSection from "./dataset-section";
 import CategoriesMenu from "./categories-menu";
 
-import "./styles.scss";
+import styles from "./datasets.module.scss";
 
 class Datasets extends PureComponent {
   render() {
@@ -33,7 +33,7 @@ class Datasets extends PureComponent {
     } = this.props;
 
     return (
-      <div className="c-datasets">
+      <div className={styles["c-datasets"]}>
         {!isDesktop &&
           menuSection &&
           !datasetCategory &&
@@ -49,9 +49,9 @@ class Datasets extends PureComponent {
           )}
         {menuSection && datasetCategory && (
           <Fragment>
-            <div className="countries-selection">
-              {/* <span className="sub-title">country-specific data</span> */}
-              {/* <div className="pills">
+            <div className={styles["countries-selection"]}>
+              {/* <span className={styles["sub-title"]}>country-specific data</span> */}
+              {/* <div className={styles.pills}>
                 {selectedCountries &&
                   selectedCountries.map((c) => (
                     <Pill
@@ -65,7 +65,7 @@ class Datasets extends PureComponent {
                   ))}
                 {countries && !!countries.length && (
                   <Dropdown
-                    className="country-dropdown"
+                    className={styles["country-dropdown"]}
                     theme="theme-dropdown-button theme-dropdown-button-small"
                     placeholder="+ Add country"
                     noItemsFound="No country found"
@@ -80,9 +80,9 @@ class Datasets extends PureComponent {
               !!countriesWithoutData.length &&
               selectedCountries &&
               !!selectedCountries.length && (
-                <div className="no-datasets-legend">
-                  <span className="legend-dot" />
-                  <p className="no-datasets-message">
+                <div className={styles["no-datasets-legend"]}>
+                  <span className={styles["legend-dot"]} />
+                  <p className={styles["no-datasets-message"]}>
                     No datasets available in{" "}
                     {countriesWithoutData.map((c, i, a) => {
                       let separator = ", ";
@@ -106,7 +106,7 @@ class Datasets extends PureComponent {
                       subCat.datasets.map((d) => (
                         <LayerToggle
                           key={d.id}
-                          className="dataset-toggle"
+                          className={styles["dataset-toggle"]}
                           data={{ ...d, dataset: d.id }}
                           onToggle={onToggleLayer}
                           onInfoClick={setModalMetaSettings}
@@ -116,7 +116,7 @@ class Datasets extends PureComponent {
                       ))
                     ) : (
                       <NoContent
-                        className="no-datasets"
+                        className={styles["no-datasets"]}
                         message="No datasets available"
                       />
                     )}
@@ -127,7 +127,7 @@ class Datasets extends PureComponent {
                   <LayerToggle
                     key={d.id}
                     tabIndex={i}
-                    className="dataset-toggle"
+                    className={styles["dataset-toggle"]}
                     data={{ ...d, dataset: d.id }}
                     onToggle={onToggleLayer}
                     onInfoClick={setModalMetaSettings}

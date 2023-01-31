@@ -26,7 +26,7 @@ import LayerManagerWrapper from "./components/layer-manager";
 import { pulsingDot } from "./mapImages";
 
 // Styles
-import "./styles.scss";
+import styles from "./map.module.scss";
 
 class MapComponent extends Component {
   static propTypes = {
@@ -467,14 +467,18 @@ class MapComponent extends Component {
 
     return (
       <div
-        className={cx("c-map", { "no-pointer-events": drawing }, className)}
+        className={cx(
+          styles["c-map"],
+          { [styles["no-pointer-events"]]: drawing },
+          className
+        )}
         style={{ backgroundColor: basemap && basemap.color }}
       >
         <Tooltip
           theme="tip"
           title="HW Interactive Map"
           hideOnClick={false}
-          html={<Tip text={tipText} className="tooltip-dark" />}
+          html={<Tip text={tipText} className={styles["tooltip-dark"]} />}
           position="top"
           followCursor
           animateFill={false}
@@ -517,10 +521,14 @@ class MapComponent extends Component {
                   drawingMode={drawingMode}
                 />
                 {/* SCALE */}
-                <Scale className="map-scale" map={map} viewport={viewport} />
+                <Scale
+                  className={styles["map-scale"]}
+                  map={map}
+                  viewport={viewport}
+                />
                 {/* ATTRIBUTIONS */}
                 <Attributions
-                  className="map-attributions"
+                  className={styles["map-attributions"]}
                   map={map}
                   viewport={viewport}
                 />
@@ -528,11 +536,11 @@ class MapComponent extends Component {
             )}
           </Map>
         </Tooltip>
-        <Icon className="map-icon-crosshair" icon={iconCrosshair} />
+        <Icon className={styles["map-icon-crosshair"]} icon={iconCrosshair} />
         {loading && (
           <Loader
-            className="map-loader"
-            theme="theme-loader-light"
+            className={styles["map-loader"]}
+            theme={styles["theme-loader-light"]}
             message={loadingMessage}
           />
         )}

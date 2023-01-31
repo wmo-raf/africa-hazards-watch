@@ -1,52 +1,50 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 
-import Button from 'components/ui/button';
-import Icon from 'components/ui/icon';
+import Button from "components/ui/button";
+import Icon from "components/ui/icon";
 
-import arrowIcon from 'assets/icons/arrow-down.svg?sprite';
+import arrowIcon from "assets/icons/arrow-down.svg?sprite";
 
-import './styles.scss';
+import styles from "./vertical-menu.module.scss";
 
 class VerticalMenu extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
     value: PropTypes.string,
-    menu: PropTypes.arrayOf(PropTypes.shape({
-      label: PropTypes.string,
-      value: PropTypes.string
-    })),
-    onClick: PropTypes.func
-  }
+    menu: PropTypes.arrayOf(
+      PropTypes.shape({
+        label: PropTypes.string,
+        value: PropTypes.string,
+      })
+    ),
+    onClick: PropTypes.func,
+  };
 
   render() {
     const {
       menu,
       value: currentValue,
       onClick,
-      className = '',
+      className = "",
       ...props
     } = this.props;
 
     return (
-      <ul
-        className={`c-vertical-menu ${className}`}
-        {...props}
-      >
+      <ul className={`${styles["c-vertical-menu"]} ${className}`} {...props}>
         {menu.map(({ label, value }) => (
-          <li className="menu-item" key={label}>
+          <li className={styles["menu-item"]} key={label}>
             <Button
-              theme=""
               active={value === currentValue}
               onClick={() => onClick(value)}
             >
               {label}
-              <Icon icon={arrowIcon} className="arrow-icon" />
+              <Icon icon={arrowIcon} className={styles["arrow-icon"]} />
             </Button>
           </li>
         ))}
       </ul>
-    )
+    );
   }
 }
 

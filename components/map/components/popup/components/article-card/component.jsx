@@ -1,19 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import Card from 'components/ui/card';
+import Card from "components/ui/card";
 
-import './styles.scss';
+import styles from "./article-card.module.scss";
 
 const ArticleCard = ({ data, setMapSettings }) => (
   <Card
-    className="c-article-card"
-    theme="theme-card-small"
+    className={styles["c-article-card"]}
+    theme={styles["theme-card-small"]}
     clamp={5}
     data={{
       ...data,
       buttons: data?.buttons?.map((b) =>
-        b.text === 'ZOOM'
+        b.text === "ZOOM"
           ? {
               ...b,
               onClick: () =>

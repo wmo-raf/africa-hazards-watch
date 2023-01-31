@@ -15,7 +15,7 @@ import { email } from "components/forms/validations";
 
 import { HW_API } from "utils/apis";
 
-import "./styles.scss";
+import styles from "./login.module.scss";
 
 const isServer = typeof window === "undefined";
 
@@ -105,13 +105,17 @@ class LoginForm extends PureComponent {
           valid,
           form: { reset },
         }) => (
-          <div className={cx("c-login-form", className, { simple })}>
+          <div
+            className={cx(styles["c-login-form"], className, {
+              [styles.simple]: simple,
+            })}
+          >
             <Row nested>
               {submitSucceeded && showForm !== "login" ? (
                 <Column>
                   <ConfirmationMessage {...confirmation} />
                   <Button
-                    className="reset-form-btn"
+                    className={styles["reset-form-btn"]}
                     onClick={() => {
                       reset();
                       this.setState({ showForm: "login" });
@@ -139,7 +143,10 @@ class LoginForm extends PureComponent {
                         instructions.
                       </p>
                     )}
-                    <form className="c-login-form" onSubmit={handleSubmit}>
+                    <form
+                      className={styles["c-login-form"]}
+                      onSubmit={handleSubmit}
+                    >
                       <Input
                         name="email"
                         type="email"
@@ -159,7 +166,7 @@ class LoginForm extends PureComponent {
                       )}
                       {showForm === "login" && (
                         <div
-                          className="forgotten-password"
+                          className={styles["forgotten-password"]}
                           onClick={() => {
                             this.setState({ showForm: "reset" });
                             reset();
@@ -175,10 +182,10 @@ class LoginForm extends PureComponent {
                         submitFailed={submitFailed}
                         submitError={submitError}
                       />
-                      <div className="submit-actions">
+                      <div className={styles["submit-actions"]}>
                         <Submit submitting={submitting}>{submit}</Submit>
                         <button
-                          className="change-form"
+                          className={styles["change-form"]}
                           onClick={(e) => {
                             e.preventDefault();
                             this.setState({ showForm: altView });

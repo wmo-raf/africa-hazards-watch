@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
+import React from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
 
-import Icon from 'components/ui/icon';
+import Icon from "components/ui/icon";
 
-import arrowDownIcon from 'assets/icons/arrow-down.svg?sprite';
-import overflowMenuIcon from 'assets/icons/overflow-menu.svg?sprite';
-import closeIcon from 'assets/icons/close.svg?sprite';
+import arrowDownIcon from "assets/icons/arrow-down.svg?sprite";
+import overflowMenuIcon from "assets/icons/overflow-menu.svg?sprite";
+import closeIcon from "assets/icons/close.svg?sprite";
 
-import './styles.scss';
+import styles from "./selector.module.scss";
 
 const Selector = (props) => {
   const {
@@ -31,51 +31,56 @@ const Selector = (props) => {
   return (
     <div
       ref={innerRef}
-      className={`container ${isOpen ? 'is-open' : ''} ${className || ''}`}
+      className={`${styles.container} ${isOpen ? styles["is-open"] : ""} ${
+        className || ""
+      }`}
     >
       <div
         className={cx({
-          'c-selector': true,
-          [layout]: true,
-          'align-left': arrowPosition && layout !== 'overflow-menu',
-          'clearable': clearable && activeValue
+          [styles["c-selector"]]: true,
+          [styles[layout]]: true,
+          [styles["align-left"]]: arrowPosition && layout !== "overflow-menu",
+          [styles.clearable]: clearable && activeValue,
         })}
       >
-        {arrowPosition === 'left' && (
-          <button className="arrow-btn" onClick={onSelectorClick}>
-            <Icon className="arrow" icon={arrowDownIcon} />
+        {arrowPosition === "left" && (
+          <button className={styles["arrow-btn"]} onClick={onSelectorClick}>
+            <Icon className={styles.arrow} icon={arrowDownIcon} />
           </button>
         )}
         <span
-          className={`value ${!activeValue ? 'no-value' : ''} ${
-            clearable && activeValue ? 'clearable' : ''
-          }`}
+          className={`${styles["value"]} ${
+            !activeValue ? styles["no-value"] : ""
+          } ${clearable && activeValue ? styles["clearable"] : ""}`}
         >
-          {(isOpen && !searchable) || !isOpen ? activeLabel : ''}
+          {(isOpen && !searchable) || !isOpen ? activeLabel : ""}
         </span>
         {selectorIcon && (
-          <button className="selector-btn" onClick={onSelectorClick}>
-            <Icon className="selector-icon" icon={selectorIcon} />
+          <button className={styles["selector-btn"]} onClick={onSelectorClick}>
+            <Icon className={styles["selector-icon"]} icon={selectorIcon} />
           </button>
         )}
         <input {...inputProps()} />
         {clearable && activeValue && (
-          <button className="clear-btn" onClick={handleClearSelection}>
-            <Icon icon={closeIcon} className="clear-icon" />
+          <button
+            className={styles["clear-btn"]}
+            onClick={handleClearSelection}
+          >
+            <Icon icon={closeIcon} className={styles["clear-icon"]} />
           </button>
         )}
-        {layout === 'overflow-menu' && (
-          <button className="toggle-btn" onClick={onSelectorClick}>
-            <Icon className="overflow-menu" icon={overflowMenuIcon} />
+        {layout === "overflow-menu" && (
+          <button className={styles["toggle-btn"]} onClick={onSelectorClick}>
+            <Icon className={styles["overflow-menu"]} icon={overflowMenuIcon} />
           </button>
         )}
-        {arrowPosition !== 'left' && layout !== 'overflow-menu' && (
-          <button className="arrow-btn" onClick={onSelectorClick}>
-            <Icon className="arrow" icon={arrowDownIcon} />
+        {arrowPosition !== "left" && layout !== "overflow-menu" && (
+          <button className={styles["arrow-btn"]} onClick={onSelectorClick}>
+            <Icon className={styles.arrow} icon={arrowDownIcon} />
           </button>
         )}
       </div>
-      {layout !== 'overflow-menu' && <div className="menu-arrow" />}
+      {layout !== "overflow-menu" && <div className={styles["menu-arrow"]} />}
       {children}
     </div>
   );

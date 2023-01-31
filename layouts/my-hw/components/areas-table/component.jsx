@@ -21,7 +21,7 @@ import mapIcon from "assets/icons/view-map.svg?sprite";
 import editIcon from "assets/icons/edit.svg?sprite";
 import shareIcon from "assets/icons/share.svg?sprite";
 
-import "./styles.scss";
+import styles from "./areas-table.module.scss";
 
 const isServer = typeof window === "undefined";
 
@@ -129,17 +129,17 @@ class AreasTable extends PureComponent {
     const hasUnselectedTags = unselectedTags && !!unselectedTags.length;
 
     return (
-      <div className="c-areas-table">
-        <div className="row filter-row">
-          <div className="column small-12 medium-5 filter-group">
+      <div className={styles["c-areas-table"]}>
+        <div className={`${styles.row} ${styles["filter-row"]}`}>
+          <div className={`${styles.column} ${styles["small-12"]} ${styles["medium-5"]} ${styles["filter-group"]}`}>
             {(hasSelectedTags || hasUnselectedTags) && (
-              <span className="filter-title">Filter by tag</span>
+              <span className={styles["filter-title"]}>Filter by tag</span>
             )}
-            <div className="filter-tags">
+            <div className={styles["filter-tags"]}>
               {hasSelectedTags &&
                 selectedTags.map((tag) => (
                   <Pill
-                    className="filter-tag"
+                    className={styles["filter-tag"]}
                     key={tag.value}
                     active
                     label={tag.label}
@@ -153,7 +153,7 @@ class AreasTable extends PureComponent {
                 ))}
               {hasUnselectedTags && (
                 <Dropdown
-                  className="filter-tag"
+                  className={styles["filter-tag"]}
                   theme="theme-dropdown-button theme-dropdown-button-small"
                   placeholder={
                     activeTags && activeTags.length > 0
@@ -178,11 +178,11 @@ class AreasTable extends PureComponent {
               )}
             </div>
           </div>
-          <div className="column small-12 medium-4 filter-group">
-            <span className="filter-title">Order by</span>
-            <div className="filter-tags">
+          <div className={`${styles.column} ${styles["small-12"]} ${styles["medium-4"]} ${styles["filter-group"]}`}>
+            <span className={styles["filter-title"]}>Order by</span>
+            <div className={styles["filter-tags"]}>
               <Pill
-                className="filter-tag"
+                className={styles["filter-tag"]}
                 active={this.state.sortBy === "createdAt"}
                 label="Creation date"
                 onClick={() =>
@@ -195,8 +195,8 @@ class AreasTable extends PureComponent {
               />
             </div>
           </div>
-          <div className="column small-12 medium-3">
-            <div className="filter-search">
+          <div className={`${styles.column} ${styles["small-12"]} ${styles["medium-3"]}`}>
+            <div className={styles["filter-search"]}>
               <Search
                 theme="theme-search-small"
                 placeholder="Search"
@@ -211,15 +211,15 @@ class AreasTable extends PureComponent {
         <div>
           {areasTrimmed && !!areasTrimmed.length ? (
             areasTrimmed.map((area) => (
-              <div key={area.id} className="row area-row">
-                <div className="column small-12 medium-9">
+              <div key={area.id} className={`${styles.row} ${styles["area-row"]}`}>
+                <div className={`${styles.column} ${styles["small-12"]} ${styles["medium-9"]}`}>
                   <Tooltip
                     theme="light"
                     followCursor
                     html={<Tip text="Open dashboard" />}
                   >
                     <div
-                      className="area-button"
+                      className={styles["area-button"]}
                       onClick={() => {
                         viewArea({
                           areaId: area.id,
@@ -241,10 +241,10 @@ class AreasTable extends PureComponent {
                     </div>
                   </Tooltip>
                 </div>
-                <div className="column small-12 medium-3">
-                  <div className="area-links">
+                <div className={`${styles.column} ${styles["small-12"]} ${styles["medium-3"]}`}>
+                  <div className={styles["area-links"]}>
                     <Button
-                      className="area-link"
+                      className={styles["area-link"]}
                       theme="theme-button-clear"
                       onClick={() =>
                         viewArea({
@@ -253,19 +253,19 @@ class AreasTable extends PureComponent {
                         })
                       }
                     >
-                      <Icon className="link-icon" icon={mapIcon} />
+                      <Icon className={styles["link-icon"]} icon={mapIcon} />
                       view on map
                     </Button>
                     <Button
-                      className="area-link"
+                      className={styles["area-link"]}
                       theme="theme-button-clear"
                       onClick={() => setAreaOfInterestModalSettings(area.id)}
                     >
-                      <Icon className="link-icon" icon={editIcon} />
+                      <Icon className={styles["link-icon"]} icon={editIcon} />
                       edit
                     </Button>
                     <Button
-                      className="area-link"
+                      className={styles["area-link"]}
                       theme="theme-button-clear"
                       onClick={() =>
                         setShareModal({
@@ -277,7 +277,7 @@ class AreasTable extends PureComponent {
                         })
                       }
                     >
-                      <Icon className="link-icon" icon={shareIcon} />
+                      <Icon className={styles["link-icon"]} icon={shareIcon} />
                       share
                     </Button>
                   </div>
@@ -285,10 +285,10 @@ class AreasTable extends PureComponent {
               </div>
             ))
           ) : (
-            <div className="row no-content-row">
-              <div className="column small-12">
+            <div className={`${styles.row} ${styles["no-content-row"]}`}>
+              <div className={`${styles.column} ${styles["small-12"]}`}>
                 <NoContent
-                  className="no-areas-msg"
+                  className={styles["no-areas-msg"]}
                   message="No areas with that search"
                 />
               </div>

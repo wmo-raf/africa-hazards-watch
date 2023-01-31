@@ -31,8 +31,7 @@ import LayerMoreInfo from "./components/layer-more-info";
 
 import updateIcon from "assets/icons/refresh.svg?sprite";
 
-import "./styles.scss";
-import "./themes/vizzuality-legend.scss";
+import styles from "./legend.module.scss";
 
 const MapLegend = ({
   layerGroups,
@@ -54,9 +53,15 @@ const MapLegend = ({
   const noLayers = !layerGroups || !layerGroups.length;
 
   return (
-    <div className={cx("c-legend", { "-empty": noLayers }, className)}>
+    <div
+      className={cx(
+        styles["c-legend"],
+        { [styles["-empty"]]: noLayers },
+        className
+      )}
+    >
       <Icons />
-      {loading && <Loader className="datasets-loader" />}
+      {loading && <Loader className={styles["datasets-loader"]} />}
       {!loading && noLayers && <NoContent message="No layers selected" />}
       {!loading && layerGroups && !!layerGroups.length && (
         <Legend
@@ -124,7 +129,7 @@ const MapLegend = ({
                     onChangeInfo={() => onChangeInfo(metadata)}
                   >
                     <LegendItemButtonOpacity
-                      className="-plain"
+                      className={styles["-plain"]}
                       handleStyle={{
                         backgroundColor: "#fff",
                         borderRadius: "4px",
@@ -142,15 +147,17 @@ const MapLegend = ({
                 }
               >
                 {citation && <div>{citation}</div>}
-                {disclaimer && <div className="disclaimer">{disclaimer}</div>}
+                {disclaimer && (
+                  <div className={styles.disclaimer}>{disclaimer}</div>
+                )}
                 {isUpdating && (
-                  <div className="updating-indicator">
+                  <div className={styles["updating-indicator"]}>
                     <Icon icon={updateIcon} />
                     <div>Updating ...</div>
                   </div>
                 )}
                 {legendImage && legendImage.url && (
-                  <div className="legend-image">
+                  <div className={styles["legend-image"]}>
                     <img src={legendImage.url} />
                   </div>
                 )}
@@ -161,14 +168,14 @@ const MapLegend = ({
                 )}
                 {statementConfig && (
                   <LayerStatement
-                    className="layer-statement"
+                    className={styles["layer-statement"]}
                     {...statementConfig}
                   />
                 )}
 
                 {isMultiLayer && (
                   <LayerSelectMenu
-                    className="sub-layer-menu"
+                    className={styles["sub-layer-menu"]}
                     layers={lg.layers}
                     onSelectLayer={onSelectLayer}
                     onInfoClick={onChangeInfo}
@@ -176,8 +183,8 @@ const MapLegend = ({
                 )}
 
                 <div
-                  className={cx("param-selectors", {
-                    "-column": paramsSelectorColumnView,
+                  className={cx(styles["param-selectors"], {
+                    [styles["-column"]]: paramsSelectorColumnView,
                   })}
                 >
                   {activeLayer &&
@@ -188,7 +195,7 @@ const MapLegend = ({
                         <DateTimeSelector
                           key={`${activeLayer.name}-${paramConfig.key}`}
                           name={name}
-                          className="param-selector"
+                          className={styles["param-selector"]}
                           {...paramConfig}
                           availableDates={
                             // use dates from update provider else use dates from  initial config
@@ -201,19 +208,16 @@ const MapLegend = ({
                             params[paramConfig.key] || paramConfig.default
                           }
                           onChange={(value) => {
-                            onChangeParam(
-                              activeLayer,
-                              {
-                                [paramConfig.key]: value,
-                              },
-                            );
+                            onChangeParam(activeLayer, {
+                              [paramConfig.key]: value,
+                            });
                           }}
                         />
                       ) : paramConfig.options ? (
                         <SentenceSelector
                           key={`${activeLayer.name}-${paramConfig.key}`}
                           name={name}
-                          className="param-selector"
+                          className={styles["param-selector"]}
                           {...paramConfig}
                           value={params[paramConfig.key] || paramConfig.default}
                           columnView={paramsSelectorColumnView}
@@ -238,7 +242,7 @@ const MapLegend = ({
                 {(isSelectorLayer || isMultiSelectorLayer) &&
                   selectorLayerConfig && (
                     <LayerSelectorMenu
-                      className="layer-selector"
+                      className={styles["layer-selector"]}
                       layerGroup={lg}
                       name={name}
                       multi={isMultiSelectorLayer}
@@ -254,7 +258,7 @@ const MapLegend = ({
                 )}
                 {isMultiLayer && (
                   <LayerListMenu
-                    className="sub-layer-menu"
+                    className={styles["sub-layer-menu"]}
                     layers={lg.layers}
                     onToggle={onToggleLayer}
                     onInfoClick={onChangeInfo}
@@ -262,7 +266,7 @@ const MapLegend = ({
                 )}
                 {statementConfig && (
                   <LayerStatement
-                    className="layer-statement"
+                    className={styles["layer-statement"]}
                     {...statementConfig}
                   />
                 )}
@@ -282,7 +286,10 @@ const MapLegend = ({
                   />
                 )}
                 {moreInfo && (
-                  <LayerMoreInfo className="more-info" {...moreInfo} />
+                  <LayerMoreInfo
+                    className={styles["more-info"]}
+                    {...moreInfo}
+                  />
                 )}
               </LegendListItem>
             );

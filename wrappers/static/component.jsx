@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import { useTrackPage } from 'utils/analytics';
-import { useSetLanguage } from 'utils/lang';
+import { useTrackPage } from "utils/analytics";
+import { useSetLanguage } from "utils/lang";
 
-import Head from 'wrappers/head';
+import Head from "wrappers/head";
 
-import './styles.scss';
+import "./static.module.scss";
 
 const StaticWrapper = ({ children, title, description, noIndex, metaTags }) => {
   useTrackPage();

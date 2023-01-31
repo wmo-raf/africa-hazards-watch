@@ -1,17 +1,17 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 
-import './styles.scss';
+import styles from "./dataset-section.module.scss";
 
 class DatasetSection extends PureComponent {
   render() {
     const { title, subTitle, children } = this.props;
     return (
-      <div className="c-dataset-section">
+      <div className={styles["c-dataset-section"]}>
         {(title || subTitle) && (
-          <div className="dataset-header">
-            {title && <div className="title">{title}</div>}
-            {subTitle && <div className="subtitle">{subTitle}</div>}
+          <div className={styles["dataset-header"]}>
+            {title && <div className={styles.title}>{title}</div>}
+            {subTitle && <div className={styles.subtitle}>{subTitle}</div>}
           </div>
         )}
         {children}
@@ -23,7 +23,7 @@ class DatasetSection extends PureComponent {
 DatasetSection.propTypes = {
   title: PropTypes.string,
   subTitle: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default DatasetSection;

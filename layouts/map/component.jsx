@@ -28,7 +28,7 @@ import MapMenu from "components/map-menu";
 import DataAnalysisMenu from "./components/data-analysis-menu";
 import MapControlButtons from "./components/map-controls";
 
-import "./styles.scss";
+import styles from "./map.module.scss";
 
 class MainMapComponent extends PureComponent {
   static propTypes = {
@@ -49,28 +49,31 @@ class MainMapComponent extends PureComponent {
     } = this.props;
 
     return (
-      <div className={cx("c-map-main", { embed })}>
+      <div className={cx(styles["c-map-main"], { [styles.embed]: embed })}>
         <Desktop>
-          <MapMenu className="map-menu" embed={embed} isDesktop />
+          <MapMenu className={styles["map-menu"]} embed={embed} isDesktop />
         </Desktop>
         <Mobile>
-          <MapMenu className="map-menu" embed={embed} />
+          <MapMenu className={styles["map-menu"]} embed={embed} />
         </Mobile>
         <div
-          className="main-map-container"
+          className={styles["main-map-container"]}
           role="button"
           tabIndex={0}
           onClick={handleClickMap}
         >
           <Map
-            className="main-map"
+            className={styles["main-map"]}
             onDrawComplete={onDrawComplete}
             onClickAnalysis={handleClickAnalysis}
           />
         </div>
         {!hidePanels && (
           <Desktop>
-            <DataAnalysisMenu className="data-analysis-menu" embed={embed} />
+            <DataAnalysisMenu
+              className={styles["data-analysis-menu"]}
+              embed={embed}
+            />
           </Desktop>
         )}
         {!embed && (
@@ -79,13 +82,16 @@ class MainMapComponent extends PureComponent {
               <>
                 {!embed && <MapPrompts />}
                 <ModalWelcome />
-                <MapControlButtons className="main-map-controls" isDesktop />
+                <MapControlButtons
+                  className={styles["main-map-controls"]}
+                  isDesktop
+                />
               </>
             </Desktop>
             <Mobile>
               <>
                 <MapControlButtons
-                  className="main-map-controls"
+                  className={styles["main-map-controls"]}
                   isDesktop={false}
                 />
               </>

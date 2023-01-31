@@ -1,28 +1,34 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import { Row, Column, Desktop } from "@erick-otenyo/hw-components";
 
-import BasemapButton from '../basemap-button';
+import BasemapButton from "../basemap-button";
 
-import './styles.scss';
+import styles from "./basemaps-menu.module.scss";
 
 export const BasemapsMenu = ({ basemaps, activeBasemap, onSelectBasemap }) => (
-  <div className="c-basemaps-menu">
+  <div className={styles["c-basemaps-menu"]}>
     <Row>
       <Column>
         <Desktop>
           <h4>Map styles</h4>
         </Desktop>
       </Column>
-      {Object.values(basemaps).filter(b => b.baseStyle).map((item) => (
-        <Column key={item.value} width={[1 / 3]} className="btn-col">
-          <BasemapButton
-            {...item}
-            active={activeBasemap?.value === item?.value}
-            onSelectBasemap={onSelectBasemap}
-          />
-        </Column>
-      ))}
+      {Object.values(basemaps)
+        .filter((b) => b.baseStyle)
+        .map((item) => (
+          <Column
+            key={item.value}
+            width={[1 / 3]}
+            className={styles["btn-col"]}
+          >
+            <BasemapButton
+              {...item}
+              active={activeBasemap?.value === item?.value}
+              onSelectBasemap={onSelectBasemap}
+            />
+          </Column>
+        ))}
     </Row>
   </div>
 );

@@ -1,4 +1,4 @@
-@import '~styles/settings.scss';
+@import "~styles/settings.scss";
 $subnav-height: rem(60px);
 
 .c-subnav-menu {
@@ -71,3 +71,7 @@ $subnav-height: rem(60px);
     }
   }
 }
+
+@import "./themes/subnav-dark.scss";
+@import "./themes/subnav-plain.scss";
+@import "./themes/subnav-small-light.scss";

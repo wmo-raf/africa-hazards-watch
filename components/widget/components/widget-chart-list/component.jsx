@@ -1,11 +1,11 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { formatUSD } from 'utils/format';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import { formatUSD } from "utils/format";
 
-import ComposedChart from 'components/charts/composed-chart';
-import NumberedList from 'components/numbered-list';
+import ComposedChart from "components/charts/composed-chart";
+import NumberedList from "components/numbered-list";
 
-import './styles.scss';
+import styles from "./widget-chart-list.module.scss";
 
 class WidgetChartList extends PureComponent {
   render() {
@@ -13,19 +13,19 @@ class WidgetChartList extends PureComponent {
     const { chartData, rankedData } = data;
 
     return (
-      <div className="c-widget-chart-list">
+      <div className={styles["c-widget-chart-list"]}>
         {data && (
-          <ComposedChart className="chart" data={chartData} config={config} />
+          <ComposedChart className={styles.chart} data={chartData} config={config} />
         )}
         {rankedData && (
           <NumberedList
-            className="locations-list"
+            className={styles["locations-list"]}
             data={rankedData}
             settings={{
               ...settings,
-              unit: settings.unit === 'net_perc' ? '%' : ' $',
+              unit: settings.unit === "net_perc" ? "%" : " $",
               unitFormat:
-                settings.unit !== 'net_perc'
+                settings.unit !== "net_perc"
                   ? (value) => formatUSD(value)
                   : null,
             }}

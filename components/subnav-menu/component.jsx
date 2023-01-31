@@ -1,29 +1,30 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { Link as AnchorLink } from 'react-scroll';
-import NavLink from 'components/nav-link';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import { Link as AnchorLink } from "react-scroll";
+import NavLink from "components/nav-link";
 
-import Icon from 'components/ui/icon';
+import Icon from "components/ui/icon";
 
-import './styles.scss';
-import './themes/subnav-dark.scss'; // eslint-disable-line
-import './themes/subnav-plain.scss'; // eslint-disable-line
-import './themes/subnav-small-light.scss'; // eslint-disable-line
+import styles from "./subnav-menu.module.scss";
 
 class SubNavMenu extends PureComponent {
   render() {
     const { links, className, theme } = this.props;
 
     return (
-      <div className={`c-subnav-menu ${theme || ''} ${className || ''}`}>
-        <ul className="buttons">
+      <div
+        className={`${styles["c-subnav-menu"]} ${styles["theme"]} || ""} ${
+          className || ""
+        }`}
+      >
+        <ul className={styles.buttons}>
           {links && links.length
             ? links.map((link) => {
-                let LinkComponent = '';
+                let LinkComponent = "";
                 if (link.anchor) {
                   LinkComponent = (
                     <AnchorLink
-                      className="text -paragraph-5 -color-8"
+                      className={`${styles.text} ${styles["-paragraph-5"]} ${styles["-color-8"]}`}
                       to={link.anchor}
                       spy
                       smooth
@@ -36,15 +37,15 @@ class SubNavMenu extends PureComponent {
                 } else if (link.onClick) {
                   LinkComponent = (
                     <button
-                      className={`text -paragraph-5 -color-8 ${
-                        link.active ? 'active' : ''
-                      }`}
+                      className={`${styles["text -paragraph-5"]} ${
+                        styles["-color-8"]
+                      } ${link.active ? styles.active : ""}`}
                       onClick={() => {
                         link.onClick();
                       }}
                     >
                       {/* fix for safari 10 flex issues */}
-                      <div className="button-wrapper">
+                      <div className={styles["button-wrapper"]}>
                         {link.icon && <Icon icon={link.icon} />}
                         <span>{link.label}</span>
                       </div>
@@ -58,7 +59,11 @@ class SubNavMenu extends PureComponent {
                       activeClassName="active"
                       activeShallow={link.activeShallow}
                     >
-                      <a className={`text -paragraph-5 -color-8 ${link.active ? 'active' : ''}`}>
+                      <a
+                        className={`${styles["text -paragraph-5"]} ${
+                          styles["-color-8"]
+                        } ${link.active ? styles.active : ""}`}
+                      >
                         {link.icon && <Icon icon={link.icon} />}
                         <span>{link.label}</span>
                       </a>
@@ -68,13 +73,15 @@ class SubNavMenu extends PureComponent {
                 return (
                   <li
                     key={link.label}
-                    className={`subnav-link-${link.label.toLowerCase()}`}
+                    className={
+                      styles[`subnav-link-${link.label.toLowerCase()}`]
+                    }
                   >
                     {LinkComponent}
                   </li>
                 );
               })
-            : ''}
+            : ""}
         </ul>
       </div>
     );

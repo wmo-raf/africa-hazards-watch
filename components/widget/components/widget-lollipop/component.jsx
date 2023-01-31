@@ -1,9 +1,9 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 
-import Lollipop from 'components/charts/lollipop-chart';
+import Lollipop from "components/charts/lollipop-chart";
 
-import './styles.scss';
+import styles from "./widget-lollipop.module.scss";
 
 class WidgetLollipop extends PureComponent {
   render() {
@@ -18,16 +18,17 @@ class WidgetLollipop extends PureComponent {
 
     return (
       <Lollipop
-        className="c-widget-lollipop-chart"
+        className={styles["c-widget-lollipop-chart"]}
         data={data}
         config={config}
         settings={{
           ...settings,
-          format: settings.unit === '%' ? '.2r' : '.3s',
+          format: settings.unit === "%" ? ".2r" : ".3s",
         }}
         settingsConfig={settingsConfig}
         handlePageChange={(change) =>
-          handleChangeSettings({ page: settings.page + change })}
+          handleChangeSettings({ page: settings.page + change })
+        }
         linksExt={embed}
       />
     );

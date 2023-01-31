@@ -15,13 +15,13 @@ import LocationProvider from "providers/location-provider";
 import MyHWeader from "./components/header";
 import Areas from "./components/areas";
 
-import "./styles.scss";
+import styles from "./my-hw.module.scss";
 
 const MyHWPage = ({ loggedIn, loggingIn }) => (
-  <div className="l-my-hw-page">
+  <div className={styles["l-my-hw-page"]}>
     <MyHWProvider />
     {!loggingIn && !loggedIn && (
-      <Row className="login">
+      <Row className={styles.login}>
         <Column width={[0, 1 / 12, 1 / 6]} />
         <Column width={[1, 5 / 6, 2 / 3]}>
           <LoginForm />

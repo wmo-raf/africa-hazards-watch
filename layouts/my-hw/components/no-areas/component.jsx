@@ -5,14 +5,14 @@ import Link from "next/link";
 import DashboardImage from "assets/images/aois/aoi-dashboard-small.png";
 import DashboardImageLarge from "assets/images/aois/aoi-dashboard-small@2x.png";
 
-import "./styles.scss";
+import styles from "./no-areas.module.scss";
 
 const MyGfwNoAreas = () => (
-  <div className="c-no-areas">
+  <div className={styles["c-no-areas"]}>
     <Row>
       <Column width={[1, 5 / 12]}>
         <img
-          className="areas-image"
+          className={styles["areas-image"]}
           srcSet={`${DashboardImageLarge} 2x, ${DashboardImage} 1x`}
           src={`${DashboardImage} 1x`}
           alt="you have no areas"
@@ -27,7 +27,7 @@ const MyGfwNoAreas = () => (
         </p>
         <Link href="/map">
           <a>
-            <Button className="learn-btn">Learn how</Button>
+            <Button className={styles["learn-btn"]}>Learn how</Button>
           </a>
         </Link>
       </Column>

@@ -1,15 +1,15 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import isEqual from 'lodash/isEqual';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import isEqual from "lodash/isEqual";
 
-import { scaleLinear } from 'd3-scale';
+import { scaleLinear } from "d3-scale";
 
-import { Spring } from 'react-spring/renderprops.cjs';
+import { Spring } from "react-spring/renderprops.cjs";
 
-import ComposedChart from 'components/charts/composed-chart';
-import SVGBrush from './svg-brush';
+import ComposedChart from "components/charts/composed-chart";
+import SVGBrush from "./svg-brush";
 
-import './styles.scss';
+import styles from "./brush-chart.module.scss";
 
 export default class Brush extends PureComponent {
   static propTypes = {
@@ -113,18 +113,18 @@ export default class Brush extends PureComponent {
     const { height } = this.svg.getBoundingClientRect();
 
     const min = {
-      id: 'min',
+      id: "min",
       x: this.scale(0),
       y: height - margin.bottom + 4,
       value: data[0].date,
-      textAnchor: 'start',
+      textAnchor: "start",
     };
     const max = {
-      id: 'max',
+      id: "max",
       x: this.scale(data.length - 1),
       y: height - margin.bottom + 4,
       value: data[data.length - 1].date,
-      textAnchor: 'end',
+      textAnchor: "end",
     };
 
     return (
@@ -241,11 +241,11 @@ export default class Brush extends PureComponent {
     const { ready } = this.state;
 
     return (
-      <div className="c-brush">
-        <ComposedChart className="brush--chart" data={data} config={config} />
+      <div className={styles["c-brush"]}>
+        <ComposedChart className={styles["brush--chart"]} data={data} config={config} />
 
         <svg
-          className="brush--svg"
+          className={styles["brush--svg"]}
           width={width}
           height={height}
           ref={(input) => {

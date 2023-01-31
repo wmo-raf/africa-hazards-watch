@@ -6,11 +6,11 @@ import turfIntersects from "@turf/boolean-intersects";
 import turfBbox from "@turf/bbox";
 
 import LayerToggle from "components/map/components/legend/components/layer-toggle";
-import AlertsList from "./alert-list";
+// import AlertsList from "./alert-list";
 import SubnavMenu from "components/subnav-menu";
 import AlertFilterButton from "./filter-button";
 
-import "./styles.scss";
+import styles from "./alerts.module.scss";
 
 class Alerts extends PureComponent {
   static propTypes = {
@@ -190,25 +190,25 @@ class Alerts extends PureComponent {
     ];
 
     return (
-      <div className="c-alerts">
+      <div className={styles["c-alerts"]}>
         <SubnavMenu
           links={links}
-          className="alerts-menu"
+          className={styles["alerts-menu"]}
           theme="theme-subnav-small-light"
         />
-        <div className="alerts-wrapper">
+        <div className={styles["alerts-wrapper"]}>
           {alertDataset && (
-            <div className="alerts-header">
+            <div className={styles["alerts-header"]}>
               <LayerToggle
                 tabIndex={0}
-                className="dataset-toggle"
+                className={styles["dataset-toggle"]}
                 data={{ ...alertDataset, dataset: alertDataset.id }}
                 onToggle={onToggleLayer}
                 onInfoClick={setModalMetaSettings}
                 // category={datasetCategory}
               />
               {alertDataset && alertDataset.active && (
-                <div className="alerts-filter">
+                <div className={styles["alerts-filter"]}>
                   <AlertFilterButton
                     filterConfig={filterConfig}
                     handleChangeFilter={this.handleChangeFilter}
@@ -217,8 +217,8 @@ class Alerts extends PureComponent {
               )}
             </div>
           )}
-          <div className="alerts-content">
-            <div className="row">
+          <div className={styles["alerts-content"]}>
+            <div className={styles.row}>
               {/* {alertDataset && alertDataset.active && alertData && (
                 <AlertsList data={alertData} onZoomTo={this.handleOnZoom} />
               )} */}

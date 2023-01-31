@@ -1,7 +1,8 @@
 /* eslint-disable */
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 
+import styles from "./brush-chart.module.scss";
 class SVGBrush extends PureComponent {
   static defaultProps = {
     extent: [
@@ -14,7 +15,7 @@ class SVGBrush extends PureComponent {
     onBrush: (event) => {},
     onBrushEnd: (event) => {},
     getEventMouse: (event) => [event.clientX, event.clientY],
-    brushType: '2d', // 'x', 'y'
+    brushType: "2d", // 'x', 'y'
   };
 
   static propTypes = {
@@ -48,7 +49,7 @@ class SVGBrush extends PureComponent {
     this.move = this.props.getEventMouse(event);
     this.props.onBrushStart({
       target: this,
-      type: 'start',
+      type: "start",
       selection: this.state.selection,
       sourceEvent: event,
     });
@@ -58,7 +59,7 @@ class SVGBrush extends PureComponent {
     this.move = null;
     this.props.onBrushEnd({
       target: this,
-      type: 'end',
+      type: "end",
       selection: this.state.selection,
       sourceEvent: event,
     });
@@ -71,7 +72,7 @@ class SVGBrush extends PureComponent {
 
     return (
       <rect
-        className="overlay"
+        className={styles.overlay}
         pointerEvents="all"
         fill="none"
         x={x0}
@@ -146,7 +147,7 @@ class SVGBrush extends PureComponent {
         />
 
         <rect
-          className="selection"
+          className={styles.selection}
           cursor="move"
           fill="#777"
           fillOpacity="0"
@@ -166,19 +167,19 @@ class SVGBrush extends PureComponent {
               const [my0, my1] = sybf(y0, y1, dy);
               let selection = this.state.selection;
               switch (brushType) {
-                case '2d':
+                case "2d":
                   selection = [
                     [mx0, my0],
                     [mx1, my1],
                   ];
                   break;
-                case 'x':
+                case "x":
                   selection = [
                     [mx0, y0],
                     [mx1, y1],
                   ];
                   break;
-                case 'y':
+                case "y":
                   selection = [
                     [x0, my0],
                     [x1, my1],
@@ -188,7 +189,7 @@ class SVGBrush extends PureComponent {
               this.setState({ selection });
               this.props.onBrush({
                 target: this,
-                type: 'brush',
+                type: "brush",
                 selection,
                 sourceEvent: event,
               });
@@ -199,7 +200,7 @@ class SVGBrush extends PureComponent {
         <g transform={`translate(${x + w - hW / 2},${y + 5})`}>
           <rect
             ref={(input) => (this.handleE = input)}
-            className="handle handle--e"
+            className={`${styles.handle} ${styles["handle--e"]}`}
             cursor="ew-resize"
             width={hW}
             height={hH}
@@ -238,8 +239,8 @@ class SVGBrush extends PureComponent {
 
                 let selection = this.state.selection;
                 switch (brushType) {
-                  case '2d':
-                  case 'x':
+                  case "2d":
+                  case "x":
                     selection = [
                       [smx0, y0],
                       [smx1, y1],
@@ -249,7 +250,7 @@ class SVGBrush extends PureComponent {
                 this.setState({ selection });
                 this.props.onBrush({
                   target: this,
-                  type: 'brush',
+                  type: "brush",
                   selection,
                   sourceEvent: event,
                 });
@@ -276,7 +277,7 @@ class SVGBrush extends PureComponent {
         <g transform={`translate(${x - hW / 2},${y + 5})`}>
           <rect
             ref={(input) => (this.handleW = input)}
-            className="handle handle--w"
+            className={`${styles.handle} ${styles["handle--w"]}`}
             cursor="ew-resize"
             width={hW}
             height={hH}
@@ -315,8 +316,8 @@ class SVGBrush extends PureComponent {
 
                 let selection = this.state.selection;
                 switch (brushType) {
-                  case '2d':
-                  case 'x':
+                  case "2d":
+                  case "x":
                     selection = [
                       [smx0, y0],
                       [smx1, y1],
@@ -326,7 +327,7 @@ class SVGBrush extends PureComponent {
                 this.setState({ selection });
                 this.props.onBrush({
                   target: this,
-                  type: 'brush',
+                  type: "brush",
                   selection,
                   sourceEvent: event,
                 });
@@ -351,7 +352,7 @@ class SVGBrush extends PureComponent {
 
   render() {
     return (
-      <g className="brush">
+      <g className={styles.brush}>
         {this._renderOverlay()}
         {this._renderSelection()}
       </g>

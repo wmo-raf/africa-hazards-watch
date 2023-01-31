@@ -1,14 +1,14 @@
-import React from 'react';
-import { useRouter } from 'next/router';
-import { trackEvent } from 'utils/analytics';
-import { useDispatch } from 'react-redux';
+import React from "react";
+import { useRouter } from "next/router";
+import { trackEvent } from "utils/analytics";
+import { useDispatch } from "react-redux";
 
-import Modal from 'components/modal';
-import ContactForm from 'components/forms/contact';
+import Modal from "components/modal";
+import ContactForm from "components/forms/contact";
 
-import { setModalContactUsOpen } from './actions';
+import { setModalContactUsOpen } from "./actions";
 
-import './styles.scss';
+import styles from "./contact-us.module.scss";
 
 const ModalContactUs = () => {
   const { query } = useRouter();
@@ -23,12 +23,13 @@ const ModalContactUs = () => {
       }}
       onAfterOpen={() =>
         trackEvent({
-          category: 'Open modal',
-          action: 'Click to open',
-          label: 'Contact Us',
-        })}
+          category: "Open modal",
+          action: "Click to open",
+          label: "Contact Us",
+        })
+      }
       title="Contact Us"
-      className="c-contact-us-modal"
+      className={styles["c-contact-us-modal"]}
     >
       <ContactForm />
     </Modal>

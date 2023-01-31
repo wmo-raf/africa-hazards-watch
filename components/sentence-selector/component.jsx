@@ -5,7 +5,7 @@ import { translateText } from "utils/lang";
 import Dropdown from "components/ui/dropdown";
 import RadioGroup from "components/ui/radio-group";
 
-import "./styles.scss";
+import styles from "./sentence-selector.module.scss";
 
 class SentenceSelector extends PureComponent {
   static defaultProps = {
@@ -16,10 +16,10 @@ class SentenceSelector extends PureComponent {
     const split = sentence.split(pattern);
 
     return [
-      <div className="selector-header" key={split[0]}>
-        <span className="selector-title">{split[0]}</span>
+      <div className={styles["selector-header"]} key={split[0]}>
+        <span className={styles["selector-title"]}>{split[0]}</span>
         {selectorDescription && (
-          <span className="selector-desc">{selectorDescription}</span>
+          <span className={styles["selector-desc"]}>{selectorDescription}</span>
         )}
       </div>,
       component,
@@ -66,7 +66,7 @@ class SentenceSelector extends PureComponent {
         "{selector}",
         <Dropdown
           key={name || `${value}-${sentence}`}
-          className="sentence-dropdown"
+          className={styles["sentence-dropdown"]}
           theme="theme-dropdown-native-button"
           value={value}
           options={options}
@@ -79,9 +79,9 @@ class SentenceSelector extends PureComponent {
 
     return (
       <div
-        className={`c-sentence-selector notranslate ${className || ""} ${
-          !columnView && "margin"
-        }`}
+        className={`${styles["c-sentence-selector"]} ${styles.notranslate}  ${
+          className || ""
+        } ${!columnView && styles.margin}`}
       >
         {selectorRepl}
       </div>

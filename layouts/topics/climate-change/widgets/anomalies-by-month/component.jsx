@@ -9,7 +9,7 @@ import {
 
 import { toMonthName } from "utils/time";
 
-import "./styles.scss";
+import styles from "./anomalies-by-month.module.scss";
 
 const MONTHS_OPTIONS = [
   { label: "Jan", value: "01" },
@@ -284,8 +284,8 @@ class AnomaliesByMonth extends Component {
 
     if (chartOptions) {
       return (
-        <div className="widget-toolbar">
-          <div className="months-options">
+        <div className={styles["widget-toolbar"]}>
+          <div className={styles["months-options"]}>
             {MONTHS_OPTIONS.map((m) => {
               return (
                 <div

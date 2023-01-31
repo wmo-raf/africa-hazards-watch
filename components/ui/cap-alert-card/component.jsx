@@ -8,9 +8,7 @@ import cx from "classnames";
 
 import infoIcon from "assets/icons/info.svg?sprite";
 
-import "./styles.scss";
-import "./themes/card-small.scss";
-import "./themes/card-dark.scss";
+import styles from "./cap-alert-card.module.scss";
 
 const TOP_META = {
   onset: { title: "Onset Time", icon: infoIcon },
@@ -55,15 +53,17 @@ class CapAlertCard extends PureComponent {
     // }
 
     return (
-      <div key={key} className="meta-item">
+      <div key={key} className={styles["meta-item"]}>
         {meta && meta.icon && (
           <span>
-            <Icon className="meta-icon" icon={meta.icon} />
+            <Icon className={styles["meta-icon"]} icon={meta.icon} />
           </span>
         )}
-        {meta.title && <span className="meta-header">{meta.title} :</span>}
+        {meta.title && (
+          <span className={styles["meta-header"]}>{meta.title} :</span>
+        )}
         {meta.image && value ? (
-          <img className="cap-source-logo" src={value} />
+          <img className={styles["cap-source-logo"]} src={value} />
         ) : (
           <span>{value.name ? value.name : value} </span>
         )}
@@ -79,13 +79,15 @@ class CapAlertCard extends PureComponent {
     }
 
     return (
-      <div key={key} className="meta-item">
+      <div key={key} className={styles["meta-item"]}>
         {meta && meta.icon && (
           <span>
-            <Icon className="meta-icon" icon={meta.icon} />
+            <Icon className={styles["meta-icon"]} icon={meta.icon} />
           </span>
         )}
-        {meta.title && <span className="meta-header">{meta.title} :</span>}
+        {meta.title && (
+          <span className={styles["meta-header"]}>{meta.title} :</span>
+        )}
         <span>{value.name ? value.name : value} </span>
       </div>
     );
@@ -129,33 +131,44 @@ class CapAlertCard extends PureComponent {
       alertDetail && alertDetail.info && alertDetail.info.instruction;
 
     return (
-      <div className={cx("c-card", className, theme, { active })}>
+      <div
+        className={cx(styles["c-card"], className, theme, {
+          [styles.active]: active,
+        })}
+      >
         {tag && tagColor && (
-          <span className="tag" style={{ backgroundColor: tagColor }}>
+          <span className={styles.tag} style={{ backgroundColor: tagColor }}>
             <p style={{ color: tagFontColor && tagFontColor }}>{tag}</p>
           </span>
         )}
-        <div className={cx("body", { "top-padding": tag && tagColor })}>
+        <div
+          className={cx(styles["body"], {
+            [styles["top-padding"]]: tag && tagColor,
+          })}
+        >
           {this.renderMeta()}
-          <div className="text-content">
-            {event && <h3 className="title">{event}</h3>}
+          <div className={styles["text-content"]}>
+            {event && <h3 className={styles.title}>{event}</h3>}
             {description && (
-              <div className="summary">
+              <div className={styles.summary}>
                 <Dotdotdot clamp={clamp || 3}>{description}</Dotdotdot>
               </div>
             )}
 
             {instruction && (
-              <div className="instruction">
-                <h3 className="title" style={{ backgroundColor: tagColor }}>
+              <div className={styles.instruction}>
+                <h3
+                  className={styles.title}
+                  style={{ backgroundColor: tagColor }}
+                >
                   Instruction
                 </h3>
-                <div className="instruction-text">{instruction}</div>
+                <div className={styles["instruction-text"]}>{instruction}</div>
               </div>
             )}
           </div>
           {buttons && (
-            <div className="buttons">
+            <div className={styles.buttons}>
               {buttons.map((button, i) => {
                 if (button.link) {
                   return (

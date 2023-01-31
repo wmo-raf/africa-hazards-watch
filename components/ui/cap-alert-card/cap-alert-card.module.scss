@@ -1,4 +1,4 @@
-@import '~styles/settings.scss';
+@import "~styles/settings.scss";
 
 $summary-color: #aaa;
 
@@ -31,21 +31,6 @@ $summary-color: #aaa;
     }
   }
 
-  .image {
-    height: rem(220px);
-    display: flex;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    position: relative;
-    z-index: 2;
-    width: 100%;
-
-    img {
-      object-fit: cover;
-    }
-  }
-
   .body {
     height: calc(100% - #{rem(220px)});
     padding: rem(15px) rem(20px) rem(20px);
@@ -54,6 +39,7 @@ $summary-color: #aaa;
     flex-direction: column;
     justify-content: space-between;
     z-index: 2;
+    height: 100%;
 
     &.top-padding {
       padding-top: rem(40px);
@@ -63,8 +49,35 @@ $summary-color: #aaa;
       padding: rem(20px) rem(40px) rem(40px);
     }
 
-    &.no-image {
-      height: 100%;
+    .meta-item {
+      display: flex;
+      align-items: center;
+
+      .cap-source-logo {
+        height: 70px;
+        width: 100px;
+        object-fit: contain;
+        margin-left: 80px;
+      }
+
+      .meta-icon {
+        height: 14px;
+        width: 14px;
+        fill: $ashes-grey;
+        background-color: $light-grey;
+        border-radius: 50%;
+        padding: 2px;
+      }
+
+      span {
+        padding: 0 2px;
+        font-size: 12px;
+        color: $slate;
+
+        &.meta-header {
+          min-width: 80px;
+        }
+      }
     }
 
     span {
@@ -86,7 +99,8 @@ $summary-color: #aaa;
     }
 
     .summary,
-    .summary p {
+    .summary p,
+    .instruction {
       font-size: rem(16px);
       margin-bottom: rem(20px);
       line-height: 1.5;
@@ -128,3 +142,6 @@ $summary-color: #aaa;
     }
   }
 }
+
+@import "./themes/card-small.scss";
+@import "./themes/card-dark.scss";

@@ -1,10 +1,10 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-import Dropdown from 'components/ui/dropdown';
+import Dropdown from "components/ui/dropdown";
 
-import Timeframe from 'components/ui/timeframe';
+import Timeframe from "components/ui/timeframe";
 
-import './styles.scss';
+import styles from "./planet-menu.module.scss";
 
 function periodsAsSelect(periods) {
   return periods.map((p) => ({ label: p.period, value: p.value }));
@@ -18,7 +18,7 @@ export const PlanetMenu = ({
   colorOptions,
   colorSelected,
 }) => (
-  <div className="c-planet-menu">
+  <div className={styles["c-planet-menu"]}>
     <h6>
       period
       <Dropdown
@@ -40,7 +40,8 @@ export const PlanetMenu = ({
       value={colorSelected}
       options={colorOptions}
       onChange={(color) =>
-        setMapBasemap({ color, name: defaultPeriodOption?.value })}
+        setMapBasemap({ color, name: defaultPeriodOption?.value })
+      }
       native
     />
   </div>

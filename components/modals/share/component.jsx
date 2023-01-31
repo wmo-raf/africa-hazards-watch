@@ -1,19 +1,19 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { trackEvent } from 'utils/analytics';
-import compact from 'lodash/compact';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import { trackEvent } from "utils/analytics";
+import compact from "lodash/compact";
 
-import twitterIcon from 'assets/icons/twitter.svg?sprite';
-import facebookIcon from 'assets/icons/facebook.svg?sprite';
+import twitterIcon from "assets/icons/twitter.svg?sprite";
+import facebookIcon from "assets/icons/facebook.svg?sprite";
 
-import Switch from 'components/ui/switch';
-import Button from 'components/ui/button';
-import Toggle from 'components/ui/toggle';
-import Icon from 'components/ui/icon';
-import Loader from 'components/ui/loader';
-import Modal from 'components/modal';
+import Switch from "components/ui/switch";
+import Button from "components/ui/button";
+import Toggle from "components/ui/toggle";
+import Icon from "components/ui/icon";
+import Loader from "components/ui/loader";
+import Modal from "components/modal";
 
-import './styles.scss';
+import styles from "./share.module.scss";
 
 class Share extends PureComponent {
   static propTypes = {
@@ -41,9 +41,9 @@ class Share extends PureComponent {
       ...area,
       publicArea: true,
       alerts: compact([
-        area?.fireAlerts ? 'fireAlerts' : false,
-        area?.deforestationAlerts ? 'deforestationAlerts' : false,
-        area?.monthlySummary ? 'monthlySummary' : false,
+        area?.fireAlerts ? "fireAlerts" : false,
+        area?.deforestationAlerts ? "deforestationAlerts" : false,
+        area?.monthlySummary ? "monthlySummary" : false,
       ]),
     });
   }
@@ -65,16 +65,16 @@ class Share extends PureComponent {
     const shouldRenderShare = (area && area.public) || !area;
 
     const inputValue =
-      selected === 'embed'
+      selected === "embed"
         ? `<iframe width="${width || 670}" height="${
             height || 490
           }" frameborder="0" src="${embedUrl}"></iframe>`
         : shareUrl;
 
     return (
-      <div className="c-share">
+      <div className={styles["c-share"]}>
         {area && !area.public && (
-          <div className="public-area-field">
+          <div className={styles["public-area-field"]}>
             <span
               tabIndex={0}
               role="button"
@@ -89,87 +89,89 @@ class Share extends PureComponent {
             </span>
           </div>
         )}
-        <div className="actions">
+        <div className={styles.actions}>
           {shouldRenderShare && embedUrl ? (
             <Switch
-              className="share-switch-tab"
+              className={styles["share-switch-tab"]}
               theme="theme-switch-light"
               value={selected}
               options={[
-                { label: 'LINK', value: 'link' },
-                { label: 'EMBED', value: 'embed' },
+                { label: "LINK", value: "link" },
+                { label: "EMBED", value: "embed" },
               ]}
               onChange={
-                selected === 'embed'
-                  ? () => setShareSelected('link')
-                  : () => setShareSelected('embed')
+                selected === "embed"
+                  ? () => setShareSelected("link")
+                  : () => setShareSelected("embed")
               }
             />
           ) : null}
-          <p className="info">
-            {selected === 'embed'
-              ? 'Click and paste HTML to embed in website'
-              : 'Click and paste link in email or IM'}
+          <p className={styles.info}>
+            {selected === "embed"
+              ? "Click and paste HTML to embed in website"
+              : "Click and paste link in email or IM"}
           </p>
           {shouldRenderShare && (
-            <div className="input-container">
-              <div className="input">
-                {loading && selected !== 'embed' && (
-                  <Loader className="input-loader" />
+            <div className={styles["input-container"]}>
+              <div className={styles.input}>
+                {loading && selected !== "embed" && (
+                  <Loader className={styles["input-loader"]} />
                 )}
                 <input
                   ref={(input) => {
                     this.textInput = input;
                   }}
                   type="text"
-                  value={!loading ? inputValue : ''}
+                  value={!loading ? inputValue : ""}
                   readOnly
                   onClick={handleFocus}
                 />
               </div>
               <Button
                 theme="theme-button-medium"
-                className="input-button"
+                className={styles["input-button"]}
                 onClick={() => handleCopyToClipboard(this.textInput)}
                 disabled={loading}
               >
-                {copied ? 'COPIED!' : 'COPY'}
+                {copied ? "COPIED!" : "COPY"}
               </Button>
             </div>
           )}
         </div>
         {shouldRenderShare && (
-          <div className="social-container">
+          <div className={styles["social-container"]}>
             <Button
               extLink={`https://twitter.com/intent/tweet?text=${title}&via=globalforests&url=${shareUrl}`}
-              className="social-button"
+              className={styles["social-button"]}
               theme="theme-button-light theme-button-grey  square"
               onClick={() =>
                 trackEvent({
-                  category: 'Share',
-                  action: 'Share social',
+                  category: "Share",
+                  action: "Share social",
                   label: shareUrl,
-                })}
+                })
+              }
             >
-              <Icon icon={twitterIcon} className="twitter-icon" />
+              <Icon icon={twitterIcon} className={styles["twitter-icon"]} />
             </Button>
             <Button
               extLink={`https://www.facebook.com/sharer.php?u=${shareUrl}`}
               theme="theme-button-light theme-button-grey square"
-              className="social-button"
+              className={styles["social-button"]}
               onClick={() =>
                 trackEvent({
-                  category: 'Share',
-                  action: 'Share social',
+                  category: "Share",
+                  action: "Share social",
                   label: shareUrl,
-                })}
+                })
+              }
             >
-              <Icon icon={facebookIcon} className="facebook-icon" />
+              <Icon icon={facebookIcon} className={styles["facebook-icon"]} />
             </Button>
           </div>
         )}
         {!shouldRenderShare && (
-          <p className="share-notice">
+          <p className={styles["share-notice"]}>
             You need to make your area public before sharing. Public areas can
             be viewed by anyone with the URL; private areas can only be viewed
             by the area&apos;s creator.

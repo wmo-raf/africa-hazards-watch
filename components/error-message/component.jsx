@@ -1,12 +1,12 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import ReactHtmlParser from 'react-html-parser';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import ReactHtmlParser from "react-html-parser";
 
-import Icon from 'components/ui/icon';
+import Icon from "components/ui/icon";
 
-import treeImageError from 'assets/icons/error.svg?sprite';
+import treeImageError from "assets/icons/error.svg?sprite";
 
-import './styles.scss';
+import styles from "./error-message.module.scss";
 
 class Thankyou extends PureComponent {
   static propTypes = {
@@ -18,12 +18,12 @@ class Thankyou extends PureComponent {
     const { title, description } = this.props;
 
     return (
-      <div className="c-error-message">
-        <Icon icon={treeImageError} className="error-tree" />
+      <div className={styles["c-error-message"]}>
+        <Icon icon={treeImageError} className={styles["error-tree"]} />
         <h1>{title}</h1>
         {description && (
           <>
-            {description.includes('<p>') ? (
+            {description.includes("<p>") ? (
               ReactHtmlParser(description)
             ) : (
               <p>{ReactHtmlParser(description)}</p>

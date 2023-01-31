@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import HighChart from "components/highcharts";
 import { gskyWpsDataByYear } from "utils/data";
 
-import "./styles.scss";
+import "./yearly-temperature.module.scss";
 
 const OPTIONS = {
   accessibility: {

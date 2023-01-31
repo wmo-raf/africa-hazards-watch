@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 
 import {
   BarChart,
@@ -8,12 +8,13 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-} from 'recharts';
-import Paginate from 'components/paginate';
-import ChartToolTip from '../components/chart-tooltip';
+} from "recharts";
+import Paginate from "components/paginate";
+import ChartToolTip from "../components/chart-tooltip";
 
-import CustomTick from './custom-tick-component';
-import './styles.scss';
+import CustomTick from "./custom-tick-component";
+
+import styles from "./horizontal-bar-chart.module.scss";
 
 class HorizontalBarChart extends PureComponent {
   render() {
@@ -26,7 +27,9 @@ class HorizontalBarChart extends PureComponent {
         : data;
 
     return (
-      <div className={`c-horizontal-bar-chart ${className}`}>
+      <div
+        className={`${styles["c-horizontal-bar-chart"]} ${className}`}
+      >
         <ResponsiveContainer width="99%">
           <BarChart
             data={pageData}
@@ -34,7 +37,7 @@ class HorizontalBarChart extends PureComponent {
             layout="vertical"
           >
             <Tooltip
-              cursor={{ fill: '#d6d6d9' }}
+              cursor={{ fill: "#d6d6d9" }}
               content={
                 <ChartToolTip settings={tooltip} colors={colors} hideZeros />
               }
@@ -52,13 +55,13 @@ class HorizontalBarChart extends PureComponent {
               type="category"
               axisLine={false}
               tickLine={false}
-              tick={(
+              tick={
                 <CustomTick
                   data={pageData}
                   yAxisDotFill={yAxisDotFill}
                   settings={settings}
                 />
-              )}
+              }
             />
             {pageData &&
               pageData.length &&
@@ -70,7 +73,7 @@ class HorizontalBarChart extends PureComponent {
                     stackId={1}
                     barSize={10}
                     fill={colors[key]}
-                    background={!index ? { fill: '#e9e9ea' } : false}
+                    background={!index ? { fill: "#e9e9ea" } : false}
                   />
                 )
               )}
@@ -78,7 +81,7 @@ class HorizontalBarChart extends PureComponent {
         </ResponsiveContainer>
         {handlePageChange && data && data.length > settings.pageSize && (
           <Paginate
-            className="horizontal-pagintation"
+            className={styles["horizontal-pagintation"]}
             settings={settings}
             count={data.length}
             onClickChange={handlePageChange}
@@ -99,7 +102,7 @@ HorizontalBarChart.propTypes = {
 
 HorizontalBarChart.defaultProps = {
   config: {
-    tooltip: [{ key: 'value', unit: null }],
+    tooltip: [{ key: "value", unit: null }],
   },
 };
 

@@ -21,7 +21,8 @@ import downloadIcon from "assets/icons/download.svg?sprite";
 import saveUserIcon from "assets/icons/save-user.svg?sprite";
 import subscribedIcon from "assets/icons/subscribed.svg?sprite";
 import arrowIcon from "assets/icons/arrow-down.svg?sprite";
-import "./styles.scss";
+
+import styles from "./header.module.scss";
 
 class Header extends PureComponent {
   static propTypes = {
@@ -63,7 +64,7 @@ class Header extends PureComponent {
     return (
       <Dropdown
         layout="overflow-menu"
-        className="edit-button"
+        className={styles["edit-button"]}
         onChange={this.handleAreaActions}
         theme={cx("theme-button-medium theme-dropdown-no-border small square")}
         options={[
@@ -241,14 +242,16 @@ class Header extends PureComponent {
     const subRegionData = this.getAdm2SelectorData();
 
     return (
-      <div className={cx("c-dashboards-header", className)}>
-        {loading && <Loader className="loader" theme="theme-loader-light" />}
+      <div className={cx(styles["c-dashboards-header"], className)}>
+        {loading && (
+          <Loader className={styles.loader} theme="theme-loader-light" />
+        )}
         {showMetaControls && (
-          <div className="meta-controls">
+          <div className={styles["meta-controls"]}>
             {activeArea?.userArea && !activeArea.public && (
               <Button
+                className={styles["private-area-notice"]}
                 theme="theme-button-clear"
-                className="private-area-notice"
                 tooltipPosition="bottom"
                 tooltip={{
                   text:
@@ -259,9 +262,9 @@ class Header extends PureComponent {
                 Private area
               </Button>
             )}
-            <div className="share-buttons">
+            <div className={styles["share-buttons"]}>
               <Button
-                className="area-share theme-button-small"
+                className={`${styles["area-share"]} ${styles["theme-button-small"]}`}
                 onClick={() => {
                   if (activeArea && !activeArea.userArea) {
                     setAreaOfInterestModalSettings(true);
@@ -279,15 +282,17 @@ class Header extends PureComponent {
             </div>
           </div>
         )}
-        <div className="row">
-          <div className="columns small-12 medium-10">
-            <div className="select-container">
+        <div className={styles.row}>
+          <div
+            className={`${styles.columns} ${styles["small-12"]} ${styles["medium-10"]}`}
+          >
+            <div className={styles["select-container"]}>
               {isAreaDashboard && (
                 <Link
                   href="/dashboards/[[...location]]"
                   as="/dashboards/global"
                 >
-                  <a className="breadcrumb-link">
+                  <a className={styles["breadcrumb-link"]}>
                     <button
                       onClick={() =>
                         trackEvent({
@@ -298,7 +303,10 @@ class Header extends PureComponent {
                         })
                       }
                     >
-                      <Icon icon={arrowIcon} className="breadcrumb-icon" />
+                      <Icon
+                        icon={arrowIcon}
+                        className={styles["breadcrumb-icon"]}
+                      />
                       Go to Global dashboard
                     </button>
                   </a>
@@ -309,7 +317,7 @@ class Header extends PureComponent {
                   href="/dashboards/[[...location]]"
                   as={`/dashboards/aoi/${firstArea.id}`}
                 >
-                  <a className="breadcrumb-link">
+                  <a className={styles["breadcrumb-link"]}>
                     <button
                       onClick={() =>
                         trackEvent({
@@ -320,14 +328,19 @@ class Header extends PureComponent {
                         })
                       }
                     >
-                      <Icon icon={arrowIcon} className="breadcrumb-icon" />
+                      <Icon
+                        icon={arrowIcon}
+                        className={styles["breadcrumb-icon"]}
+                      />
                       Go to Areas dashboard
                     </button>
                   </a>
                 </Link>
               )}
               {title && (
-                <h3 className={cx({ global: title === "global" })}>{title}</h3>
+                <h3 className={cx({ [styles.global]: title === "global" })}>
+                  {title}
+                </h3>
               )}
               <Dropdown
                 theme="theme-dropdown-dark"
@@ -408,31 +421,40 @@ class Header extends PureComponent {
             </div>
           </div>
           {!loading && activeArea && activeArea.userArea && (
-            <div className="columns small-12 medium-10">
-              <div className="metadata">
+            <div
+              className={`${styles.columns} ${styles["small-12"]} ${styles["medium-10"]}`}
+            >
+              <div className={styles.metadata}>
                 {tags && !!tags.length && (
-                  <div className="tags">
-                    <Icon icon={tagIcon} className="tag-icon" />
+                  <div className={styles.tags}>
+                    <Icon icon={tagIcon} className={styles["tag-icon"]} />
                     <p>{tags.join(", ")}</p>
                   </div>
                 )}
                 {(activeArea.deforestationAlerts ||
                   activeArea.monthlySummary ||
                   activeArea.fireAlerts) && (
-                  <div className="subscribed">
-                    <Icon icon={subscribedIcon} className="subscribed-icon" />
+                  <div className={styles.subscribed}>
+                    <Icon
+                      icon={subscribedIcon}
+                      className={styles["subscribed-icon"]}
+                    />
                     <p>Subscribed</p>
                   </div>
                 )}
               </div>
             </div>
           )}
-          <div className="columns small-12 medium-10">
-            <div className="description text -title-xs">
+          <div
+            className={`${styles.columns} ${styles["small-12"]} ${styles["medium-10"]}`}
+          >
+            <div
+              className={`${styles.description} ${styles.text} ${styles["-title-xs"]}`}
+            >
               <div>
                 <DynamicSentence
                   testId="dashboard-header-sentence"
-                  className="sentence"
+                  className={styles.sentence}
                   sentence={displaySentence}
                 />
               </div>

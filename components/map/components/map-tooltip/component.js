@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Popup } from "react-map-gl";
 import { format, parse, parseISO } from "date-fns";
 
-import "./styles.scss";
+import styles from "./map-tooltip.module.scss";
 
 class MapToolTip extends Component {
   renderData = () => {
@@ -20,7 +20,7 @@ class MapToolTip extends Component {
       }
 
       return (
-        <p className="tooltip-content" key={i}>
+        <p className={styles["tooltip-content"]} key={i}>
           {c.hideLabel ? "" : `${c.label} : `}
           {c.value} {c.units && c.units}
         </p>
@@ -48,7 +48,7 @@ class MapToolTip extends Component {
         longitude={longitude ? longitude : latlng.lng}
         closeButton={false}
         offsetTop={-10}
-        className="map-tooltip"
+        className={styles["map-tooltip"]}
         tipSize={8}
       >
         <div className="">{this.renderData()}</div>

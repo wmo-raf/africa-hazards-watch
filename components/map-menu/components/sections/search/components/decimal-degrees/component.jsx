@@ -1,20 +1,20 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
-import { validateLat, validateLng, validateLatLng } from 'utils/geoms';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
+import { validateLat, validateLng, validateLatLng } from "utils/geoms";
 
-import Button from 'components/ui/button';
+import Button from "components/ui/button";
 
-import './styles.scss';
+import styles from "./decimal-degrees.module.scss";
 
 class DecimalDegreeSearch extends PureComponent {
   state = {
     error: false,
-    lat: '',
-    lng: ''
+    lat: "",
+    lng: "",
   };
 
-  handleKeyPress = e => {
+  handleKeyPress = (e) => {
     if (e.keyCode === 13 && !this.state.error) {
       this.handleSubmit();
     }
@@ -24,11 +24,11 @@ class DecimalDegreeSearch extends PureComponent {
     const { lat, lng } = this.state;
     const { setMapSettings } = this.props;
     setMapSettings({
-      center: { lat: parseFloat(lat), lng: parseFloat(lng) }
+      center: { lat: parseFloat(lat), lng: parseFloat(lng) },
     });
   };
 
-  handleSetLocationState = stateObj => {
+  handleSetLocationState = (stateObj) => {
     if (!this.state.error) {
       this.setState(stateObj);
     }
@@ -47,36 +47,40 @@ class DecimalDegreeSearch extends PureComponent {
     const { lat, lng, error } = this.state;
 
     return (
-      <div className="c-decimal-degrees">
-        <span className="label">Lat:</span>
+      <div className={styles["c-decimal-degrees"]}>
+        <span className={styles.label}>Lat:</span>
         <input
           value={lat}
-          onChange={e => this.handleSetLatLng(e.target.value, lng)}
-          className={cx('coord-input', { error: lat && !validateLat(lat) })}
+          onChange={(e) => this.handleSetLatLng(e.target.value, lng)}
+          className={cx(styles["coord-input"], {
+            [styles.error]: lat && !validateLat(lat),
+          })}
           onKeyDown={this.handleKeyPress}
         />
-        <span className="label">Lng:</span>
+        <span className={styles.label}>Lng:</span>
         <input
           value={lng}
-          onChange={e => this.handleSetLatLng(lat, e.target.value)}
-          className={cx('coord-input', { error: lng && !validateLng(lng) })}
+          onChange={(e) => this.handleSetLatLng(lat, e.target.value)}
+          className={cx(styles["coord-input"], {
+            [styles.error]: lng && !validateLng(lng),
+          })}
           onKeyDown={this.handleKeyPress}
         />
         <Button
-          className="submit-btn"
+          className={styles["submit-btn"]}
           onClick={this.handleSubmit}
           disabled={error || !lat || !lng}
         >
           GO TO POSITION
         </Button>
-        {error && <p className="error-message">Invalid lat lng</p>}
+        {error && <p className={styles["error-message"]}>Invalid lat lng</p>}
       </div>
     );
   }
 }
 
 DecimalDegreeSearch.propTypes = {
-  setMapSettings: PropTypes.func
+  setMapSettings: PropTypes.func,
 };
 
 export default DecimalDegreeSearch;

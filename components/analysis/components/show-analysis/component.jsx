@@ -20,7 +20,7 @@ import arrowDownIcon from "assets/icons/arrow-down.svg?sprite";
 import shareIcon from "assets/icons/share.svg?sprite";
 import downloadIcon from "assets/icons/download.svg?sprite";
 
-import "./styles.scss";
+import styles from "./show-analysis.module.scss";
 
 const isServer = typeof window === "undefined";
 
@@ -74,26 +74,26 @@ class ShowAnalysis extends PureComponent {
     const hasWidgets = widgetLayers && !!widgetLayers.length;
 
     return (
-      <div className="c-show-analysis">
-        <div className="show-analysis-body">
+      <div className={styles["c-show-analysis"]}>
+        <div className={styles["show-analysis-body"]}>
           {analysisTitle && !loading && !error && (
-            <div className="draw-title">
+            <div className={styles["draw-title"]}>
               <Button
-                className="title-btn left"
+                className={`${styles["title-btn"]} ${styles.left}`}
                 theme="theme-button-clear"
                 onClick={clearAnalysis}
               >
-                <Icon icon={arrowDownIcon} className="icon-arrow" />
+                <Icon icon={arrowDownIcon} className={styles["icon-arrow"]} />
                 {analysisTitle && (
                   <DynamicSentence
-                    className="analysis-title"
+                    className={styles["analysis-title"]}
                     sentence={analysisTitle}
                   />
                 )}
               </Button>
-              <div className="title-controls">
+              <div className={styles["title-controls"]}>
                 <Button
-                  className="title-btn title-action"
+                  className={`${styles["title-btn"]} ${styles["title-action"]}`}
                   theme="theme-button-clear"
                   onClick={() =>
                     setShareModal({
@@ -113,10 +113,10 @@ class ShowAnalysis extends PureComponent {
                   }
                   tooltip={{ text: "Share analysis" }}
                 >
-                  <Icon icon={shareIcon} className="icon-share" />
+                  <Icon icon={shareIcon} className={styles["icon-share"]} />
                 </Button>
                 {/* <Button
-                  className="title-btn title-action"
+                  className={`${styles["title-btn"]} ${styles["title-action"]}`}
                   theme="theme-button-clear"
                   disabled={!downloadUrls || !downloadUrls.length}
                   onClick={() => {
@@ -132,18 +132,18 @@ class ShowAnalysis extends PureComponent {
                   }}
                   tooltip={{ text: "Download data" }}
                 >
-                  <Icon icon={downloadIcon} className="icon-download" />
+                  <Icon icon={downloadIcon} className={styles["icon-download"]} />
                 </Button> */}
               </div>
             </div>
           )}
           {analysisDescription && !loading && !error && (
             <DynamicSentence
-              className="analysis-desc"
+              className={styles["analysis-desc"]}
               sentence={analysisDescription}
             />
           )}
-          <div className="results">
+          <div className={styles.results}>
             {hasLayers &&
               !hasWidgets &&
               !loading &&
@@ -157,7 +157,7 @@ class ShowAnalysis extends PureComponent {
             {(hasLayers || hasWidgets) && !loading && !error && (
               <Fragment>
                 <Widgets simple analysis />
-                <div className="disclaimers">
+                <div className={styles.disclaimers}>
                   {zoomLevel < 11 && (
                     <p>
                       This algorithm approximates the results by sampling the
@@ -177,9 +177,9 @@ class ShowAnalysis extends PureComponent {
           )}
         </div>
         {(hasLayers || hasWidgets) && !loading && !error && (
-          <div className="save-aois-disclaimer">
+          <div className={styles["save-aois-disclaimer"]}>
             {activeArea ? (
-              <div className="content">
+              <div className={styles.content}>
                 <p>
                   To perform an in-depth analysis of this area please visit the{" "}
                   <Link
@@ -194,7 +194,7 @@ class ShowAnalysis extends PureComponent {
             ) : (
               <>
                 {!isPoint && (
-                  <div className="content">
+                  <div className={styles.content}>
                     <h3>Interested in this particular area?</h3>
                     <p>
                       Save this area to create a dashboard with a more in-depth

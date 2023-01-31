@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import sortBy from 'lodash/sortBy';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import sortBy from "lodash/sortBy";
 
-import SentenceSelector from 'components/sentence-selector';
+import SentenceSelector from "components/sentence-selector";
 
-import './styles.scss';
+import styles from "./layer-selector-menu.module.scss";
 
 class LayerSelectorMenu extends PureComponent {
   render() {
@@ -23,9 +23,13 @@ class LayerSelectorMenu extends PureComponent {
     const optionName = selected?.group || name;
 
     return (
-      <div className={`c-layer-selector-menu ${className || ''}`}>
+      <div
+        className={`${styles["c-layer-selector-menu"]} ${
+          className || ""
+        }`}
+      >
         {groups && !!groups.length && (
-          <div className="menu-wrapper -group">
+          <div className={`${styles["menu-wrapper"]} ${styles["-group"]}`}>
             <SentenceSelector
               options={groups}
               value={selectedGroup && selectedGroup.value}
@@ -36,9 +40,9 @@ class LayerSelectorMenu extends PureComponent {
           </div>
         )}
         {options && !!options.length && (
-          <div className="menu-wrapper">
+          <div className={styles["menu-wrapper"]}>
             <SentenceSelector
-              options={sortBy(options, 'position')}
+              options={sortBy(options, "position")}
               value={selected}
               onChange={(e) => onChange(layerGroup, e)}
               name={optionName}

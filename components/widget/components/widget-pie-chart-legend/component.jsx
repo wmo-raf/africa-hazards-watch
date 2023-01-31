@@ -1,12 +1,12 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { format } from 'd3-format';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import { format } from "d3-format";
 
-import PieChart from 'components/charts/pie-chart';
-import PieChartLegend from 'components/charts/components/pie-chart-legend';
-import Button from 'components/ui/button';
+import PieChart from "components/charts/pie-chart";
+import PieChartLegend from "components/charts/components/pie-chart-legend";
+import Button from "components/ui/button";
 
-import './styles.scss';
+import styles from "./widget-pie-chart-legend.module.scss";
 
 class WidgetPieChart extends PureComponent {
   render() {
@@ -23,41 +23,41 @@ class WidgetPieChart extends PureComponent {
       settingsBtnConfig.shouldShowButton &&
       settingsBtnConfig.shouldShowButton(this.props);
     return (
-      <div className="c-pie-chart-legend-widget">
+      <div className={styles["c-pie-chart-legend-widget"]}>
         {settings && showSettingsBtn && toggleSettingsMenu && (
           <Button
             theme={
               settingsBtnConfig?.theme ||
-              'theme-button-small theme-button-light'
+              "theme-button-small theme-button-light"
             }
-            className="pie-contextual-settings-btn"
+            className={styles["pie-contextual-settings-btn"]}
             onClick={() => toggleSettingsMenu()}
           >
             {settingsBtnConfig.text}
           </Button>
         )}
-        <div className="pie-and-legend">
+        <div className={styles["pie-and-legend"]}>
           <PieChartLegend
-            className="cover-legend"
+            className={styles["cover-legend"]}
             data={legendData || data}
             config={{
-              format: '.3s',
-              unit: 'ha',
-              key: 'value',
+              format: ".3s",
+              unit: "ha",
+              key: "value",
               ...settings,
             }}
             simple={simple}
           />
           <PieChart
-            className="cover-pie-chart"
+            className={styles["cover-pie-chart"]}
             data={data}
             maxSize={140}
             tooltip={[
               {
-                key: 'percentage',
-                unit: '%',
-                labelKey: 'label',
-                unitFormat: (value) => format('.1f')(value),
+                key: "percentage",
+                unit: "%",
+                labelKey: "label",
+                unitFormat: (value) => format(".1f")(value),
               },
             ]}
             simple={simple}

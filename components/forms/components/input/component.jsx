@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/label-has-for */
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { Field } from 'react-final-form';
-import cx from 'classnames';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import { Field } from "react-final-form";
+import cx from "classnames";
 
-import { composeValidators } from 'components/forms/validations';
+import { composeValidators } from "components/forms/validations";
 
-import FieldWrapper from 'components/forms/components/field-wrapper';
+import FieldWrapper from "components/forms/components/field-wrapper";
 
-import './styles.scss';
+import styles from "./input.module.scss";
 
 class Input extends PureComponent {
   static propTypes = {
@@ -21,7 +21,7 @@ class Input extends PureComponent {
     required: PropTypes.bool,
     collapse: PropTypes.bool,
     infoClick: PropTypes.func,
-    className: PropTypes.string
+    className: PropTypes.string,
   };
 
   render() {
@@ -35,7 +35,7 @@ class Input extends PureComponent {
       required,
       infoClick,
       collapse,
-      className
+      className,
     } = this.props;
 
     return (
@@ -55,16 +55,16 @@ class Input extends PureComponent {
             collapse={collapse}
             value={input.value}
           >
-            {type === 'textarea' ? (
+            {type === "textarea" ? (
               <textarea
-                className="c-form-input textarea"
+                className={`${styles["c-form-input"]} ${styles.textarea}`}
                 {...input}
                 type={type}
                 placeholder={placeholder}
               />
             ) : (
               <input
-                className={cx('c-form-input', className)}
+                className={cx(styles["c-form-input"], className)}
                 {...input}
                 type={type}
                 placeholder={placeholder}

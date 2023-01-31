@@ -10,7 +10,7 @@ import ProfileForm from "components/forms/profile";
 import AreaOfInterestForm from "components/forms/area-of-interest";
 import Modal from "components/modal";
 
-import "./styles.scss";
+import styles from "./area-of-interest.module.scss";
 
 const AreaOfInterestModal = ({
   loading,
@@ -39,10 +39,10 @@ const AreaOfInterestModal = ({
       open={!!areaId}
       contentLabel={`${activeArea ? "Edit" : "Save"} area of interest`}
       onRequestClose={handleCloseModal}
-      className="c-area-of-interest-modal"
+      className={styles["c-area-of-interest-modal"]}
     >
       {loading && <Loader />}
-      <div className="save-aoi-body">
+      <div className={styles["save-aoi-body"]}>
         {!loading && !loggedIn && <LoginForm />}
         {!loading && loggedIn && !profileComplete && (
           <ProfileForm source="AreaOfInterestModal" />

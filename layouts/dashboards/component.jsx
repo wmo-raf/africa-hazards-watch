@@ -33,7 +33,7 @@ import MapControls from "./components/map-controls";
 import PendingDashboard from "./components/pending-dashboard";
 import GlobalSentence from "./components/global-sentence";
 
-import "./styles.scss";
+import styles from "./dashboards.module.scss";
 
 const isServer = typeof window === "undefined";
 
@@ -115,11 +115,11 @@ class DashboardsPage extends PureComponent {
     const { showMapMobile, setShowMap } = this.props;
 
     return (
-      <div className="map-container">
+      <div className={styles["map-container"]}>
         {showMapMobile && (
           <Button
             theme="square theme-button-light"
-            className="close-map-button"
+            className={styles["close-map-button"]}
             onClick={() => setShowMap(false)}
           >
             <Icon icon={closeIcon} />
@@ -161,16 +161,16 @@ class DashboardsPage extends PureComponent {
       !["country", "wdpa"].includes(location.type);
 
     return (
-      <div className="l-dashboards-page">
-        <div className="content-panel">
+      <div className={styles["l-dashboards-page"]}>
+        <div className={styles["content-panel"]}>
           <Header
-            className="header"
+            className={styles.header}
             handleSSRLocation={ssrLocation}
             globalSentence={globalSentence}
           />
           {links && !!links.length && (
             <SubNavMenu
-              className="nav"
+              className={styles.nav}
               theme="theme-subnav-dark"
               links={this.handleNavigationLinks()}
               checkActive
@@ -179,12 +179,12 @@ class DashboardsPage extends PureComponent {
           <GlobalSentence handleSSRLocation={ssrLocation} />
           {isPendingDashboard && (
             <PendingDashboard
-              className="pending-message"
+              className={styles["pending-message"]}
               isUserDashboard={activeArea && activeArea.userArea}
               areaId={activeArea && activeArea.id}
             />
           )}
-          <Widgets className="dashboard-widgets" />
+          <Widgets className={styles["dashboard-widgets"]} />
         </div>
         <div className={`map-panel ${showMapMobile ? "-open-mobile" : ""}`}>
           <Desktop>
@@ -192,10 +192,10 @@ class DashboardsPage extends PureComponent {
               {this.renderMap()}
             </Sticky>
           </Desktop>
-          <Mobile className="mobile-map">{this.renderMap()}</Mobile>
+          <Mobile className={styles["mobile-map"]}>{this.renderMap()}</Mobile>
         </div>
         <Desktop>
-          <MapControls className="map-controls" />
+          <MapControls className={styles["map-controls"]} />
         </Desktop>
         <Share />
         <ModalMeta />

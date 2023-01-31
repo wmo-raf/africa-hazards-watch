@@ -1,26 +1,26 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
 
-import Button from 'components/ui/button';
+import Button from "components/ui/button";
 
-import './styles.scss';
+import styles from "./chart-legend.module.scss";
 
 class ChartLegend extends PureComponent {
   render() {
     const { config, className, simple, toggleSettingsMenu } = this.props;
 
     return (
-      <ul className={cx('c-chart-legend', className, { simple })}>
-        {Object.keys(config).map(k => {
+      <ul className={cx(styles["c-chart-legend"], className, { simple })}>
+        {Object.keys(config).map((k) => {
           const item = config[k];
 
           return (
-            <li className="legend-item" key={k}>
-              <div className="legend-title">
+            <li className={styles["legend-item"]} key={k}>
+              <div className={styles["legend-title"]}>
                 <span
                   style={{
-                    backgroundColor: item.color
+                    backgroundColor: item.color,
                   }}
                 />
                 <p>{item.label}</p>
@@ -30,8 +30,8 @@ class ChartLegend extends PureComponent {
         })}
         {toggleSettingsMenu && (
           <Button
-            theme="theme-button-small theme-button-light"
-            className="contextual-settings-btn"
+            theme={[styles["theme-button-small"], styles["theme-button-light"]]}
+            className={styles["contextual-settings-btn"]}
             onClick={() => toggleSettingsMenu()}
           >
             + Add year to compare
@@ -46,7 +46,7 @@ ChartLegend.propTypes = {
   config: PropTypes.object,
   simple: PropTypes.bool,
   className: PropTypes.string,
-  toggleSettingsMenu: PropTypes.func
+  toggleSettingsMenu: PropTypes.func,
 };
 
 export default ChartLegend;

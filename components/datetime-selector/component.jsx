@@ -9,7 +9,7 @@ import prevIcon from "assets/icons/prev.svg?sprite";
 import nextIcon from "assets/icons/next.svg?sprite";
 import recentIcon from "assets/icons/recent.svg?sprite";
 
-import "./styles.scss";
+import styles from "./datetime-selector.module.scss";
 
 class DateTimeSelectorSection extends Component {
   state = {
@@ -109,7 +109,7 @@ class DateTimeSelectorSection extends Component {
   getCurrentTimeIndex = () => {
     const { availableDates, selectedTime } = this.props;
 
-    return availableDates.findIndex((d) => d === selectedTime)-1;
+    return availableDates.findIndex((d) => d === selectedTime) - 1;
   };
 
   render() {
@@ -135,12 +135,12 @@ class DateTimeSelectorSection extends Component {
     const dates = availableDates.map((d) => new Date(d));
 
     return (
-      <div className="datetime-selector">
-        <div className="datetimeSelectorInner">
-          <div className="datetimeAndPicker">
-            <div className="controlsContainer">
+      <div className={styles["datetime-selector"]}>
+        <div className={styles.datetimeSelectorInner}>
+          <div className={styles.datetimeAndPicker}>
+            <div className={styles.controlsContainer}>
               <button
-                className="datetimePrevious"
+                className={styles.datetimePrevious}
                 disabled={this.isPreviousTimeAvaliable()}
                 onClick={this.onPreviousButtonClicked}
                 title="Previous Time"
@@ -148,14 +148,14 @@ class DateTimeSelectorSection extends Component {
                 <Icon icon={prevIcon} />
               </button>
               <button
-                className="currentDate"
+                className={styles.currentDate}
                 onClick={this.toggleOpen}
                 title="Select a time"
               >
                 {defined(discreteTime) ? discreteTime : "Time out of range"}
               </button>
               <button
-                className="datetimeNext"
+                className={styles.datetimeNext}
                 disabled={this.isNextTimeAvaliable()}
                 onClick={this.onNextButtonClicked}
                 title="Next Time"
@@ -164,7 +164,7 @@ class DateTimeSelectorSection extends Component {
               </button>
             </div>
             <button
-              className="datetimeRecent"
+              className={styles.datetimeRecent}
               disabled={this.isNextTimeAvaliable()}
               onClick={this.onRecentButtonClicked}
               title="Latest Time"

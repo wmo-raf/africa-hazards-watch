@@ -4,7 +4,7 @@ import cx from "classnames";
 
 import Icon from "components/ui/icon";
 
-import "./styles.scss";
+import styles from "./menu-tile.module.scss";
 
 class MenuTile extends PureComponent {
   render() {
@@ -21,13 +21,24 @@ class MenuTile extends PureComponent {
     } = this.props;
 
     return (
-      <li className={cx("c-map-menu-tile", { active }, { small }, className)}>
-        <button className="item-button" onClick={onClick} disabled={loading}>
-          <div className="button-wrapper">
-            <Icon icon={icon} className="tile-icon" />
+      <li
+        className={cx(
+          styles["c-map-menu-tile"],
+          { [styles.active]: active },
+          { [styles.small]: small },
+          className
+        )}
+      >
+        <button
+          className={styles["item-button"]}
+          onClick={onClick}
+          disabled={loading}
+        >
+          <div className={styles["button-wrapper"]}>
+            <Icon icon={icon} className={styles["tile-icon"]} />
             <span>{label}</span>
             {(!!layerCount || highlight) && (
-              <div className="item-badge">
+              <div className={styles["item-badge"]}>
                 {layerCount || (highlight && "1")}
               </div>
             )}

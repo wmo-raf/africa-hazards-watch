@@ -13,7 +13,7 @@ import Icon from "components/ui/icon";
 
 import downloadIcon from "assets/icons/download.svg?sprite";
 
-import "./styles.scss";
+import styles from "./widget-download-button.module.scss";
 
 const GLAD_ALERTS_WIDGET = "gladAlerts";
 
@@ -260,17 +260,18 @@ class WidgetDownloadButton extends PureComponent {
 
     return (
       <Button
-        className={cx("c-widget-download-button", {
-          "small-download-button": this.props.simple,
+        className={cx(styles["c-widget-download-button"], {
+          [styles["small-download-button"]]: this.props.simple,
         })}
-        theme={cx("theme-button-small square", {
-          "theme-button-grey-filled theme-button-xsmall": this.props.simple,
+        theme={cx(styles["theme-button-small square"], {
+          [styles["theme-button-grey-filled"]]: this.props.simple,
+          [styles["theme-button-xsmall"]]: this.props.simple,
         })}
         onClick={this.onClickDownloadBtn}
         tooltip={{ text: tooltipText }}
         disabled={areaTooLarge || disabled || localDisabled}
       >
-        <Icon icon={downloadIcon} className="download-icon" />
+        <Icon icon={downloadIcon} className={styles["download-icon"]} />
       </Button>
     );
   }

@@ -10,7 +10,7 @@ import infoIcon from "assets/icons/info.svg?sprite";
 
 import AttributionsModal from "./attributions-modal";
 
-import "./styles.scss";
+import styles from "./attributions.module.scss";
 
 const MapAttributions = ({ className, viewport, map }) => {
   const width = map._container.clientWidth;
@@ -22,8 +22,8 @@ const MapAttributions = ({ className, viewport, map }) => {
   }, [viewport]);
 
   return (
-    <div className={cx("c-map-attributions", className)}>
-      <div className="logos"></div>
+    <div className={cx(styles["c-map-attributions"], className)}>
+      <div className={styles.logos}></div>
       {!narrowView && (
         <>
           <a
@@ -45,7 +45,7 @@ const MapAttributions = ({ className, viewport, map }) => {
       {narrowView && (
         <>
           <Button
-            className="attribution-btn"
+            className={styles["attribution-btn"]}
             size="small"
             round
             dark

@@ -1,42 +1,42 @@
-import React, { PureComponent, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { Form } from 'react-final-form';
-import sortBy from 'lodash/sortBy';
+import React, { PureComponent, Fragment } from "react";
+import PropTypes from "prop-types";
+import { Form } from "react-final-form";
+import sortBy from "lodash/sortBy";
 
-import CountryDataProvider from 'providers/country-data-provider';
-import Input from 'components/forms/components/input';
-import Select from 'components/forms/components/select';
+import CountryDataProvider from "providers/country-data-provider";
+import Input from "components/forms/components/input";
+import Select from "components/forms/components/select";
 
 // import Checkbox from 'components/forms/components/checkbox';
-import Radio from 'components/forms/components/radio';
+import Radio from "components/forms/components/radio";
 
-import Submit from 'components/forms/components/submit';
-import ConfirmationMessage from 'components/confirmation-message';
-import Button from 'components/ui/button';
-import Error from 'components/forms/components/error';
+import Submit from "components/forms/components/submit";
+import ConfirmationMessage from "components/confirmation-message";
+import Button from "components/ui/button";
+import Error from "components/forms/components/error";
 
 import {
   email as validateEmail,
-  hasValidOption
-} from 'components/forms/validations';
+  hasValidOption,
+} from "components/forms/validations";
 
-import { sectors, howDoYouUse, interests } from './config';
+import { sectors, howDoYouUse, interests } from "./config";
 
-import './styles.scss';
+import styles from "./profile.module.scss";
 
 class ProfileForm extends PureComponent {
   static propTypes = {
     initialValues: PropTypes.object,
     countries: PropTypes.array,
     saveProfile: PropTypes.func,
-    source: PropTypes.string
+    source: PropTypes.string,
   };
 
   render() {
     const { initialValues, countries, saveProfile, source } = this.props;
-    const sectorsOptions = Object.keys(sectors).map(s => ({
+    const sectorsOptions = Object.keys(sectors).map((s) => ({
       label: s,
-      value: s
+      value: s,
     }));
 
     return (
@@ -52,18 +52,18 @@ class ProfileForm extends PureComponent {
             submitError,
             submitSucceeded,
             form: { reset },
-            values = {}
+            values = {},
           }) => (
-            <form className="c-profile-form" onSubmit={handleSubmit}>
-              <div className="row">
+            <form className={styles["c-profile-form"]} onSubmit={handleSubmit}>
+              <div className={styles.row}>
                 {submitSucceeded ? (
-                  <div className="column small-12">
+                  <div className={`${styles.column} ${styles["small-12"]}`}>
                     <ConfirmationMessage
                       title="Thank you for updating your my HW profile!"
                       description="You may wish to read our <a href='/privacy-policy' target='_blank'>privacy policy</a>, which provides further information about how we use personal data."
                     />
                     <Button
-                      className="reset-form-btn"
+                      className={styles["reset-form-btn"]}
                       onClick={() => {
                         reset();
                       }}
@@ -73,7 +73,7 @@ class ProfileForm extends PureComponent {
                   </div>
                 ) : (
                   <Fragment>
-                    <div className="column small-12">
+                    <div className={`${styles.column} ${styles["small-12"]}`}>
                       <h1>Your profile</h1>
                       <h3>
                         We use this information to make Global Forest Watch more
@@ -82,7 +82,7 @@ class ProfileForm extends PureComponent {
                         consent.
                       </h3>
                     </div>
-                    <div className="column small-12">
+                    <div className={`${styles.column} ${styles["small-12"]}`}>
                       <Input name="firstName" label="first name" />
                       <Input
                         name="lastName"
@@ -103,19 +103,18 @@ class ProfileForm extends PureComponent {
                         options={sectorsOptions}
                         placeholder="Select a sector"
                         validate={[
-                          value => hasValidOption(value, sectorsOptions)
+                          (value) => hasValidOption(value, sectorsOptions),
                         ]}
                         required
                       />
-                      {values.sector &&
-                        sectors[values.sector] && (
+                      {values.sector && sectors[values.sector] && (
                         <Radio
                           name="subsector"
                           label="Role"
-                          options={sectors[values.sector].map(s => ({
+                          options={sectors[values.sector].map((s) => ({
                             label: s,
-                            value: s.replace(/( )+|(\/)+/g, '_'),
-                            radioInput: s === 'Other:'
+                            value: s.replace(/( )+|(\/)+/g, "_"),
+                            radioInput: s === "Other:",
                           }))}
                           selectedOption={values.subsector}
                           required
@@ -127,7 +126,9 @@ class ProfileForm extends PureComponent {
                         label="Company / organization"
                         required
                       />
-                      <p className="section-name">Where are you located?</p>
+                      <p className={styles["section-name"]}>
+                        Where are you located?
+                      </p>
                       <Select
                         name="country"
                         label="country"
@@ -140,7 +141,7 @@ class ProfileForm extends PureComponent {
                         name="state"
                         label="state / department / province"
                       />
-                      <p className="section-name">
+                      <p className={styles["section-name"]}>
                         What area are you most interested in?
                       </p>
                       <Select
@@ -166,15 +167,18 @@ class ProfileForm extends PureComponent {
                         label="how do you use global forest watch?"
                         options={[
                           ...sortBy(
-                            howDoYouUse.map(r => ({
+                            howDoYouUse.map((r) => ({
                               label: r,
-                              value: r
+                              value: r,
                             })),
-                            'label'
+                            "label"
                           ),
-                          { label: 'Other', value: 'Other' }
+                          { label: "Other", value: "Other" },
                         ]}
-                        selectInput={values.howDoYouUse && values.howDoYouUse.includes('Other')}
+                        selectInput={
+                          values.howDoYouUse &&
+                          values.howDoYouUse.includes("Other")
+                        }
                         multiple
                         required
                       />
@@ -203,13 +207,15 @@ class ProfileForm extends PureComponent {
                         submitError={submitError}
                       />
                       <Submit submitting={submitting}>
-                        {source === 'AreaOfInterestModal' ? 'next' : 'save'}
+                        {source === "AreaOfInterestModal" ? "next" : "save"}
                       </Submit>
                     </div>
-                    <div className="column small-12">
-                      <p className="delete-profile">
-                        <a href="mailto:gfw@wri-org">Email us </a>
-                        to delete your MyGFW account.
+                    <div className={`${styles.column} ${styles["small-12"]}`}>
+                      <p className={styles["delete-profile"]}>
+                        <a href="mailto:ahw@africahazardswatch.org">
+                          Email us{" "}
+                        </a>
+                        to delete your MyHW account.
                       </p>
                     </div>
                   </Fragment>

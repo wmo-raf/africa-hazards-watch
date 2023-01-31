@@ -11,7 +11,7 @@ import LayerToggle from "components/map/components/legend/components/layer-toggl
 import locationIcon from "assets/icons/location.svg?sprite";
 import layersIcon from "assets/icons/layers.svg?sprite";
 
-import "./styles.scss";
+import styles from "./datasets-locations.module.scss";
 
 class DatasetsLocationsSearch extends PureComponent {
   searchConditions() {
@@ -55,10 +55,10 @@ class DatasetsLocationsSearch extends PureComponent {
     const { type } = this.props;
     const isLocationSearch = type === "locations";
     return (
-      <NoContent className="empty-search">
+      <NoContent className={styles["empty-search"]}>
         <Icon
           icon={isLocationSearch ? locationIcon : layersIcon}
-          className="location-icon"
+          className={styles["location-icon"]}
         />
         <span>
           Use this to find
@@ -74,7 +74,12 @@ class DatasetsLocationsSearch extends PureComponent {
 
   viewNoResults() {
     const { type } = this.props;
-    return <NoContent className="empty-search" message={`No ${type} found`} />;
+    return (
+      <NoContent
+        className={styles["empty-search"]}
+        message={`No ${type} found`}
+      />
+    );
   }
 
   viewSearchResults() {
@@ -89,13 +94,13 @@ class DatasetsLocationsSearch extends PureComponent {
     const { hasDatasets, hasLocations } = this.searchConditions();
 
     return (
-      <div className="search-results">
+      <div className={styles["search-results"]}>
         {hasDatasets && (
-          <div className="datasets-search">
+          <div className={styles["datasets-search"]}>
             {datasets.map((d) => (
               <LayerToggle
                 key={d.id}
-                className="dataset-toggle"
+                className={styles["dataset-toggle"]}
                 data={{ ...d, dataset: d.id }}
                 onToggle={onToggleLayer}
                 onInfoClick={onInfoClick}
@@ -105,11 +110,13 @@ class DatasetsLocationsSearch extends PureComponent {
           </div>
         )}
         {hasLocations && (
-          <div className="locations-search">
+          <div className={styles["locations-search"]}>
             {locations.map((loc) => {
               return (
                 <button
-                  className={cx("location", { active: loc.active })}
+                  className={cx(styles["location"], {
+                    [styles.active]: loc.active,
+                  })}
                   key={`${loc.id}-${loc.place_name}`}
                   onClick={() => handleClickLocation(loc)}
                 >
@@ -127,14 +134,14 @@ class DatasetsLocationsSearch extends PureComponent {
     const { search, loading, type, handleSearchChange } = this.props;
 
     return (
-      <div className="c-datasets-locations">
+      <div className={styles["c-datasets-locations"]}>
         <Search
-          className="side-menu-search"
+          className={styles["side-menu-search"]}
           placeholder={`Find ${type === "datasets" ? "datasets" : "locations"}`}
           input={search}
           onChange={(value) => handleSearchChange(value)}
         />
-        <div className="search-results-wrapper">
+        <div className={styles["search-results-wrapper"]}>
           {loading && <Loader />}
           {this.searchNoResults() && this.viewDefault()}
           {this.searchIsEmpty() && this.viewNoResults()}

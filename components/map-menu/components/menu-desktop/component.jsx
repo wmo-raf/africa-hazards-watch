@@ -1,12 +1,11 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
-import startCase from "lodash/startCase";
 import { trackEvent } from "utils/analytics";
 
 import MenuTile from "../menu-tile";
 
-import "./styles.scss";
+import styles from "./menu-desktop.module.scss";
 
 class MenuDesktop extends PureComponent {
   render() {
@@ -19,13 +18,13 @@ class MenuDesktop extends PureComponent {
     } = this.props;
 
     return (
-      <div className={cx("c-menu-desktop", className)}>
-        <ul className="datasets-menu">
+      <div className={cx(styles["c-menu-desktop"], className)}>
+        <ul className={styles["datasets-menu"]}>
           {upperSections && !!upperSections.length && (
-            <div className="upper-sections">
+            <div className={styles["upper-sections"]}>
               {upperSections.map((s) => (
                 <MenuTile
-                  className="search-tile"
+                  className={styles["search-tile"]}
                   key={s.slug}
                   onClick={() => {
                     setMenuSettings({
@@ -50,7 +49,7 @@ class MenuDesktop extends PureComponent {
               .filter((s) => !s.hiddenMobile)
               .map((s) => (
                 <MenuTile
-                  className="datasets-tile"
+                  className={styles["datasets-tile"]}
                   key={`${s.slug}_${s.category}`}
                   {...s}
                   label={s.category}
@@ -70,11 +69,11 @@ class MenuDesktop extends PureComponent {
                 />
               ))}
         </ul>
-        <ul className="datasets-menu">
+        <ul className={styles["datasets-menu"]}>
           {searchSections &&
             searchSections.map((s) => (
               <MenuTile
-                className="search-tile"
+                className={styles["search-tile"]}
                 key={s.slug}
                 onClick={() => {
                   setMenuSettings({

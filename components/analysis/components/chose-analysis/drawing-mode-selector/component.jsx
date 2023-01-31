@@ -3,7 +3,7 @@ import cx from "classnames";
 
 import Icon from "components/ui/icon/component";
 
-import "./styles.scss";
+import styles from "./drawing-mode-selector.module.scss";
 
 class DrawingModeSelector extends PureComponent {
   render() {
@@ -11,19 +11,19 @@ class DrawingModeSelector extends PureComponent {
 
     if (options) {
       return (
-        <div className="c-drawing-modes">
+        <div className={styles["c-drawing-modes"]}>
           {options.map((option) => (
             <div
-              className={cx("drawing-mode", {
+              className={cx(styles["drawing-mode"], {
                 active: option.value === activeMode,
               })}
               key={option.value}
               onClick={() => onChange(option.value)}
             >
               {option.icon && (
-                <Icon className="draw-mode-icon" icon={option.icon} />
+                <Icon className={styles["draw-mode-icon"]} icon={option.icon} />
               )}
-              <div className="draw-mode-label">{option.label}</div>
+              <div className={styles["draw-mode-label"]}>{option.label}</div>
             </div>
           ))}
         </div>

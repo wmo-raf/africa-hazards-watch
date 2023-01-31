@@ -1,26 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Link from 'next/link';
-import cx from 'classnames';
+import React from "react";
+import PropTypes from "prop-types";
+import Link from "next/link";
+import cx from "classnames";
 
-import { Tooltip } from 'react-tippy';
-import Tip from 'components/ui/tip';
-import { trackEvent } from 'utils/analytics';
+import { Tooltip } from "react-tippy";
+import Tip from "components/ui/tip";
+import { trackEvent } from "utils/analytics";
 
-import './styles.scss';
-import './themes/button-light.scss'; // eslint-disable-line
-import './themes/button-small.scss'; // eslint-disable-line
-import './themes/button-xsmall.scss'; // eslint-disable-line
-import './themes/button-medium.scss'; // eslint-disable-line
-import './themes/button-tiny.scss'; // eslint-disable-line
-import './themes/button-grey.scss'; // eslint-disable-line
-import './themes/button-grey-filled.scss'; // eslint-disable-line
-import './themes/button-clear.scss'; // eslint-disable-line
-import './themes/button-map-control.scss'; // eslint-disable-line
-import './themes/button-dashed.scss'; // eslint-disable-line
-import './themes/button-dark-round.scss'; // eslint-disable-line
-import './themes/button-inline.scss'; //eslint-disable-line
-import './themes/button-full-width.scss'; //eslint-disable-line
+import styles from "./button.module.scss";
 
 const Button = (props) => {
   const {
@@ -36,7 +23,7 @@ const Button = (props) => {
     background,
     trackingData,
     target,
-    tooltipPosition = 'top'
+    tooltipPosition = "top",
   } = props;
 
   const handleClick = (e) => {
@@ -54,14 +41,14 @@ const Button = (props) => {
     button = (
       <a
         className={cx(
-          'c-button',
+          styles["c-button"],
           theme,
           className,
-          { disabled },
-          { '--active': active }
+          { [styles.disabled]: disabled },
+          { [styles["--active"]]: active }
         )}
         href={extLink}
-        target={target || '_blank'}
+        target={target || "_blank"}
         rel="noopener"
         onClick={handleClick}
         disabled={disabled}
@@ -75,11 +62,11 @@ const Button = (props) => {
         <a>
           <button
             className={cx(
-              'c-button',
+              styles["c-button"],
               theme,
               className,
-              { disabled },
-              { '--active': active }
+              { [styles.disabled]: disabled },
+              { [styles["--active"]]: active }
             )}
             disabled={disabled}
             onClick={handleClick}
@@ -93,17 +80,17 @@ const Button = (props) => {
     button = (
       <button
         className={cx(
-          'c-button',
+          styles["c-button"],
           theme,
           className,
-          { disabled },
-          { '--active': active }
+          { [styles.disabled]: disabled },
+          { [styles["--active"]]: active }
         )}
         onClick={handleClick}
         disabled={disabled}
         style={background && { background }}
       >
-        <div className="button-wrapper">{children}</div>
+        <div className={styles["button-wrapper"]}>{children}</div>
       </button>
     );
   }
@@ -140,7 +127,7 @@ Button.propTypes = {
   buttonClicked: PropTypes.func,
   background: PropTypes.string,
   target: PropTypes.string,
-  tooltipPosition: PropTypes.string
+  tooltipPosition: PropTypes.string,
 };
 
 export default Button;

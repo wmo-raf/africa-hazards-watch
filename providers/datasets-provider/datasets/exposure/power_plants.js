@@ -45,7 +45,7 @@ export default [
         legendConfig: {
           items: [
             {
-              icon: "/assets/layer-icons/electric-tower.svg",
+              icon: "/assets/layer-icons/electric-tower.svg?sprite",
               name: "Power Plant",
             },
           ],

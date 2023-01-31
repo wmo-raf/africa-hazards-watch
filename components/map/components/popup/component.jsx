@@ -14,6 +14,8 @@ import BoundarySentence from "./components/boundary-sentence";
 import ContextualSentence from "./components/contextual-sentence";
 import PointSentence from "./components/point-sentence";
 
+import styles from "./popup.module.scss";
+
 class Popup extends Component {
   static propTypes = {
     showPopup: PropTypes.bool,
@@ -128,10 +130,10 @@ class Popup extends Component {
     const { isAoi, isBoundary, isPoint, isLayer } = selected || {};
 
     return (
-      <div className="popup-body">
+      <div className={styles["popup-body"]}>
         {hasManyInteractions && (
           <Dropdown
-            className="layer-selector"
+            className={styles["layer-selector"]}
             theme="theme-dropdown-native"
             value={
               useClickedPoint ? "map-clicked-point" : interactionOptionSelected
@@ -142,7 +144,7 @@ class Popup extends Component {
           />
         )}
         {interactionOptionSelected?.label && !hasManyInteractions && (
-          <div className="title">{interactionOptionSelected.label}</div>
+          <div className={styles.title}>{interactionOptionSelected.label}</div>
         )}
 
         {useClickedPoint ? (
@@ -207,7 +209,7 @@ class Popup extends Component {
         onClose={this.handlePopupClose}
         closeOnClick={false}
       >
-        <div className="c-popup">{this.renderPopupBody()}</div>
+        <div className={styles["c-popup"]}>{this.renderPopupBody()}</div>
       </MapPopup>
     ) : null;
   }

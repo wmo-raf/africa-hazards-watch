@@ -16,7 +16,7 @@ import tagIcon from "assets/icons/tag.svg?sprite";
 import subscribedIcon from "assets/icons/subscribed.svg?sprite";
 import warningIcon from "assets/icons/warning.svg?sprite";
 
-import "./styles.scss";
+import styles from "./aoi-card.module.scss";
 
 class AoICard extends PureComponent {
   static propTypes = {
@@ -61,9 +61,7 @@ class AoICard extends PureComponent {
     const applicationName = applicationsMeta[application];
     const createdMetaTemplate = translateText(
       `Created {date} ${
-        application !== "hw" && applicationName
-          ? ` on ${applicationName}`
-          : ""
+        application !== "hw" && applicationName ? ` on ${applicationName}` : ""
       }`
     );
     const createdMeta = createdMetaTemplate.replace(
@@ -72,22 +70,24 @@ class AoICard extends PureComponent {
     );
 
     return (
-      <div className={cx("c-aoi-card", { simple })}>
+      <div className={cx(styles["c-aoi-card"], { simple })}>
         <MapGeostore
-          className="aoi-card-map"
+          className={styles["aoi-card-map"]}
           location={location}
           padding={simple ? 15 : 25}
           cursor="pointer"
           small={simple}
         />
-        <div className="item-body">
-          <h5 className="title">{name}</h5>
+        <div className={styles["item-body"]}>
+          <h5 className={styles.title}>{name}</h5>
           {!simple && (
-            <span className="created notranslate">{createdMeta}</span>
+            <span className={`${styles.created} ${styles.notranslate}`}>
+              {createdMeta}
+            </span>
           )}
           {tags && tags.length > 0 && (
-            <div className="tags">
-              <Icon icon={tagIcon} className="tag-icon" />
+            <div className={styles.tags}>
+              <Icon icon={tagIcon} className={styles["tag-icon"]} />
               <p>{tags.join(", ")}</p>
             </div>
           )}

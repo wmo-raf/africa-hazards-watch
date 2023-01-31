@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/label-has-for */
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { Field } from 'react-final-form';
-import uniqueId from 'lodash/uniqueId';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import { Field } from "react-final-form";
+import uniqueId from "lodash/uniqueId";
 
-import { composeValidators } from 'components/forms/validations';
+import { composeValidators } from "components/forms/validations";
 
-import FieldWrapper from 'components/forms/components/field-wrapper';
+import FieldWrapper from "components/forms/components/field-wrapper";
 
-import './styles.scss';
+import styles from "./checkbox.module.scss";
 
 class Checkbox extends PureComponent {
   static propTypes = {
@@ -49,15 +49,15 @@ class Checkbox extends PureComponent {
             hidden={hidden}
             required={required}
           >
-            <div className="c-form-checkbox">
+            <div className={styles["c-form-checkbox"]}>
               {options &&
                 options.map((option) => {
                   const id = uniqueId(`checkbox-${option.value}-`);
                   return (
                     <div
                       key={option.value}
-                      className={`checkbox-option ${
-                        option?.multiInput ? 'sub-options' : ''
+                      className={`${styles["checkbox-option"]} ${
+                        option?.multiInput ? styles["sub-options"] : ""
                       }`}
                     >
                       <span>
@@ -70,7 +70,10 @@ class Checkbox extends PureComponent {
                           // this turns the values array into a single value
                           value={options.length > 1 ? option.value : undefined}
                         />
-                        <label className="checkbox-label" htmlFor={id}>
+                        <label
+                          className={styles["checkbox-label"]}
+                          htmlFor={id}
+                        >
                           <span />
                           {option.label}
                         </label>

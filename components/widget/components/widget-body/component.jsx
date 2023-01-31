@@ -20,7 +20,7 @@ import WidgetSankey from "components/widget/components/widget-sankey";
 import WidgetLollipop from "components/widget/components/widget-lollipop";
 import WidgetChangeInfographic from "components/widget/components/widget-change-infographic";
 
-import "./styles.scss";
+import styles from "./widget-body.module.scss";
 
 const chartOptions = {
   composedChart: WidgetComposedChart,
@@ -80,8 +80,10 @@ class WidgetBody extends PureComponent {
     const Component = chartOptions[chartType];
 
     return (
-      <div className={cx("c-widget-body", { simple })}>
-        {(loading || metaLoading) && <Loader className="widget-loader" />}
+      <div className={cx(styles["c-widget-body"], { [styles.simple]: simple })}>
+        {(loading || metaLoading) && (
+          <Loader className={styles["widget-loader"]} />
+        )}
         {!loading &&
           !metaLoading &&
           !error &&
@@ -95,7 +97,7 @@ class WidgetBody extends PureComponent {
         {!loading && error && <RefreshButton refetchFn={handleRefetchData} />}
         {!error && !metaLoading && sentence && hasSentence && (
           <DynamicSentence
-            className="sentence"
+            className={styles.sentence}
             testId={`sentence-${widget}`}
             sentence={sentence}
             handleMouseOver={() => handleDataHighlight(true)}

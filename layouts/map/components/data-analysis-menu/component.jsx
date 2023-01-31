@@ -1,13 +1,12 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
 
-import MapLegend from 'components/map/components/legend';
-// import SatelliteBasemaps from 'components/satellite-basemaps';
-import Analysis from 'components/analysis';
-import SubNavMenu from 'components/subnav-menu';
+import MapLegend from "components/map/components/legend";
+import Analysis from "components/analysis";
+import SubNavMenu from "components/subnav-menu";
 
-import './styles.scss';
+import styles from "./data-analysis-menu.module.scss";
 
 class DataAnalysisMenu extends PureComponent {
   static propTypes = {
@@ -53,23 +52,27 @@ class DataAnalysisMenu extends PureComponent {
     return (
       <div
         className={cx(
-          'c-data-analysis-menu',
-          'map-tour-legend',
-          { relocate: !!menuSection && menuSection.Component },
-          { big: menuSection && menuSection.large },
-          { embed },
+          styles["c-data-analysis-menu"],
+          styles["map-tour-legend"],
+          { [styles.relocate]: !!menuSection && menuSection.Component },
+          { [styles.big]: menuSection && menuSection.large },
+          { [styles.embed]: embed },
           className
         )}
       >
         <SubNavMenu
-          className="nav"
+          className={styles.nav}
           theme="theme-subnav-plain"
           links={this.getLinks()}
           checkActive
         />
-        {!hidden && !showAnalysis && <MapLegend className="map-legend" />}
+        {!hidden && !showAnalysis && (
+          <MapLegend className={styles["map-legend"]} />
+        )}
         {/* {!hidden && !showAnalysis && <SatelliteBasemaps />} */}
-        {!hidden && showAnalysis && <Analysis className="map-analysis" />}
+        {!hidden && showAnalysis && (
+          <Analysis className={styles["map-analysis"]} />
+        )}
       </div>
     );
   }

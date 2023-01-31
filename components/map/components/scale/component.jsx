@@ -1,20 +1,23 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
 
-import './styles.scss';
+import styles from "./scale.module.scss";
 
 class MapScale extends PureComponent {
   render() {
-    const { scales: { imperial, metric }, className } = this.props;
+    const {
+      scales: { imperial, metric },
+      className,
+    } = this.props;
 
     return (
-      <div className={cx('c-map-scale', className)}>
+      <div className={cx(styles["c-map-scale"], className)}>
         {imperial && (
           <span
-            className="scale imperial-scale"
+            className={`${styles.scale} ${styles["imperial-scale"]}`}
             style={{
-              width: imperial.width
+              width: imperial.width,
             }}
           >
             {imperial.scale}
@@ -22,9 +25,9 @@ class MapScale extends PureComponent {
         )}
         {metric && (
           <span
-            className="scale metric-scale"
+            className={`${styles.scale} ${styles["metric-scale"]}`}
             style={{
-              width: metric.width
+              width: metric.width,
             }}
           >
             {metric.scale}
@@ -37,7 +40,7 @@ class MapScale extends PureComponent {
 
 MapScale.propTypes = {
   scales: PropTypes.object,
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 export default MapScale;

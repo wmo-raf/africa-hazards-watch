@@ -11,7 +11,8 @@ import Icon from "components/ui/icon";
 import MyDataUpload from "./components/upload";
 
 import deleteIcon from "assets/icons/delete.svg?sprite";
-import "./styles.scss";
+
+import styles from "./my-data.module.scss";
 
 const confirmations = {
   saved: {
@@ -90,12 +91,12 @@ class MyDatasetForm extends PureComponent {
               const confirmationMeta = confirmations[metaKey];
 
               return (
-                <form className="c-mydataset-form" onSubmit={handleSubmit}>
+                <form className={styles["c-mydataset-form"]} onSubmit={handleSubmit}>
                   {submitSucceeded || deleted ? (
                     <Fragment>
                       <ConfirmationMessage {...confirmationMeta} />
                       <Button
-                        className="reset-form-btn"
+                        className={styles["reset-form-btn"]}
                         onClick={(e) => {
                           // stops button click triggering another submission of the form
                           e.preventDefault();
@@ -109,7 +110,7 @@ class MyDatasetForm extends PureComponent {
                   ) : (
                     <>
                       <h1>{title}</h1>
-                      <div className="d-header"></div>
+                      <div className={styles["d-header"]}></div>
                       <Input name="name" label="Title of Dataset" required />
                       <Input
                         type="text"
@@ -128,13 +129,13 @@ class MyDatasetForm extends PureComponent {
                         submitFailed={submitFailed}
                         submitError={submitError}
                       />
-                      <div className="submit-actions">
-                        <Submit className="area-submit" submitting={submitting}>
+                      <div className={styles["submit-actions"]}>
+                        <Submit className={styles["area-submit"]} submitting={submitting}>
                           save
                         </Submit>
                         {canDelete && initialValues && initialValues.id && (
                           <Button
-                            className="delete-area"
+                            className={styles["delete-area"]}
                             theme="theme-button-clear"
                             onClick={(e) => {
                               e.preventDefault();
@@ -146,7 +147,7 @@ class MyDatasetForm extends PureComponent {
                               });
                             }}
                           >
-                            <Icon icon={deleteIcon} className="delete-icon" />
+                            <Icon icon={deleteIcon} className={styles["delete-icon"]} />
                             Delete Dataset
                           </Button>
                         )}

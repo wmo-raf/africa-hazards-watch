@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 
 import PointSelector from "./components/point-selector";
 
-import "./styles.scss";
+// import styles from "./location-selector.module.scss";
 
 class LocationSelectorComponent extends PureComponent {
   render() {

@@ -1,14 +1,14 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-import Modal from 'components/modal';
-import Icon from 'components/ui/icon';
+import Modal from "components/modal";
+import Icon from "components/ui/icon";
 
-import mapboxLogo from 'assets/logos/mapbox.svg?sprite';
-import geeLogo from 'assets/logos/gee.png';
-import cartoLogo from 'assets/logos/carto.png';
-import planetLogo from 'assets/logos/planet.png';
+import mapboxLogo from "assets/logos/mapbox.svg?sprite";
+import geeLogo from "assets/logos/gee.png";
+import cartoLogo from "assets/logos/carto.png";
+import planetLogo from "assets/logos/planet.png";
 
-import './styles.scss';
+import styles from "./attributions-modal.module.scss";
 
 const ModalAttributions = ({ open, onRequestClose }) => (
   <Modal
@@ -16,17 +16,17 @@ const ModalAttributions = ({ open, onRequestClose }) => (
     contentLabel="Attributions"
     onRequestClose={onRequestClose}
     title="Map Attributions"
-    className="c-modal-attributions"
+    className={styles["c-modal-attributions"]}
   >
-    <div className="modal-attributions-content">
-      <div className="body">
-        <div className="logos">
+    <div className={styles["modal-attributions-content"]}>
+      <div className={styles.body}>
+        <div className={styles.logos}>
           <a
             href="https://www.mapbox.com/about/maps/"
             rel="noopener noreferrer"
             target="_blank"
           >
-            <Icon className="mapbox-logo" icon={mapboxLogo} />
+            <Icon className={styles["mapbox-logo"]} icon={mapboxLogo} />
           </a>
           <a
             href="https://earthengine.google.com/"
@@ -34,7 +34,7 @@ const ModalAttributions = ({ open, onRequestClose }) => (
             target="_blank"
           >
             <img
-              className="ee-logo"
+              className={styles["ee-logo"]}
               src={geeLogo}
               alt="google earth engine"
               width="115"
@@ -46,7 +46,7 @@ const ModalAttributions = ({ open, onRequestClose }) => (
             target="_blank"
           >
             <img
-              className="carto-logo"
+              className={styles["carto-logo"]}
               src={cartoLogo}
               alt="carto"
               width="60"
@@ -58,14 +58,14 @@ const ModalAttributions = ({ open, onRequestClose }) => (
             target="_blank"
           >
             <img
-              className="planet-logo"
+              className={styles["planet-logo"]}
               src={planetLogo}
               alt="planet"
               width="80"
             />
           </a>
         </div>
-        <div className="links">
+        <div className={styles.links}>
           <span>Map data ©2016 Google, INEGI</span>
           <a
             href="http://www.openstreetmap.org/copyright"

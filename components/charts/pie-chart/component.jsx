@@ -1,9 +1,9 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
-import ChartToolTip from '../components/chart-tooltip';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
+import ChartToolTip from "../components/chart-tooltip";
 
-import './styles.scss';
+import styles from "./pie-chart.module.scss";
 
 class CustomPieChart extends PureComponent {
   render() {
@@ -17,11 +17,11 @@ class CustomPieChart extends PureComponent {
       endAngle,
       className,
       tooltip,
-      simple
+      simple,
     } = this.props;
 
     return (
-      <div className={`c-pie-chart ${className}`}>
+      <div className={`${styles["c-pie-chart"]} ${className}`}>
         <ResponsiveContainer width="99%" height={maxSize}>
           <PieChart>
             <Pie
@@ -60,16 +60,16 @@ CustomPieChart.propTypes = {
   endAngle: PropTypes.number,
   className: PropTypes.string,
   simple: PropTypes.bool,
-  tooltip: PropTypes.array
+  tooltip: PropTypes.array,
 };
 
 CustomPieChart.defaultProps = {
   maxSize: 300,
-  dataKey: 'value',
-  innerRadius: '50%',
-  outerRadius: '100%',
+  dataKey: "value",
+  innerRadius: "50%",
+  outerRadius: "100%",
   startAngle: -270,
-  endAngle: -630
+  endAngle: -630,
 };
 
 export default CustomPieChart;

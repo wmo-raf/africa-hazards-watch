@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 
-import { Tooltip } from 'react-tippy';
-import Tip from 'components/ui/tip';
+import { Tooltip } from "react-tippy";
+import Tip from "components/ui/tip";
 
-import './styles.scss';
+import styles from "./layer-statement.module.scss";
 
 class LayerStatement extends PureComponent {
   render() {
@@ -25,7 +25,11 @@ class LayerStatement extends PureComponent {
         followCursor
         animateFill={false}
       >
-        <div className={`c-layer-statement ${className || ''}`}>
+        <div
+          className={`${styles["c-layer-statement"]} ${
+            className || ""
+          }`}
+        >
           {statementPlain}
           <span>{statementHighlight}</span>
         </div>

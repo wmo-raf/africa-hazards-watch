@@ -1,26 +1,26 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
+import React from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
 
-import Icon from 'components/ui/icon';
+import Icon from "components/ui/icon";
+import closeIcon from "assets/icons/close.svg?sprite";
 
-import closeIcon from 'assets/icons/close.svg?sprite';
-import './styles.scss';
+import styles from "./pill.module.scss";
 
 const Button = (props) => {
   const { active, className, label, onRemove, onClick } = props;
 
   return (
     <div
-      className={cx('c-pill', {
-        '-removable': onRemove,
-        '-active': active,
-        '-clickable': onClick,
+      className={cx(styles["c-pill"], {
+        [styles["-removable"]]: onRemove,
+        [styles["-active"]]: active,
+        [styles["-clickable"]]: onClick,
         [className]: className,
       })}
       onClick={onClick}
       role="button"
-      tabIndex={onClick ? 0 : ''}
+      tabIndex={onClick ? 0 : ""}
     >
       {label}
       {onRemove && (

@@ -3,7 +3,13 @@ import PropTypes from "prop-types";
 import Dropdown from "components/ui/dropdown";
 import cx from "classnames";
 
-import { Row, Column, Button, Mobile, Desktop } from "@erick-otenyo/hw-components";
+import {
+  Row,
+  Column,
+  Button,
+  Mobile,
+  Desktop,
+} from "@erick-otenyo/hw-components";
 
 import Icon from "components/ui/icon";
 import Toggle from "components/ui/toggle";
@@ -17,7 +23,7 @@ import roadsIcon from "assets/icons/roads.svg?sprite";
 
 import BasemapsMenu from "./basemaps-menu";
 
-import "./styles.scss";
+import styles from "./basemaps.module.scss";
 
 const Basemaps = ({
   className,
@@ -49,16 +55,20 @@ const Basemaps = ({
 
   return (
     <div
-      className={cx("c-basemaps", "map-tour-basemaps", className)}
+      className={cx(
+        styles["c-basemaps"],
+        styles["map-tour-basemaps"],
+        className
+      )}
       {...getTooltipContentProps()}
     >
       <Row>
         <Column>
-          <div className="map-settings-header">
+          <div className={styles["map-settings-header"]}>
             <h4>Map settings</h4>
-            <div className="header-actions">
+            <div className={styles["header-actions"]}>
               <Button
-                className="info-btn"
+                className={styles["info-btn"]}
                 size="small"
                 dark
                 round
@@ -67,7 +77,7 @@ const Basemaps = ({
                 <Icon icon={infoIcon} />
               </Button>
               <Desktop>
-                <button className="close-btn" onClick={onClose}>
+                <button className={styles["close-btn"]} onClick={onClose}>
                   <Icon icon={closeIcon} />
                 </button>
               </Desktop>
@@ -75,11 +85,11 @@ const Basemaps = ({
           </div>
         </Column>
       </Row>
-      <div className="map-settings-wrapper">
-        <Row className="map-settings">
-          <Column width={[1 / 4, 0]} className="mobile-basemaps-btn">
+      <div className={styles["map-settings-wrapper"]}>
+        <Row className={styles["map-settings"]}>
+          <Column width={[1 / 4, 0]} className={styles["mobile-basemaps-btn"]}>
             <Mobile>
-              <div className="map-settings-item">
+              <div className={styles["map-settings-item"]}>
                 <Button
                   round
                   size="large"
@@ -89,22 +99,23 @@ const Basemaps = ({
                   <img
                     src={activeBasemap.image}
                     alt={activeBasemap.label}
-                    className="basemap-img"
+                    className={styles["basemap-img"]}
                   />
                 </Button>
-                <span className="item-label">
+                <span className={styles["item-label"]}>
                   {activeBasemap.label}
                   {activeBasemap.year && ` - ${activeBasemap.year}`}
                 </span>
               </div>
             </Mobile>
           </Column>
-          <Column width={[1 / 4, 1 / 3]} className="map-settings-col">
+          <Column width={[1 / 4, 1 / 3]} className={styles["map-settings-col"]}>
             <Dropdown
-              className="map-settings-dropdown"
-              theme={cx("theme-dropdown-button", {
-                "theme-dropdown-dark-round theme-dropdown-no-border": !isDesktop,
-                "theme-dropdown-dark-squared": isDesktop,
+              className={styles["map-settings-dropdown"]}
+              theme={cx(styles["theme-dropdown-button"], {
+                [styles["theme-dropdown-dark-round"]]: !isDesktop,
+                [styles["theme-dropdown-no-border"]]: !isDesktop,
+                [styles["theme-dropdown-dark-squared"]]: isDesktop,
               })}
               value={selectedBoundaries}
               options={boundaries}
@@ -112,12 +123,13 @@ const Basemaps = ({
               selectorIcon={boundariesIcon}
             />
           </Column>
-          <Column width={[1 / 4, 1 / 3]} className="map-settings-col">
+          <Column width={[1 / 4, 1 / 3]} className={styles["map-settings-col"]}>
             <Dropdown
-              className="map-settings-dropdown"
-              theme={cx("theme-dropdown-button", {
-                "theme-dropdown-dark-round theme-dropdown-no-border": !isDesktop,
-                "theme-dropdown-dark-squared": isDesktop,
+              className={styles["map-settings-dropdown"]}
+              theme={cx(styles["theme-dropdown-button"], {
+                [styles["theme-dropdown-dark-round"]]: !isDesktop,
+                [styles["theme-dropdown-no-border"]]: !isDesktop,
+                [styles["theme-dropdown-dark-squared"]]: isDesktop,
               })}
               value={labelSelected}
               options={labels}
@@ -125,12 +137,13 @@ const Basemaps = ({
               selectorIcon={labelsIcon}
             />
           </Column>
-          <Column width={[1 / 4, 1 / 3]} className="map-settings-col">
+          <Column width={[1 / 4, 1 / 3]} className={styles["map-settings-col"]}>
             <Dropdown
-              className="map-settings-dropdown"
-              theme={cx("theme-dropdown-button", {
-                "theme-dropdown-dark-round theme-dropdown-no-border": !isDesktop,
-                "theme-dropdown-dark-squared": isDesktop,
+              className={styles["map-settings-dropdown"]}
+              theme={cx(styles["theme-dropdown-button"], {
+                [styles["theme-dropdown-dark-round"]]: !isDesktop,
+                [styles["theme-dropdown-no-border"]]: !isDesktop,
+                [styles["theme-dropdown-dark-squared"]]: isDesktop,
               })}
               value={roadsSelected}
               options={roads}
@@ -147,7 +160,7 @@ const Basemaps = ({
           />
         )}
         {isDesktop && (
-          <div className="analysis-settings">
+          <div className={styles["analysis-settings"]}>
             <Row>
               <Column>
                 <Desktop>
@@ -156,7 +169,7 @@ const Basemaps = ({
               </Column>
               <Column>
                 <Row>
-                  <div className="setting-toggle ">
+                  <div className={styles["setting-toggle"]}>
                     <Toggle
                       theme="toggle-large"
                       value={clipToBoundary}

@@ -1,18 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
-import { useRouter } from 'next/router';
+import React from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
+import { useRouter } from "next/router";
 
-import { Loader, MediaContextProvider, Button } from "@erick-otenyo/hw-components";
+import {
+  Loader,
+  MediaContextProvider,
+  Button,
+} from "@erick-otenyo/hw-components";
 
-import { useTrackPage } from 'utils/analytics';
-import { useSetLanguage } from 'utils/lang';
+import { useTrackPage } from "utils/analytics";
+import { useSetLanguage } from "utils/lang";
 
-import Head from 'wrappers/head';
+import Head from "wrappers/head";
 
-import ErrorMessage from 'components/error-message';
+import ErrorMessage from "components/error-message";
 
-import './styles.scss';
+import "./embed.module.scss";
 
 const EmbedWrapper = ({
   children,
@@ -43,15 +47,15 @@ const EmbedWrapper = ({
         noIndex={noIndex}
         metaTags={metaTags}
       />
-      <div className={cx('l-embed-page', { '-trase': trase })}>
-        <div className={cx('embed-content', { '-error': error })}>
+      <div className={cx("l-embed-page", { "-trase": trase })}>
+        <div className={cx("embed-content", { "-error": error })}>
           {isFallback && <Loader />}
           {!isFallback && error && (
             <ErrorMessage
-              title={errorTitle || 'Page Not Found'}
+              title={errorTitle || "Page Not Found"}
               description={
                 errorDescription ||
-                'You may have mistyped the address or the page may have moved.'
+                "You may have mistyped the address or the page may have moved."
               }
             />
           )}

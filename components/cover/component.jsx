@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
 
 import { Row, Column } from "@erick-otenyo/hw-components";
 
-import './styles.scss';
+import styles from "./cover.module.scss";
 
 class Cover extends PureComponent {
   // eslint-disable-line react/prefer-stateless-function
@@ -19,20 +19,25 @@ class Cover extends PureComponent {
       webP,
       altImageText,
     } = this.props;
+
     return (
-      <div className={cx('c-cover', { large }, className)}>
+      <div
+        className={cx(styles["c-cover"], { [styles.large]: large }, className)}
+      >
         <Row>
           <Column width={[1, 1]}>
-            <div className="cover-texts">
+            <div className={styles["cover-texts"]}>
               <h1
-                className={cx('cover-title', { '-with-background': !!bgImage })}
+                className={cx(styles["cover-title"], {
+                  [styles["-with-background"]]: !!bgImage,
+                })}
               >
                 {title}
               </h1>
               {Array.isArray(description) ? (
-                <div className="description">{description}</div>
+                <div className={styles.description}>{description}</div>
               ) : (
-                <p className="description">{description}</p>
+                <p className={styles.description}>{description}</p>
               )}
             </div>
             {children}
@@ -40,10 +45,10 @@ class Cover extends PureComponent {
         </Row>
         <div>
           {bgImage && (
-            <picture className="picture">
+            <picture className={styles.picture}>
               {webP && <source srcSet={webP} type="image/webp" />}
               <source srcSet={bgImage} type="image/jpeg" />
-              <img src={bgImage} alt={altImageText || 'Cover image'} />
+              <img src={bgImage} alt={altImageText || "Cover image"} />
             </picture>
           )}
         </div>

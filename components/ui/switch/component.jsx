@@ -1,25 +1,23 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import Toggle from 'react-toggle';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import Toggle from "react-toggle";
 
-import './react-toggle.scss';
-import './styles.scss';
-import './themes/switch-light.scss';
+import styles from "./switch.module.scss";
 
 class Switch extends PureComponent {
   render() {
     const { theme, label, value, options, onChange, className } = this.props;
 
     return (
-      <div className={`c-switch ${theme || ''} ${className || ''}`}>
-        {label && <div className="label">{label}</div>}
+      <div className={`${styles["c-switch"]} ${theme || ""} ${className || ""}`}>
+        {label && <div className={styles.label}>{label}</div>}
         <Toggle
           icons={{
             checked: options[0].label,
-            unchecked: options[1].label
+            unchecked: options[1].label,
           }}
           defaultChecked={options[1].value === value}
-          onChange={e => {
+          onChange={(e) => {
             const result = e.target.checked
               ? options[1].value
               : options[0].value;
@@ -37,7 +35,7 @@ Switch.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   options: PropTypes.array,
   onChange: PropTypes.func,
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 export default Switch;

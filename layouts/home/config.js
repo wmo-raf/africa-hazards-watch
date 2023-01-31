@@ -1,5 +1,5 @@
-// import forestWatcherIcon from "assets/icons/forest-watcher.svg";
-// import proIcon from "assets/icons/gfw-pro.svg";
+// import forestWatcherIcon from "assets/icons/forest-watcher.svg?sprite";
+// import proIcon from "assets/icons/gfw-pro.svg?sprite";
 
 import conservationOrgs from "./assets/conservation-orgs.jpg";
 import NMHSs from "./assets/nmhss.png";

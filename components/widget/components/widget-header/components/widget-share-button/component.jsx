@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 
-import Button from 'components/ui/button';
-import Icon from 'components/ui/icon';
+import Button from "components/ui/button";
+import Icon from "components/ui/icon";
 
-import shareIcon from 'assets/icons/share.svg?sprite';
+import shareIcon from "assets/icons/share.svg";
 
 class WidgetShareButton extends PureComponent {
   static propTypes = {
@@ -15,9 +15,10 @@ class WidgetShareButton extends PureComponent {
     const { handleShowShare } = this.props;
     return (
       <Button
-        className="c-widget-share-btn theme-button-small square"
+        className="c-widget-share-btn square"
+        theme="theme-button-small"
         onClick={handleShowShare}
-        tooltip={{ text: 'Share or embed this widget' }}
+        tooltip={{ text: "Share or embed this widget" }}
       >
         <Icon icon={shareIcon} />
       </Button>

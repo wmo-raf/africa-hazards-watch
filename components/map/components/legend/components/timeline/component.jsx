@@ -1,12 +1,12 @@
-import PropTypes from 'prop-types';
-import moment from 'moment';
-import { LegendItemTimeStep } from 'vizzuality-components';
+import PropTypes from "prop-types";
+import moment from "moment";
+import { LegendItemTimeStep } from "vizzuality-components";
 
-import { trackEvent } from 'utils/analytics';
+import { trackEvent } from "utils/analytics";
 
-import Datepicker from 'components/ui/datepicker';
+import Datepicker from "components/ui/datepicker";
 
-import './styles.scss';
+import styles from "./timeline.module.scss";
 
 const Timeline = (props) => {
   const {
@@ -26,10 +26,10 @@ const Timeline = (props) => {
   } = props;
 
   return (
-    <div className={`c-timeline ${className || ''}`}>
-      {description && <p className="description">{description}</p>}
-      {dateFormat === 'YYYY-MM-DD' && interval !== 'years' && (
-        <div className="date-pickers">
+    <div className={`${styles["c-timeline"]} ${className || ""}`}>
+      {description && <p className={styles.description}>{description}</p>}
+      {dateFormat === "YYYY-MM-DD" && interval !== "years" && (
+        <div className={styles["date-pickers"]}>
           From
           <Datepicker
             selected={new Date(maxRange ? startDateAbsolute : startDate)}
@@ -38,7 +38,8 @@ const Timeline = (props) => {
             maxDate={maxRange ? new Date(maxDate) : new Date(trimEndDate)}
             isOutsideRange={(d) =>
               d.isAfter(moment(maxRange ? maxDate : trimEndDate)) ||
-              d.isBefore(moment(minDate))}
+              d.isBefore(moment(minDate))
+            }
           />
           to
           <Datepicker
@@ -48,11 +49,12 @@ const Timeline = (props) => {
             maxDate={new Date(maxDate)}
             isOutsideRange={(d) =>
               d.isAfter(moment(maxRange ? maxDate : trimEndDate)) ||
-              d.isBefore(moment(minDate))}
+              d.isBefore(moment(minDate))
+            }
           />
         </div>
       )}
-      <div className="range-slider">
+      <div className={styles["range-slider"]}>
         <LegendItemTimeStep
           {...props}
           activeLayer={{
@@ -67,10 +69,10 @@ const Timeline = (props) => {
                 marks: props.marks,
               }),
               handleStyle: {
-                backgroundColor: 'white',
-                borderRadius: '2px',
-                boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.29)',
-                border: '0px',
+                backgroundColor: "white",
+                borderRadius: "2px",
+                boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.29)",
+                border: "0px",
                 zIndex: 2,
               },
             },
@@ -78,8 +80,8 @@ const Timeline = (props) => {
           handleOnPlay={(p) => {
             if (p) {
               trackEvent({
-                category: 'Map legend',
-                action: 'User animates data',
+                category: "Map legend",
+                action: "User animates data",
                 label: activeLayer.id,
               });
             }

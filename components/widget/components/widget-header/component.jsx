@@ -1,15 +1,15 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
-import cx from 'classnames';
-import { format } from 'd3-format';
-import WidgetMapButton from './components/widget-map-button';
-import WidgetSettingsButton from './components/widget-settings-button';
-import WidgetInfoButton from './components/widget-info-button';
-import WidgetShareButton from './components/widget-share-button';
-import WidgetDownloadButton from './components/widget-download-button';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import isEmpty from "lodash/isEmpty";
+import cx from "classnames";
+import { format } from "d3-format";
+import WidgetMapButton from "./components/widget-map-button";
+import WidgetSettingsButton from "./components/widget-settings-button";
+import WidgetInfoButton from "./components/widget-info-button";
+import WidgetShareButton from "./components/widget-share-button";
+import WidgetDownloadButton from "./components/widget-download-button";
 
-import './styles.scss';
+import styles from "./widget-header.module.scss";
 
 class WidgetHeader extends PureComponent {
   static propTypes = {
@@ -74,32 +74,34 @@ class WidgetHeader extends PureComponent {
     const showSettingsBtn = !simple && !isEmpty(settingsConfig);
     const showDownloadBtn = !embed && getDataURL; // Show everywhere
     const disableDownloadBtn =
-      disableDownload || (status !== 'saved' && !settings?.canDownloadUnsaved); // Disable everywhere
+      disableDownload || (status !== "saved" && !settings?.canDownloadUnsaved); // Disable everywhere
     const showMapBtn = !embed && !simple && datasets;
     const showSeparator = showSettingsBtn || showMapBtn;
     const metaInfo =
-      typeof metaKey === 'function' ? metaKey(settings) : metaKey;
+      typeof metaKey === "function" ? metaKey(settings) : metaKey;
 
     let disabledMessageString =
-      status === 'unsaved'
-        ? 'Save area in my HW to access downloads.'
-        : 'Download unavailable.';
+      status === "unsaved"
+        ? "Save area in my HW to access downloads."
+        : "Download unavailable.";
 
-    if (showDownloadBtn && status === 'pending' && authenticated) {
+    if (showDownloadBtn && status === "pending" && authenticated) {
       disabledMessageString =
-        'Download will be available soon, please check back in 12-24 hours.';
+        "Download will be available soon, please check back in 12-24 hours.";
     } else if (disableDownload && authenticated) {
       disabledMessageString = filterSelected
         ? `Remove Forest Type and Land Category filters to download.`
         : `To download, reduce the total number of alerts to less than ${format(
-            ','
+            ","
           )(maxSize)} by narrowing the date range.`;
     }
 
     return (
-      <div className={cx('c-widget-header', { simple })}>
-        <div className="title">{title}</div>
-        <div className="options">
+      <div
+        className={cx(styles["c-widget-header"], { [styles.simple]: simple })}
+      >
+        <div className={styles.title}>{title}</div>
+        <div className={styles.options}>
           {showMapBtn && (
             <WidgetMapButton
               active={active}
@@ -123,15 +125,15 @@ class WidgetHeader extends PureComponent {
               toggleSettingsMenu={toggleSettingsMenu}
             />
           )}
-          {showSeparator && <span className="separator" />}
-          <div className="small-options">
+          {showSeparator && <span className={styles.separator} />}
+          <div className={styles["small-options"]}>
             {showDownloadBtn && (
               <WidgetDownloadButton
                 disabled={
                   disableDownloadBtn ||
-                  widget === 'gladAlerts' ||
-                  widget === 'gladRanked' ||
-                  widget === 'integratedAlertsRanked'
+                  widget === "gladAlerts" ||
+                  widget === "gladRanked" ||
+                  widget === "integratedAlertsRanked"
                 }
                 disabledMessage={disabledMessageString}
                 {...this.props}

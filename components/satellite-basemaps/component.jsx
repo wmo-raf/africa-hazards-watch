@@ -1,34 +1,35 @@
-import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
-import upperFirst from 'lodash/upperFirst';
+import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
+import upperFirst from "lodash/upperFirst";
 
-import { trackEvent } from 'utils/analytics';
+import { trackEvent } from "utils/analytics";
 
-import Button from 'components/ui/button';
-import Icon from 'components/ui/icon';
+import Button from "components/ui/button";
+import Icon from "components/ui/icon";
 
-import arrowDown from 'assets/icons/arrow-down.svg?sprite';
-import infoIcon from 'assets/icons/info.svg?sprite';
+import arrowDown from "assets/icons/arrow-down.svg?sprite";
+import infoIcon from "assets/icons/info.svg?sprite";
 
-import Checkbox from 'components/ui/checkbox';
+import Checkbox from "components/ui/checkbox";
 
-import BasemapSettings from './basemap-settings';
+import BasemapSettings from "./basemap-settings";
 
-import './styles.scss';
+import styles from "./satellite-basemaps.module.scss";
 
 function handleTitle(basemap) {
   return (
     <>
       <span>
-        {basemap.label}
-        {' '}
-        {basemap?.caveat && <span className="caveat">{basemap.caveat}</span>}
+        {basemap.label}{" "}
+        {basemap?.caveat && (
+          <span className={styles.caveat}>{basemap.caveat}</span>
+        )}
       </span>
-      {basemap.value === 'planet' &&
+      {basemap.value === "planet" &&
         basemap.active &&
         basemap?.planetPeriod?.period && (
-          <span className="title-active-value">
+          <span className={styles["title-active-value"]}>
             {basemap.planetPeriod.period}
           </span>
         )}
@@ -53,15 +54,15 @@ const SatelliteBasemaps = ({
   useEffect(() => {
     if (isTropics && !defaultSatSet) {
       setMapBasemap({
-        value: 'planet',
-        color: '',
+        value: "planet",
+        color: "",
         name: planetPeriods[planetPeriods.length - 1].value,
       });
       setDefaultSatSet(true);
       trackEvent({
-        category: 'Map data',
-        action: 'Basemap changed',
-        label: 'Auto select planet isTropics',
+        category: "Map data",
+        action: "Basemap changed",
+        label: "Auto select planet isTropics",
       });
     }
   }, [isTropics, defaultSatSet]);
@@ -69,24 +70,24 @@ const SatelliteBasemaps = ({
   const handleToggleActive = () => {
     setOpen(!activeBasemap.active);
     setMapBasemap({
-      value: activeBasemap.active ? 'default' : activeBasemap.value,
-      ...(activeBasemap.value === 'planet' && {
-        color: '',
+      value: activeBasemap.active ? "default" : activeBasemap.value,
+      ...(activeBasemap.value === "planet" && {
+        color: "",
         name: planetPeriods[planetPeriods.length - 1].value,
         imageType: planetPeriods[planetPeriods.length - 1].imageType,
       }),
-      ...(activeBasemap.value === 'landsat' && {
+      ...(activeBasemap.value === "landsat" && {
         year: landsatYear,
       }),
     });
     setMainMapSettings({
       showRecentImagery: activeBasemap.active
         ? false
-        : activeBasemap.value === 'recentImagery',
+        : activeBasemap.value === "recentImagery",
     });
     trackEvent({
-      category: 'Map data',
-      action: 'Basemap changed',
+      category: "Map data",
+      action: "Basemap changed",
       label: upperFirst(activeBasemap.value),
     });
   };
@@ -95,53 +96,56 @@ const SatelliteBasemaps = ({
     e.stopPropagation();
     setMapBasemap({
       value,
-      ...(value === 'planet' && {
-        color: '',
+      ...(value === "planet" && {
+        color: "",
         name: planetPeriods[planetPeriods.length - 1].value,
         imageType: planetPeriods[planetPeriods.length - 1].imageType,
       }),
-      ...(value === 'landsat' && {
+      ...(value === "landsat" && {
         year: landsatYear,
       }),
     });
     setMainMapSettings({
-      showRecentImagery: value === 'recentImagery',
+      showRecentImagery: value === "recentImagery",
     });
     trackEvent({
-      category: 'Map data',
-      action: 'Basemap changed',
+      category: "Map data",
+      action: "Basemap changed",
       label: upperFirst(value),
     });
   };
 
   return (
-    <div className={cx('c-map-legend-basemaps', className)}>
-      <header className="header">
+    <div className={cx(styles["c-map-legend-basemaps"], className)}>
+      <header className={styles.header}>
         <button
-          className="show-satellite-basemap-btn"
-          title={`${activeBasemap.active ? 'Disable' : 'Enable'} ${
+          className={styles["show-satellite-basemap-btn"]}
+          title={`${activeBasemap.active ? "Disable" : "Enable"} ${
             activeBasemap.label
           }`}
           onClick={handleToggleActive}
         >
           <Checkbox
-            className="satellite-basemap-checkbox"
+            className={styles["satellite-basemap-checkbox"]}
             value={activeBasemap.active}
           />
         </button>
         <button
-          className={cx('satellite-toggle-active', !open ? '-closed' : '-open')}
+          className={cx(
+            styles["satellite-toggle-active"],
+            !open ? styles["-closed"] : styles["-open"]
+          )}
           onClick={toggleOpen}
-          title={`${open ? 'Hide' : 'Show'} satellite basemaps`}
+          title={`${open ? "Hide" : "Show"} satellite basemaps`}
         >
-          <span className="active-basemap-title">
+          <span className={styles["active-basemap-title"]}>
             {handleTitle(activeBasemap)}
           </span>
           <Icon icon={arrowDown} />
         </button>
       </header>
       {open && (
-        <section className="satellite-basemaps">
+        <section className={styles["satellite-basemaps"]}>
           <h4>SATELLITE IMAGERY</h4>
           <ul>
             {basemaps.map((basemap) => {
@@ -149,30 +153,30 @@ const SatelliteBasemaps = ({
                 <li
                   key={`satellite-basemap-${basemap.value}`}
                   className={cx(
-                    'satellite-basemap',
+                    styles["satellite-basemap"],
                     activeBasemap &&
                       activeBasemap.value === basemap.value &&
                       activeBasemap.active
-                      ? 'active'
-                      : ''
+                      ? styles.active
+                      : ""
                   )}
                 >
                   <button
-                    className="satellite-basemap--cta"
+                    className={styles["satellite-basemap--cta"]}
                     aria-label={`Activate ${basemap.label}`}
                     onClick={(e) => handleSetSatelliteBasemap(e, basemap.value)}
                   >
                     <img
                       src={basemap.image}
                       alt={basemap.label}
-                      className="satellite-basemap--thumbnail"
+                      className={styles["satellite-basemap--thumbnail"]}
                     />
-                    <div className="satellite-basemap--content">
-                      <span className="satellite-basemap--title">
+                    <div className={styles["satellite-basemap--content"]}>
+                      <span className={styles["satellite-basemap--title"]}>
                         {basemap.label}
                         {basemap.infoModal && (
                           <Button
-                            className="info-btn"
+                            className={styles["info-btn"]}
                             theme="theme-button-tiny theme-button-grey-filled square"
                             onClick={(e) => {
                               e.stopPropagation();
@@ -184,7 +188,7 @@ const SatelliteBasemaps = ({
                         )}
                       </span>
                       {basemap.description && (
-                        <p className="satellite-basemap--description">
+                        <p className={styles["satellite-basemap--description"]}>
                           {basemap.description}
                         </p>
                       )}

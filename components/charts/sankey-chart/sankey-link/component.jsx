@@ -1,7 +1,7 @@
-import React from 'react';
-import { PropTypes } from 'prop-types';
+import React from "react";
+import { PropTypes } from "prop-types";
 
-import './styles.scss';
+import styles from "./sankey-link.module.scss";
 
 function SankeyLink({
   sourceX,
@@ -12,21 +12,22 @@ function SankeyLink({
   targetControlX,
   linkWidth,
   config,
-  payload
+  payload,
 }) {
   const minLinkWidth = 2;
   const updatedLinkWidth = linkWidth < minLinkWidth ? minLinkWidth : linkWidth;
   const linkStart = config.linkPadding || 140;
   return (
     <path
-      className="c-sankey-link"
+      className={styles["c-sankey-link"]}
       d={`
         M${sourceX + linkStart},${sourceY}
-        C${sourceControlX},${sourceY} ${targetControlX},${targetY} ${targetX -
-        linkStart},${targetY}
+        C${sourceControlX},${sourceY} ${targetControlX},${targetY} ${
+        targetX - linkStart
+      },${targetY}
       `}
       fill="none"
-      stroke={config.highlight && config.highlight(payload) ? '#444' : '#ddd'}
+      stroke={config.highlight && config.highlight(payload) ? "#444" : "#ddd"}
       strokeWidth={updatedLinkWidth}
       strokeOpacity="0.4"
     />
@@ -42,7 +43,7 @@ SankeyLink.propTypes = {
   targetControlX: PropTypes.number,
   linkWidth: PropTypes.number,
   config: PropTypes.object,
-  payload: PropTypes.object
+  payload: PropTypes.object,
 };
 
 SankeyLink.defaultProps = {
@@ -53,7 +54,7 @@ SankeyLink.defaultProps = {
   sourceControlX: null,
   targetControlX: null,
   linkWidth: null,
-  config: null
+  config: null,
 };
 
 export default SankeyLink;

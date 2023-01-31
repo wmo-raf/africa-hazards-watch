@@ -1,5 +1,5 @@
 import React, { Component, createRef } from "react";
-import classnames from "classnames";
+import cx from "classnames";
 import PropTypes from "prop-types";
 
 import isEqual from "lodash/isEqual";
@@ -10,7 +10,7 @@ import WebMercatorViewport from "viewport-mercator-project";
 
 import { easeCubic } from "d3-ease";
 
-import "./styles.scss";
+import styles from "./map.module.scss";
 
 const DEFAULT_VIEWPORT = {
   zoom: 2,
@@ -248,8 +248,7 @@ class Map extends Component {
     return (
       <div
         ref={this.mapContainer}
-        className={classnames({
-          "c-mapbox-map": true,
+        className={cx(styles["c-mapbox-map"], {
           [customClass]: !!customClass,
         })}
       >

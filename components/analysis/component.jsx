@@ -8,7 +8,7 @@ import Loader from "components/ui/loader";
 import ChoseAnalysis from "components/analysis/components/chose-analysis";
 import ShowAnalysis from "components/analysis/components/show-analysis";
 
-import "./styles.scss";
+import styles from "./analysis.module.scss";
 
 const isServer = typeof window === "undefined";
 
@@ -76,30 +76,34 @@ class AnalysisComponent extends PureComponent {
 
     return (
       <Fragment>
-        <div className={cx("c-analysis", className)}>
+        <div className={cx(styles["c-analysis"], className)}>
           {loading && (
-            <Loader className={cx("analysis-loader", { fetching: loading })} />
+            <Loader
+              className={cx(styles["analysis-loader"], { fetching: loading })}
+            />
           )}
           {location.type &&
             location.adm0 != undefined &&
             (loading || (!loading && error)) && (
-              <div className={cx("cancel-analysis", { fetching: loading })}>
+              <div
+                className={cx(styles["cancel-analysis"], { fetching: loading })}
+              >
                 {!loading && error && !geostoreError && (
                   <Button
-                    className="refresh-analysis-btn"
+                    className={styles["refresh-analysis-btn"]}
                     onClick={() => handleFetchAnalysis(endpoints)}
                   >
                     REFRESH ANALYSIS
                   </Button>
                 )}
                 <Button
-                  className="cancel-analysis-btn"
+                  className={styles["cancel-analysis-btn"]}
                   onClick={handleCancelAnalysis}
                 >
                   CANCEL ANALYSIS
                 </Button>
                 {!loading && error && (
-                  <p className="error-message">
+                  <p className={styles["error-message"]}>
                     {geostoreError
                       ? "We are having trouble getting the selected geometry. Please try again later."
                       : error}
@@ -130,10 +134,10 @@ class AnalysisComponent extends PureComponent {
           location &&
           location.type &&
           location.adm0 != undefined && (
-            <div className="analysis-actions">
+            <div className={styles["analysis-actions"]}>
               {location.type === "country" && !location.areaId && (
                 <Button
-                  className="analysis-action-btn"
+                  className={styles["analysis-action-btn"]}
                   theme="theme-button-light"
                   {...linkProps}
                   onClick={() =>
@@ -149,7 +153,7 @@ class AnalysisComponent extends PureComponent {
               )}
               {activeArea && (
                 <Button
-                  className="analysis-action-btn"
+                  className={styles["analysis-action-btn"]}
                   theme="theme-button-light"
                   link={activeArea && `/dashboards/aoi/${activeArea.id}`}
                   tooltip={{ text: "Go to Areas of Interest dashboard" }}
@@ -160,7 +164,7 @@ class AnalysisComponent extends PureComponent {
               {location.type !== "point" &&
                 (!activeArea || (activeArea && !activeArea.userArea)) && (
                   <Button
-                    className="analysis-action-btn save-to-mygfw-btn"
+                    className={`${styles["analysis-action-btn"]} ${styles["save-to-mygfw-btn"]}`}
                     onClick={() => setAreaOfInterestModalSettings(true)}
                     disabled={areaTooLarge}
                     {...(areaTooLarge && {
@@ -175,7 +179,7 @@ class AnalysisComponent extends PureComponent {
                 )}
               {activeArea && activeArea.userArea && (
                 <Button
-                  className="analysis-action-btn"
+                  className={styles["analysis-action-btn"]}
                   onClick={() =>
                     setShareModal({
                       title: "Share this view",

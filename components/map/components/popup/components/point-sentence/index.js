@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { formatNumber } from "utils/format";
 import Button from "components/ui/button";
 
-import "./styles.scss";
+import "./point-sentence.module.scss";
 
 class PointSentence extends Component {
   static propTypes = {

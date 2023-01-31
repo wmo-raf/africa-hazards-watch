@@ -1,16 +1,16 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
-import lowerCase from 'lodash/lowerCase';
-import moment from 'moment';
-import ReactHtmlParser from 'react-html-parser';
-import { trackEvent } from 'utils/analytics';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import isEmpty from "lodash/isEmpty";
+import lowerCase from "lodash/lowerCase";
+import moment from "moment";
+import ReactHtmlParser from "react-html-parser";
+import { trackEvent } from "utils/analytics";
 
 import { Button, NoContent } from "@erick-otenyo/hw-components";
 
-import Modal from 'components/modal';
+import Modal from "components/modal";
 
-import './styles.scss';
+import styles from "./meta.module.scss";
 
 class ModalMeta extends PureComponent {
   static propTypes = {
@@ -43,10 +43,10 @@ class ModalMeta extends PureComponent {
       metaData.title !== prevProps.metaData.title
     ) {
       trackEvent({
-        category: 'Open modal',
-        action: 'Click to open',
-        label: `Metadata: ${metaData && metaData.title}`
-      })
+        category: "Open modal",
+        action: "Click to open",
+        label: `Metadata: ${metaData && metaData.title}`,
+      });
     }
   }
 
@@ -65,11 +65,11 @@ class ModalMeta extends PureComponent {
     const parsedCitation =
       citation &&
       citation
-        .replace('[selected area name]', locationName)
-        .replace('[date]', moment().format('DD/MM/YYYY'));
+        .replace("[selected area name]", locationName)
+        .replace("[date]", moment().format("DD/MM/YYYY"));
 
     return (
-      <div className="modal-meta-content">
+      <div className={styles["modal-meta-content"]}>
         {error && !loading && (
           <NoContent message="There was a problem finding this info. Please try again later." />
         )}
@@ -79,19 +79,19 @@ class ModalMeta extends PureComponent {
         {!loading && !error && !isEmpty(metaData) && (
           <div>
             <p
-              className="subtitle"
+              className={styles.subtitle}
               dangerouslySetInnerHTML={{ __html: subtitle }} // eslint-disable-line
             />
-            <div className="meta-table element-fullwidth">
+            <div className={`${styles["meta-table"]} ${styles["element-fullwidth"]}`}>
               {tableData &&
                 Object.keys(tableData).map((key) =>
                   tableData[key] ? (
-                    <div key={key} className="table-row">
+                    <div key={key} className={styles["table-row"]}>
                       <div
-                        className="title-column"
+                        className={styles["title-column"]}
                         dangerouslySetInnerHTML={{ __html: lowerCase(key) }} // eslint-disable-line
                       />
-                      <div className="description-column">
+                      <div className={styles["description-column"]}>
                         {this.parseContent(tableData[key])}
                       </div>
                     </div>
@@ -99,19 +99,19 @@ class ModalMeta extends PureComponent {
                 )}
             </div>
             {overview && (
-              <div className="overview">
+              <div className={styles.overview}>
                 <h4>Overview</h4>
-                <div className="body">{this.parseContent(overview)}</div>
+                <div className={styles.body}>{this.parseContent(overview)}</div>
               </div>
             )}
             {parsedCitation && (
-              <div className="citation">
+              <div className={styles.citation}>
                 <h5>Citation</h5>
-                <div className="body">{this.parseContent(parsedCitation)}</div>
+                <div className={styles.body}>{this.parseContent(parsedCitation)}</div>
               </div>
             )}
             {(learn_more || download_data || map_service || amazon_link) && (
-              <div className="ext-actions">
+              <div className={styles["ext-actions"]}>
                 {learn_more && (
                   <a
                     href={learn_more}
@@ -152,7 +152,7 @@ class ModalMeta extends PureComponent {
       <div>
         {ReactHtmlParser(html, {
           transform: (node) =>
-            node.name === 'a' ? (
+            node.name === "a" ? (
               <a
                 key={node.attribs.href}
                 href={node.attribs.href}
@@ -162,7 +162,7 @@ class ModalMeta extends PureComponent {
                 {node.children[0].data}
               </a>
             ) : (
-              ''
+              ""
             ),
         })}
       </div>
@@ -177,7 +177,7 @@ class ModalMeta extends PureComponent {
       <Modal
         open={!!metakey}
         onRequestClose={() => setModalMetaClosed()}
-        className="c-modal-meta"
+        className={styles["c-modal-meta"]}
         title={title}
         loading={loading}
       >

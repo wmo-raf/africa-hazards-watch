@@ -1,15 +1,16 @@
-import React from 'react';
-import { PropTypes } from 'prop-types';
-import { Tooltip, ResponsiveContainer } from 'recharts';
-import isEmpty from 'lodash/isEmpty';
-import { format } from 'd3-format';
-import OutsideClickHandler from 'react-outside-click-handler';
+import React from "react";
+import { PropTypes } from "prop-types";
+import { Tooltip, ResponsiveContainer } from "recharts";
+import isEmpty from "lodash/isEmpty";
+import { format } from "d3-format";
+import OutsideClickHandler from "react-outside-click-handler";
 
-import ChartToolTip from '../components/chart-tooltip';
-import Sankey from './component';
-import SankeyLink from './sankey-link';
-import SankeyNode from './sankey-node';
-import styles from './styles.scss';
+import ChartToolTip from "../components/chart-tooltip";
+import Sankey from "./component";
+import SankeyLink from "./sankey-link";
+import SankeyNodeComponent from "./sankey-node-component";
+
+import styles from "./sankey-chart.module.scss";
 
 function SankeyChart({
   width,
@@ -28,9 +29,9 @@ function SankeyChart({
   handleOutsideClick,
 }) {
   return (
-    <div className="c-sankey-chart" style={{ height, minWidth: '100%' }}>
+    <div className={styles["c-sankey-chart"]} style={{ height, minWidth: "100%" }}>
       <div
-        className="node-titles"
+        className={styles["node-titles"]}
         style={{
           paddingLeft: margin.left || 0,
           paddingRight: margin.right || 0,
@@ -62,7 +63,7 @@ function SankeyChart({
             onClick={handleOnClick}
             node={
               customNode || (
-                <SankeyNode
+                <SankeyNodeComponent
                   containerWidth={containerWidth}
                   config={{
                     ...config.node,
@@ -88,14 +89,14 @@ function SankeyChart({
                           key: payloadData.name,
                           label: `${
                             payloadData.name &&
-                            payloadData.name.replace('-', '>')
+                            payloadData.name.replace("-", ">")
                           }`,
                         },
                         {
-                          key: 'value',
+                          key: "value",
                           unit: config.tooltip && config.tooltip.unit,
-                          unitFormat: (num) => format('.2s')(num),
-                          label: '',
+                          unitFormat: (num) => format(".2s")(num),
+                          label: "",
                         },
                       ]}
                     />

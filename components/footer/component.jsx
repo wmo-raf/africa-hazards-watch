@@ -6,7 +6,7 @@ import partners from "./partners";
 
 import wmoLogo from "assets/logos/wmo.png";
 
-import "./styles.scss";
+import styles from "./footer.module.scss";
 
 const footerBottomLinks = [
   { label: "Terms of Service", url: "https://www.icpac.net/subscribe/" },
@@ -16,7 +16,7 @@ const footerBottomLinks = [
 const Footer = ({ setModalContactUsOpen }) => {
   return (
     <FooterComponent
-      className="c-footer"
+      className={styles["c-footer"]}
       openContactUsModal={() => setModalContactUsOpen(true)}
       links={config.links}
       socialLinks={config.socialLinks}
@@ -29,7 +29,8 @@ const Footer = ({ setModalContactUsOpen }) => {
         infiniteScroll: false,
         convener: {
           title: "A partnership convened by",
-          url: "https://public.wmo.int/en/our-mandate/how-we-do-it/regional-offices/regional-office-africa",
+          url:
+            "https://public.wmo.int/en/our-mandate/how-we-do-it/regional-offices/regional-office-africa",
           logo: wmoLogo,
           label: "WMO",
         },

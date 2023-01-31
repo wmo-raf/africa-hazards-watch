@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 
-import './styles.scss';
+import styles from "./widget-caution.module.scss";
 
 class WidgetCaution extends PureComponent {
   static propTypes = {
@@ -25,10 +25,10 @@ class WidgetCaution extends PureComponent {
     if (this.isVisible() && linkText) {
       const htmlTextArray = text && linkText && text.split(`{${linkText}}`);
       return (
-        <div className="c-widget-caution">
+        <div className={styles["c-widget-caution"]}>
           {htmlTextArray[0]}
           <a
-            className="caution-link"
+            className={styles["caution-link"]}
             rel="noopener noreferrer"
             href={link}
             target="_blank"
@@ -40,7 +40,12 @@ class WidgetCaution extends PureComponent {
       );
     }
     if (this.isVisible()) {
-      return <div className="c-widget-caution" dangerouslySetInnerHTML={{__html: text}} />;
+      return (
+        <div
+          className={styles["c-widget-caution"]}
+          dangerouslySetInnerHTML={{ __html: text }}
+        />
+      );
     }
 
     return null;

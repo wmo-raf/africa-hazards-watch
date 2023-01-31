@@ -1,4 +1,6 @@
-@import '~styles/settings.scss';
+@import "~styles/settings.scss";
+
+@import "./react-toggle.scss";
 
 .c-switch {
   .label {
@@ -10,3 +12,5 @@
     font-size: 13px;
   }
 }
+
+@import "./themes/switch-light.scss";

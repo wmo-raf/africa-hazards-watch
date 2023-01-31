@@ -1,14 +1,14 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
 
-import Button from 'components/ui/button';
-import Icon from 'components/ui/icon';
-import Checkbox from 'components/ui/checkbox';
+import Button from "components/ui/button";
+import Icon from "components/ui/icon";
+import Checkbox from "components/ui/checkbox";
 
-import closeIcon from 'assets/icons/close.svg?sprite';
+import closeIcon from "assets/icons/close.svg?sprite";
 
-import './styles.scss';
+import styles from "./prompt-tooltip.module.scss";
 
 class PromptTooltip extends PureComponent {
   // eslint-disable-line react/prefer-stateless-function
@@ -31,28 +31,33 @@ class PromptTooltip extends PureComponent {
     const isLastStep = stepNum === size;
 
     return (
-      <div className="c-prompt-tooltip" {...tooltipProps}>
-        <button className="step-close" {...closeProps}>
-          <Icon className="step-close-btn" icon={closeIcon} />
+      <div className={styles["c-prompt-tooltip"]} {...tooltipProps}>
+        <button className={styles["step-close"]} {...closeProps}>
+          <Icon className={styles["step-close-btn"]} icon={closeIcon} />
         </button>
-        <div className="step-title">
-          {`${title}${
-          size > 1 ? ` · ${index + 1}/${size}` : ''
-        }`}
+        <div className={styles["step-title"]}>
+          {`${title}${size > 1 ? ` · ${index + 1}/${size}` : ""}`}
         </div>
-        <div className="step-content">
-          {typeof content === 'string' ? content : content}
+        <div className={styles["step-content"]}>
+          {typeof content === "string" ? content : content}
         </div>
-        <div className="step-actions">
-          <div className={cx('step-btns', { 'align-left': learnHow })}>
+        <div className={styles["step-actions"]}>
+          <div
+            className={cx(styles["step-btns"], {
+              [styles["align-left"]]: learnHow,
+            })}
+          >
             {actions && actions.returnToTour && (
-              <button className="step-nav-btn" onClick={actions.returnToTour}>
+              <button
+                className={styles["step-nav-btn"]}
+                onClick={actions.returnToTour}
+              >
                 BACK
               </button>
             )}
             {size > 1 && (
               <button
-                className="step-nav-btn"
+                className={styles["step-nav-btn"]}
                 {...backProps}
                 style={{
                   opacity: index !== 0 ? 1 : 0,
@@ -62,21 +67,24 @@ class PromptTooltip extends PureComponent {
               </button>
             )}
             {isLastStep && size > 1 && (
-              <button className="step-nav-btn" {...closeProps}>
+              <button className={styles["step-nav-btn"]} {...closeProps}>
                 CLOSE
               </button>
             )}
             {size !== 1 && !isLastStep && (
-              <button className="step-nav-btn" {...primaryProps}>
+              <button className={styles["step-nav-btn"]} {...primaryProps}>
                 NEXT
               </button>
             )}
             {size === 1 && (
               <button
-                className="show-prompts-btn"
+                className={styles["show-prompts-btn"]}
                 onClick={() => handleShowPrompts(!showPrompts)}
               >
-                <Checkbox className="prompts-checkbox" value={showPrompts} />
+                <Checkbox
+                  className={styles["prompts-checkbox"]}
+                  value={showPrompts}
+                />
                 Show me tips
               </button>
             )}

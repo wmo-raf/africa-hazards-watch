@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 
-import { Tooltip } from 'react-tippy';
-import Tip from 'components/ui/tip';
+import { Tooltip } from "react-tippy";
+import Tip from "components/ui/tip";
 
-import './styles.scss';
+import styles from "./statement.module.scss";
 
 class Statement extends PureComponent {
   render() {
@@ -29,10 +29,12 @@ class Statement extends PureComponent {
         onShown={handleMouseOver}
         onHidden={handleMouseOut}
       >
-        <div className={`c-layer-statement ${className || ''}`}>
-          {statementPlain} 
-          {' '}
-          <span>{statementHighlight}</span>
+        <div
+          className={`${styles["c-layer-statement"]} ${
+            className || ""
+          }`}
+        >
+          {statementPlain} <span>{statementHighlight}</span>
         </div>
       </Tooltip>
     );

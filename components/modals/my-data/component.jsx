@@ -10,7 +10,7 @@ import MyDataForm from "components/forms/my-data";
 
 import { checkUserProfileFilled } from "utils/user";
 
-import "./styles.scss";
+import styles from "./my-data.module.scss";
 
 const MyDataModal = ({
   loading,
@@ -41,10 +41,10 @@ const MyDataModal = ({
       open={!!myDatasetId}
       contentLabel={`${activeDataset ? "Edit" : "Add"} Dataset`}
       onRequestClose={handleCloseModal}
-      className="c-area-of-interest-modal"
+      className={styles["c-area-of-interest-modal"]}
     >
       {loading && <Loader />}
-      <div className="save-aoi-body">
+      <div className={styles["save-aoi-body"]}>
         {!loading && !loggedIn && <LoginForm />}
         {!loading && loggedIn && !profileComplete && (
           <ProfileForm source="MyDataModal" />

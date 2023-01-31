@@ -1,15 +1,15 @@
-import React, { PureComponent, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
+import React, { PureComponent, Fragment } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
 
-import Button from 'components/ui/button';
-import Icon from 'components/ui/icon';
+import Button from "components/ui/button";
+import Icon from "components/ui/icon";
 
-import satelliteDetailed from 'assets/icons/satellite-detailed.svg?sprite';
+import satelliteDetailed from "assets/icons/satellite-detailed.svg";
 
-import './styles.scss';
+import styles from "./pending-dashboard.module.scss";
 
-const isServer = typeof window === 'undefined';
+const isServer = typeof window === "undefined";
 
 class PendingDashboardMessage extends PureComponent {
   static propTypes = {
@@ -21,7 +21,7 @@ class PendingDashboardMessage extends PureComponent {
   state = {
     visible: true,
     hiddenAreas:
-      (!isServer && JSON.parse(localStorage.getItem('hiddenPendingAreas'))) ||
+      (!isServer && JSON.parse(localStorage.getItem("hiddenPendingAreas"))) ||
       [],
   };
 
@@ -32,9 +32,9 @@ class PendingDashboardMessage extends PureComponent {
 
     if (!isServer) {
       const hiddenAreaIds =
-        JSON.parse(localStorage.getItem('hiddenPendingAreas')) || [];
+        JSON.parse(localStorage.getItem("hiddenPendingAreas")) || [];
       localStorage.setItem(
-        'hiddenPendingAreas',
+        "hiddenPendingAreas",
         JSON.stringify([...hiddenAreaIds, areaId])
       );
     }
@@ -44,13 +44,13 @@ class PendingDashboardMessage extends PureComponent {
     const { className, isUserDashboard, areaId } = this.props;
 
     return this.state.visible && !this.state.hiddenAreas.includes(areaId) ? (
-      <div className={cx('c-pending-dashboard', className)}>
-        <div className="message">
+      <div className={cx(styles["c-pending-dashboard"], className)}>
+        <div className={styles.message}>
           <div>
-            <h3 className="title">
+            <h3 className={styles.title}>
               {isUserDashboard
-                ? 'Your custom dashboard is almost ready!'
-                : 'This custom dashboard is almost ready!'}
+                ? "Your custom dashboard is almost ready!"
+                : "This custom dashboard is almost ready!"}
             </h3>
             {isUserDashboard ? (
               <Fragment>
@@ -61,9 +61,7 @@ class PendingDashboardMessage extends PureComponent {
                   after).
                 </p>
                 <p>
-                  <span>We will send you an email</span>
-                  {' '}
-                  once your dashboard is
+                  <span>We will send you an email</span> once your dashboard is
                   complete.
                 </p>
               </Fragment>
@@ -75,9 +73,12 @@ class PendingDashboardMessage extends PureComponent {
               </p>
             )}
           </div>
-          <Icon icon={satelliteDetailed} className="satellite-detailed" />
+          <Icon
+            icon={satelliteDetailed}
+            className={styles["satellite-detailed"]}
+          />
         </div>
-        <Button className="accept-btn" onClick={this.handleHidePanel}>
+        <Button className={styles["accept-btn"]} onClick={this.handleHidePanel}>
           Got it!
         </Button>
       </div>

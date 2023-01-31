@@ -1,13 +1,13 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import debounce from 'lodash/debounce';
-import isEmpty from 'lodash/isEmpty';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import debounce from "lodash/debounce";
+import isEmpty from "lodash/isEmpty";
 
 import { Desktop, Mobile } from "@erick-otenyo/hw-components";
 
-import SankeyChart from 'components/charts/sankey-chart';
+import SankeyChart from "components/charts/sankey-chart";
 
-import './styles.scss';
+import styles from "./widget-sankey.module.scss";
 
 class WidgetSankey extends PureComponent {
   static propTypes = {
@@ -59,11 +59,11 @@ class WidgetSankey extends PureComponent {
     const configMerged = {
       tooltip: {
         scale: 1 / 1000,
-        unit: unit || 'ha',
+        unit: unit || "ha",
       },
       node: {
         scale: 1 / 1000,
-        suffix: 'node',
+        suffix: "node",
         highlight: (node) => shouldHighlight(node),
       },
       link: {
@@ -74,7 +74,7 @@ class WidgetSankey extends PureComponent {
     };
 
     return (
-      <div className="c-sankey-chart-widget">
+      <div className={styles["c-sankey-chart-widget"]}>
         <Desktop>
           <SankeyChart
             data={data}

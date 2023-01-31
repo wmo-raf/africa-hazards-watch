@@ -1,25 +1,25 @@
-import React, { PureComponent, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { Form } from 'react-final-form';
-import { FORM_ERROR } from 'final-form';
+import React, { PureComponent, Fragment } from "react";
+import PropTypes from "prop-types";
+import { Form } from "react-final-form";
+import { FORM_ERROR } from "final-form";
 
-import { submitContactForm } from 'services/forms';
+import { submitContactForm } from "services/forms";
 
-import Link from 'next/link';
-import Button from 'components/ui/button';
+import Link from "next/link";
+import Button from "components/ui/button";
 
-import Error from 'components/forms/components/error';
-import Input from 'components/forms/components/input';
-import Select from 'components/forms/components/select';
-import Submit from 'components/forms/components/submit';
+import Error from "components/forms/components/error";
+import Input from "components/forms/components/input";
+import Select from "components/forms/components/select";
+import Submit from "components/forms/components/submit";
 
-import { email } from 'components/forms/validations';
+import { email } from "components/forms/validations";
 
-import { topics, tools } from './config';
+import { topics, tools } from "./config";
 
-import './styles.scss';
+import styles from "./contact.module.scss";
 
-const isServer = typeof window === 'undefined';
+const isServer = typeof window === "undefined";
 
 class ContactForm extends PureComponent {
   static propTypes = {
@@ -32,7 +32,7 @@ class ContactForm extends PureComponent {
     const language =
       !isServer && window.Transifex
         ? window.Transifex.live.getSelectedLanguageCode()
-        : 'en';
+        : "en";
 
     return submitContactForm({ ...values, language })
       .then(() => {})
@@ -41,7 +41,7 @@ class ContactForm extends PureComponent {
         return {
           [FORM_ERROR]:
             (errors && error.length && errors[0].detail) ||
-            'Service unavailable',
+            "Service unavailable",
         };
       });
   };
@@ -62,22 +62,22 @@ class ContactForm extends PureComponent {
         }) => {
           const activeTopic = topics.find((t) => t.value === values.topic);
           return (
-            <div className="c-contact-form">
+            <div className={styles["c-contact-form"]}>
               {submitSucceeded ? (
-                <div className="feedback-message">
+                <div className={styles["feedback-message"]}>
                   <h3>
                     Thank you for contacting Global Forest Watch! Check your
                     inbox for a confirmation email.
                   </h3>
                   <p>Interested in getting news and updates from us?</p>
-                  <div className="button-group">
+                  <div className={styles["button-group"]}>
                     <Link href="/subscribe">
                       <a>
                         <Button>Subscribe</Button>
                       </a>
                     </Link>
                     <Button
-                      className="close-button"
+                      className={styles["close-button"]}
                       onClick={resetForm || (() => reset())}
                     >
                       No thanks
@@ -86,10 +86,11 @@ class ContactForm extends PureComponent {
                 </div>
               ) : (
                 <Fragment>
-                  <p className="subtitle">
-                    For media inquiries, email
-                    {' '}
-                    <a href="mailto:Kaitlyn.Thayer@wri.org">Kaitlyn.Thayer@wri.org</a>
+                  <p className={styles.subtitle}>
+                    For media inquiries, email{" "}
+                    <a href="mailto:Kaitlyn.Thayer@wri.org">
+                      Kaitlyn.Thayer@wri.org
+                    </a>
                   </p>
                   <form onSubmit={handleSubmit}>
                     <Input

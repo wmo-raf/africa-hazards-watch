@@ -1,16 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import NoContent from 'components/ui/no-content';
-import Button from 'components/ui/button';
+import NoContent from "components/ui/no-content";
+import Button from "components/ui/button";
 
-import './styles.scss';
+import styles from "./refresh-button.module.scss";
 
 const RefreshButton = ({ refetchFn }) => (
-  <NoContent className="c-refresh-button">
-    <span>An error occured while fetching data. You can try again, or save the shape and check back tomorrow.</span>
+  <NoContent className={styles["c-refresh-button"]}>
+    <span>
+      An error occured while fetching data. You can try again, or save the shape
+      and check back tomorrow.
+    </span>
     <Button
-      className="refresh-btn"
+      className={styles["refresh-btn"]}
       onClick={refetchFn}
       theme="theme-button-small"
     >
@@ -20,11 +23,11 @@ const RefreshButton = ({ refetchFn }) => (
 );
 
 RefreshButton.propTypes = {
-  refetchFn: PropTypes.func
+  refetchFn: PropTypes.func,
 };
 
 RefreshButton.defaultProps = {
-  refetchFn: () => {}
+  refetchFn: () => {},
 };
 
 export default RefreshButton;

@@ -6,7 +6,7 @@ import SubnavMenu from "components/subnav-menu";
 import Upload from "./upload";
 import RasterFiles from "./rasters";
 
-import "./styles.scss";
+import styles from "./upload.module.scss";
 
 class MyDataUpload extends PureComponent {
   componentDidMount() {
@@ -55,32 +55,32 @@ class MyDataUpload extends PureComponent {
     const { datasetDetails: d } = activeMyDataset || {};
 
     return (
-      <div className="c-mydata-upload">
+      <div className={styles["c-mydata-upload"]}>
         <h1>{title}</h1>
 
         {d && (
-          <div className="dataset-details">
-            <div className="dataset-property">
-              <div className="dataset-prop-name">Dataset Name: </div>
-              <div className="dataset-prop-value">{d.name}</div>
+          <div className={styles["dataset-details"]}>
+            <div className={styles["dataset-property"]}>
+              <div className={styles["dataset-prop-name"]}>Dataset Name: </div>
+              <div className={styles["dataset-prop-value"]}>{d.name}</div>
             </div>
-            <div className="dataset-property">
-              <div className="dataset-prop-name">Created on: </div>
-              <div className="dataset-prop-value">{d.created_on}</div>
+            <div className={styles["dataset-property"]}>
+              <div className={styles["dataset-prop-name"]}>Created on: </div>
+              <div className={styles["dataset-prop-value"]}>{d.created_on}</div>
             </div>
           </div>
         )}
-        <div className="upload-sections-wrapper">
+        <div className={styles["upload-sections-wrapper"]}>
           <SubnavMenu
             links={sections}
-            className="my-data-upload-menu"
+            className={styles["my-data-upload-menu"]}
             theme="theme-subnav-small-light"
           />
 
-          <div className="content">
-            <div className="row">
-              <div className="column small-12">
-                <div className="u-section">
+          <div className={styles.content}>
+            <div className={styles.row}>
+              <div className={`${styles.column} ${styles["small-12"]}`}>
+                <div className={styles["u-section"]}>
                   {uploadSection === "upload" ? (
                     <Upload {...this.props} />
                   ) : (

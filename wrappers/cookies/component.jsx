@@ -6,7 +6,7 @@ import { CookiesBanner } from "@erick-otenyo/hw-components";
 import { trackEvent, initAnalytics, trackPage } from "utils/analytics";
 import { getAgreedCookies, setAgreedCookies } from "utils/cookies";
 
-import "./styles.scss";
+import "./cookies.module.scss";
 
 const Cookies = () => {
   const [accepted, setAccepted] = useState(false);

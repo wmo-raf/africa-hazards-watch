@@ -1,30 +1,30 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
 
-import { validateLatLng } from 'utils/geoms';
+import { validateLatLng } from "utils/geoms";
 
-import Button from 'components/ui/button';
-import Dropdown from 'components/ui/dropdown';
+import Button from "components/ui/button";
+import Dropdown from "components/ui/dropdown";
 
-import './styles.scss';
+import styles from "./coords.module.scss";
 
 class UTMCoords extends PureComponent {
   state = {
     error: false,
-    latDeg: '',
-    latMin: '',
-    latSec: '',
-    latCard: 'N',
-    lngDeg: '',
-    lngMin: '',
-    lngSec: '',
-    lngCard: 'W',
+    latDeg: "",
+    latMin: "",
+    latSec: "",
+    latCard: "N",
+    lngDeg: "",
+    lngMin: "",
+    lngSec: "",
+    lngCard: "W",
   };
 
   convertDMSToDD = (degrees, minutes, seconds, cardinal) => {
     let dd = degrees + minutes / 60 + seconds / (60 * 60);
-    if (cardinal === 'S' || cardinal === 'W') dd *= -1; // Don't do anything for N or E
+    if (cardinal === "S" || cardinal === "W") dd *= -1; // Don't do anything for N or E
     return dd;
   };
 
@@ -79,86 +79,104 @@ class UTMCoords extends PureComponent {
     } = this.state;
 
     return (
-      <div className="c-coords">
-        <div className="input-row">
+      <div className={styles["c-coords"]}>
+        <div className={styles["input-row"]}>
           <input
             value={latDeg}
             onChange={(e) =>
-              this.setState({ latDeg: e.target.value, error: false })}
+              this.setState({ latDeg: e.target.value, error: false })
+            }
             onKeyDown={this.handleKeyPress}
-            className={cx('coord-input', { error: latDeg && error })}
+            className={cx(styles["coord-input"], {
+              [styles.error]: latDeg && error,
+            })}
           />
-          {'\u00b0'}
+          {"\u00b0"}
           <input
             value={latMin}
             onChange={(e) =>
-              this.setState({ latMin: e.target.value, error: false })}
-            className={cx('coord-input', { error: latMin && error })}
+              this.setState({ latMin: e.target.value, error: false })
+            }
+            className={cx(styles["coord-input"], {
+              [styles.error]: latMin && error,
+            })}
             onKeyDown={this.handleKeyPress}
           />
           &apos;
           <input
             value={latSec}
             onChange={(e) =>
-              this.setState({ latSec: e.target.value, error: false })}
-            className={cx('coord-input', { error: latSec && error })}
+              this.setState({ latSec: e.target.value, error: false })
+            }
+            className={cx(styles["coord-input"], {
+              [styles.error]: latSec && error,
+            })}
             onKeyDown={this.handleKeyPress}
           />
           &apos;&apos;
           <Dropdown
-            className="hemisphere-select"
+            className={styles["hemisphere-select"]}
             theme="theme-dropdown-button-small"
             value={latCard}
             options={[
               {
-                label: 'N',
-                value: 'N',
+                label: "N",
+                value: "N",
               },
               {
-                label: 'S',
-                value: 'S',
+                label: "S",
+                value: "S",
               },
             ]}
             onChange={(value) => this.setState({ latCard: value.value })}
           />
         </div>
-        <div className="input-row">
+        <div className={styles["input-row"]}>
           <input
             value={lngDeg}
             onChange={(e) =>
-              this.setState({ lngDeg: e.target.value, error: false })}
+              this.setState({ lngDeg: e.target.value, error: false })
+            }
             onKeyDown={this.handleKeyPress}
-            className={cx('coord-input', { error: lngDeg && error })}
+            className={cx(styles["coord-input"], {
+              [styles.error]: lngDeg && error,
+            })}
           />
-          {'\u00b0'}
+          {"\u00b0"}
           <input
             value={lngMin}
             onChange={(e) =>
-              this.setState({ lngMin: e.target.value, error: false })}
-            className={cx('coord-input', { error: lngMin && error })}
+              this.setState({ lngMin: e.target.value, error: false })
+            }
+            className={cx(styles["coord-input"], {
+              [styles.error]: lngMin && error,
+            })}
             onKeyDown={this.handleKeyPress}
           />
           &apos;
           <input
             value={lngSec}
             onChange={(e) =>
-              this.setState({ lngSec: e.target.value, error: false })}
-            className={cx('coord-input', { error: lngSec && error })}
+              this.setState({ lngSec: e.target.value, error: false })
+            }
+            className={cx(styles["coord-input"], {
+              [styles.error]: lngSec && error,
+            })}
             onKeyDown={this.handleKeyPress}
           />
           &apos;&apos;
           <Dropdown
-            className="hemisphere-select"
+            className={styles["hemisphere-select"]}
             theme="theme-dropdown-button-small"
             value={lngCard}
             options={[
               {
-                label: 'W',
-                value: 'W',
+                label: "W",
+                value: "W",
               },
               {
-                label: 'E',
-                value: 'E',
+                label: "E",
+                value: "E",
               },
             ]}
             onChange={(value) => this.setState({ lngCard: value.value })}
@@ -178,7 +196,9 @@ class UTMCoords extends PureComponent {
         >
           GO TO POSITION
         </Button>
-        {error && <p className="error-message">Invalid coordinates</p>}
+        {error && (
+          <p className={styles["error-message"]}>Invalid coordinates</p>
+        )}
       </div>
     );
   }

@@ -1,8 +1,8 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
 
-import './styles.scss';
+import styles from "./chart-tooltip.module.scss";
 
 class ChartTooltip extends PureComponent {
   render() {
@@ -13,10 +13,13 @@ class ChartTooltip extends PureComponent {
 
     return (
       <div>
-        {data &&
-          data.length && (
-          <div className={cx('c-chart-tooltip', { simple })}>
-            {data.map(d => {
+        {data && data.length && (
+          <div
+            className={cx(styles["c-chart-tooltip"], {
+              [styles.simple]: simple,
+            })}
+          >
+            {data.map((d) => {
               const label = d.labelFormat
                 ? d.labelFormat(d.label || values[d.labelKey])
                 : d.label || values[d.labelKey];
@@ -28,30 +31,30 @@ class ChartTooltip extends PureComponent {
               return hideZeros && (!values || !value) ? null : (
                 <div
                   key={d.key || d.labelKey || d.label}
-                  className={`data-line ${d.position || ''}`}
+                  className={styles[`data-line ${d.position || ""}`]}
                 >
                   {label && (
-                    <div className="data-label">
+                    <div className={styles["data-label"]}>
                       {d.color &&
-                          (d.dashline ? (
-                            <div
-                              className="data-color data-dash"
-                              style={{ borderColor: d.color }}
-                            />
-                          ) : (
-                            <div
-                              className="data-color"
-                              style={{ backgroundColor: d.color }}
-                            />
-                          ))}
-                      {d.key === 'break' ? (
-                        <span className="break-label">{d.label}</span>
+                        (d.dashline ? (
+                          <div
+                            className={`${styles["data-color"]} ${styles["data-dash"]}`}
+                            style={{ borderColor: d.color }}
+                          />
+                        ) : (
+                          <div
+                            className={styles["data-color"]}
+                            style={{ backgroundColor: d.color }}
+                          />
+                        ))}
+                      {d.key === "break" ? (
+                        <span className={styles["break-label"]}>{d.label}</span>
                       ) : (
                         <span>{label}</span>
                       )}
                     </div>
                   )}
-                  <div className="notranslate">
+                  <div className={styles.notranslate}>
                     {value !== null && d.unit && d.unitFormat
                       ? `${value}${d.unit}`
                       : d.nullValue || value}
@@ -71,7 +74,7 @@ ChartTooltip.propTypes = {
   settings: PropTypes.array,
   parseData: PropTypes.func,
   hideZeros: PropTypes.bool,
-  simple: PropTypes.bool
+  simple: PropTypes.bool,
 };
 
 export default ChartTooltip;

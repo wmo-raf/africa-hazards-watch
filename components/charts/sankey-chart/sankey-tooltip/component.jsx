@@ -1,41 +1,42 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { format } from 'd3-format';
-import './styles.scss';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import { format } from "d3-format";
+
+import styles from "./sankey-tooltip.module.scss";
 
 class SankeyTooltip extends PureComponent {
   render() {
     const { config, content, tooltipChildren } = this.props;
-    const suffix = config.suffix ? ` ${config.suffix}` : '';
+    const suffix = config.suffix ? ` ${config.suffix}` : "";
     const scale = config.scale || 1;
-    const valueFormat = config.format || 'n';
+    const valueFormat = config.format || "n";
     return (
-      <div className="c-sankey-tooltip">
+      <div className={styles["c-sankey-tooltip"]}>
         {content &&
           content.payload &&
           content.payload.length > 0 &&
           content.payload.map((node) =>
             node.payload ? (
               <div key={node.name}>
-                <div className="tp-header">
-                  <span className="tp-target-name">
+                <div className={styles["tp-header"]}>
+                  <span className={styles["tp-target-name"]}>
                     {node.payload.payload &&
                       node.payload.payload.target &&
                       `${node.payload.payload.target.name}
                            ${
                              node.payload.payload.timeframes
                                ? node.payload.payload.timeframes
-                               : ''
+                               : ""
                            }`}
                   </span>
                   {config.unit && (
-                    <span className="tp-unit">{config.unit}</span>
+                    <span className={styles["tp-unit"]}>{config.unit}</span>
                   )}
                 </div>
-                <div className="tp-label">
-                  <div className="tp-legend">
+                <div className={styles["tp-label"]}>
+                  <div className={styles["tp-legend"]}>
                     <span
-                      className="tp-label-dot"
+                      className={styles["tp-label-dot"]}
                       style={
                         node.payload.payload && {
                           backgroundColor: node.payload.payload.source
@@ -44,17 +45,17 @@ class SankeyTooltip extends PureComponent {
                         }
                       }
                     />
-                    <div className="tp-label-name">
+                    <div className={styles["tp-label-name"]}>
                       {node.payload.payload && node.payload.payload.source
                         ? node.payload.payload.source.name
                         : node.payload.payload && node.payload.payload.name}
                     </div>
                   </div>
-                  <div className="tp-label-value">
+                  <div className={styles["tp-label-value"]}>
                     {`${format(valueFormat)(node.value * scale)}${suffix}`}
                   </div>
                 </div>
-                <div className="tooltip-children">
+                <div className={styles["tooltip-children"]}>
                   {tooltipChildren && tooltipChildren(node)}
                 </div>
               </div>

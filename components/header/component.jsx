@@ -9,13 +9,13 @@ import NavLink from "components/nav-link";
 
 import config from "./config";
 
-import "./styles.scss";
+import styles from "./header.module.scss";
 
 const Header = ({ setModalContactUsOpen, fullScreen, slim }) => {
   const { push, pushQuery, asPath, query } = useRouter();
   return (
     <HeaderComponent
-      className="c-header"
+      className={styles["c-header"]}
       slim={slim}
       customLogo={eahwLogo}
       logoAlt="Africa Hazards Watch"

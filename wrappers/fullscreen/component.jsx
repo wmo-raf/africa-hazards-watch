@@ -1,20 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useRouter } from 'next/router';
+import React from "react";
+import PropTypes from "prop-types";
+import { useRouter } from "next/router";
 import { Loader, MediaContextProvider } from "@erick-otenyo/hw-components";
-import cx from 'classnames';
+import cx from "classnames";
 
-import { useTrackPage } from 'utils/analytics';
-import { useSetLanguage } from 'utils/lang';
+import { useTrackPage } from "utils/analytics";
+import { useSetLanguage } from "utils/lang";
 
-import Head from 'wrappers/head';
-import Cookies from 'wrappers/cookies';
+import Head from "wrappers/head";
+import Cookies from "wrappers/cookies";
 
-import Header from 'components/header';
-import ContactUsModal from 'components/modals/contact-us';
-import ErrorMessage from 'components/error-message';
+import Header from "components/header";
+import ContactUsModal from "components/modals/contact-us";
+import ErrorMessage from "components/error-message";
 
-import './styles.scss';
+import "./fullscreen.module.scss";
 
 const FullScreenWrapper = ({
   children,
@@ -43,14 +43,14 @@ const FullScreenWrapper = ({
       />
       <div className="l-fullscreen-page">
         <Header slim />
-        <div className={cx('content-wrapper', { '-error': error })}>
+        <div className={cx("content-wrapper", { "-error": error })}>
           {isFallback && <Loader />}
           {!isFallback && error && (
             <ErrorMessage
-              title={errorTitle || 'Page Not Found'}
+              title={errorTitle || "Page Not Found"}
               description={
                 errorDescription ||
-                'You may have mistyped the address or the page may have moved.'
+                "You may have mistyped the address or the page may have moved."
               }
             />
           )}

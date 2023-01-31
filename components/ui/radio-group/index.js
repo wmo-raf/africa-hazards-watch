@@ -6,8 +6,7 @@ import uniqueId from "lodash/uniqueId";
 import Icon from "components/ui/icon";
 import infoIcon from "assets/icons/info.svg?sprite";
 
-import "./styles.scss";
-
+import styles from "./radio-group.module.scss";
 class RadioGroup extends PureComponent {
   handleOnChange = (e) => {
     const val = e.target.value;
@@ -18,27 +17,27 @@ class RadioGroup extends PureComponent {
     const { className, options, value } = this.props;
 
     return (
-      <div className={cx("c-radio-group", className)}>
+      <div className={cx(styles["c-radio-group"], className)}>
         {!!options.length &&
           options.map((option) => {
             const id = uniqueId(`radio-${option.value}-`);
             return (
-              <div key={option.value} className="radio-option">
+              <div key={option.value} className={styles["radio-option"]}>
                 <input
                   id={id}
                   type="radio"
                   value={option.value}
                   checked={option.value === value}
                   onChange={this.handleOnChange}
-                  className="radio-input"
+                  className={styles["radio-input"]}
                 />
-                <label className="radio-label" htmlFor={id}>
+                <label className={styles["radio-label"]} htmlFor={id}>
                   <span />
-                  <div className="r-text">
-                    <div className="r-title">{option.label}</div>
+                  <div className={styles["r-text"]}>
+                    <div className={styles["r-title"]}>{option.label}</div>
                     {option.description && (
-                      <div className="r-desc">
-                        <Icon icon={infoIcon} className="info-icon" />
+                      <div className={styles["r-desc"]}>
+                        <Icon icon={infoIcon} className={styles["info-icon"]} />
                         {option.description}
                       </div>
                     )}

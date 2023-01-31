@@ -2,15 +2,15 @@
  * @file TreemapChart
  * Copyright (c) 2015 recharts
  */
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import _ from 'lodash';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
+import _ from "lodash";
 
-import { Surface, Layer, Tooltip, Rectangle } from 'recharts';
+import { Surface, Layer, Tooltip, Rectangle } from "recharts";
 
-import { shallowEqual } from 'recharts/lib/util/PureRender';
-import { getValueByDataKey } from 'recharts/lib/util/ChartUtils';
+import { shallowEqual } from "recharts/lib/util/PureRender";
+import { getValueByDataKey } from "recharts/lib/util/ChartUtils";
 import {
   PRESENTATION_ATTRIBUTES,
   getPresentationAttributes,
@@ -18,7 +18,9 @@ import {
   filterSvgElements,
   validateWidthHeight,
   findChildByType,
-} from 'recharts/lib/util/ReactUtils';
+} from "recharts/lib/util/ReactUtils";
+
+import styles from "./sankey-chart.module.scss";
 
 const defaultCoordinateOfTooltip = { x: 0, y: 0 };
 
@@ -302,7 +304,7 @@ const computeData = ({
 };
 
 const getCoordinateOfTooltip = (el, type) => {
-  if (type === 'node') {
+  if (type === "node") {
     return { x: el.x + el.width / 2, y: el.y + el.height / 2 };
   }
 
@@ -314,24 +316,24 @@ const getCoordinateOfTooltip = (el, type) => {
 
 const getPayloadOfTooltip = (el, type, nameKey) => {
   const { payload } = el;
-  if (type === 'node') {
+  if (type === "node") {
     return [
       {
         payload: el,
-        name: getValueByDataKey(payload, nameKey, ''),
-        value: getValueByDataKey(payload, 'value'),
+        name: getValueByDataKey(payload, nameKey, ""),
+        value: getValueByDataKey(payload, "value"),
       },
     ];
   }
   if (payload.source && payload.target) {
-    const sourceName = getValueByDataKey(payload.source, nameKey, '');
-    const targetName = getValueByDataKey(payload.target, nameKey, '');
+    const sourceName = getValueByDataKey(payload.source, nameKey, "");
+    const targetName = getValueByDataKey(payload.target, nameKey, "");
 
     return [
       {
         payload: el,
         name: `${sourceName} - ${targetName}`,
-        value: getValueByDataKey(payload, 'value'),
+        value: getValueByDataKey(payload, "value"),
       },
     ];
   }
@@ -340,7 +342,7 @@ const getPayloadOfTooltip = (el, type, nameKey) => {
 };
 
 class Sankey extends PureComponent {
-  static displayName = 'Sankey';
+  static displayName = "Sankey";
 
   static propTypes = {
     ...PRESENTATION_ATTRIBUTES,
@@ -402,8 +404,8 @@ class Sankey extends PureComponent {
   static defaultProps = {
     nodePadding: 10,
     nodeWidth: 10,
-    nameKey: 'name',
-    dataKey: 'value',
+    nameKey: "name",
+    dataKey: "value",
     linkCurvature: 0.5,
     iterations: 32,
     margin: { top: 5, right: 5, bottom: 5, left: 5 },
@@ -546,7 +548,7 @@ class Sankey extends PureComponent {
 
     return (
       <path
-        className="recharts-sankey-link"
+        className={styles["recharts-sankey-link"]}
         d={`
           M${sourceX},${sourceY}
           C${sourceControlX},${sourceY} ${targetControlX},${targetY} ${targetX},${targetY}
@@ -566,7 +568,10 @@ class Sankey extends PureComponent {
     const left = margin.left || 0;
 
     return (
-      <Layer className="recharts-sankey-links" key="recharts-sankey-links">
+      <Layer
+        className={styles["recharts-sankey-links"]}
+        key="recharts-sankey-links"
+      >
         {links.map((link, i) => {
           const {
             sy: sourceRelativeY,
@@ -598,9 +603,9 @@ class Sankey extends PureComponent {
             ...getPresentationAttributes(linkContent),
           };
           const events = {
-            onMouseEnter: this.handleMouseEnter.bind(this, linkProps, 'link'),
-            onMouseLeave: this.handleMouseLeave.bind(this, linkProps, 'link'),
-            onClick: this.handleClick.bind(this, linkProps, 'link'),
+            onMouseEnter: this.handleMouseEnter.bind(this, linkProps, "link"),
+            onMouseLeave: this.handleMouseLeave.bind(this, linkProps, "link"),
+            onClick: this.handleClick.bind(this, linkProps, "link"),
           };
 
           return (
@@ -623,7 +628,7 @@ class Sankey extends PureComponent {
 
     return (
       <Rectangle
-        className="recharts-sankey-node"
+        className={styles["recharts-sankey-node"]}
         fill="#0088fe"
         fillOpacity="0.8"
         {...props}
@@ -637,7 +642,10 @@ class Sankey extends PureComponent {
     const left = margin.left || 0;
 
     return (
-      <Layer className="recharts-sankey-nodes" key="recharts-sankey-nodes">
+      <Layer
+        className={styles["recharts-sankey-nodes"]}
+        key="recharts-sankey-nodes"
+      >
         {nodes.map((node, i) => {
           const { x, y, dx, dy } = node;
           const nodeProps = {
@@ -650,9 +658,9 @@ class Sankey extends PureComponent {
             payload: node,
           };
           const events = {
-            onMouseEnter: this.handleMouseEnter.bind(this, nodeProps, 'node'),
-            onMouseLeave: this.handleMouseLeave.bind(this, nodeProps, 'node'),
-            onClick: this.handleClick.bind(this, nodeProps, 'node'),
+            onMouseEnter: this.handleMouseEnter.bind(this, nodeProps, "node"),
+            onMouseLeave: this.handleMouseLeave.bind(this, nodeProps, "node"),
+            onClick: this.handleClick.bind(this, nodeProps, "node"),
           };
 
           return (
@@ -686,7 +694,7 @@ class Sankey extends PureComponent {
       viewBox,
       active: isTooltipActive,
       coordinate,
-      label: '',
+      label: "",
       payload,
     });
   }
@@ -702,11 +710,11 @@ class Sankey extends PureComponent {
 
     return (
       <div
-        className={classNames('recharts-wrapper', className)}
+        className={cx(styles["recharts-wrapper"], className)}
         style={{
           ...style,
-          position: 'relative',
-          cursor: 'default',
+          position: "relative",
+          cursor: "default",
           width,
           height,
         }}

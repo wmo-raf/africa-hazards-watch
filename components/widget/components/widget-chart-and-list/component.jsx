@@ -1,11 +1,11 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 
-import WidgetComposedChart from 'components/widget/components/widget-composed-chart';
-import WidgetNumberedList from 'components/widget/components/widget-numbered-list';
-import NoContent from 'components/ui/no-content';
+import WidgetComposedChart from "components/widget/components/widget-composed-chart";
+import WidgetNumberedList from "components/widget/components/widget-numbered-list";
+import NoContent from "components/ui/no-content";
 
-import './styles.scss';
+import styles from "./widget-chart-and-list.module.scss";
 
 class WidgetChartAndList extends PureComponent {
   handleClick = (payload) => {
@@ -36,9 +36,9 @@ class WidgetChartAndList extends PureComponent {
     const { percentiles, list, barBackground } = data;
 
     return (
-      <div className="c-widget-chart-and-list">
+      <div className={styles["c-widget-chart-and-list"]}>
         <WidgetComposedChart
-          className="widget-combined-chart"
+          className={styles["widget-combined-chart"]}
           data={percentiles}
           config={config}
           active={active}
@@ -49,7 +49,7 @@ class WidgetChartAndList extends PureComponent {
         />
         {list.length > 0 ? (
           <WidgetNumberedList
-            className="widget-combined-list"
+            className={styles["widget-combined-list"]}
             data={list}
             settings={settings}
             setWidgetSettings={setWidgetSettings}
@@ -57,14 +57,12 @@ class WidgetChartAndList extends PureComponent {
             widget={widget}
           />
         ) : (
-          <div className="widget-combined-list">
+          <div className={styles["widget-combined-list"]}>
             <NoContent>
-              No data in the
-              {' '}
+              No data in the{" "}
               {settings && settings.percentile
                 ? settings.percentile
-                : 'selected'}
-              {' '}
+                : "selected"}{" "}
               category
             </NoContent>
           </div>

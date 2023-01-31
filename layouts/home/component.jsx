@@ -1,7 +1,5 @@
 import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
-// import YouTube from 'react-youtube';
-import Link from "next/link";
 
 import {
   Desktop,
@@ -24,7 +22,6 @@ import impactIcon from "assets/icons/affected-population.svg?sprite";
 
 import arrowIcon from "assets/icons/arrow-down.svg?sprite";
 import profileIcon from "assets/icons/profile.svg?sprite";
-import mailIcon from "assets/icons/mail.svg?sprite";
 
 import config from "./config";
 // import newsImage from "./assets/news-bg.jpg";
@@ -34,7 +31,9 @@ import bgImage from "./assets/home-bg.png";
 import bgImageWebP from "./assets/home-bg.webp";
 import feedbackBg from "./assets/feedback-bg.png";
 
-import "./styles.scss";
+import styles from "./home.module.scss";
+
+const { image } = styles;
 
 const HomePage = ({ summary, uses, apps, news }) => {
   // const [showVideo, setShowVideo] = useState(false);
@@ -48,25 +47,25 @@ const HomePage = ({ summary, uses, apps, news }) => {
   // }, []);
 
   return (
-    <div className="l-home-page">
+    <div className={styles["l-home-page"]}>
       <Cover
-        className="home-cover"
+        className={styles["home-cover"]}
         title="Climate Intelligence for Action"
         description="Africa Hazards Watch offers the latest risk information and near real-time weather and climate data to empower people and organizations to make better decisions."
         bgImage={bgImage}
         webP={bgImageWebP}
-        large
+        large={true}
       >
-        <ButtonComponent link="/map" className="explore-btn">
+        <ButtonComponent link="/map" className={styles["explore-btn"]}>
           EXPLORE MAP
         </ButtonComponent>
       </Cover>
-      <div className="section-summary">
+      <div className={styles["section-summary"]}>
         <Row>
           <Column>
             <div ref={summaryEl}>
               <Button
-                className="scroll-to-btn"
+                className={styles["scroll-to-btn"]}
                 round
                 onClick={() => {
                   window.scrollTo({
@@ -84,7 +83,8 @@ const HomePage = ({ summary, uses, apps, news }) => {
                     <Carousel settings={{ dots: true }}>
                       {summary.map((c) => (
                         <Card
-                          className="summary-card"
+                          className={styles["summary-card"]}
+                          classes={styles}
                           key={c.title}
                           data={{ ...c, fullSummary: true }}
                         />
@@ -95,7 +95,8 @@ const HomePage = ({ summary, uses, apps, news }) => {
                     <Carousel settings={{ dots: true, slidesToShow: 1 }}>
                       {summary.map((c) => (
                         <Card
-                          className="summary-card"
+                          className={styles["summary-card"]}
+                          classes={styles}
                           key={c.title}
                           data={{ ...c, fullSummary: true }}
                         />
@@ -109,71 +110,76 @@ const HomePage = ({ summary, uses, apps, news }) => {
         </Row>
       </div>
 
-      <div className="section-features">
+      <div className={styles["section-features"]}>
         <Row>
           <Column width={[1, 1 / 2]}>
-            <h3 className="features-title">
+            <h3 className={styles["features-title"]}>
               Start Making Climate Smart Decisions
             </h3>
-            <div className="features-desc">
+            <div className={styles["features-desc"]}>
               Africa Hazards Watch aggregates data from NMHSs, Regional Centers
               and Global Producing Centers to inform on climate decisions
             </div>
             <ButtonComponent>Explore Map</ButtonComponent>
           </Column>
           <Column width={[1, 1 / 2]}>
-            <div className="globe-wrapper">
-              <img className="globe-img" src={globeImage} />
+            <div className={styles["globe-wrapper"]}>
+              <img className={styles["globe-img"]} src={globeImage} />
             </div>
           </Column>
         </Row>
-        <div className="feature-items-wrapper">
+        <div className={styles["feature-items-wrapper"]}>
           <Row>
             <Column width={[1, 1 / 4]}>
-              <div className="feature-item">
-                <div className="feature-icon">
+              <div className={styles["feature-item"]}>
+                <div className={styles["feature-icon"]}>
                   <Icon icon={weatherIcon} />
                 </div>
-                <div className="feature-header"> Current Conditions</div>
-                <div className="feature-detail">
+                <div className={styles["feature-header"]}>
+                  {" "}
+                  Current Conditions
+                </div>
+                <div className={styles["feature-detail"]}>
                   Weather conditions for different locations as reported by
                   NMHSs weather stations across Africa
                 </div>
               </div>
             </Column>
             <Column width={[1, 1 / 4]}>
-              <div className="feature-item">
-                <div className="feature-icon">
+              <div className={styles["feature-item"]}>
+                <div className={styles["feature-icon"]}>
                   <Icon icon={forecastIcon} />
                 </div>
-                <div className="feature-header"> Forecasts</div>
-                <div className="feature-detail">
+                <div className={styles["feature-header"]}> Forecasts</div>
+                <div className={styles["feature-detail"]}>
                   Expected weather conditions for any location in Africa for
                   different time periods
                 </div>
               </div>
             </Column>
             <Column width={[1, 1 / 4]}>
-              <div className="feature-item">
-                <div className="feature-icon">
+              <div className={styles["feature-item"]}>
+                <div className={styles["feature-icon"]}>
                   <Icon icon={analyticsIcon} />
                 </div>
-                <div className="feature-header">
+                <div className={styles["feature-header"]}>
                   Historical & Projections Data
                 </div>
-                <div className="feature-detail">
+                <div className={styles["feature-detail"]}>
                   Past observations of climatological variables and predictions
                   of future climate conditions
                 </div>
               </div>
             </Column>
             <Column width={[1, 1 / 4]}>
-              <div className="feature-item">
-                <div className="feature-icon">
+              <div className={styles["feature-item"]}>
+                <div className={styles["feature-icon"]}>
                   <Icon icon={impactIcon} />
                 </div>
-                <div className="feature-header">Exposure & Impact Analysis</div>
-                <div className="feature-detail">
+                <div className={styles["feature-header"]}>
+                  Exposure & Impact Analysis
+                </div>
+                <div className={styles["feature-detail"]}>
                   Susceptibility to extreme weather events and the potential
                   consequences
                 </div>
@@ -182,42 +188,42 @@ const HomePage = ({ summary, uses, apps, news }) => {
           </Row>
         </div>
       </div>
-      
-      <div className="section-uses">
-        <h3 className="section-title">
+
+      <div className={styles["section-uses"]}>
+        <h3 className={styles["section-title"]}>
           What can you do with Africa Hazards Watch?
         </h3>
         {uses && (
           <Carousel
-            className="uses-carousel"
+            className={styles["uses-carousel"]}
             settings={{
               slidesToShow: 1,
               dots: true,
               arrows: false,
               speed: 0,
               customPaging: (i) => (
-                <div className="use-user">
-                  <Icon className="icon-user" icon={profileIcon} />
+                <div className={styles["use-user"]}>
+                  <Icon className={styles["icon-user"]} icon={profileIcon} />
                   {uses[i].profile}
                 </div>
               ),
             }}
           >
             {uses.map((c) => (
-              <Row className="uses" key={c.example}>
+              <Row className={styles.uses} key={c.example}>
                 <Column width={[1, 1 / 2]}>
-                  <div className="use-example">
-                    <h3 className="use-header">{c.heading}</h3>
-                    <p className="use-description">{c.example}</p>
+                  <div className={styles["use-example"]}>
+                    <h3 className={styles["use-header"]}>{c.heading}</h3>
+                    <p className={styles["use-description"]}>{c.example}</p>
                   </div>
                 </Column>
                 <Column width={[1, 1 / 2]}>
                   <div
-                    className="use-image"
+                    className={styles["use-image"]}
                     style={{ backgroundImage: `url(${c.img})` }}
                   >
                     <a
-                      className="use-credit"
+                      className={styles["use-credit"]}
                       href={c.credit.extLink}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -232,12 +238,10 @@ const HomePage = ({ summary, uses, apps, news }) => {
         )}
       </div>
 
-
-
-      <div className="section-involve">
+      <div className={styles["section-involve"]}>
         <Row>
           <div
-            className="section-involve-wrapper"
+            className={styles["section-involve-wrapper"]}
             style={{
               width: "100%",
               backgroundImage: `url(${feedbackBg})`,
@@ -246,26 +250,26 @@ const HomePage = ({ summary, uses, apps, news }) => {
             <Column>
               <Row>
                 <Column>
-                  <h3 className="involve-title">Get Involved</h3>
-                  <div className="involve-text">
+                  <h3 className={styles["involve-title"]}>Get Involved</h3>
+                  <div className={styles["involve-text"]}>
                     Africa Hazards Watch is a User Driven system. Give us
                     feedback and let us know how to improve the system.
                   </div>
                 </Column>
               </Row>
 
-              <div className="involve-actions">
+              <div className={styles["involve-actions"]}>
                 <Row>
                   <Column width={[1, 1 / 5]}>
                     <ButtonComponent> Give Feedback </ButtonComponent>
                   </Column>
                   <Column width={[1, 1 / 5]}>
-                    <ButtonComponent className="theme-button-light">
+                    <ButtonComponent className={styles["theme-button-light"]}>
                       Contribute Data
                     </ButtonComponent>
                   </Column>
                   <Column width={[1, 1 / 5]}>
-                    <ButtonComponent className="theme-button-light">
+                    <ButtonComponent className={styles["theme-button-light"]}>
                       Partner with us
                     </ButtonComponent>
                   </Column>

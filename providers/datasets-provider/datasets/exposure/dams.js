@@ -46,7 +46,7 @@ export default [
         legendConfig: {
           items: [
             {
-              icon: "/assets/layer-icons/dam.svg",
+              icon: "/assets/layer-icons/dam.svg?sprite",
               name: "Dam",
             },
           ],

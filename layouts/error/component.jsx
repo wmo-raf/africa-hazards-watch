@@ -1,15 +1,15 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-import Header from 'components/header';
-import ContactUsModal from 'components/modals/contact-us';
-import ErrorMessage from 'components/error-message';
+import Header from "components/header";
+import ContactUsModal from "components/modals/contact-us";
+import ErrorMessage from "components/error-message";
 
-import './styles.scss';
+import styles from "./error.module.scss";
 
 const ErrorPage = ({ title, description }) => (
   <>
     <Header />
-    <div className="l-error-page">
+    <div className={styles["l-error-page"]}>
       <ErrorMessage title={title} description={description} error />
     </div>
     <ContactUsModal />

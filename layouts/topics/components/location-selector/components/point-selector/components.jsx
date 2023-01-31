@@ -12,7 +12,7 @@ import locationIcon from "assets/icons/location.svg?sprite";
 
 import AsyncSelect from "react-select/async";
 
-import "./styles.scss";
+import styles from "./point-selector.module.scss";
 
 const customSelectStyles = {
   option: (provided) => ({
@@ -68,7 +68,7 @@ class PointSelector extends PureComponent {
 
     return (
       <div>
-        <div className="c-select">
+        <div className={styles["c-select"]}>
           <AsyncSelect
             ref={(ref) => {
               this.selectRef = ref;
@@ -110,9 +110,9 @@ class PointSelector extends PureComponent {
         )}
 
         {selectedPlaceName && (
-          <div className="selected-option">
-            <Icon icon={locationIcon} className="location-icon" />
-            <span className="location-name">{selectedPlaceName}</span>
+          <div className={styles["selected-option"]}>
+            <Icon icon={locationIcon} className={styles["location-icon"]} />
+            <span className={styles["location-name"]}>{selectedPlaceName}</span>
           </div>
         )}
       </div>

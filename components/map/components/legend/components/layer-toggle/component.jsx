@@ -12,7 +12,7 @@ import infoIcon from "assets/icons/info.svg?sprite";
 import helpIcon from "assets/icons/help.svg?sprite";
 import satelliteIcon from "assets/icons/satellite.svg?sprite";
 
-import "./styles.scss";
+import styles from "./layer-toggle.module.scss";
 
 class LayerToggle extends PureComponent {
   render() {
@@ -41,20 +41,22 @@ class LayerToggle extends PureComponent {
 
     return (
       <div
-        className={`c-layer-toggle ${small ? "-small" : ""} ${className || ""}`}
+        className={`${styles["c-layer-toggle"]} ${
+          small ? styles["-small"] : ""
+        } ${className || ""}`}
       >
         <Toggle
-          theme={!small ? "toggle-large" : ""}
+          theme={!small ? styles["toggle-large"] : ""}
           value={active}
           onToggle={(value) =>
             onToggle({ dataset, layer, iso, category }, value)
           }
           color={color}
         />
-        <div className="content">
-          <div className="header">
+        <div className={styles.content}>
+          <div className={styles.header}>
             <div
-              className="name"
+              className={styles.name}
               onClick={() => onToggle({ dataset, layer, iso }, !active)}
               role="button"
               tabIndex={tabIndex}
@@ -79,8 +81,10 @@ class LayerToggle extends PureComponent {
                 }
               >
                 <Button
-                  className={`theme-button-tiny theme-button-grey-filled square info-button ${
-                    !metadata ? "-help" : ""
+                  className={`${styles["theme-button-tiny"]} ${
+                    styles["theme-button-grey-filled"]
+                  } ${styles.square} ${styles["info-button"]} ${
+                    !metadata ? styles["-help"] : ""
                   }`}
                   onClick={metadata && (() => onInfoClick(metadata))}
                 >
@@ -91,7 +95,7 @@ class LayerToggle extends PureComponent {
           </div>
           {citation && showSubtitle && (
             <div
-              className="subtitle"
+              className={styles.subtitle}
               onClick={() => onToggle({ dataset, layer, iso }, !active)}
               role="button"
               tabIndex={tabIndex}
@@ -100,7 +104,7 @@ class LayerToggle extends PureComponent {
             </div>
           )}
           {isNearRealTime && (
-            <div className="nrt-indicator">
+            <div className={styles["nrt-indicator"]}>
               <span> Near Real Time</span>
               <Icon icon={satelliteIcon} />
             </div>

@@ -1,26 +1,26 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 
-import Icon from 'components/ui/icon';
-import arrowIcon from 'assets/icons/flechita.svg?sprite';
-import './styles.scss';
+import Icon from "components/ui/icon";
+import arrowIcon from "assets/icons/flechita.svg?sprite";
+
+import styles from "./items-list.module.scss";
 
 class ItemsList extends PureComponent {
   // eslint-disable-line react/prefer-stateless-function
   render() {
     const { data, itemSelected, onClick, className } = this.props;
     return (
-      <ul className={`c-items-list text -paragraph -color-2 ${className}`}>
+      <ul
+        className={`${styles["c-items-list"]} ${styles["text -paragraph"]} ${styles["-color-2"]} ${className}`}
+      >
         {data.map((d) => (
           <li
             key={d.label}
-            className={d.label === itemSelected ? '-selected' : ''}
+            className={d.label === itemSelected ? styles["-selected"] : ""}
           >
             <button onClick={() => onClick && onClick(d.label)}>
-              <Icon icon={arrowIcon} className="icon" /> 
-              {' '}
-              {d.label}
-              {' '}
+              <Icon icon={arrowIcon} className={styles.icon} /> {d.label}{" "}
               {d.count && `(${d.count})`}
             </button>
           </li>

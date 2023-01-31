@@ -1,17 +1,16 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
 
-import MenuTile from '../menu-tile';
+import MenuTile from "../menu-tile";
 
-import './styles.scss';
-
+import styles from "./menu-mobile.module.scss";
 class MenuMobile extends PureComponent {
   render() {
     const { className, sections, onToggleMenu } = this.props;
 
     return (
-      <ul className={cx('c-menu-mobile', className)}>
+      <ul className={cx(styles["c-menu-mobile"], className)}>
         {sections &&
           sections
             .filter((s) => !s.hidden)
@@ -21,7 +20,7 @@ class MenuMobile extends PureComponent {
                 key={s.slug}
                 {...s}
                 hightlight={s.highlight}
-                onClick={() => onToggleMenu(s.active ? '' : s.slug)}
+                onClick={() => onToggleMenu(s.active ? "" : s.slug)}
               />
             ))}
       </ul>

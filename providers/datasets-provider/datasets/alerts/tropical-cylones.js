@@ -117,7 +117,7 @@ export default [
             {
               name: "Dashed line - Forecasted Path",
               color: "#3f85d3",
-              icon: "/assets/layer-icons/dashed-line.svg",
+              icon: "/assets/layer-icons/dashed-line.svg?sprite",
             },
           ],
           type: "basic",

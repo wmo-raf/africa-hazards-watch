@@ -23,7 +23,8 @@ import {
 import ChartToolTip from "../components/chart-tooltip";
 import CustomTick from "./custom-tick-component";
 import CustomBackground from "./custom-background-component";
-import "./styles.scss";
+
+import styles from "./composed-chart.module.scss";
 
 class CustomComposedChart extends PureComponent {
   findMaxValue = (data, config) => {
@@ -99,7 +100,7 @@ class CustomComposedChart extends PureComponent {
 
     return (
       <div
-        className={cx("c-composed-chart", className)}
+        className={cx(styles["c-composed-chart"], className)}
         style={{ height: simple ? 110 : height || 250 }}
       >
         <ResponsiveContainer width="99%">

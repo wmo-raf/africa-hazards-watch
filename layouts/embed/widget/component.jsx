@@ -11,12 +11,13 @@ import Widgets from "components/widgets";
 import Share from "components/modals/share";
 import ModalMeta from "components/modals/meta";
 
-import "./styles.scss";
-import "./trase-embed-styles.scss";
+import styles from "./widget.module.scss";
 
 const WidgetEmbedPage = ({ widget, trase }) => (
-  <div className={cx("l-embed-widget-page", { "-trase": trase })}>
-    <Widgets className="embed-widget" embed widget={widget} />
+  <div
+    className={cx(styles["l-embed-widget-page"], { [styles["-trase"]]: trase })}
+  >
+    <Widgets className={styles["embed-widget"]} embed widget={widget} />
     <Share />
     <ModalMeta />
     <CountryDataProvider />

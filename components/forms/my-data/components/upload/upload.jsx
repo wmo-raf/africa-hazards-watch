@@ -12,7 +12,7 @@ import uploadConfig from "./upload-config.json";
 
 import closeIcon from "assets/icons/close.svg?sprite";
 
-import "./styles.scss";
+import styles from "./upload.module.scss";
 
 import UploadItem from "./upload-item";
 
@@ -137,13 +137,13 @@ class Upload extends PureComponent {
     const hasUploads = activeDatasetUploads && !!activeDatasetUploads.length;
 
     return (
-      <div className="upload-section">
+      <div className={styles["upload-section"]}>
         {!hasUploads && !loading && (
           <Dropzone
             className={cx(
-              "upload-menu-input",
-              { error: error && errorMessage },
-              { uploading }
+              styles["upload-menu-input"],
+              { [styles.error]: error && errorMessage },
+              { [styles.uploading]: uploading }
             )}
             onDropAccepted={this.onDropAccepted}
             onDropRejected={this.onDropRejected}
@@ -154,8 +154,12 @@ class Upload extends PureComponent {
           >
             {hasError && !uploading && (
               <>
-                <p className="error-title">{error}</p>
-                <p className="small-text error-desc">{errorMessage}</p>
+                <p className={styles["error-title"]}>{error}</p>
+                <p
+                  className={`${styles["small-text"]} ${styles["error-desc"]}`}
+                >
+                  {errorMessage}
+                </p>
               </>
             )}
             {!hasError && !uploading && (
@@ -163,29 +167,34 @@ class Upload extends PureComponent {
                 <p>
                   Drag and drop your <b>raster file</b> or click here to upload
                 </p>
-                <p className="small-text">{"Recommended file size < 10 MB"}</p>
+                <p className={styles["small-text"]}>
+                  {"Recommended file size < 10 MB"}
+                </p>
               </>
             )}
             {!hasError && uploading && (
-              <div className="uploading-raster">
-                <p className="file-name">{file && file.name}</p>
-                <p className="file-size">
+              <div className={styles["uploading-raster"]}>
+                <p className={styles["file-name"]}>{file && file.name}</p>
+                <p className={styles["file-size"]}>
                   {`Uploading ${(file && format(".2s")(file.size)) || 0}B`}
                 </p>
-                <div className="upload-bar">
-                  <div className="loading-bar">
-                    <span className="full-bar" />
+                <div className={styles["upload-bar"]}>
+                  <div className={styles["loading-bar"]}>
+                    <span className={styles["full-bar"]} />
                     <span
-                      className="status-bar"
+                      className={styles["status-bar"]}
                       style={{ width: `${uploadStatus || 0}%` }}
                     />
                   </div>
                   <Button
                     theme="theme-button-clear"
-                    className="cancel-upload-btn"
+                    className={styles["cancel-upload-btn"]}
                     onClick={this.handleCancelUpload}
                   >
-                    <Icon className="cancel-upload-icon" icon={closeIcon} />
+                    <Icon
+                      className={styles["cancel-upload-icon"]}
+                      icon={closeIcon}
+                    />
                   </Button>
                 </div>
               </div>
@@ -194,8 +203,8 @@ class Upload extends PureComponent {
         )}
 
         {hasUploads && (
-          <div className="pending-uploads">
-            <div className="pending-title">UnPublished Uploads</div>
+          <div className={styles["pending-uploads"]}>
+            <div className={styles["pending-title"]}>UnPublished Uploads</div>
             {activeDatasetUploads &&
               !!activeDatasetUploads.length &&
               activeDatasetUploads.map((upload) => (

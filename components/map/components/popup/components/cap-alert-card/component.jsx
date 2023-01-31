@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import Card from "components/ui/cap-alert-card";
 
-import "./styles.scss";
+import styles from "./cap-alert-card.module.scss";
 
 class CapAlertCard extends PureComponent {
   render() {
@@ -11,8 +11,8 @@ class CapAlertCard extends PureComponent {
 
     return (
       <Card
-        className="c-cap-alert-card"
-        theme="theme-card-small"
+        className={styles["c-cap-alert-card"]}
+        theme={styles["theme-card-small"]}
         clamp={5}
         data={{
           ...data,

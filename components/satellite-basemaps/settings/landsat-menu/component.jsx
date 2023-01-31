@@ -1,27 +1,28 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-import Dropdown from 'components/ui/dropdown';
+import Dropdown from "components/ui/dropdown";
 
-import './styles.scss';
+import styles from "./landsat-menu.module.scss";
 
 export const LandsatMenu = ({
   year,
   defaultYear,
   availableYears,
-  setMapBasemap
+  setMapBasemap,
 }) => (
-  <div className="c-planet-menu">
+  <div className={styles["c-planet-menu"]}>
     <h6>period</h6>
     <Dropdown
-      className="landsat-selector"
+      className={styles["landsat-selector"]}
       theme="theme-dropdown-native theme-dropdown-native-button-green theme-dropdown-full-width"
       value={year || defaultYear}
       options={availableYears}
       onChange={(value) =>
         setMapBasemap({
-          value: 'landsat',
+          value: "landsat",
           year: parseInt(value, 10),
-        })}
+        })
+      }
       native
     />
   </div>

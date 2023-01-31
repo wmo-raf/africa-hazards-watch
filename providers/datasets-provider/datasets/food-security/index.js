@@ -334,24 +334,24 @@ export default [
             },
             { color: "#a7a7a7", name: "Areas with inadequate evidence" },
             {
-              icon: "/assets/layer-icons/no-data.svg",
+              icon: "/assets/layer-icons/no-data.svg?sprite",
               name: "Areas Not Analyzed",
             },
             {
-              icon: "/assets/layer-icons/urb.svg",
+              icon: "/assets/layer-icons/urb.svg?sprite",
               name: "Urban Settlement Classification",
             },
             {
-              icon: "/assets/layer-icons/idp-camp.svg",
+              icon: "/assets/layer-icons/idp-camp.svg?sprite",
               name: "IDPs/Other Settlement Classification",
             },
             {
-              icon: "/assets/layer-icons/bag.svg",
+              icon: "/assets/layer-icons/bag.svg?sprite",
               name:
                 "At least 25% of households meet 25-50% of caloric needs from humanitarian food assistance",
             },
             {
-              icon: "/assets/layer-icons/bag2.svg",
+              icon: "/assets/layer-icons/bag2.svg?sprite",
               name:
                 "At least 25% of households meet over 50% of caloric needs from humanitarian food assistance",
             },

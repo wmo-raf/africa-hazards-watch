@@ -7,8 +7,8 @@ import {
 } from 'layouts/map/selectors';
 import { getActiveSection } from 'components/map-menu/selectors';
 
-import layersIcon from 'assets/icons/layers.svg?sprite';
-import analysisIcon from 'assets/icons/analysis.svg?sprite';
+import layersIcon from 'assets/icons/layers.svg';
+import analysisIcon from 'assets/icons/analysis.svg';
 
 export const getMenuLinks = createSelector(
   [getShowAnalysis],

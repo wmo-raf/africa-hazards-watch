@@ -6,7 +6,7 @@ import DrawRectangle from "mapbox-gl-draw-rectangle-mode";
 
 import { trackEvent } from "utils/analytics";
 
-import "./styles.scss";
+import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 
 import drawConfig from "./config";
 

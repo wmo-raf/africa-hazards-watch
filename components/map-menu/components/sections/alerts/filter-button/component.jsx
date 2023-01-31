@@ -11,7 +11,7 @@ import Icon from "components/ui/icon";
 import settingsIcon from "assets/icons/settings.svg?sprite";
 import AlertFilter from "../alert-filter";
 
-import "./styles.scss";
+import styles from "./filter-button.module.scss";
 
 class AlertFilterButton extends PureComponent {
   static propTypes = {
@@ -34,10 +34,10 @@ class AlertFilterButton extends PureComponent {
 
     return (
       <Tooltip
-        className={cx("c-widget-settings-button", {
-          "widget-settings-btn-active": active,
+        className={cx(styles["c-widget-settings-button"], {
+          [styles["widget-settings-btn-active"]]: active,
         })}
-        theme="widget-tooltip-theme light"
+        theme={`${styles["widget-tooltip-theme"]} ${styles.light}`}
         position="bottom-right"
         offset={-95}
         trigger="click"
@@ -76,10 +76,10 @@ class AlertFilterButton extends PureComponent {
         }
       >
         <Button
-          theme="theme-button-small square"
+          theme={`${styles["theme-button-small"]} ${styles.square}`}
           tooltip={{ text: "Filter the data" }}
         >
-          <Icon icon={settingsIcon} className="settings-icon" />
+          <Icon icon={settingsIcon} className={styles["settings-icon"]} />
         </Button>
       </Tooltip>
     );

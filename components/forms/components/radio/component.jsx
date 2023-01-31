@@ -1,16 +1,16 @@
 /* eslint-disable jsx-a11y/label-has-for */
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { Field } from 'react-final-form';
-import uniqueId from 'lodash/uniqueId';
-import isEmpty from 'lodash/isEmpty';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import { Field } from "react-final-form";
+import uniqueId from "lodash/uniqueId";
+import isEmpty from "lodash/isEmpty";
 
-import { composeValidators } from 'components/forms/validations';
+import { composeValidators } from "components/forms/validations";
 
-import FieldWrapper from 'components/forms/components/field-wrapper';
-import Input from 'components/forms/components/input';
+import FieldWrapper from "components/forms/components/field-wrapper";
+import Input from "components/forms/components/input";
 
-import './styles.scss';
+import styles from "./radio.module.scss";
 
 class Radio extends PureComponent {
   static propTypes = {
@@ -21,7 +21,7 @@ class Radio extends PureComponent {
     label: PropTypes.string,
     name: PropTypes.string,
     options: PropTypes.array,
-    required: PropTypes.bool
+    required: PropTypes.bool,
   };
 
   render() {
@@ -32,14 +32,14 @@ class Radio extends PureComponent {
       selectedOption,
       options,
       hidden,
-      required
+      required,
     } = this.props;
     const parsedOptions =
       !isEmpty(options) && !options[0].label && !options[0].value
-        ? options.map(o => ({
-          label: o,
-          value: o.replace(/( )+|(\/)+/g, '_')
-        }))
+        ? options.map((o) => ({
+            label: o,
+            value: o.replace(/( )+|(\/)+/g, "_"),
+          }))
         : options;
 
     return (
@@ -56,12 +56,12 @@ class Radio extends PureComponent {
             hidden={hidden}
             required={required}
           >
-            <div className="c-form-radio">
+            <div className={styles["c-form-radio"]}>
               {parsedOptions &&
-                parsedOptions.map(option => {
+                parsedOptions.map((option) => {
                   const id = uniqueId(`radio-${option.value}-`);
                   return (
-                    <div key={option.value} className="radio-option">
+                    <div key={option.value} className={styles["radio-option"]}>
                       <Field
                         id={id}
                         name={input.name}
@@ -69,15 +69,14 @@ class Radio extends PureComponent {
                         type="radio"
                         value={option.value}
                       />
-                      <label className="radio-label" htmlFor={id}>
+                      <label className={styles["radio-label"]} htmlFor={id}>
                         <span />
                         {option.label}
                       </label>
-                      {selectedOption === option.value &&
-                        option.radioInput && (
+                      {selectedOption === option.value && option.radioInput && (
                         <Input
                           name={`${input.name}_otherInput`}
-                          className="radio-input"
+                          className={styles["radio-input"]}
                           required={required}
                         />
                       )}

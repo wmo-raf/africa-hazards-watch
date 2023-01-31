@@ -13,7 +13,7 @@ import deleteIcon from "assets/icons/delete.svg?sprite";
 import confirmIcon from "assets/icons/check.svg?sprite";
 import cancelIcon from "assets/icons/close.svg?sprite";
 
-import "./styles.scss";
+// import "./styles.scss";
 
 class UploadItem extends PureComponent {
   state = {

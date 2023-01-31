@@ -1,16 +1,16 @@
 /* eslint-disable jsx-a11y/label-has-for */
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { Field } from 'react-final-form';
-import cx from 'classnames';
-import isEmpty from 'lodash/isEmpty';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import { Field } from "react-final-form";
+import cx from "classnames";
+import isEmpty from "lodash/isEmpty";
 
-import { composeValidators } from 'components/forms/validations';
-import Input from 'components/forms/components/input';
+import { composeValidators } from "components/forms/validations";
+import Input from "components/forms/components/input";
 
-import FieldWrapper from 'components/forms/components/field-wrapper';
+import FieldWrapper from "components/forms/components/field-wrapper";
 
-import './styles.scss';
+import styles from "./select.module.scss";
 
 class Select extends PureComponent {
   static propTypes = {
@@ -43,12 +43,12 @@ class Select extends PureComponent {
       !isEmpty(options) && !options[0].label && !options[0].value
         ? options.map((o) => ({
             label: o,
-            value: o.replace(/( )+|(\/)+/g, '_'),
+            value: o.replace(/( )+|(\/)+/g, "_"),
           }))
         : options;
     const allOptions = parsedOptions || [];
     const optionWithPlaceholder = placeholder
-      ? [{ label: placeholder, value: '' }, ...allOptions]
+      ? [{ label: placeholder, value: "" }, ...allOptions]
       : allOptions;
 
     return (
@@ -68,13 +68,15 @@ class Select extends PureComponent {
             required={required}
           >
             {multiple && (
-              <p className="label sublabel">
+              <p className={`${styles.label} ${styles.sublabel}`}>
                 Select all that apply; select multiple by holding
                 shift/selecting other options.
               </p>
             )}
             <select
-              className={cx('c-form-select', { multiple })}
+              className={cx(styles["c-form-select"], {
+                [styles.multiple]: multiple,
+              })}
               {...input}
               multiple={multiple}
             >
@@ -85,7 +87,7 @@ class Select extends PureComponent {
               ))}
             </select>
             {selectInput && (
-              <div className="select-input">
+              <div className={styles["select-input"]}>
                 <Input
                   name={`${input.name}_otherInput`}
                   label="Other:"

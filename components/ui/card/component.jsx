@@ -7,9 +7,8 @@ import cx from "classnames";
 import Icon from "components/ui/icon";
 
 import arrowIcon from "assets/icons/arrow-down.svg?sprite";
-import "./styles.scss";
-import "./themes/card-small.scss";
-import "./themes/card-dark.scss";
+
+import styles from "./card.module.scss";
 
 class Card extends PureComponent {
   static propTypes = {
@@ -29,7 +28,14 @@ class Card extends PureComponent {
 
   // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { className, theme, data, active, clamp } = this.props;
+    const {
+      className,
+      theme,
+      data,
+      active,
+      clamp,
+      ovrClasses = {},
+    } = this.props;
     const {
       image,
       webPImage,
@@ -49,15 +55,19 @@ class Card extends PureComponent {
     const { selectorValue } = this.state;
 
     return (
-      <div className={cx("c-card", className, theme, { active })}>
+      <div
+        className={cx(styles["c-card"], className, theme, {
+          [styles.active]: active,
+        })}
+      >
         {tag && tagColor && (
-          <span className="tag" style={{ backgroundColor: tagColor }}>
+          <span className={styles.tag} style={{ backgroundColor: tagColor }}>
             <p style={{ color: tagFontColor && tagFontColor }}>{tag}</p>
           </span>
         )}
         <>
           {image && (
-            <picture className="image">
+            <picture className={cx(styles.image, ovrClasses.image)}>
               {webPImage && <source srcSet={webPImage} type="image/webp" />}
               <source srcSet={image} type="image/png" />
               <img src={image} alt={title} />
@@ -66,7 +76,7 @@ class Card extends PureComponent {
 
           {(img1x || img2x) && (
             <img
-              className="image"
+              className={cx(styles.image, ovrClasses.image)}
               srcSet={`${img1x} 2x, ${img2x} 1x`}
               src={`${img1x} 1x`}
               alt={title}
@@ -75,16 +85,17 @@ class Card extends PureComponent {
         </>
         <div
           className={cx(
-            "body",
-            { "no-image": !image },
-            { "top-padding": tag && tagColor && !image }
+            styles.body,
+            ovrClasses.body,
+            { [styles["no-image"]]: !image },
+            { [styles["top-padding"]]: tag && tagColor && !image }
           )}
         >
-          <div className="text-content">
+          <div className={styles["text-content"]}>
             {imageCredit && <span>{imageCredit}</span>}
-            {title && <h3 className="title">{title}</h3>}
+            {title && <h3 className={styles.title}>{title}</h3>}
             {summary && (
-              <div className="summary">
+              <div className={cx(styles.summary, ovrClasses.summary)}>
                 {fullSummary ? (
                   summary
                 ) : (
@@ -92,10 +103,10 @@ class Card extends PureComponent {
                 )}
               </div>
             )}
-            {meta && <p className="meta">{meta}</p>}
+            {meta && <p className={styles.meta}>{meta}</p>}
           </div>
           {buttons && (
-            <div className="buttons">
+            <div className={styles.buttons}>
               {buttons.map((button, i) => {
                 if (button.link) {
                   return (
@@ -134,9 +145,9 @@ class Card extends PureComponent {
             </div>
           )}
           {selector && (
-            <div className="selector-btn">
+            <div className={styles["selector-btn"]}>
               <Dropdown
-                className="card-selector"
+                className={styles["card-selector"]}
                 theme="theme-dropdown-native large"
                 options={selector && selector.options}
                 value={
@@ -162,7 +173,7 @@ class Card extends PureComponent {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Button className="selector-btn-link" theme="square">
+                <Button className={styles["selector-btn-link"]} theme="square">
                   <Icon icon={arrowIcon} />
                 </Button>
               </a>

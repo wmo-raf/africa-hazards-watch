@@ -1,29 +1,29 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import proj4 from 'proj4';
-import cx from 'classnames';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import proj4 from "proj4";
+import cx from "classnames";
 
-import { validateLatLng } from 'utils/geoms';
+import { validateLatLng } from "utils/geoms";
 
-import Button from 'components/ui/button';
-import Dropdown from 'components/ui/dropdown';
+import Button from "components/ui/button";
+import Dropdown from "components/ui/dropdown";
 
-import './styles.scss';
+import styles from "./utm-coords.module.scss";
 
 class UTMCoords extends PureComponent {
   state = {
     error: false,
-    east: '',
-    north: '',
-    zone: '',
-    hemisphere: 'north'
+    east: "",
+    north: "",
+    zone: "",
+    hemisphere: "north",
   };
 
   handleSubmit = () => {
     const { east, north, zone, hemisphere } = this.state;
     const { setMapSettings } = this.props;
     const utm = `+proj=utm +zone=${zone} +${hemisphere}`;
-    const wgs84 = '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs';
+    const wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
     let latlng = [];
     try {
       latlng = proj4(utm, wgs84, [parseInt(east, 10), parseInt(north, 10)]);
@@ -37,7 +37,7 @@ class UTMCoords extends PureComponent {
     }
   };
 
-  handleKeyPress = e => {
+  handleKeyPress = (e) => {
     if (e.keyCode === 13 && !this.state.error) {
       this.handleSubmit();
     }
@@ -47,44 +47,56 @@ class UTMCoords extends PureComponent {
     const { east, north, zone, hemisphere, error } = this.state;
 
     return (
-      <div className="c-utm-coords">
-        <span className="label">East:</span>
+      <div className={styles["c-utm-coords"]}>
+        <span className={styles.label}>East:</span>
         <input
           value={east}
-          onChange={e => this.setState({ east: e.target.value, error: false })}
+          onChange={(e) =>
+            this.setState({ east: e.target.value, error: false })
+          }
           onKeyDown={this.handleKeyPress}
-          className={cx('coord-input', { error: east && error })}
+          className={cx(styles["coord-input"], {
+            [styles.error]: east && error,
+          })}
         />
-        <span className="label">North:</span>
+        <span className={styles.label}>North:</span>
         <input
           value={north}
-          onChange={e => this.setState({ north: e.target.value, error: false })}
-          className={cx('coord-input', { error: north && error })}
+          onChange={(e) =>
+            this.setState({ north: e.target.value, error: false })
+          }
+          className={cx(styles["coord-input"], {
+            [styles.error]: north && error,
+          })}
           onKeyDown={this.handleKeyPress}
         />
-        <span className="label">Zone:</span>
+        <span className={styles.label}>Zone:</span>
         <input
           value={zone}
-          onChange={e => this.setState({ zone: e.target.value, error: false })}
-          className={cx('coord-input', { error: zone && error })}
+          onChange={(e) =>
+            this.setState({ zone: e.target.value, error: false })
+          }
+          className={cx(styles["coord-input"], {
+            [styles.error]: zone && error,
+          })}
           onKeyDown={this.handleKeyPress}
         />
-        <span className="label">Hemisphere:</span>
+        <span className={styles.label}>Hemisphere:</span>
         <Dropdown
-          className="hemisphere-select"
+          className={styles["hemisphere-select"]}
           theme="theme-dropdown-button-small"
           value={hemisphere}
           options={[
             {
-              label: 'N',
-              value: 'north'
+              label: "N",
+              value: "north",
             },
             {
-              label: 'S',
-              value: 'south'
-            }
+              label: "S",
+              value: "south",
+            },
           ]}
-          onChange={value => this.setState({ hemisphere: value.value })}
+          onChange={(value) => this.setState({ hemisphere: value.value })}
         />
         <Button
           onClick={this.handleSubmit}
@@ -92,14 +104,16 @@ class UTMCoords extends PureComponent {
         >
           GO TO POSITION
         </Button>
-        {error && <p className="error-message">Invalid coordinates</p>}
+        {error && (
+          <p className={styles["error-message"]}>Invalid coordinates</p>
+        )}
       </div>
     );
   }
 }
 
 UTMCoords.propTypes = {
-  setMapSettings: PropTypes.func
+  setMapSettings: PropTypes.func,
 };
 
 export default UTMCoords;

@@ -7,7 +7,7 @@ import WidgetBody from "./components/widget-body";
 import WidgetFooter from "./components/widget-footer";
 import WidgetDetailButton from "./components/widget-detail-report-button";
 
-import "./styles.scss";
+import styles from "./widget.module.scss";
 
 class Widget extends PureComponent {
   static propTypes = {
@@ -137,7 +137,12 @@ class Widget extends PureComponent {
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div
         id={widget}
-        className={cx("c-widget", { large }, { embed }, { simple })}
+        className={cx(
+          styles["c-widget"],
+          { [styles.large]: large },
+          { [styles.embed]: embed },
+          { [styles.simple]: simple }
+        )}
         style={{
           ...(active &&
             !simple &&

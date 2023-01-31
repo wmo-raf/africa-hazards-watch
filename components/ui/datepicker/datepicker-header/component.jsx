@@ -1,15 +1,15 @@
-import { getMonth, getYear, eachMonthOfInterval, format } from 'date-fns';
-import range from 'lodash/range';
-import PropTypes from 'prop-types';
+import { getMonth, getYear, eachMonthOfInterval, format } from "date-fns";
+import range from "lodash/range";
+import PropTypes from "prop-types";
 
 import { Button } from "@erick-otenyo/hw-components";
 
-import Icon from 'components/ui/icon';
-import Dropdown from 'components/ui/dropdown';
+import Icon from "components/ui/icon";
+import Dropdown from "components/ui/dropdown";
 
-import arrowDownIcon from 'assets/icons/arrow-down.svg?sprite';
+import arrowDownIcon from "assets/icons/arrow-down.svg?sprite";
 
-import './styles.scss';
+import styles from "./datepicker-header.module.scss";
 
 const DatepickerHeader = ({
   date,
@@ -39,23 +39,23 @@ const DatepickerHeader = ({
   });
 
   const months = monthsInYear.map((m) => ({
-    label: format(m, 'MMMM'),
+    label: format(m, "MMMM"),
     value: getMonth(m),
   }));
 
   return (
-    <div className="c-datepicker-header">
+    <div className={styles["c-datepicker-header"]}>
       <Button
-        className="btn-select-left"
+        className={styles["btn-select-left"]}
         size="small"
         round
         onClick={decreaseMonth}
         disabled={prevMonthButtonDisabled}
       >
-        <Icon icon={arrowDownIcon} className="arrow-select-left" />
+        <Icon icon={arrowDownIcon} className={styles["arrow-select-left"]} />
       </Button>
       <Dropdown
-        className="selector-month"
+        className={styles["selector-month"]}
         theme="theme-dropdown-native theme-dropdown-native-button"
         options={months}
         value={getMonth(date)}
@@ -63,7 +63,7 @@ const DatepickerHeader = ({
         native
       />
       <Dropdown
-        className="selector-year"
+        className={styles["selector-year"]}
         theme="theme-dropdown-native theme-dropdown-native-button"
         options={years.map((m) => ({ label: m, value: m }))}
         value={getYear(date)}
@@ -71,13 +71,13 @@ const DatepickerHeader = ({
         native
       />
       <Button
-        className="btn-select-right"
+        className={styles["btn-select-right"]}
         size="small"
         round
         onClick={increaseMonth}
         disabled={nextMonthButtonDisabled}
       >
-        <Icon icon={arrowDownIcon} className="arrow-select-right" />
+        <Icon icon={arrowDownIcon} className={styles["arrow-select-right"]} />
       </Button>
     </div>
   );

@@ -20,7 +20,7 @@ import Basemaps from "components/basemaps";
 import Button from "components/ui/button";
 import Icon from "components/ui/icon";
 
-import "./styles.scss";
+import styles from "./map-controls.module.scss";
 
 const isServer = typeof window === "undefined";
 
@@ -136,10 +136,11 @@ class MapControlsButtons extends PureComponent {
     return (
       <Button
         className={cx(
-          "map-control wide",
-          "map-tool-btn recent-imagery-btn",
-          { active: showRecentImagery },
-          "map-tour-recent-imagery"
+          styles["map-control wide"],
+          styles["map-tool-btn"],
+          styles["recent-imagery-btn"],
+          styles["map-tour-recent-imagery"],
+          { [styles.active]: showRecentImagery }
         )}
         theme="theme-button-map-control"
         onClick={() => {
@@ -164,8 +165,8 @@ class MapControlsButtons extends PureComponent {
       >
         <Icon
           icon={satelliteIcon}
-          className={cx("satellite-icon", {
-            "-active": showRecentImagery,
+          className={cx(styles["satellite-icon"], {
+            [styles["-active"]]: showRecentImagery,
           })}
         />
       </Button>
@@ -177,7 +178,7 @@ class MapControlsButtons extends PureComponent {
 
     return (
       <Tooltip
-        className="basemaps-tooltip"
+        className={styles["basemaps-tooltip"]}
         theme="light"
         position="top-end"
         useContext
@@ -187,7 +188,7 @@ class MapControlsButtons extends PureComponent {
         onRequestClose={this.onBasemapsRequestClose}
         html={
           <Basemaps
-            className="basemaps-panel"
+            className={styles["basemaps-panel"]}
             onClose={this.toggleBasemaps}
             ref={this.setBasemapsRef}
             isDesktop={this.props.isDesktop}
@@ -208,7 +209,7 @@ class MapControlsButtons extends PureComponent {
     return (
       <Fragment>
         <Button
-          className="map-control"
+          className={styles["map-control"]}
           theme="theme-button-map-control"
           onClick={() => {
             setMapSettings({ zoom: zoom - 1 < minZoom ? minZoom : zoom - 1 });
@@ -221,10 +222,10 @@ class MapControlsButtons extends PureComponent {
           tooltip={{ text: "Zoom out" }}
           disabled={zoom <= minZoom}
         >
-          <Icon icon={minusIcon} className="minus-icon" />
+          <Icon icon={minusIcon} className={styles["minus-icon"]} />
         </Button>
         <Button
-          className="map-control"
+          className={styles["map-control"]}
           theme="theme-button-map-control"
           onClick={() => {
             setMapSettings({ zoom: zoom + 1 > maxZoom ? maxZoom : zoom + 1 });
@@ -237,7 +238,7 @@ class MapControlsButtons extends PureComponent {
           tooltip={{ text: "Zoom in" }}
           disabled={zoom >= maxZoom}
         >
-          <Icon icon={plusIcon} className="plus-icon" />
+          <Icon icon={plusIcon} className={styles["plus-icon"]} />
         </Button>
       </Fragment>
     );
@@ -248,14 +249,16 @@ class MapControlsButtons extends PureComponent {
 
     return (
       <Button
-        className="map-control"
+        className={styles["map-control"]}
         theme="theme-button-map-control"
         onClick={this.handleHidePanels}
         tooltip={{ text: hidePanels ? "Show panels" : "Show map only" }}
       >
         <Icon
           icon={fullscreenIcon}
-          className={cx("fullscreen-icon", { "-active": hidePanels })}
+          className={cx(styles["fullscreen-icon"], {
+            [styles["-active"]]: hidePanels,
+          })}
         />
       </Button>
     );
@@ -266,7 +269,7 @@ class MapControlsButtons extends PureComponent {
 
     return (
       <Button
-        className="map-control"
+        className={styles["map-control"]}
         theme="theme-button-map-control"
         onClick={() => setMenuSettings({ menuSection: "search" })}
         tooltip={{ text: "Search" }}
@@ -281,7 +284,7 @@ class MapControlsButtons extends PureComponent {
 
     return (
       <Button
-        className="map-control -share"
+        className={`${styles["map-control"]} ${styles["-share"]}`}
         theme="theme-button-map-control"
         onClick={() =>
           setShareModal({
@@ -306,7 +309,7 @@ class MapControlsButtons extends PureComponent {
   }
 
   // <Tooltip
-  //       className="basemaps-tooltip"
+  //       className={styles["basemaps-tooltip"]}
   //       theme="light"
   //       position="top-end"
   //       useContext
@@ -317,7 +320,7 @@ class MapControlsButtons extends PureComponent {
   //       onRequestClose={this.onBasemapsRequestClose}
   //       html={(
   //         <Basemaps
-  //           className="basemaps-panel"
+  //           className={styles["basemaps-panel"]}
   //           onClose={this.toggleBasemaps}
   //           ref={this.setBasemapsRef}
   //           isDesktop={this.props.isDesktop}
@@ -328,7 +331,7 @@ class MapControlsButtons extends PureComponent {
   renderMapOptions() {
     return (
       <Button
-        className="map-control"
+        className={styles["map-control"]}
         theme="theme-button-map-control"
         tooltip={{ text: "Map settings" }}
         useContext
@@ -336,14 +339,14 @@ class MapControlsButtons extends PureComponent {
         onClick={() => this.toggleBasemaps(true)}
         onRequestClose={this.onBasemapsRequestClose}
       >
-        <Icon icon={settingsIcon} className="settings-icon" />
+        <Icon icon={settingsIcon} className={styles["settings-icon"]} />
       </Button>
     );
   }
 
   renderMapTourBtn = () => (
     <Button
-      className="map-control"
+      className={styles["map-control"]}
       theme="theme-button-map-control"
       tooltip={{ text: "Map How-To Guide" }}
       onClick={() => this.props.setModalWelcomeOpen(true)}
@@ -363,12 +366,12 @@ class MapControlsButtons extends PureComponent {
     } = this.props;
 
     return (
-      <div className="map-position">
-        <span className="notranslate">
+      <div className={styles["map-position"]}>
+        <span className={styles.notranslate}>
           zoom:&nbsp;
           {format(".2f")(zoom)}
         </span>
-        <span className="notranslate">
+        <span className={styles.notranslate}>
           lat, lon: {`${format(".5f")(latitude)}, ${format(".5f")(longitude)}`}
         </span>
       </div>
@@ -383,10 +386,12 @@ class MapControlsButtons extends PureComponent {
         {isDesktop ? (
           <Fragment>
             {!hidePanels && (
-              <div className="map-actions">{this.renderBasemapsTooltip()}</div>
+              <div className={styles["map-actions"]}>
+                {this.renderBasemapsTooltip()}
+              </div>
             )}
-            <div className="map-tour-map-controls">
-              <div className="controls-wrapper">
+            <div className={styles["map-tour-map-controls"]}>
+              <div className={styles["controls-wrapper"]}>
                 {this.renderZoomButtons()}
                 {this.renderShowPanelsButton()}
                 {this.renderShareButton()}
@@ -398,7 +403,7 @@ class MapControlsButtons extends PureComponent {
           </Fragment>
         ) : (
           <Fragment>
-            <div className="mobile-controls-wrapper">
+            <div className={styles["mobile-controls-wrapper"]}>
               {this.renderSearchButton()}
               {this.renderShareButton()}
             </div>

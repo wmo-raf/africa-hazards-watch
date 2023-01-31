@@ -1,19 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 import {
   ComposableMap,
   Geographies,
   Geography,
   ZoomableGroup,
   Line,
-} from 'react-simple-maps';
-import { Tooltip } from 'react-tippy';
+} from "react-simple-maps";
+import { Tooltip } from "react-tippy";
 
-import cx from 'classnames';
-import { formatNumber } from 'utils/format';
+import cx from "classnames";
+import { formatNumber } from "utils/format";
 
-import WORLD_GEOGRAPHIES from 'data/WORLD.topo.json';
-import './style.scss';
+import WORLD_GEOGRAPHIES from "data/WORLD.topo.json";
+
+import styles from "./world-map.module.scss";
 
 class WorldMap extends React.PureComponent {
   static buildCurves(start, end, arc) {
@@ -26,7 +27,7 @@ class WorldMap extends React.PureComponent {
       forceDown: `${x0} ${y1}`,
     }[arc.curveStyle];
 
-    return `M ${start.join(' ')} Q ${curve} ${end.join(' ')}`;
+    return `M ${start.join(" ")} Q ${curve} ${end.join(" ")}`;
   }
 
   static isDestinationCountry(iso, countries) {
@@ -61,16 +62,16 @@ class WorldMap extends React.PureComponent {
       const x = e.clientX + 10;
       const y = e.clientY + window.scrollY + 10;
       const text = geometry.name || geometry.properties.name;
-      const title = 'Trade Volume';
-      const unit = 't';
+      const title = "Trade Volume";
+      const unit = "t";
       const volume =
         geometry.value ||
         (flows.find((flow) => flow.geoId === geoId) || {}).value;
       const height =
         geometry.height ||
         (flows.find((flow) => flow.geoId === geoId) || {}).height;
-      const value = formatNumber({ num: volume, unit: 't' });
-      const percentage = formatNumber({ num: height * 100, unit: '%' });
+      const value = formatNumber({ num: volume, unit: "t" });
+      const percentage = formatNumber({ num: height * 100, unit: "%" });
       const tooltipConfig = {
         x,
         y,
@@ -90,18 +91,18 @@ class WorldMap extends React.PureComponent {
 
     return geographies.map(
       (geography) =>
-        geography.properties.iso2 !== 'AQ' && (
+        geography.properties.iso2 !== "AQ" && (
           <Geography
             key={geography.properties.cartodb_id}
             className={cx(
-              'world-map-geography',
+              styles["world-map-geography"],
               {
-                '-dark': WorldMap.isDestinationCountry(
+                [styles["-dark"]]: WorldMap.isDestinationCountry(
                   geography.properties.iso2,
                   flows
                 ),
               },
-              { '-pink': originGeoId === geography.properties.iso2 }
+              { [styles["-pink"]]: originGeoId === geography.properties.iso2 }
             )}
             geography={geography}
             projection={projection}
@@ -118,7 +119,7 @@ class WorldMap extends React.PureComponent {
     return flows.map((flow) => (
       <Line
         key={flow.geoId}
-        className="world-map-arc"
+        className={styles["world-map-arc"]}
         from={originCoordinates}
         to={flow.coordinates}
         strokeWidth={flow.strokeWidth}
@@ -136,26 +137,27 @@ class WorldMap extends React.PureComponent {
       <Tooltip
         className={className}
         theme="tip"
-        html={(
-          <div className="c-world-map-tooltip">
+        html={
+          <div className={styles["c-world-map-tooltip"]}>
             <p>{text && text.toLowerCase()}</p>
             <p>{items && items[0].value}</p>
             <p>{items && items[0].percentage}</p>
           </div>
-        )}
+        }
         followCursor
         animateFill={false}
         open={!!tooltipConfig}
       >
         <ComposableMap
-          className={cx('c-world-map')}
-          style={{ width: '100%', height: 'auto' }}
+          className="c-world-map"
+          style={{ width: "100%", height: "auto" }}
           projectionConfig={{ scale: 145 }}
         >
           <ZoomableGroup center={[0, 0]}>
             <Geographies geography={WORLD_GEOGRAPHIES}>
               {({ geographies, projection }) =>
-                this.renderGeographies(geographies, projection)}
+                this.renderGeographies(geographies, projection)
+              }
             </Geographies>
             {this.renderLines()}
           </ZoomableGroup>

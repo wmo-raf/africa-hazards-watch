@@ -1,14 +1,14 @@
-import React from 'react';
+import React from "react";
 
-import Emissions from 'assets/icons/widgets/carbon-flux/emissions.svg';
-import Removals from 'assets/icons/widgets/carbon-flux/removals.svg';
+import Emissions from "assets/icons/widgets/carbon-flux/emissions.svg";
+import Removals from "assets/icons/widgets/carbon-flux/removals.svg";
 
-import './styles.scss';
+import styles from "./carbon-flux.module.scss";
 
 export const Component = () => (
-  <div className="c-carbon-flux-image-component">
-    <img className="image" src={Removals} alt="Removals" />
-    <img className="image" src={Emissions} alt="Emissions" />
+  <div className={styles["c-carbon-flux-image-component"]}>
+    <img className={styles.image} src={Removals} alt="Removals" />
+    <img className={styles.image} src={Emissions} alt="Emissions" />
   </div>
 );
 

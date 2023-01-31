@@ -1,10 +1,10 @@
-import React from 'react';
-import { Rectangle, Layer } from 'recharts';
-import { PropTypes } from 'prop-types';
+import React from "react";
+import { Rectangle, Layer } from "recharts";
+import { PropTypes } from "prop-types";
 
-import { splitSVGText } from './utils';
+import { splitSVGText } from "./utils";
 
-import './styles.scss';
+import styles from "./sankey-node-component.module.scss";
 
 function SankeyNode({ x, y, height, index, payload, config }) {
   const width = config.nodeWidth || 140;
@@ -50,9 +50,9 @@ function SankeyNode({ x, y, height, index, payload, config }) {
           ${t}
         </tspan>`
         )
-        .join('\n');
+        .join("\n");
     }
-    return '';
+    return "";
   };
 
   return (
@@ -68,14 +68,14 @@ function SankeyNode({ x, y, height, index, payload, config }) {
           fillOpacity="1"
           stroke={
             config.highlight && config.highlight(payload)
-              ? '#333'
+              ? "#333"
               : payload.color
           }
           strokeWidth={2}
         />
         <text
-          textAnchor={isEndNode ? 'end' : 'start'}
-          className="sankey-node-text"
+          textAnchor={isEndNode ? "end" : "start"}
+          className={styles["sankey-node-text"]}
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: tSpans(payload.name) }}
         />

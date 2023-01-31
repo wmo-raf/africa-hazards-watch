@@ -1,17 +1,16 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { trackEvent } from 'utils/analytics';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import { trackEvent } from "utils/analytics";
 
-import Icon from 'components/ui/icon';
-import Button from 'components/ui/button';
-import Checkbox from 'components/ui/checkbox';
-import Modal from 'components/modal';
+import Icon from "components/ui/icon";
+import Button from "components/ui/button";
+import Checkbox from "components/ui/checkbox";
+import Modal from "components/modal";
 
-import arrowIcon from 'assets/icons/arrow-down.svg?sprite';
-import helpGreenIcon from 'assets/icons/help-green.svg?sprite';
+import arrowIcon from "assets/icons/arrow-down.svg?sprite";
+import helpGreenIcon from "assets/icons/help-green.svg?sprite";
 
-
-import './styles.scss';
+import styles from "./welcome.module.scss";
 
 class ModalWelcome extends PureComponent {
   getContent() {
@@ -27,41 +26,40 @@ class ModalWelcome extends PureComponent {
       showPrompts,
     } = this.props;
     return (
-      <div className="modal-welcome-content">
+      <div className={styles["modal-welcome-content"]}>
         <Button
-          className="guide-btn tour-btn negative"
+          className={`${styles["guide-btn"]} ${styles["tour-btn"]} ${styles.negative}`}
           theme="theme-button-clear theme-button-dashed"
           onClick={() => {
             setModalWelcome(false);
             setMapPromptsSettings({
               open: true,
-              stepsKey: 'mapTour',
+              stepsKey: "mapTour",
               force: true,
             });
             trackEvent({
-              category: 'Map landing',
-              action: 'User interacts with popup',
-              label: 'Tour',
+              category: "Map landing",
+              action: "User interacts with popup",
+              label: "Tour",
             });
           }}
         >
-          <Icon className="guide-btn-icon" icon={helpGreenIcon} />
+          <Icon className={styles["guide-btn-icon"]} icon={helpGreenIcon} />
           <p>
             Check out the highlights and learn what you can do with the map.
           </p>
-          <Icon className="arrow-icon" icon={arrowIcon} />
+          <Icon className={styles["arrow-icon"]} icon={arrowIcon} />
         </Button>
 
-        <p className="btn-intro">
+        <p className={styles["btn-intro"]}>
           <button
-            className="show-prompts-btn"
+            className={styles["show-prompts-btn"]}
             onClick={() => setShowMapPrompts(!showPrompts)}
           >
-            <Checkbox className="prompts-checkbox" value={showPrompts} />
+            <Checkbox className={styles["prompts-checkbox"]} value={showPrompts} />
             Show me tips
           </button>
         </p>
-
       </div>
     );
   }
@@ -75,13 +73,13 @@ class ModalWelcome extends PureComponent {
         onRequestClose={() => {
           setModalWelcome(false);
           trackEvent({
-            category: 'Map landing',
-            action: 'User interacts with popup',
-            label: 'Close',
+            category: "Map landing",
+            action: "User interacts with popup",
+            label: "Close",
           });
         }}
         title="Welcome to the Africa Hazards Watch map!"
-        className="c-modal-welcome"
+        className={styles["c-modal-welcome"]}
       >
         {this.getContent()}
       </Modal>

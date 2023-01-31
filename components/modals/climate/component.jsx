@@ -1,10 +1,10 @@
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
-import Modal from 'components/modal';
+import Modal from "components/modal";
 
-import { setModalClimateOpen, setContactUsOpen } from './actions';
+import { setModalClimateOpen, setContactUsOpen } from "./actions";
 
-import './styles.scss';
+import styles from "./climate.module.scss";
 
 const ModalGFWClimate = () => {
   const {
@@ -19,7 +19,7 @@ const ModalGFWClimate = () => {
         setModalClimateOpen(false);
       }}
       title="Global Forest Watch Climate."
-      className="c-gfw-climate-modal"
+      className={styles["c-gfw-climate-modal"]}
     >
       <p>
         {`The Global Forest Watch Climate website is no longer available. We

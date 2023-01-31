@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import DynamicSentence from 'components/ui/dynamic-sentence';
-import Button from 'components/ui/button';
+import DynamicSentence from "components/ui/dynamic-sentence";
+import Button from "components/ui/button";
 
-import './styles.scss';
+import styles from "./contextual-sentence.module.scss";
 
 const ContextualSentence = ({
   data = {},
@@ -15,10 +15,10 @@ const ContextualSentence = ({
   const { title, sentence, params } = data;
 
   return (
-    <div className="c-contextual-sentence">
-      <h5 className="place">{title}</h5>
+    <div className={styles["c-contextual-sentence"]}>
+      <h5 className={styles.place}>{title}</h5>
       <DynamicSentence
-        className="sentence"
+        className={styles.sentence}
         sentence={{
           sentence,
           params,

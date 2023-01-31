@@ -1,11 +1,11 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
 
-import Button from 'components/ui/button';
-import Icon from 'components/ui/icon';
+import Button from "components/ui/button";
+import Icon from "components/ui/icon";
 
-import infoIcon from 'assets/icons/info.svg?sprite';
+import infoIcon from "assets/icons/info.svg";
 
 class WidgetInfoButton extends PureComponent {
   static propTypes = {
@@ -17,12 +17,11 @@ class WidgetInfoButton extends PureComponent {
     const { handleOpenInfo, square } = this.props;
     return (
       <Button
-        className="c-widget-info-button"
-        theme={cx('theme-button-small square', {
-          'theme-button-grey-filled theme-button-xsmall': square,
+        theme={cx("theme-button-small square", {
+          "theme-button-grey-filled theme-button-xsmall": square,
         })}
         onClick={handleOpenInfo}
-        tooltip={{ text: 'Learn more about the data' }}
+        tooltip={{ text: "Learn more about the data" }}
       >
         <Icon icon={infoIcon} />
       </Button>

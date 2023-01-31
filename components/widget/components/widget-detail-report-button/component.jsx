@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import Button from "components/ui/button";
 
-import "./styles.scss";
+import styles from "./widget-detail-report-button.module.scss";
 
 class WidgetDetailButton extends PureComponent {
   static propTypes = {
@@ -50,7 +50,7 @@ class WidgetDetailButton extends PureComponent {
 
     if (link) {
       return (
-        <div className="c-widget-detail-report-btn">
+        <div className={styles["c-widget-detail-report-btn"]}>
           <Button theme="theme-button-small" extLink={link}>
             View detailed report
           </Button>

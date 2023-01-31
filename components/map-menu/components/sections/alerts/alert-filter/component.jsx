@@ -5,7 +5,7 @@ import Dropdown from "components/ui/dropdown";
 import Switch from "components/ui/switch";
 import withTooltipEvt from "components/ui/with-tooltip-evt";
 
-import "./styles.scss";
+import styles from "./alert-filter.module.scss";
 
 class AlertFilter extends PureComponent {
   static propTypes = {};
@@ -30,7 +30,7 @@ class AlertFilter extends PureComponent {
       case "switch":
         return (
           <Switch
-            className="widget-settings-selector"
+            className={styles["widget-settings-selector"]}
             theme="theme-switch-light"
             label={label}
             value={value && value.value}
@@ -43,9 +43,9 @@ class AlertFilter extends PureComponent {
           options &&
           !!options.length && (
             <Dropdown
-              className={cx("widget-settings-selector", type)}
-              theme={cx("theme-select-light", {
-                "theme-dropdown-button": type === "mini-select",
+              className={cx(styles["widget-settings-selector"], styles[type])}
+              theme={cx(styles["theme-select-light"], {
+                [styles["theme-dropdown-button"]]: type === "mini-select",
               })}
               label={label}
               value={value}
@@ -69,7 +69,10 @@ class AlertFilter extends PureComponent {
     } = this.props;
 
     return (
-      <div className="c-widget-settings" {...getTooltipContentProps()}>
+      <div
+        className={styles["c-widget-settings"]}
+        {...getTooltipContentProps()}
+      >
         {filterConfig &&
           filterConfig.map(
             (option) =>
@@ -77,7 +80,9 @@ class AlertFilter extends PureComponent {
               !!option.options.length && (
                 <div
                   key={option.key}
-                  className={cx("settings-option", { border: option.border })}
+                  className={cx(styles["settings-option"], {
+                    [styles.border]: option.border,
+                  })}
                 >
                   {this.renderOption({
                     ...option,

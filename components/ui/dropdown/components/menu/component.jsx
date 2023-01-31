@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
+import React from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
 
-import Item from '../item';
+import Item from "../item";
 
-import './styles.scss';
+import styles from "./menu.module.scss";
 
-const Menu = props => {
+const Menu = (props) => {
   const {
     className,
     layout,
@@ -20,15 +20,16 @@ const Menu = props => {
     optionsAction,
     optionsActionKey,
     noItemsFound,
-    handleSelectGroup
+    handleSelectGroup,
   } = props;
 
   return !isOpen ? null : (
-    <div className={cx({
-      'c-selector-menu': true,
-      'selector-overflow-menu': layout === 'overflow-menu',
-      [className]: !!className
-    })}
+    <div
+      className={cx({
+        [styles["c-selector-menu"]]: true,
+        [styles["selector-overflow-menu"]]: layout === "overflow-menu",
+        [className]: !!className,
+      })}
     >
       {items && items.length ? (
         items.map(
@@ -50,8 +51,8 @@ const Menu = props => {
             )
         )
       ) : (
-        <div className="item not-found">
-          {noItemsFound || 'No results found'}
+        <div className={`${styles.item} ${styles["not-found"]}`}>
+          {noItemsFound || "No results found"}
         </div>
       )}
     </div>
@@ -71,7 +72,7 @@ Menu.propTypes = {
   optionsActionKey: PropTypes.string,
   noItemsFound: PropTypes.string,
   handleSelectGroup: PropTypes.func,
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 export default Menu;

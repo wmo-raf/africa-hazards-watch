@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import './styles.scss';
+import styles from "./area-sentence.module.scss";
 
 const AreaSentence = ({ data }) =>
   data?.name ? (
-    <div className="c-area-sentence">
+    <div className={styles["c-area-sentence"]}>
       <p>{data?.name}</p>
     </div>
   ) : null;

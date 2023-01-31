@@ -4,7 +4,7 @@ import { formatNumber } from "utils/format";
 
 import Button from "components/ui/button";
 
-import "./styles.scss";
+import styles from "./data-table.module.scss";
 
 const renderString = ({ suffix, type, linkText, value }) => {
   let valueString = value || "n/a";
@@ -13,7 +13,7 @@ const renderString = ({ suffix, type, linkText, value }) => {
   } else if (type === "link" && value && linkText) {
     valueString = (
       <a
-        className="table-link"
+        className={styles["table-link"]}
         href={value}
         alt="Read More"
         target="_blank"
@@ -36,17 +36,16 @@ const DataTable = ({
   setAnalysisSettings,
   setMainMapSettings,
 }) => {
-
   return (
-    <div className="c-data-table">
-      <div className="table">
+    <div className={styles["c-data-table"]}>
+      <div className={styles.table}>
         {data?.map((d) => (
-          <div key={`${d.label}-${d?.value}`} className="wrapper">
-            <div className="label">{d?.label}:</div>
+          <div key={`${d.label}-${d?.value}`} className={styles.wrapper}>
+            <div className={styles.label}>{d?.label}:</div>
 
             <div
               className={
-                d?.type === "link" && d?.linkText ? "table-link" : "value"
+                d?.type === "link" && d?.linkText ? styles["table-link"] : styles["value"]
               }
             >
               {renderString(d)} {d?.units}

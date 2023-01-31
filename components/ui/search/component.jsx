@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Icon from 'components/ui/icon';
-import Button from 'components/ui/button';
-import debounce from 'lodash/debounce';
-import cx from 'classnames';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Icon from "components/ui/icon";
+import Button from "components/ui/button";
+import debounce from "lodash/debounce";
+import cx from "classnames";
 
-import searchIcon from 'assets/icons/search.svg?sprite';
-import closeIcon from 'assets/icons/close.svg?sprite';
-import './styles.scss';
-import './themes/search-small.scss'; // eslint-disable-line
+import searchIcon from "assets/icons/search.svg?sprite";
+import closeIcon from "assets/icons/close.svg?sprite";
+
+import styles from "./search.module.scss";
 
 class Search extends Component {
   constructor(props) {
@@ -42,10 +42,10 @@ class Search extends Component {
     const { search } = this.state;
     const { placeholder, onSubmit, disabled, className, theme } = this.props;
     return (
-      <div className={cx('c-search', theme, className)}>
+      <div className={cx(styles["c-search"], theme, className)}>
         <input
           type="text"
-          className="input text"
+          className={`${styles.input} ${styles.text}`}
           placeholder={placeholder}
           onChange={(e) => this.handleChange(e.target.value)}
           value={search}
@@ -53,15 +53,15 @@ class Search extends Component {
           disabled={disabled}
         />
         <button onClick={() => onSubmit && onSubmit(this.state.search)}>
-          <Icon icon={searchIcon} className="icon-search" />
+          <Icon icon={searchIcon} className={styles["icon-search"]} />
         </button>
         {search && (
           <Button
-            className="clear-btn"
+            className={styles["clear-btn"]}
             theme="theme-button-clear theme-button-small square"
-            onClick={() => this.handleChange('')}
+            onClick={() => this.handleChange("")}
           >
-            <Icon icon={closeIcon} className="icon-close" />
+            <Icon icon={closeIcon} className={styles["icon-close"]} />
           </Button>
         )}
       </div>
@@ -80,7 +80,7 @@ Search.propTypes = {
 };
 
 Search.defaultProps = {
-  input: '',
+  input: "",
 };
 
 export default Search;

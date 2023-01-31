@@ -1,12 +1,12 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import ReactHtmlParser from 'react-html-parser';
-import { translateText } from 'utils/lang';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import ReactHtmlParser from "react-html-parser";
+import { translateText } from "utils/lang";
 
-import { Tooltip } from 'react-tippy';
-import Tip from 'components/ui/tip';
+import { Tooltip } from "react-tippy";
+import Tip from "components/ui/tip";
 
-import './styles.scss';
+import styles from "./dynamic-sentence.module.scss";
 
 class DynamicSentence extends PureComponent {
   static propTypes = {
@@ -28,17 +28,17 @@ class DynamicSentence extends PureComponent {
     const { component } = params || {};
     const sentenceParams = {
       ...(params && params),
-      ...(!params?.location && { ...params, location: 'selected area' }),
+      ...(!params?.location && { ...params, location: "selected area" }),
     };
     let formattedSentence = translateText(sentence);
     if (params) {
       Object.keys(sentenceParams).forEach((p) => {
         const param = sentenceParams[p];
-        if (param && p !== 'component') {
-          if (typeof param === 'object') {
+        if (param && p !== "component") {
+          if (typeof param === "object") {
             if (param.color) {
               // eslint-disable-next-line security/detect-non-literal-regexp
-              const regex = new RegExp(`{${p}}`, 'g');
+              const regex = new RegExp(`{${p}}`, "g");
               formattedSentence =
                 formattedSentence &&
                 formattedSentence.replace(
@@ -50,7 +50,7 @@ class DynamicSentence extends PureComponent {
             }
           } else {
             // eslint-disable-next-line security/detect-non-literal-regexp
-            const regex = new RegExp(`{${p}}`, 'g');
+            const regex = new RegExp(`{${p}}`, "g");
             formattedSentence =
               formattedSentence &&
               formattedSentence.replace(
@@ -84,7 +84,11 @@ class DynamicSentence extends PureComponent {
           onHidden={handleMouseOut}
           duration={0}
         >
-          <span className={component.fine ? 'hover-text-fine' : 'hover-text'}>
+          <span
+            className={
+              component.fine ? styles["hover-text-fine"] : styles["hover-text"]
+            }
+          >
             {translateText(mappedComponent.key)}
           </span>
         </Tooltip>
@@ -94,10 +98,12 @@ class DynamicSentence extends PureComponent {
     return (
       <div
         data-test={!!testId && testId}
-        className={`c-dynamic-sentence notranslate ${className || ''}`}
+        className={`${styles["c-dynamic-sentence"]} ${styles.notranslate} ${
+          className || ""
+        }`}
       >
         {formattedSentence.map((s) =>
-          typeof s === 'string' ? ReactHtmlParser(s) : s
+          typeof s === "string" ? ReactHtmlParser(s) : s
         )}
       </div>
     );

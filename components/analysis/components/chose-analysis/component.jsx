@@ -18,7 +18,7 @@ import rectangleIcon from "assets/icons/draw_rectangle.svg?sprite";
 import UploadShapeModal from "./upload-shape-modal";
 import DrawingModeSelector from "./drawing-mode-selector/component";
 
-import "./styles.scss";
+import styles from "./chose-analysis.module.scss";
 
 class ChoseAnalysis extends PureComponent {
   static propTypes = {
@@ -56,10 +56,10 @@ class ChoseAnalysis extends PureComponent {
     const selectedBoundaries = activeBoundary || (boundaries && boundaries[0]);
 
     return (
-      <div className="layer-menu">
-        <div className="layer-title">Analysis on shape or:</div>
+      <div className={styles["layer-menu"]}>
+        <div className={styles["layer-title"]}>Analysis on shape or:</div>
         <Dropdown
-          className="boundary-selector analysis-boundary-menu"
+          className={`${styles["boundary-selector"]} ${styles["analysis-boundary-menu"]}`}
           options={boundaries}
           value={selectedBoundaries && selectedBoundaries.value}
           onChange={selectBoundaries}
@@ -93,8 +93,8 @@ class ChoseAnalysis extends PureComponent {
     ];
 
     return (
-      <div className="draw-menu">
-        <div className="draw-menu-title">
+      <div className={styles["draw-menu"]}>
+        <div className={styles["draw-menu-title"]}>
           Draw in the map the area you want to analyze
         </div>
         <DrawingModeSelector
@@ -105,7 +105,7 @@ class ChoseAnalysis extends PureComponent {
           }}
         />
         <Button
-          className="draw-menu-button"
+          className={styles["draw-menu-button"]}
           theme={drawing ? "theme-button-light wide" : "wide"}
           onClick={() => {
             setMapSettings({ drawing: !drawing });
@@ -121,10 +121,10 @@ class ChoseAnalysis extends PureComponent {
         >
           {drawing ? "CANCEL" : "START DRAWING"}
         </Button>
-        <div className="draw-menu-separator">or</div>
+        <div className={styles["draw-menu-separator"]}>or</div>
         <Dropzone
           className={cx(
-            "draw-menu-input",
+            styles["draw-menu-input"],
             { error: error && errorMessage },
             { uploading }
           )}
@@ -137,8 +137,10 @@ class ChoseAnalysis extends PureComponent {
         >
           {hasError && !uploading && (
             <Fragment>
-              <p className="error-title">{error}</p>
-              <p className="small-text error-desc">{errorMessage}</p>
+              <p className={styles["error-title"]}>{error}</p>
+              <p className={`${styles["small-text"]} ${styles["error-desc"]}`}>
+                {errorMessage}
+              </p>
             </Fragment>
           )}
           {!hasError && !uploading && (
@@ -147,39 +149,44 @@ class ChoseAnalysis extends PureComponent {
                 Drag and drop your <b>polygon data file</b> or click here to
                 upload
               </p>
-              <p className="small-text">{"Recommended file size < 1 MB"}</p>
+              <p className={styles["small-text"]}>
+                {"Recommended file size < 1 MB"}
+              </p>
             </Fragment>
           )}
           {!hasError && uploading && (
-            <div className="uploading-shape">
-              <p className="file-name">{file && file.name}</p>
-              <p className="file-size">
+            <div className={styles["uploading-shape"]}>
+              <p className={styles["file-name"]}>{file && file.name}</p>
+              <p className={styles["file-size"]}>
                 {`Uploading ${(file && format(".2s")(file.size)) || 0}B`}
               </p>
-              <div className="upload-bar">
-                <div className="loading-bar">
-                  <span className="full-bar" />
+              <div className={styles["upload-bar"]}>
+                <div className={styles["loading-bar"]}>
+                  <span className={styles["full-bar"]} />
                   <span
-                    className="status-bar"
+                    className={styles["status-bar"]}
                     style={{ width: `${uploadStatus || 0}%` }}
                   />
                 </div>
                 <Button
                   theme="theme-button-clear"
-                  className="cancel-upload-btn"
+                  className={styles["cancel-upload-btn"]}
                   onClick={handleCancelUpload}
                 >
-                  <Icon className="cancel-upload-icon" icon={closeIcon} />
+                  <Icon
+                    className={styles["cancel-upload-icon"]}
+                    icon={closeIcon}
+                  />
                 </Button>
               </div>
             </div>
           )}
         </Dropzone>
-        <div className="terms">
-          <div className="first-term">
+        <div className={styles.terms}>
+          <div className={styles["first-term"]}>
             <p>Learn more about supported file formats</p>
             <Button
-              className="info-button"
+              className={styles["info-button"]}
               theme="theme-button-tiny square"
               onClick={(e) => {
                 e.preventDefault();
@@ -187,7 +194,7 @@ class ChoseAnalysis extends PureComponent {
                 this.setState({ uploadModalOpen: true });
               }}
             >
-              <Icon icon={infoIcon} className="info-icon" />
+              <Icon icon={infoIcon} className={styles["info-icon"]} />
             </Button>
           </div>
           <p>
@@ -213,29 +220,32 @@ class ChoseAnalysis extends PureComponent {
       clearAnalysisError,
     } = this.props;
     return (
-      <div className="c-chose-analysis">
-        <div className="title">ANALYZE DATASETS</div>
-        <div className="options">
+      <div className={styles["c-chose-analysis"]}>
+        <div className={styles.title}>ANALYZE DATASETS</div>
+        <div className={styles.options}>
           <button
-            className={cx({ selected: !showDraw })}
+            className={cx({ [styles.selected]: !showDraw })}
             onClick={() => {
               setAnalysisSettings({ showDraw: false });
               setMapSettings({ drawing: false });
               clearAnalysisError();
             }}
           >
-            <div className="button-wrapper">
-              <Icon icon={squarePointIcon} className="icon-square-point" />
-              <div className="label">CLICK A LAYER ON THE MAP</div>
+            <div className={styles["button-wrapper"]}>
+              <Icon
+                icon={squarePointIcon}
+                className={styles["icon-square-point"]}
+              />
+              <div className={styles.label}>CLICK A LAYER ON THE MAP</div>
             </div>
           </button>
           <button
-            className={cx("draw-upload-tab", { selected: showDraw })}
+            className={cx(styles["draw-upload-tab"], { selected: showDraw })}
             onClick={() => setAnalysisSettings({ showDraw: true })}
           >
-            <div className="button-wrapper">
-              <Icon icon={polygonIcon} className="icon-polygon" />
-              <div className="label">DRAW OR UPLOAD SHAPE</div>
+            <div className={styles["button-wrapper"]}>
+              <Icon icon={polygonIcon} className={styles["icon-polygon"]} />
+              <div className={styles.label}>DRAW OR UPLOAD SHAPE</div>
             </div>
           </button>
         </div>

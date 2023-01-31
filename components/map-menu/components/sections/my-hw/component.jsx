@@ -28,7 +28,7 @@ import screenImg2x from "assets/images/aois/aoi-dashboard@2x.png";
 import SubnavMenu from "components/subnav-menu";
 import MyData from "./components/my-data";
 
-import "./styles.scss";
+import styles from "./my-hw.module.scss";
 
 const isServer = typeof window === "undefined";
 
@@ -110,12 +110,12 @@ class MapMenuMyHW extends PureComponent {
     };
 
     return (
-      <div className="aoi-header">
-        {isDesktop && <h3 className="title-login">Please log in</h3>}
+      <div className={styles["aoi-header"]}>
+        {isDesktop && <h3 className={styles["title-login"]}>Please log in</h3>}
 
         {section && sectionsMessages[section] && sectionsMessages[section]}
 
-        <LoginForm className="mygfw-login" simple narrow />
+        <LoginForm className={styles["mygfw-login"]} simple narrow />
       </div>
     );
   }
@@ -123,9 +123,9 @@ class MapMenuMyHW extends PureComponent {
   renderNoAreas() {
     const { isDesktop, setMapPromptsSettings } = this.props;
     return (
-      <div className="aoi-header">
+      <div className={styles["aoi-header"]}>
         {isDesktop && (
-          <h2 className="title-no-aois">
+          <h2 className={styles["title-no-aois"]}>
             You haven&apos;t created any Areas of Interest yet
           </h2>
         )}
@@ -161,7 +161,7 @@ class MapMenuMyHW extends PureComponent {
     return (
       <Dropdown
         layout="overflow-menu"
-        className="edit-button"
+        className={styles["edit-button"]}
         onChange={this.handleAreaActions}
         theme={cx("theme-button-medium theme-dropdown-no-border small square")}
         options={[
@@ -237,15 +237,15 @@ class MapMenuMyHW extends PureComponent {
 
     return (
       <div>
-        <div className="aoi-header">
+        <div className={styles["aoi-header"]}>
           {isDesktop && (
-            <h3 className="title-create-aois">Areas of interest</h3>
+            <h3 className={styles["title-create-aois"]}>Areas of interest</h3>
           )}
-          <div className="aoi-tags">
+          <div className={styles["aoi-tags"]}>
             {selectedTags &&
               selectedTags.map((tag) => (
                 <Pill
-                  className="aoi-tag"
+                  className={styles["aoi-tag"]}
                   key={tag.value}
                   active
                   label={tag.label}
@@ -259,7 +259,7 @@ class MapMenuMyHW extends PureComponent {
             {unselectedTags && !!unselectedTags.length && (
               <Dropdown
                 alignMenuRight
-                className="aoi-tags-dropdown"
+                className={styles["aoi-tags-dropdown"]}
                 theme="theme-dropdown-button theme-dropdown-button-small"
                 placeholder={
                   activeTags && activeTags.length > 0
@@ -289,7 +289,7 @@ class MapMenuMyHW extends PureComponent {
             )}
           </div>
         </div>
-        <div className="aoi-items">
+        <div className={styles["aoi-items"]}>
           <Fragment>
             {areas &&
               areas.map((area, i) => {
@@ -299,9 +299,9 @@ class MapMenuMyHW extends PureComponent {
                     activeArea.id === area.subscriptionId);
                 return (
                   <div
-                    className={cx("aoi-item", {
-                      "--active": active,
-                      "--inactive": activeArea && !active,
+                    className={cx(styles["aoi-item"], {
+                      [styles["--active"]]: active,
+                      [styles["--inactive"]]: activeArea && !active,
                     })}
                     onClick={() => {
                       if (!active) {
@@ -324,7 +324,7 @@ class MapMenuMyHW extends PureComponent {
               })}
             {allAreas.length > pageSize && (
               <Paginate
-                className="areas-pagination"
+                className={styles["areas-pagination"]}
                 settings={{
                   page: pageNum,
                   pageSize,
@@ -350,18 +350,18 @@ class MapMenuMyHW extends PureComponent {
     }
 
     return (
-      <div className="my-hw">
-        <div className="my-hw-aois">
+      <div className={styles["my-hw"]}>
+        <div className={styles["my-hw-aois"]}>
           {areas && areas.length > 0
             ? this.renderAreas()
             : this.renderNoAreas()}
         </div>
-        <div className="my-hw-footer">
+        <div className={styles["my-hw-footer"]}>
           <Link href="/my-hw">
-            <a className="edit-button">
-              {fullName && <span className="name">{fullName}</span>}
+            <a className={styles["edit-button"]}>
+              {fullName && <span className={styles.name}>{fullName}</span>}
               {email && (
-                <span className="email">
+                <span className={styles.email}>
                   <i>{email}</i>
                 </span>
               )}
@@ -370,11 +370,11 @@ class MapMenuMyHW extends PureComponent {
           </Link>
           <Button
             theme="theme-button-clear"
-            className="logout-button"
+            className={styles["logout-button"]}
             onClick={logout}
           >
             Log out
-            <Icon icon={logoutIcon} className="logout-icon" />
+            <Icon icon={logoutIcon} className={styles["logout-icon"]} />
           </Button>
         </div>
       </div>
@@ -427,17 +427,17 @@ class MapMenuMyHW extends PureComponent {
     ];
 
     return (
-      <div className="c-map-menu-my-hw">
+      <div className={styles["c-map-menu-my-hw"]}>
         {loading && <Loader />}
         <SubnavMenu
           links={links}
-          className="myhw-menu"
+          className={styles["myhw-menu"]}
           theme="theme-subnav-small-light"
         />
-        <div className="content">
-          <div className="row">
-            <div className="column small-12">
-              <div className="description">
+        <div className={styles.content}>
+          <div className={styles.row}>
+            <div className={`${styles.column} ${styles["small-12"]}`}>
+              <div className={styles.description}>
                 {section === "myAOI" ? this.renderMyAOI() : this.renderMyData()}
               </div>
             </div>
@@ -448,7 +448,9 @@ class MapMenuMyHW extends PureComponent {
         {/* {!loading && !loggedIn && this.renderLoginWindow()} */}
         {!loading && loggedIn && !(areas && areas.length > 0) && isDesktop && (
           <img
-            className={cx("my-hw-login-image", { "--login": !loggedIn })}
+            className={cx(styles["my-hw-login-image"], {
+              [styles["--login"]]: !loggedIn,
+            })}
             src={screenImg1x}
             srcSet={`${screenImg1x} 1x, ${screenImg2x} 2x`}
             alt="aoi screenshot"
