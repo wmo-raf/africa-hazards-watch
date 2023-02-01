@@ -7,10 +7,22 @@ WORKDIR /app
 COPY package*.json .
 COPY yarn.lock .
 
-# Env Variables that should be available at build time
 ARG NODE_ENV
 ENV NODE_ENV $NODE_ENV
 
+# Install packages
+RUN yarn install
+
+# Stage 2: build
+FROM node:14.20.1-bullseye-slim AS builder
+RUN apt-get update && apt-get install -y libgl1 libxi6
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+COPY public ./public
+COPY package.json next.config.js jsconfig.json ./
+
+# Env Variables that should be available at build time
 ARG ANALYTICS_PROPERTY_ID
 ENV ANALYTICS_PROPERTY_ID $ANALYTICS_PROPERTY_ID
 
@@ -44,17 +56,7 @@ ENV MAPBOX_TOKEN $MAPBOX_TOKEN
 ARG TWITTER_CONVERSION_ID
 ENV TWITTER_CONVERSION_ID $TWITTER_CONVERSION_ID
 
-# Install packages
-RUN yarn install
 
-# Stage 2: build
-FROM node:14.20.1-bullseye-slim AS builder
-RUN apt-get update && apt-get install -y libgl1 libxi6
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
-COPY public ./public
-COPY package.json next.config.js jsconfig.json ./
 RUN yarn build
 
 # Stage 3: run
