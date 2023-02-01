@@ -1,51 +1,55 @@
-import React, { PureComponent, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { Form } from 'react-final-form';
-import { languages } from 'utils/lang';
-import request from 'utils/request';
+import React, { PureComponent, Fragment } from "react";
+import PropTypes from "prop-types";
+import { Form } from "react-final-form";
+import { getLanguages } from "utils/lang";
+import request from "utils/request";
 
-import { Loader } from "@erick-otenyo/hw-components";
+import ModalSource from "components/modals/sources";
+import Loader from "components/ui/loader";
+import Input from "components/forms/components/input";
+import InputTags from "components/forms/components/input-tags";
+// import Select from "components/forms/components/select";
+import Checkbox from "components/forms/components/checkbox";
+import Error from "components/forms/components/error";
+import Submit from "components/forms/components/submit";
+import ConfirmationMessage from "components/confirmation-message";
+import Button from "components/ui/button";
+import MapGeostore from "components/map-geostore";
+import Icon from "components/ui/icon";
 
-import Input from 'components/forms/components/input';
-import InputTags from 'components/forms/components/input-tags';
-import Select from 'components/forms/components/select';
-import Radio from 'components/forms/components/radio';
-import Checkbox from 'components/forms/components/checkbox';
-import Error from 'components/forms/components/error';
-import Submit from 'components/forms/components/submit';
-
-import Toggle from 'components/ui/toggle';
-
-import ConfirmationMessage from 'components/confirmation-message';
-import Button from 'components/ui/button';
-import MapGeostore from 'components/map-geostore';
-import Icon from 'components/ui/icon';
-
-import screenImg1x from 'assets/images/aois/alert-email.png';
-import screenImg2x from 'assets/images/aois/alert-email@2x.png';
-import deleteIcon from 'assets/icons/delete.svg?sprite';
+import screenImg1x from "assets/images/aois/alert-email.png";
+import screenImg2x from "assets/images/aois/alert-email@2x.png";
+import deleteIcon from "assets/icons/delete.svg?sprite";
 
 import {
   email as validateEmail,
   validateURL,
-} from 'components/forms/validations';
+} from "components/forms/validations";
 
-import WebhookModal from './webhook-modal';
+import "./styles.scss";
 
-import './styles.scss';
+const UPDATES_OPTIONS = [
+  {
+    label: "Weekly Forecast Updates",
+    value: "weeklyForecastUpdates",
+  },
+  {
+    label: "Monthly Climate Change Summary",
+    value: "monthlyClimateChangeSummary",
+  },
+];
 
 const confirmations = {
   saved: {
-    title: 'Your area has been saved',
-    description: 'You can view all your areas in my HW',
+    title: "Your area has been saved",
+    description: "You can view all your areas in My HW",
   },
   savedWithSub: {
-    title: 'Your area has been saved',
-    description:
-      "<b>Check your email and click on the link to confirm your subscription.</b> If you don't see an email, check your junk or spam email folder.",
+    title: "Your area has been saved",
+    description: "",
   },
   deleted: {
-    title: 'This area has been deleted from your my HW.',
+    title: "This area has been deleted from your My HW.",
     error: true,
   },
 };
@@ -64,21 +68,12 @@ class AreaOfInterestForm extends PureComponent {
   };
 
   state = {
-    webhookModalOpen: false,
     webhookError: false,
     webhookSuccess: false,
     testingWebhook: false,
     deleted: false,
-    publicArea: false,
+    mapStyle: null,
   };
-
-  componentDidMount() {
-    const { initialValues } = this.props;
-    const { publicArea } = this.state;
-    if (initialValues?.public && initialValues.public !== publicArea) {
-      this.setState({ publicArea: initialValues.public });
-    }
-  }
 
   testWebhook = (url) => {
     this.setState({
@@ -87,7 +82,7 @@ class AreaOfInterestForm extends PureComponent {
       testingWebhook: true,
     });
     request({
-      method: 'POST',
+      method: "POST",
       url,
     })
       .then(() => {
@@ -124,47 +119,56 @@ class AreaOfInterestForm extends PureComponent {
       });
   };
 
-  handleSaveAoi(values) {
-    const { saveAreaOfInterest } = this.props;
-    const out = { ...values };
-    // TODO: What was this?
-    // const { alerts } = values;
-    // if (alerts.indexOf('deforestationAlerts') > -1) {
-    //   out.deforestationAlerts = true;
-    //   out.alerts = without(alerts, 'deforestationAlerts');
-    // }
-    saveAreaOfInterest(out);
-  }
+  handleOnMapLoad = (map) => {
+    map.on("idle", () => {
+      const { geostore } = this.props.initialValues || {};
+
+      const mapStyle = map.getStyle();
+
+      if (
+        geostore &&
+        !this.state.mapStyle &&
+        mapStyle.sources &&
+        mapStyle.sources[geostore]
+      ) {
+        const mbglPayload = {
+          height: 150,
+          width: 150,
+          token: process.env.MapboxAccessToken,
+          style: mapStyle,
+        };
+
+        this.setState({ mapStyle: mbglPayload });
+      }
+    });
+  };
 
   render() {
     const {
       initialValues,
+      saveAreaOfInterest,
       deleteAreaOfInterest,
       clearAfterDelete,
+      setModalSources,
       canDelete,
       viewAfterSave,
       title,
       closeForm,
     } = this.props;
-    const {
-      webhookModalOpen,
-      webhookError,
-      webhookSuccess,
-      testingWebhook,
-      deleted,
-      publicArea,
-    } = this.state;
+
+    const { deleted, mapStyle } = this.state;
 
     return (
       <Fragment>
         <Form
-          onSubmit={(values) =>
-            this.handleSaveAoi({
+          onSubmit={(values) => {
+            return saveAreaOfInterest({
               ...initialValues,
               ...values,
-              publicArea,
               viewAfterSave,
-            })}
+              mapStyle,
+            });
+          }}
           initialValues={initialValues}
           render={({
             handleSubmit,
@@ -173,13 +177,12 @@ class AreaOfInterestForm extends PureComponent {
             submitFailed,
             submitError,
             submitSucceeded,
-            values: { webhookUrl, alerts },
-            errors: { webhookUrl: webhookInputError },
+            values: { updates },
           }) => {
-            let metaKey = 'saved';
-            if (alerts && !!alerts.length) metaKey = 'savedWithSub';
+            let metaKey = "saved";
+            if (updates && !!updates.length) metaKey = "savedWithSub";
             if (deleted && initialValues && !initialValues.id) {
-              metaKey = 'deleted';
+              metaKey = "deleted";
             }
             const confirmationMeta = confirmations[metaKey];
 
@@ -208,7 +211,8 @@ class AreaOfInterestForm extends PureComponent {
                       location={initialValues && initialValues.location}
                       padding={50}
                       height={300}
-                      width={700}
+                      width={600}
+                      onMapLoad={this.handleOnMapLoad}
                     />
                     <Input
                       name="name"
@@ -226,9 +230,8 @@ class AreaOfInterestForm extends PureComponent {
                         alt="area of interest alerts"
                       />
                       <p>
-                        We will send you email updates about alerts and forest
-                        cover change in your selected area, based on your user
-                        profile.
+                        We will send you email notifications about updates in
+                        your selected area, based on your user profile.
                       </p>
                     </div>
                     <Input
@@ -239,17 +242,21 @@ class AreaOfInterestForm extends PureComponent {
                       validate={[validateEmail]}
                       required
                     />
-                    <Input
+                    {/* <Input
                       name="webhookUrl"
                       label="Webhook URL (Optional)"
                       type="text"
                       placeholder="https://my-webhook-url.com"
                       validate={[validateURL]}
                       infoClick={() =>
-                        this.setState({ webhookModalOpen: true })}
+                        setModalSources({
+                          open: true,
+                          source: "webhookPreview",
+                        })
+                      }
                       collapse
-                    />
-                    <div className="webhook-actions">
+                    /> */}
+                    {/* <div className="webhook-actions">
                       <button
                         className="test-webhook"
                         onClick={(e) => {
@@ -257,10 +264,9 @@ class AreaOfInterestForm extends PureComponent {
                           this.testWebhook(webhookUrl);
                         }}
                       >
-                        {webhookUrl &&
-                          !webhookInputError &&
-                          !webhookError &&
-                          !webhookSuccess && <span>Test webhook</span>}
+                        {!webhookError && !webhookSuccess && (
+                          <span>Test webhook</span>
+                        )}
                         {testingWebhook && (
                           <Loader className="webhook-loader" />
                         )}
@@ -273,81 +279,23 @@ class AreaOfInterestForm extends PureComponent {
                           <span className="wh-success">Success!</span>
                         )}
                       </button>
-                    </div>
+                    </div> */}
                     <Checkbox
-                      name="alerts"
-                      formState={alerts}
-                      label="Would you like to receive alert notifications?"
-                      options={[
-                        {
-                          label: 'As soon as fires are detected',
-                          value: 'fireAlerts',
-                        },
-                        {
-                          label: 'As soon as forest change is detected',
-                          value: 'deforestationAlerts',
-                          multiInput: true,
-                        },
-                        {
-                          label: 'Monthly summary',
-                          value: 'monthlySummary',
-                        },
-                      ]}
-                    >
-                      {(option) => {
-                        if (option.value === 'deforestationAlerts') {
-                          return (
-                            <Radio
-                              name="deforestationAlertsType"
-                              options={[
-                                { label: 'All alerts', value: 'glad-all' },
-                                { label: 'GLAD-L alerts', value: 'glad-l' },
-                                { label: 'GLAD-S2 alerts', value: 'glad-s2' },
-                                { label: 'RADD alerts', value: 'glad-radd' },
-                              ]}
-                            />
-                          );
-                        }
-                        return null;
-                      }}
-                    </Checkbox>
-                    <Select
-                      name="language"
-                      label="language"
-                      options={languages}
-                      placeholder="Select a language"
-                      required
+                      name="updates"
+                      label="What updates would you like to receive ?"
+                      options={UPDATES_OPTIONS}
                     />
-                    <div className="public-area-field">
-                      <span
-                        tabIndex={0}
-                        role="button"
-                        onClick={() =>
-                          this.setState({ publicArea: !publicArea })}
-                      >
-                        <Toggle
-                          theme="toggle-large"
-                          value={publicArea}
-                          onToggle={(value, event) => {
-                            event.preventDefault();
-                            this.setState({ publicArea: !publicArea });
-                          }}
-                        />
-                        Make this area public
-                      </span>
-                      <p>
-                        You need to make your area public before sharing. Public
-                        areas can be viewed by anyone with the URL; private
-                        areas can only be viewed by the area&apos;s creator.
-                      </p>
-                    </div>
                     <Error
                       valid={valid}
                       submitFailed={submitFailed}
                       submitError={submitError}
                     />
                     <div className="submit-actions">
-                      <Submit className="area-submit" submitting={submitting}>
+                      <Submit
+                        className="area-submit"
+                        submitting={submitting}
+                        disabled={!mapStyle}
+                      >
                         save
                       </Submit>
                       {canDelete && initialValues && initialValues.id && (
@@ -374,10 +322,7 @@ class AreaOfInterestForm extends PureComponent {
             );
           }}
         />
-        <WebhookModal
-          open={webhookModalOpen}
-          onRequestClose={() => this.setState({ webhookModalOpen: false })}
-        />
+        <ModalSource />
       </Fragment>
     );
   }

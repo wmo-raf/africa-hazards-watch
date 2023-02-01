@@ -202,6 +202,23 @@ class Legend extends PureComponent {
     });
   };
 
+  onChangeFilterParam = (currentLayer, newParam) => {
+    const { setMapSettings, activeDatasets } = this.props;
+
+    setMapSettings({
+      datasets: activeDatasets.map((l) => {
+        const dataset = { ...l };
+        if (l.layers.includes(currentLayer.id)) {
+          dataset.layerFilterParams = {
+            ...dataset.layerFilterParams,
+            ...newParam,
+          };
+        }
+        return dataset;
+      }),
+    });
+  };
+
   setConfirmed = (layer) => {
     const { activeDatasets, setMapSettings } = this.props;
     const { dataset } = layer;
@@ -228,6 +245,7 @@ class Legend extends PureComponent {
       onChangeInfo: this.onChangeInfo,
       onChangeTimeline: this.onChangeTimeline,
       onChangeParam: this.onChangeParam,
+      onChangeFilterParam: this.onChangeFilterParam,
       onChangeDecodeParam: this.onChangeDecodeParam,
       setConfirmed: this.setConfirmed,
     });

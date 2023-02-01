@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 
 import Component from './component';
 
-const mapStateToProps = ({ myGfw }) => ({
+const mapStateToProps = ({ myHw }) => ({
   initialValues: {
-    email: myGfw && myGfw.data && myGfw.data.email
+    email: myHw && myHw.data && myHw.data.email
   }
 });
 

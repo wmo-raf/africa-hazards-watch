@@ -115,7 +115,7 @@ class MapMenuMyHW extends PureComponent {
 
         {section && sectionsMessages[section] && sectionsMessages[section]}
 
-        <LoginForm className="mygfw-login" simple narrow />
+        <LoginForm className="myhw-login" simple narrow />
       </div>
     );
   }

@@ -52,8 +52,6 @@ export default {
       isAnalysis,
     } = params;
 
-    console.log(id)
-
     const { time } = params;
 
     const startDateTime = parseISO(time);

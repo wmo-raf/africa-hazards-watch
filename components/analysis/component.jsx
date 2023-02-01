@@ -160,7 +160,7 @@ class AnalysisComponent extends PureComponent {
               {location.type !== "point" &&
                 (!activeArea || (activeArea && !activeArea.userArea)) && (
                   <Button
-                    className="analysis-action-btn save-to-mygfw-btn"
+                    className="analysis-action-btn save-to-myhw-btn"
                     onClick={() => setAreaOfInterestModalSettings(true)}
                     disabled={areaTooLarge}
                     {...(areaTooLarge && {

@@ -59,8 +59,8 @@ export const getAreasProvider = createThunkAction(
 export const getAreaProvider = createThunkAction(
   "getAreaProvider",
   (id) => (dispatch, getState) => {
-    const { myGfw } = getState();
-    const { data: userData } = myGfw || {};
+    const { myHw } = getState();
+    const { data: userData } = myHw || {};
     dispatch(setAreasLoading({ loading: true, error: false }));
     getArea(id)
       .then((area) => {

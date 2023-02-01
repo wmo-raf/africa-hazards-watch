@@ -44,7 +44,7 @@ export default [
                   "fill-opacity": 1,
                 },
                 type: "fill",
-                // filter: ["==", "$type", "Polygon"],
+                filter: ["in", ["get", "severity"], ["literal", [5, 4, 3, 2]]],
               },
               {
                 paint: {
@@ -64,10 +64,39 @@ export default [
                   "line-width": 0.1,
                 },
                 type: "line",
+                filter: ["in", ["get", "severity"], ["literal", [5, 4, 3, 2]]],
               },
             ],
           },
         },
+        layerFilterParams: {
+          severity: [
+            { label: "Extreme", value: 4 },
+            { label: "Severe", value: 3 },
+            { label: "Moderate", value: 2 },
+          ],
+        },
+        layerFilterParamsConfig: [
+          {
+            isMulti: true,
+            type: "checkbox",
+            key: "severity",
+            required: true,
+            default: [
+              { label: "Extreme", value: 4 },
+              { label: "Severe", value: 3 },
+              { label: "Moderate", value: 2 },
+            ],
+            sentence: "Filter by Severity {selector}",
+            options: [
+              { label: "Extreme", value: 4 },
+              { label: "Severe", value: 3 },
+              { label: "Moderate", value: 2 },
+              { label: "Minor", value: 1 },
+              { label: "Unknown", value: 0 },
+            ],
+          },
+        ],
         legendConfig: {
           items: [
             {

@@ -7,9 +7,9 @@ import uniq from 'lodash/uniq';
 export const selectAreaLoading = (state) => state.areas && state.areas.loading;
 export const selectLocation = (state) =>
   state && state.location && state.location.payload;
-export const selectLoggingIn = (state) => state.myGfw?.loading;
+export const selectLoggingIn = (state) => state.myHw?.loading;
 export const selectLoggedIn = (state) =>
-  state && !!state.myGfw && !isEmpty(state.myGfw.data);
+  state && !!state.myHw && !isEmpty(state.myHw.data);
 
 export const getAllAreas = (state) =>
   state &&

@@ -1,16 +1,16 @@
-import { createSelector, createStructuredSelector } from 'reselect';
-import isEmpty from 'lodash/isEmpty';
-import compact from 'lodash/compact';
+import { createSelector, createStructuredSelector } from "reselect";
+import isEmpty from "lodash/isEmpty";
+import compact from "lodash/compact";
 
-import { getAllAreas } from 'providers/areas-provider/selectors';
-import { getGeodescriberTitleFull } from 'providers/geodescriber-provider/selectors';
+import { getAllAreas } from "providers/areas-provider/selectors";
+import { getGeodescriberTitleFull } from "providers/geodescriber-provider/selectors";
 
 const selectAreaOfInterestModalState = (state, { areaId }) => areaId;
 const selectLoading = (state) => state.areas && state.areas.loading;
 const selectLoggedIn = (state) =>
-  state.myGfw && state.myGfw.data && state.myGfw.data.loggedIn;
+  state.myHw && state.myHw.data && state.myHw.data.loggedIn;
 const selectLocation = (state) => state.location && state.location.payload;
-const selectUserData = (state) => state.myGfw && state.myGfw.data;
+const selectUserData = (state) => state.myHw && state.myHw.data;
 const selectGeostoreId = (state) =>
   state.geostore && state.geostore.data && state.geostore.data.id;
 
@@ -19,7 +19,7 @@ export const getActiveArea = createSelector(
   (location, areaId, areas) => {
     if (isEmpty(areas)) return null;
     let activeAreaId = areaId;
-    if (location && location.type === 'aoi') {
+    if (location && location.type === "aoi") {
       activeAreaId = location.adm0;
     }
 
@@ -33,10 +33,10 @@ export const getInitialValues = createSelector(
   [selectUserData, getActiveArea, getGeodescriberTitleFull, selectGeostoreId],
   (userData, area, locationName, geostoreId) => {
     const { email: userEmail, language: userLanguage } = userData;
-
     const {
-      fireAlerts,
-      deforestationAlerts,
+      weeklyForecastUpdates,
+      dekadalDroughtUpdates,
+      foodSecurityUpdates,
       monthlySummary,
       name,
       email,
@@ -48,14 +48,16 @@ export const getInitialValues = createSelector(
     } = area || {};
 
     return {
-      alerts: compact([
-        fireAlerts ? 'fireAlerts' : false,
-        deforestationAlerts ? 'deforestationAlerts' : false,
-        monthlySummary ? 'monthlySummary' : false,
+      updates: compact([
+        weeklyForecastUpdates ? "weeklyForecastUpdates" : false,
+        monthlySummary ? "monthlySummary" : false,
       ]),
-      deforestationAlertsType: 'glad-all',
       geostore: geostoreId,
-      location,
+      location: {
+        type: "geostore",
+        adm0: geostoreId,
+        ...location,
+      },
       ...rest,
       id: userArea ? id : null,
       userArea,
@@ -70,10 +72,10 @@ export const getFormTitle = createSelector(
   [getInitialValues],
   ({ userArea } = {}) => {
     if (userArea) {
-      return 'Edit area of Interest';
+      return "Edit area of Interest";
     }
 
-    return 'Save area of interest';
+    return "Save area of interest";
   }
 );
 
