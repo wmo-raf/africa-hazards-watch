@@ -5,11 +5,19 @@ services:
       context: .
       args:
         - NODE_ENV=${NODE_ENV}
-    env_file:
-      - .env
+        - ANALYTICS_PROPERTY_ID=${ANALYTICS_PROPERTY_ID}
+        - BITLY_TOKEN=${BITLY_TOKEN}
+        - DEBUG= ${DEBUG}
+        - FACEBOOK_PIXEL_ID=${FACEBOOK_PIXEL_ID}
+        - FEATURE_ENV=${FEATURE_ENV}
+        - GOOGLE_CUSTOM_SEARCH_CX=${GOOGLE_CUSTOM_SEARCH_CX}
+        - GOOGLE_SEARCH_API_KEY=${GOOGLE_SEARCH_API_KEY}
+        - HW_API=${HW_API}
+        - HW_CMS_API=${HW_CMS_API}
+        - MAPBOX_TOKEN=${MAPBOX_TOKEN}
+        - TWITTER_CONVERSION_ID=${TWITTER_CONVERSION_ID}
     ports:
       - ${PORT}:3000
-
 networks:
     default:
       name:  ${AHW_DOCKER_NETWORK}
