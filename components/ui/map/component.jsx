@@ -277,7 +277,7 @@ class Map extends Component {
           transitionEasing={easeCubic}
           preventStyleDiffing
           disableTokenWarning={false}
-          mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
+          mapboxApiAccessToken={process.env.MAPBOX_TOKEN}
         >
           {loaded &&
             !!this.map &&

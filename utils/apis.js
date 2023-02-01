@@ -1,5 +1,5 @@
-export const HW_CMS_API = process.env.NEXT_PUBLIC_HW_CMS_API;
-export const HW_API = process.env.NEXT_PUBLIC_HW_API;
+export const HW_CMS_API = process.env.HW_CMS_API;
+export const HW_API = process.env.HW_API;
 
 export const PG_FEATURESERV_URL = "http://20.56.94.119/pg4w/featureserv/";
 

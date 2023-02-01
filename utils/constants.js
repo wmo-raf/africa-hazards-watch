@@ -1,3 +1,3 @@
 export const PRODUCTION =
-  process.env.NEXT_PUBLIC_FEATURE_ENV &&
-  process.env.NEXT_PUBLIC_FEATURE_ENV === "production";
+  process.env.FEATURE_ENV &&
+  process.env.FEATURE_ENV === "production";
