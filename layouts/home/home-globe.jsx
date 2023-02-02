@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ahwGlobeBg from "./assets/earth-blue-marble-min.jpg";
 
 let Globe = () => null;
 if (typeof window !== "undefined") Globe = require("react-globe.gl").default;
@@ -19,7 +20,7 @@ export default class HomeGlobe extends Component {
   onGlobeReady = () => {
     this.globeRef.current.controls().enableZoom = false;
     this.globeRef.current.controls().autoRotate = true;
-    this.globeRef.current.controls().autoRotateSpeed = 2.5;
+    this.globeRef.current.controls().autoRotateSpeed = 1;
   };
 
   render() {
@@ -31,10 +32,7 @@ export default class HomeGlobe extends Component {
           height={450}
           width={400}
           backgroundColor="#fff"
-          globeImageUrl="https://interactive-atlas.ipcc.ch/2_warming_tas.png"
-          showGraticules
-          enablePointerInteraction={false}
-          atmosphereAltitude={0}
+          globeImageUrl={ahwGlobeBg}
         />
       </div>
     );
