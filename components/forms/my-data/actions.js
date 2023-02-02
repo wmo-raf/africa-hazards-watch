@@ -11,7 +11,10 @@ import { updateDatasets } from "providers/datasets-provider/actions";
 
 export const saveMyDataset = createThunkAction(
   "saveMyDataset",
-  ({ user_id, name, data_type, data_variable }) => (dispatch, getState) => {
+  ({ user_id, name, data_type, data_variable, country }) => (
+    dispatch,
+    getState
+  ) => {
     const postData = { user_id, name, data_type, data_variable };
 
     return saveMyDataseReq(postData)

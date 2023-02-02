@@ -71,30 +71,16 @@ class MyData extends Component {
                 <div className="dataset-toolbar">
                   <div className="dataset-tool">
                     <Button
-                      className="theme-button-tiny theme-button-light"
+                      className="theme-button-small theme-button-light"
                       onClick={() =>
                         setMyDataModalSettings({
                           myDatasetId: d.id,
-                          myDataIntent: "edit",
+                          myDataIntent: "update",
                         })
                       }
                     >
-                      <div>Edit</div>
+                      <div>Update </div>
                       <Icon icon={editIcon} className="tool-icon" />
-                    </Button>
-                  </div>
-                  <div className="dataset-tool">
-                    <Button
-                      className="theme-button-tiny theme-button-light"
-                      onClick={() =>
-                        setMyDataModalSettings({
-                          myDatasetId: d.id,
-                          myDataIntent: "upload",
-                        })
-                      }
-                    >
-                      <div>Add Files</div>
-                      <Icon icon={plusIcon} className="tool-icon" />
                     </Button>
                   </div>
                 </div>

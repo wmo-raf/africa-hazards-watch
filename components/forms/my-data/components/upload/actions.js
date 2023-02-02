@@ -21,6 +21,8 @@ import {
 } from "providers/mydata-provider/actions";
 import { updateDatasets } from "providers/datasets-provider/actions";
 import { setTimestamps } from "providers/dataset-update-provider/actions";
+import { setMapSettings } from "components/map/actions";
+import { setMyDataModalSettings } from "components/modals/my-data/actions";
 
 export const getMyDataUploads = createThunkAction(
   "getMyDataUploads",
@@ -110,8 +112,6 @@ export const uploadRaster = createThunkAction(
         });
       })
       .catch((error) => {
-        console.log(error);
-
         const errorMessage = getErrorMessage(error, shape);
 
         if (errorMessage.title !== "cancel upload shape") {
@@ -175,7 +175,13 @@ export const removeUpload = createThunkAction(
 
 export const publishRaster = createThunkAction(
   "publishRaster",
-  ({ upload_id, timestamps, activeDataset }) => (dispatch) => {
+  ({ upload_id, timestamps, activeDataset }) => (dispatch, getState) => {
+    const {
+      map: {
+        settings: { datasets: allActiveDatasets },
+      },
+    } = getState();
+
     const postData = { upload_id, timestamps };
 
     return publishMyDatasetRaster(postData)
@@ -191,6 +197,47 @@ export const publishRaster = createThunkAction(
         const { layer } = activeDataset;
 
         dispatch(setTimestamps({ [layer]: datasetDates }));
+
+        // set visible time
+        const newParams = { time: datasetDates[datasetDates.length - 1] };
+
+        // mark as user dataset
+        const dataset = { ...activeDataset, userDataset: true };
+
+        // update time param
+        dataset.layers = dataset.layers.map((l) => ({
+          ...l,
+          params: { ...l.params, ...newParams },
+        }));
+
+        // update dataset
+        dispatch(updateDatasets([dataset]));
+
+        // add dataset to map
+        const isVisible = allActiveDatasets.find(
+          (d) => d.dataset === activeDataset.id
+        );
+
+        if (!isVisible) {
+          let newActiveDatasets = [...allActiveDatasets];
+          newActiveDatasets = [
+            {
+              dataset: activeDataset.id,
+              opacity: 1,
+              visibility: true,
+              layers: [activeDataset.layer],
+            },
+          ].concat([...newActiveDatasets]);
+
+          dispatch(
+            setMapSettings({
+              datasets: newActiveDatasets,
+            })
+          );
+
+          // close modal
+          dispatch(setMyDataModalSettings(null));
+        }
       })
       .catch((error) => {
         console.log(error);

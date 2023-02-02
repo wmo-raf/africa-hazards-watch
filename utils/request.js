@@ -68,7 +68,7 @@ export const synopTimestampsRequest = create({
 
 export const myDataRequest = create({
   timeout: TIMEOUT,
-  baseURL: "http://localhost:8000/api/v1",
+  baseURL: `${HW_API}/my-data`,
   headers: {
     "content-type": "application/json",
     Authorization: `Bearer ${!isServer && localStorage.getItem("userToken")}`,

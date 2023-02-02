@@ -27,7 +27,14 @@ class MyDataUpload extends PureComponent {
 
     const sections = [
       {
-        label: "Uploads",
+        label: "Dataset",
+        active: uploadSection === "dataset",
+        onClick: () => {
+          setMyDataSettings({ uploadSection: "dataset" });
+        },
+      },
+      {
+        label: "Upload",
         active: uploadSection === "upload",
         onClick: () => {
           setMyDataSettings({ uploadSection: "upload" });
@@ -37,9 +44,10 @@ class MyDataUpload extends PureComponent {
             label: "My Data",
           });
         },
+        Component: Upload,
       },
       {
-        label: "Published Raster Files",
+        label: "Published",
         active: uploadSection === "files",
         onClick: () => {
           setMyDataSettings({ uploadSection: "files" });
@@ -49,16 +57,35 @@ class MyDataUpload extends PureComponent {
             label: "My Data",
           });
         },
+        Component: RasterFiles,
+      },
+      {
+        label: "Style",
+        active: uploadSection === "style",
+        onClick: () => {
+          setMyDataSettings({ uploadSection: "style" });
+        },
+      },
+      {
+        label: "Analysis Settings",
+        active: uploadSection === "analysis",
+        onClick: () => {
+          setMyDataSettings({ uploadSection: "analysis" });
+        },
       },
     ];
 
     const { datasetDetails: d } = activeMyDataset || {};
 
+    const activeSection = sections.find((s) => s.Component && s.active);
+
+    const ActiveSectionComponent = activeSection && activeSection.Component;
+
     return (
       <div className="c-mydata-upload">
         <h1>{title}</h1>
 
-        {d && (
+        {/* {d && (
           <div className="dataset-details">
             <div className="dataset-property">
               <div className="dataset-prop-name">Dataset Name: </div>
@@ -69,23 +96,20 @@ class MyDataUpload extends PureComponent {
               <div className="dataset-prop-value">{d.created_on}</div>
             </div>
           </div>
-        )}
+        )} */}
         <div className="upload-sections-wrapper">
           <SubnavMenu
             links={sections}
             className="my-data-upload-menu"
             theme="theme-subnav-small-light"
           />
-
           <div className="content">
             <div className="row">
               <div className="column small-12">
                 <div className="u-section">
-                  {uploadSection === "upload" ? (
-                    <Upload {...this.props} />
-                  ) : (
-                    <RasterFiles {...this.props} />
-                  )}
+                  {activeSection ? (
+                    <ActiveSectionComponent {...this.props} />
+                  ) : null}
                 </div>
               </div>
             </div>

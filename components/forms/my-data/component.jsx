@@ -9,6 +9,7 @@ import ConfirmationMessage from "components/confirmation-message";
 import Button from "components/ui/button";
 import Icon from "components/ui/icon";
 import MyDataUpload from "./components/upload";
+import Select from "components/forms/components/select";
 
 import deleteIcon from "assets/icons/delete.svg?sprite";
 import "./styles.scss";
@@ -59,11 +60,12 @@ class MyDatasetForm extends PureComponent {
       closeForm,
       activeMyDataset,
       myDataIntent,
+      countries,
     } = this.props;
 
     const { deleted } = this.state;
 
-    if (myDataIntent === "edit" || myDataIntent === "create") {
+    if (myDataIntent === "create") {
       return (
         <>
           <Form
@@ -120,6 +122,14 @@ class MyDatasetForm extends PureComponent {
                         type="text"
                         name="data_variable"
                         label="Data Variable"
+                        required
+                      />
+                      <Input
+                        type="text"
+                        name="country"
+                        disabled
+                        label="Dataset Country"
+                        helpText="Data you upload will be cropped to your profile's country. You can update this from your profile."
                         required
                       />
 

@@ -22,13 +22,14 @@ export const getActiveMyDataset = createSelector(
 export const getInitialValues = createSelector(
   [selectUserData, getActiveMyDataset],
   (userData, myDataset) => {
-    const { id: userId } = userData;
+    const { id: userId, country } = userData;
 
     const { ...rest } = myDataset?.datasetDetails || {};
 
     return {
       user_id: userId,
       data_type: "raster",
+      country: country,
       ...rest,
     };
   }
@@ -37,12 +38,8 @@ export const getInitialValues = createSelector(
 export const getFormTitle = createSelector(
   [getInitialValues, selectMyDatasetModalIntent],
   ({ name } = {}, myDataIntent) => {
-    if (name && myDataIntent === "edit") {
-      return "Edit Dataset";
-    }
-
-    if (name && myDataIntent === "upload") {
-      return "Upload Files";
+    if (name && myDataIntent === "update") {
+      return "Update Dataset";
     }
 
     return "Create Dataset";

@@ -1,5 +1,4 @@
 import { createSelector, createStructuredSelector } from "reselect";
-
 import { getUploadSection } from "providers/mydata-provider/selectors";
 
 const selectMyDataUploads = (state) => state.myData && state.myData.uploads;

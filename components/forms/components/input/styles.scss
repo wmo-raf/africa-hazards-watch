@@ -1,4 +1,4 @@
-@import '~styles/settings.scss';
+@import "~styles/settings.scss";
 
 .c-form-input {
   border-radius: 4px;
@@ -20,4 +20,9 @@
     line-height: 1.5;
     resize: none;
   }
+}
+
+.c-form-help-text {
+  margin-top: 10px;
+  font-size: 12px;
 }
