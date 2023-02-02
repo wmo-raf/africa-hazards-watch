@@ -14,7 +14,7 @@ const ModalGFWFires = () => {
   if (pathname) {
     if (pathname === '/topics/[topic]' && query.topic === 'fires') {
       modalText = [
-        'Welcome to the new home for Global Forest Watch Fires data and insights! ',
+        'Welcome to the new home for Africa Hazards Watch Fires data and insights! ',
         <button
           key="button"
           onClick={() => {
@@ -27,7 +27,7 @@ const ModalGFWFires = () => {
       ];
     } else if (pathname === '/map/[[...location]]') {
       modalText = [
-        `Welcome to the new home for Global Forest Watch Fires data and insights!
+        `Welcome to the new home for Africa Hazards Watch Fires data and insights!
         If you're looking for the Fire Report, `,
         <Link
           key="link"
@@ -50,7 +50,7 @@ const ModalGFWFires = () => {
       query.topic === 'fires'
     ) {
       modalText = [
-        `Welcome to the new home for Global Forest Watch Fires data and insights!
+        `Welcome to the new home for Africa Hazards Watch Fires data and insights!
         Explore the links to fire data and analyses below. `,
         <button
           key="button"
@@ -70,11 +70,11 @@ const ModalGFWFires = () => {
   return (
     <Modal
       open={!!gfwfires && !!modalText}
-      contentLabel="Global Forest Watch Fires"
+      contentLabel="Africa Hazards Watch Fires"
       onRequestClose={() => {
         setModalFiresOpen(false);
       }}
-      title="Global Forest Watch Fires."
+      title="Africa Hazards Watch Fires."
       className="c-gfw-fires-modal"
     >
       <p>{modalText}</p>

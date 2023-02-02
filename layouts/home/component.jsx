@@ -34,6 +34,8 @@ import bgImage from "./assets/home-bg.png";
 import bgImageWebP from "./assets/home-bg.webp";
 import feedbackBg from "./assets/feedback-bg.png";
 
+import HomeGlobe from "./home-globe";
+
 import "./styles.scss";
 
 const HomePage = ({ summary, uses, apps, news }) => {
@@ -123,7 +125,8 @@ const HomePage = ({ summary, uses, apps, news }) => {
           </Column>
           <Column width={[1, 1 / 2]}>
             <div className="globe-wrapper">
-              <img className="globe-img" src={globeImage} />
+              <HomeGlobe />
+              {/* <img className="globe-img" src={globeImage} /> */}
             </div>
           </Column>
         </Row>
@@ -182,7 +185,7 @@ const HomePage = ({ summary, uses, apps, news }) => {
           </Row>
         </div>
       </div>
-      
+
       <div className="section-uses">
         <h3 className="section-title">
           What can you do with Africa Hazards Watch?
@@ -231,8 +234,6 @@ const HomePage = ({ summary, uses, apps, news }) => {
           </Carousel>
         )}
       </div>
-
-
 
       <div className="section-involve">
         <Row>

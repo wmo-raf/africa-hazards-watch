@@ -24,7 +24,7 @@ import DynamicSentence from "components/ui/dynamic-sentence";
 
 const notFoundProps = {
   error: 404,
-  title: "Dashboard Not Found | Global Forest Watch",
+  title: "Dashboard Not Found | Africa Hazards Watch",
   errorTitle: "Dashboard Not Found",
 };
 
@@ -42,12 +42,12 @@ export const getServerSideProps = async ({ params }) => {
   let countryData = await getCategorisedCountries(true);
 
   if (!type || type === "africa") {
-    // get global data
+    // get africa data
     const data = await getSentenceData();
     const parsedSentence = parseSentence(data);
     return {
       props: {
-        title: "Global Deforestation Rates & Statistics by Country | GFW",
+        title: "Data analysis by Country | AHW",
         location: params?.location,
         locationNames: null,
         locationObj: null,
@@ -55,7 +55,7 @@ export const getServerSideProps = async ({ params }) => {
         geodescriber: JSON.stringify(data),
         countryData: JSON.stringify(countryData),
         description:
-          "Explore interactive global tree cover loss charts by country. Analyze global forest data and trends, including land use change, deforestation rates and forest fires.",
+          "Explore interactive weather and climate data charts by country",
       },
     };
   }
@@ -70,8 +70,8 @@ export const getServerSideProps = async ({ params }) => {
       };
     }
 
-    const title = `${locationName} Deforestation Rates & Statistics | GFW`;
-    const description = `Explore interactive tree cover loss data charts and analyze ${locationName} forest trends, including land use change, deforestation rates and forest fires.`;
+    const title = `${locationName} Weather and Climate Analysis| AHW`;
+    const description = `Explore interactive weather and climate data charts for ${locationName}`;
     const noIndex = !["country"].includes(type);
     const [locationType, adm0, lvl1, lvl2] = params?.location;
     const adm1 = lvl1 ? parseInt(lvl1, 10) : null;
@@ -137,7 +137,7 @@ export const getServerSideProps = async ({ params }) => {
       return {
         props: {
           error: 401,
-          title: "Area is private | Global Forest Watch",
+          title: "Area is private | Africa Hazards Watch",
           errorTitle: "Area is private",
         },
       };

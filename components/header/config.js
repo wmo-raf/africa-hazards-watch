@@ -41,7 +41,7 @@ export default {
 //   apps: [
 //     {
 //       label: 'Forest Watcher',
-//       extLink: 'https://forestwatcher.globalforestwatch.org',
+//       extLink: 'https://forestwatcher.africahazardswatch.org',
 //       image: forestWatcher,
 //     },
 //   ],

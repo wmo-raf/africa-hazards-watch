@@ -106,7 +106,7 @@
         bottom: rem(-150px);
         left: rem(-100px);
         height: 100%;
-        width: 110%;
+        width: 100%;
         background-size: contain;
       }
 
@@ -141,12 +141,14 @@
     }
 
     .globe-wrapper {
+      height: 370px;
       display: flex;
       justify-content: center;
+      overflow: hidden;
     }
 
     .globe-img {
-      height: 370px;
+      max-height: 370px;
       // width: 200px;
       object-fit: contain;
       text-align: center;

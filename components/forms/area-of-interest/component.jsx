@@ -238,7 +238,7 @@ class AreaOfInterestForm extends PureComponent {
                       name="email"
                       type="email"
                       label="email"
-                      placeholder="example@globalforestwatch.org"
+                      placeholder="example@africahazardswatch.org"
                       validate={[validateEmail]}
                       required
                     />

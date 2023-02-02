@@ -92,14 +92,14 @@ class NewsletterForm extends PureComponent {
             <form className="c-newsletter-form" onSubmit={handleSubmit}>
               {submitSucceeded ? (
                 <SuccessMessage
-                  title="Thank you for subscribing to Global Forest Watch newsletters and updates!"
+                  title="Thank you for subscribing to Africa Hazards Watch newsletters and updates!"
                   description="You may wish to read our <a href='/privacy-policy' target='_blank'>privacy policy</a>, which provides further information about how we use personal data."
                 />
               ) : (
                 <Fragment>
                   <h1>Stay Updated on the World&apos;s Forests</h1>
                   <h3>
-                    Subscribe to monthly GFW newsletters and updates based on
+                    Subscribe to monthly AHW newsletters and updates based on
                     your interests.
                   </h3>
                   <Input name="firstName" label="first name" required />
@@ -108,7 +108,7 @@ class NewsletterForm extends PureComponent {
                     name="email"
                     type="email"
                     label="email"
-                    placeholder="example@globalforestwatch.org"
+                    placeholder="example@africahazardswatch.org"
                     validate={[validateEmail]}
                     required
                   />
