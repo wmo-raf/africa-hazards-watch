@@ -19,9 +19,9 @@ export const getAllMyDatasets = (state) =>
     "lowercaseName"
   );
 
-export const getUploadSection = createSelector(
+export const getManagerSection = createSelector(
   [getMyDataSettings],
-  (settings) => settings.uploadSection
+  (settings) => settings.managerSection
 );
 
 export const getMyDataProps = createStructuredSelector({

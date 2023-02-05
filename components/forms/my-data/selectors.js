@@ -1,15 +1,22 @@
 import { createSelector, createStructuredSelector } from "reselect";
 import isEmpty from "lodash/isEmpty";
 
-import { getAllMyDatasets } from "providers/mydata-provider/selectors";
+import {
+  getAllMyDatasets,
+  getManagerSection,
+} from "providers/mydata-provider/selectors";
 
 const selectMyDatasetModalState = (state, { myDatasetId }) => myDatasetId;
 const selectMyDatasetModalIntent = (state, { myDataIntent }) => myDataIntent;
 const selectLoading = (state) => state.myData && state.myData.loading;
 const selectLoggedIn = (state) =>
   state.myHw && state.myHw.data && state.myHw.data.loggedIn;
-const selectLocation = (state) => state.location && state.location.payload;
 const selectUserData = (state) => state.myHw && state.myHw.data;
+
+const selectMyDataUploads = (state) => state.myData && state.myData.uploads;
+const selectMyDataRasterFiles = (state) =>
+  state.myData && state.myData.rasterFiles;
+const selectUploading = (state) => state.myData && state.myData.uploading;
 
 export const getActiveMyDataset = createSelector(
   [selectMyDatasetModalState, getAllMyDatasets],
@@ -53,4 +60,8 @@ export const getMyDataProps = createStructuredSelector({
   initialValues: getInitialValues,
   title: getFormTitle,
   modalIntent: selectMyDatasetModalIntent,
+  managerSection: getManagerSection,
+  myDataUploads: selectMyDataUploads,
+  myDataRasterFiles: selectMyDataRasterFiles,
+  uploading: selectUploading,
 });

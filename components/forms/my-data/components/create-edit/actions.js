@@ -6,16 +6,24 @@ import {
   deleteMyDataset as deleteMyDatasetReq,
 } from "services/mydata";
 
-import { setMyDataset } from "providers/mydata-provider/actions";
-import { updateDatasets } from "providers/datasets-provider/actions";
+import {
+  setMyDataset,
+  removeMyDataset,
+} from "providers/mydata-provider/actions";
+import {
+  updateDatasets,
+  removeDataset,
+} from "providers/datasets-provider/actions";
+
+import { setMyDataModalSettings } from "components/modals/my-data/actions";
 
 export const saveMyDataset = createThunkAction(
   "saveMyDataset",
-  ({ user_id, name, data_type, data_variable, country }) => (
+  ({ id, user_id, name, data_type, data_variable, country }) => (
     dispatch,
     getState
   ) => {
-    const postData = { user_id, name, data_type, data_variable };
+    const postData = { id, user_id, name, data_type, data_variable };
 
     return saveMyDataseReq(postData)
       .then((myDataset) => {
@@ -28,6 +36,13 @@ export const saveMyDataset = createThunkAction(
 
         // update main datasets
         dispatch(updateDatasets([dataset]));
+
+        dispatch(
+          setMyDataModalSettings({
+            myDatasetId: myDataset.id,
+            myDataIntent: "update",
+          })
+        );
       })
       .catch((error) => {
         let err = (error.response && error.response.data) || [];
@@ -47,14 +62,29 @@ export const saveMyDataset = createThunkAction(
 
 export const deleteMyDataset = createThunkAction(
   "deleteMyDataset",
-  ({ id, clearAfterDelete, callBack }) => (dispatch, getState) => {
+  ({ id, callBack }) => (dispatch) => {
     return deleteMyDatasetReq(id)
-      .then(() => {})
+      .then((myDataset) => {
+        // remove my dataset
+        dispatch(removeMyDataset(myDataset));
+
+        const dataset = {
+          ...myDataset.mapDataset,
+          userDataset: true,
+        };
+
+        // remove dataset
+        dispatch(removeDataset(dataset));
+
+        if (callBack) {
+          callBack();
+        }
+      })
       .catch((error) => {
-        const { errors } = error.response.data;
+        console.log(error);
 
         return {
-          [FORM_ERROR]: errors[0].detail,
+          [FORM_ERROR]: error,
         };
       });
   }

@@ -256,37 +256,3 @@ export const publishRaster = createThunkAction(
       });
   }
 );
-
-export const getMyDataRasters = createThunkAction(
-  "getMyDataRasters",
-  (datasetId) => (dispatch) => {
-    dispatch(setMyDataLoading({ loading: true, error: false }));
-
-    getMyDatasetRasterFiles(datasetId)
-      .then((rasterFiles) => {
-        if (rasterFiles && !!rasterFiles.length) {
-          const myRasterFiles = rasterFiles.reduce((all, item) => {
-            if (all[item.dataset_id]) {
-              all[item.dataset_id].push(item);
-            } else {
-              all[item.dataset_id] = [item];
-            }
-
-            return all;
-          }, {});
-
-          dispatch(setMyDataRasterFiles(myRasterFiles));
-        }
-
-        dispatch(setMyDataLoading({ loading: false, error: false }));
-      })
-      .catch((error) => {
-        dispatch(
-          setMyDataLoading({
-            loading: false,
-            error: error.response && error.response.status,
-          })
-        );
-      });
-  }
-);

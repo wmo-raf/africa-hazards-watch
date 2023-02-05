@@ -1,4 +1,4 @@
-@import '~styles/settings.scss';
+@import "~styles/settings.scss";
 
 .c-thankyou {
   .message {
@@ -19,6 +19,24 @@
       }
     }
 
+    &.simple {
+      flex-direction: row;
+      justify-content: flex-start;
+
+      .success-icon {
+        height: 20px;
+        width: 20px;
+        margin: 0 8px 0 0;
+        fill: $green-gfw;
+      }
+
+      background-color: rgba($green-gfw, 0.1);
+      width: fit-content;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin: 16px 0;
+    }
+
     h1 {
       font-size: rem(26px);
       color: $slate;
@@ -29,6 +47,11 @@
       @media screen and (min-width: $screen-m) {
         font-size: rem(36px);
         margin-bottom: rem(30px);
+      }
+
+      &.simple {
+        font-size: 16px;
+        margin: 0;
       }
     }
 

@@ -1,82 +1,14 @@
 @import "~styles/settings.scss";
 
-.c-mydataset-form {
-  .input-field {
-    max-width: rem(350px);
-  }
+.c-mydata-manager {
+  .manager-wrapper {
+    margin: 20px 0;
+    box-shadow: $pop-box-shadow;
 
-  h1 {
-    margin-bottom: rem(20px);
-    font-weight: 300;
-    font-size: 18px;
-
-    @media screen and (min-width: $screen-m) {
-      font-size: rem(36px);
-      margin-bottom: rem(30px);
+    .manager-body {
+      min-height: 500px;
+      min-width: 600px;
+      margin: 30px;
     }
-  }
-
-  b {
-    font-weight: 500;
-  }
-
-  .d-header {
-    height: 10px;
-    position: relative;
-    margin-bottom: rem(30px);
-    margin-left: -25px;
-    margin-right: -25px;
-    width: 700px;
-
-    @media screen and (min-width: $screen-m) {
-      margin-left: 0;
-      margin-right: 0;
-      width: 700px;
-      height: 10px;
-    }
-  }
-
-  .submit-actions {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    @media screen and (min-width: $screen-m) {
-      flex-direction: row-reverse;
-      justify-content: space-between;
-    }
-  }
-
-  .area-submit {
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-
-    .submit-btn {
-      min-width: rem(180px);
-    }
-  }
-
-  .delete-area {
-    padding: 0;
-    color: $error;
-    width: 100%;
-
-    @media screen and (min-width: $screen-m) {
-      width: auto;
-    }
-
-    .delete-icon {
-      margin-right: rem(5px);
-      margin-top: rem(-1px);
-      position: relative;
-      fill: $error;
-    }
-  }
-
-  .reset-form-btn {
-    margin: auto;
-    width: rem(200px);
-    margin-top: rem(30px);
   }
 }

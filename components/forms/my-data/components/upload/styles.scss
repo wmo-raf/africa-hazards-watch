@@ -1,202 +1,162 @@
 @import "~styles/settings.scss";
 
-.c-mydata-upload {
-  min-width: rem(700px);
-  h1 {
-    margin-bottom: rem(20px);
-    font-weight: 300;
-    font-size: 18px;
+.c-upload-section {
+  min-height: 300px;
 
-    @media screen and (min-width: $screen-m) {
-      font-size: rem(36px);
-      margin-bottom: rem(30px);
+  .upload-menu {
+    padding-top: rem(30px);
+
+    &-title {
+      font-size: 16px;
+      text-align: center;
+      margin-bottom: rem(20px);
     }
-  }
 
-  .dataset-details {
-    background-color: rgba($green-gfw, 0.1);
-    padding: 20px;
-
-    font-size: 16px;
-
-    .dataset-property {
+    &-input {
       display: flex;
-      padding: 8px 0;
+      justify-content: space-between;
+      flex-direction: column;
+      align-items: center;
+      padding: rem(30px) rem(20px);
+      border: 1px dashed $green-gfw;
+      border-radius: 10px;
+      font-size: 13px;
+      background-color: rgba($green-gfw, 0.1);
+      cursor: pointer;
+      margin-bottom: rem(20px);
 
-      .dataset-prop-name {
-        margin-right: 8px;
+      &:hover {
+        background-color: rgba($green-gfw, 0.2);
+      }
+
+      p {
+        text-align: center;
+        line-height: 1.6;
+      }
+
+      .small-text {
+        font-size: rem(11px);
+        opacity: 0.8;
+        margin-top: rem(10px);
+      }
+
+      .error-title {
+        color: $error;
         font-weight: 500;
       }
-    }
-  }
 
-  .upload-sections-wrapper {
-    margin: 20px 0;
-    box-shadow: $pop-box-shadow;
-    min-height: rem(400px);
-
-    .upload-menu {
-      padding-top: rem(30px);
-
-      &-title {
-        font-size: 16px;
-        text-align: center;
-        margin-bottom: rem(20px);
+      .error-desc {
+        opacity: 1;
       }
 
-      &-input {
-        display: flex;
-        justify-content: space-between;
-        flex-direction: column;
-        align-items: center;
-        padding: rem(30px) rem(20px);
-        border: 1px dashed $green-gfw;
-        border-radius: 10px;
-        font-size: 13px;
-        background-color: rgba($green-gfw, 0.1);
-        cursor: pointer;
-        margin-bottom: rem(20px);
+      &.uploading {
+        background-color: $white;
+      }
+
+      &.error {
+        border-color: $error;
+        background-color: rgba($error, 0.1);
 
         &:hover {
-          background-color: rgba($green-gfw, 0.2);
-        }
-
-        p {
-          text-align: center;
-          line-height: 1.6;
-        }
-
-        .small-text {
-          font-size: rem(11px);
-          opacity: 0.8;
-          margin-top: rem(10px);
-        }
-
-        .error-title {
-          color: $error;
-          font-weight: 500;
-        }
-
-        .error-desc {
-          opacity: 1;
-        }
-
-        &.uploading {
-          background-color: $white;
-        }
-
-        &.error {
-          border-color: $error;
-          background-color: rgba($error, 0.1);
-
-          &:hover {
-            background-color: rgba($error, 0.2);
-          }
+          background-color: rgba($error, 0.2);
         }
       }
+    }
 
-      &-separator {
-        padding: rem(15px) 0;
-        text-align: center;
-        font-size: rem(16px);
+    &-separator {
+      padding: rem(15px) 0;
+      text-align: center;
+      font-size: rem(16px);
+    }
+
+    &-button {
+      width: 100%;
+    }
+
+    .terms {
+      width: 100%;
+      margin-top: rem(15px);
+
+      .first-term {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
       }
 
-      &-button {
-        width: 100%;
+      p {
+        font-size: rem(12px);
+
+        button {
+          display: inline;
+          margin-left: rem(5px);
+        }
+      }
+    }
+
+    .uploading-raster {
+      background-color: $white;
+      width: 100%;
+      height: 100%;
+      border-radius: rem(10px);
+      position: relative;
+
+      .file-name {
+        font-size: rem(12px);
+        margin-bottom: rem(3px);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
-      .terms {
-        width: 100%;
-        margin-top: rem(15px);
+      .file-size {
+        font-size: rem(12px);
+        color: $warm-grey;
+      }
 
-        .first-term {
-          display: flex;
-          justify-content: space-between;
-          margin-bottom: 15px;
+      .upload-bar {
+        display: flex;
+        align-items: center;
+
+        .cancel-upload-btn {
+          padding-right: 0;
+          padding-left: rem(10px);
         }
 
-        p {
-          font-size: rem(12px);
-
-          button {
-            display: inline;
-            margin-left: rem(5px);
-          }
+        .cancel-upload-icon {
+          width: rem(8px);
+          height: rem(8px);
         }
       }
+    }
 
-      .uploading-raster {
-        background-color: $white;
+    .loading-bar {
+      height: rem(6px);
+      width: 100%;
+      position: relative;
+
+      > span {
         width: 100%;
         height: 100%;
-        border-radius: rem(10px);
-        position: relative;
-
-        .file-name {
-          font-size: rem(12px);
-          margin-bottom: rem(3px);
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-
-        .file-size {
-          font-size: rem(12px);
-          color: $warm-grey;
-        }
-
-        .upload-bar {
-          display: flex;
-          align-items: center;
-
-          .cancel-upload-btn {
-            padding-right: 0;
-            padding-left: rem(10px);
-          }
-
-          .cancel-upload-icon {
-            width: rem(8px);
-            height: rem(8px);
-          }
-        }
+        border-radius: rem(6px);
+        position: absolute;
       }
 
-      .loading-bar {
-        height: rem(6px);
+      .full-bar {
+        background-color: $grey-dark;
         width: 100%;
-        position: relative;
-
-        > span {
-          width: 100%;
-          height: 100%;
-          border-radius: rem(6px);
-          position: absolute;
-        }
-
-        .full-bar {
-          background-color: $grey-dark;
-          width: 100%;
-          height: 100%;
-          z-index: 1;
-        }
-
-        .status-bar {
-          z-index: 2;
-          max-width: 100%;
-          background-color: $slate-dark;
-          transition: width 0.1s ease-in-out;
-        }
+        height: 100%;
+        z-index: 1;
       }
-    }
 
-    .u-section {
-      margin-top: 40px;
+      .status-bar {
+        z-index: 2;
+        max-width: 100%;
+        background-color: $slate-dark;
+        transition: width 0.1s ease-in-out;
+      }
     }
   }
-}
 
-.upload-section {
-  min-height: 300px;
   .pending-uploads {
     margin: 30px 0;
   }
@@ -207,98 +167,5 @@
     width: auto;
     // background-color: rgba($green-gfw, 0.1);
     padding: 4px 8px 10px 0;
-  }
-
-  .upload-item {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
-
-    .upload-detail {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-
-      .upload-name {
-        font-size: 16px;
-      }
-
-      .delete-upload-btn {
-        margin-left: 8px;
-        border: $green-gfw 1px dashed;
-      }
-
-      .delete-icon {
-        fill: $alert;
-      }
-
-      .remove-confirm {
-        display: flex;
-        font-size: 14px;
-        margin-left: 8px;
-        align-items: center;
-
-        .actions {
-          margin-left: 4px;
-          display: flex;
-          align-items: center;
-
-          .action-item {
-            padding: 0 4px;
-          }
-
-          .confirm-icon {
-            fill: $green-gfw;
-          }
-        }
-      }
-    }
-
-    .upload-publish-form {
-      font-size: 14px;
-      min-height: 200px;
-      overflow: scroll;
-      margin-left: 12px;
-
-      .c-publish-form {
-        .timestamp-picker-wrapper {
-          display: flex;
-          align-items: center;
-          margin-bottom: 20px;
-
-          .field-title {
-            font-weight: 500;
-          }
-
-          .timestamp-picker {
-            margin-left: 8px;
-          }
-        }
-      }
-
-      .timestamps {
-        .timestamp-item {
-          margin-bottom: 8px;
-        }
-      }
-
-      .publish-btn {
-        .submit-btn {
-          position: relative;
-
-          @media screen and (min-width: $screen-m) {
-            align-self: flex-start;
-          }
-
-          .submit-loader {
-            > div {
-              width: rem(20px);
-              height: rem(20px);
-              border-width: 2px;
-            }
-          }
-        }
-      }
-    }
   }
 }

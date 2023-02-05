@@ -6,7 +6,7 @@ export const initialState = {
   error: false,
   data: [],
   settings: {
-    uploadSection: "upload",
+    managerSection: "upload",
   },
   uploading: { loading: false, error: "", errorMessage: "" },
   uploads: {},
@@ -157,5 +157,4 @@ export default {
   [actions.setMyDataUploading]: setMyDataUploading,
   [actions.removeMyDataUploads]: removeMyDataUploads,
   [actions.setMyDataRasterFiles]: setMyDataRasterFiles,
-
 };

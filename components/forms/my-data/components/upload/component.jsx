@@ -1,123 +1,216 @@
 import React, { PureComponent } from "react";
+import Dropzone from "react-dropzone";
+import cx from "classnames";
+import { format } from "d3-format";
 
-import { trackEvent } from "utils/analytics";
-import SubnavMenu from "components/subnav-menu";
+import { cancelToken } from "utils/request";
 
-import Upload from "./upload";
-import RasterFiles from "./rasters";
+import Button from "components/ui/button";
+import Icon from "components/ui/icon";
+import Loader from "components/ui/loader";
+import uploadConfig from "./upload-config.json";
+
+import closeIcon from "assets/icons/close.svg?sprite";
 
 import "./styles.scss";
 
-class MyDataUpload extends PureComponent {
+import UploadItem from "./components/upload-item";
+
+class Upload extends PureComponent {
   componentDidMount() {
-    const {} = this.props;
+    const { getMyDataUploads, activeMyDataset } = this.props;
+
+    if (activeMyDataset && activeMyDataset.id) {
+      getMyDataUploads(activeMyDataset.id);
+    }
   }
 
-  renderFiles = () => {
-    return <div>Files List Here</div>;
+  state = {
+    uploadStatus: 0,
+    file: null,
+  };
+
+  onDropAccepted = (files) => {
+    const file = files && files[0];
+    this.setState({ file, uploadStatus: 0 });
+
+    this.handleUploadRaster(file);
+  };
+
+  onDropRejected = (files) => {
+    const { setMyDataUploading } = this.props;
+
+    const file = files && files[0];
+
+    if (files && file && files.length > 1) {
+      setMyDataUploading({
+        error: "Multiple files not supported",
+        errorMessage:
+          "Only single files of type .nc, .geotiff, .tiff,.tif are supported.",
+      });
+    } else if (file && !uploadConfig.types.includes(file.type)) {
+      setMyDataUploading({
+        error: "Invalid file type",
+        errorMessage: "Only .nc, .geotiff, .tiff, .tif are supported.",
+      });
+    } else if (file && file.size > uploadConfig.sizeLimit) {
+      setMyDataUploading({
+        error: "File too large",
+        errorMessage:
+          "The recommended maximum fle size is 10MB. Anything larger than that may not work properly.",
+      });
+    } else {
+      setMyDataUploading({
+        error: "Error attaching file",
+        errorMessage: "Please contact us for support.",
+      });
+    }
+  };
+
+  handleCheckUpload = (e) => {
+    this.setState({ uploadStatus: (e.loaded / e.total) * 25 });
+  };
+
+  handleCheckDownload = (e) => {
+    this.setState({
+      uploadStatus: 25 + (e.loaded / e.total) * 25,
+    });
+  };
+
+  handleUploadRaster = (file) => {
+    const { activeMyDataset } = this.props;
+
+    if (this.uploadRaster) {
+      this.uploadRaster.cancel();
+    }
+
+    this.uploadRaster = cancelToken();
+
+    const { id } = activeMyDataset;
+
+    this.props.uploadRaster({
+      file: file,
+      dataset_id: id,
+      onCheckUpload: this.handleCheckUpload,
+      onCheckDownload: this.handleCheckDownload,
+      token: this.uploadRaster.token,
+    });
+  };
+
+  handleCancelUpload = () => {
+    const { setMyDataUploading } = this.props;
+
+    if (this.uploadRaster) {
+      this.uploadRaster.cancel("cancel upload rastdr");
+    }
+
+    setMyDataUploading({
+      loading: false,
+      error: "",
+      errorMessage: "",
+    });
   };
 
   render() {
     const {
+      myDataUploads,
       activeMyDataset,
-      title,
-      uploadSection,
-      setMyDataSettings,
+      loading,
+      uploading: { loading: uploading, errorMessage, error },
+      removeUpload,
     } = this.props;
 
-    const sections = [
-      {
-        label: "Dataset",
-        active: uploadSection === "dataset",
-        onClick: () => {
-          setMyDataSettings({ uploadSection: "dataset" });
-        },
-      },
-      {
-        label: "Upload",
-        active: uploadSection === "upload",
-        onClick: () => {
-          setMyDataSettings({ uploadSection: "upload" });
-          trackEvent({
-            category: "My Data Upload",
-            action: "Select upload section",
-            label: "My Data",
-          });
-        },
-        Component: Upload,
-      },
-      {
-        label: "Published",
-        active: uploadSection === "files",
-        onClick: () => {
-          setMyDataSettings({ uploadSection: "files" });
-          trackEvent({
-            category: "My Data Upload",
-            action: "Select files section",
-            label: "My Data",
-          });
-        },
-        Component: RasterFiles,
-      },
-      {
-        label: "Style",
-        active: uploadSection === "style",
-        onClick: () => {
-          setMyDataSettings({ uploadSection: "style" });
-        },
-      },
-      {
-        label: "Analysis Settings",
-        active: uploadSection === "analysis",
-        onClick: () => {
-          setMyDataSettings({ uploadSection: "analysis" });
-        },
-      },
-    ];
+    const { uploadStatus, file } = this.state;
 
-    const { datasetDetails: d } = activeMyDataset || {};
+    const activeDatasetUploads =
+      activeMyDataset &&
+      activeMyDataset.id &&
+      myDataUploads &&
+      myDataUploads[activeMyDataset.id];
 
-    const activeSection = sections.find((s) => s.Component && s.active);
+    const hasError = error && errorMessage;
 
-    const ActiveSectionComponent = activeSection && activeSection.Component;
+    if (loading) {
+      return <Loader />;
+    }
+
+    const hasUploads = activeDatasetUploads && !!activeDatasetUploads.length;
 
     return (
-      <div className="c-mydata-upload">
-        <h1>{title}</h1>
-
-        {/* {d && (
-          <div className="dataset-details">
-            <div className="dataset-property">
-              <div className="dataset-prop-name">Dataset Name: </div>
-              <div className="dataset-prop-value">{d.name}</div>
-            </div>
-            <div className="dataset-property">
-              <div className="dataset-prop-name">Created on: </div>
-              <div className="dataset-prop-value">{d.created_on}</div>
-            </div>
-          </div>
-        )} */}
-        <div className="upload-sections-wrapper">
-          <SubnavMenu
-            links={sections}
-            className="my-data-upload-menu"
-            theme="theme-subnav-small-light"
-          />
-          <div className="content">
-            <div className="row">
-              <div className="column small-12">
-                <div className="u-section">
-                  {activeSection ? (
-                    <ActiveSectionComponent {...this.props} />
-                  ) : null}
+      <div className="c-upload-section">
+        {!hasUploads && !loading && (
+          <Dropzone
+            className={cx(
+              "upload-menu-input",
+              { error: error && errorMessage },
+              { uploading }
+            )}
+            onDropAccepted={this.onDropAccepted}
+            onDropRejected={this.onDropRejected}
+            maxSize={uploadConfig.sizeLimit}
+            accept={uploadConfig.types}
+            multiple={false}
+            disabled={uploading}
+          >
+            {hasError && !uploading && (
+              <>
+                <p className="error-title">{error}</p>
+                <p className="small-text error-desc">{errorMessage}</p>
+              </>
+            )}
+            {!hasError && !uploading && (
+              <>
+                <p>
+                  Drag and drop your <b>raster file</b> or click here to upload
+                </p>
+                <p className="small-text">{"Recommended file size < 10 MB"}</p>
+              </>
+            )}
+            {!hasError && uploading && (
+              <div className="uploading-raster">
+                <p className="file-name">{file && file.name}</p>
+                <p className="file-size">
+                  {`Uploading ${(file && format(".2s")(file.size)) || 0}B`}
+                </p>
+                <div className="upload-bar">
+                  <div className="loading-bar">
+                    <span className="full-bar" />
+                    <span
+                      className="status-bar"
+                      style={{ width: `${uploadStatus || 0}%` }}
+                    />
+                  </div>
+                  <Button
+                    theme="theme-button-clear"
+                    className="cancel-upload-btn"
+                    onClick={this.handleCancelUpload}
+                  >
+                    <Icon className="cancel-upload-icon" icon={closeIcon} />
+                  </Button>
                 </div>
               </div>
-            </div>
+            )}
+          </Dropzone>
+        )}
+
+        {hasUploads && (
+          <div className="pending-uploads">
+            <div className="pending-title">UnPublished Uploads</div>
+            {activeDatasetUploads &&
+              !!activeDatasetUploads.length &&
+              activeDatasetUploads.map((upload) => (
+                <UploadItem
+                  key={upload.id}
+                  upload={upload}
+                  onRemoveUpload={removeUpload}
+                  {...this.props}
+                />
+              ))}
           </div>
-        </div>
+        )}
       </div>
     );
   }
 }
 
-export default MyDataUpload;
+export default Upload;

@@ -11,7 +11,7 @@ import "./styles.scss";
 
 class MyData extends Component {
   renderNoDatasets() {
-    const { isDesktop, setMyDataModalSettings } = this.props;
+    const { isDesktop, setMyDataModalSettings, setMyDataSettings } = this.props;
     return (
       <div className="my-data-header">
         {isDesktop && (
@@ -23,12 +23,14 @@ class MyData extends Component {
         <Button
           theme="theme-button-medium"
           className="add-btn"
-          onClick={() =>
+          onClick={() => {
+            setMyDataSettings({ managerSection: "dataset" });
+
             setMyDataModalSettings({
               myDatasetId: true,
               myDataIntent: "create",
-            })
-          }
+            });
+          }}
         >
           <div>Add</div>
           <Icon icon={plusIcon} className="add-icon" />
@@ -38,7 +40,12 @@ class MyData extends Component {
   }
 
   renderDatasets() {
-    const { myDatasets, onToggleLayer, setMyDataModalSettings } = this.props;
+    const {
+      myDatasets,
+      onToggleLayer,
+      setMyDataModalSettings,
+      setMyDataSettings,
+    } = this.props;
 
     return (
       <>
@@ -47,12 +54,14 @@ class MyData extends Component {
             <Button
               theme="theme-button-medium"
               className="add-btn"
-              onClick={() =>
+              onClick={() => {
+                setMyDataSettings({ managerSection: "dataset" });
+
                 setMyDataModalSettings({
                   myDatasetId: true,
                   myDataIntent: "create",
-                })
-              }
+                });
+              }}
             >
               <div>Create Dataset</div>
               <Icon icon={plusIcon} className="add-icon" />

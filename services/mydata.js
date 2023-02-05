@@ -101,7 +101,19 @@ export const deleteMyDataset = (id) => {
     action: "User deletes myDataset",
     label: id,
   });
-  return myDataRequest.delete(`/dataset/${id}/`);
+  return myDataRequest.delete(`/dataset/${id}/`).then((res) => {
+    const { data: d } = res;
+
+    const myDataset = getDatasetConfig(d);
+
+    trackEvent({
+      category: "User Datasets",
+      action: "User deletes myDataset",
+      label: d.id,
+    });
+
+    return myDataset;
+  });
 };
 
 export const uploadDatasetFile = (
