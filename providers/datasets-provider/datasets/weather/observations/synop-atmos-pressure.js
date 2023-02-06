@@ -96,7 +96,7 @@ export const atmosphericPressure = (timestamps = []) => {
             // },
 
             {
-              "source-layer": "public.hourly_atm_pressure",
+              "source-layer": "default",
               metadata: {
                 position: "top",
               },

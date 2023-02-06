@@ -21,7 +21,7 @@ export default [
   ...nrtSatellite,
   ...longRangeForecast,
 
-  // ...observations
+  ...observations
 
   // ...gfsPrecipitableWaterTotal,
   // ...gfsCloudWaterTotal,

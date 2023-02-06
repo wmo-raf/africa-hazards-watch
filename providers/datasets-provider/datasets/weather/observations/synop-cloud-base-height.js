@@ -46,7 +46,7 @@ const generateLayers = (timestamps = []) => {
           render: {
             layers: [
               {
-                "source-layer": "public.hourly_cloud_base_height",
+                "source-layer": "default",
                 metadata: {
                   position: "top",
                 },
@@ -93,7 +93,7 @@ const generateLayers = (timestamps = []) => {
               },
 
               {
-                "source-layer": "public.hourly_cloud_base_height",
+                "source-layer": "default",
                 metadata: {
                   position: "top",
                 },

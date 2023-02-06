@@ -42,7 +42,7 @@ export const airTemperature = (timestamps = []) => {
         render: {
           layers: [
             {
-              "source-layer": "public.hourly_air_temperature",
+              "source-layer": "default",
               metadata: {
                 position: "top",
               },

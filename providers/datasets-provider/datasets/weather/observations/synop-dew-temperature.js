@@ -94,7 +94,7 @@ export const dewTemperature = (timestamps = []) => {
             //   }
             // },
             {
-              "source-layer": "public.hourly_dew_temperature",
+              "source-layer": "default",
               metadata: {
                 position: "top",
               },
