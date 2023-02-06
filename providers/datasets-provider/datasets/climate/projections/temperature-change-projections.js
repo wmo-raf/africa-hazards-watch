@@ -393,8 +393,12 @@ export default [
             },
           },
         },
-        hidePastTimestamps: true, // we might need to hide past forecast
-        data_path: dataPath,
+        analysisConfig: [
+          {
+            key: "temperature_projections",
+            type: "admin",
+          },
+        ],
       },
     ],
   },

@@ -1,0 +1,94 @@
+@import "~styles/settings.scss";
+
+.upload-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+
+  .upload-detail {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+    .upload-name {
+      font-size: 16px;
+    }
+
+    .delete-upload-btn {
+      margin-left: 8px;
+      border: $green-gfw 1px dashed;
+    }
+
+    .delete-icon {
+      fill: $alert;
+    }
+
+    .remove-confirm {
+      display: flex;
+      font-size: 14px;
+      margin-left: 8px;
+      align-items: center;
+
+      .actions {
+        margin-left: 4px;
+        display: flex;
+        align-items: center;
+
+        .action-item {
+          padding: 0 4px;
+        }
+
+        .confirm-icon {
+          fill: $green-gfw;
+        }
+      }
+    }
+  }
+}
+
+.upload-publish-form {
+  font-size: 14px;
+  min-height: 200px;
+  overflow: scroll;
+  margin-left: 12px;
+
+  .c-publish-form {
+    .timestamp-picker-wrapper {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+
+      .field-title {
+        font-weight: 500;
+      }
+
+      .timestamp-picker {
+        margin-left: 8px;
+      }
+    }
+  }
+
+  .timestamps {
+    .timestamp-item {
+      margin-bottom: 8px;
+    }
+  }
+
+  .publish-btn {
+    .submit-btn {
+      position: relative;
+
+      @media screen and (min-width: $screen-m) {
+        align-self: flex-start;
+      }
+
+      .submit-loader {
+        > div {
+          width: rem(20px);
+          height: rem(20px);
+          border-width: 2px;
+        }
+      }
+    }
+  }
+}

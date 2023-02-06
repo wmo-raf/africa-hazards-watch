@@ -1,0 +1,83 @@
+@import "~styles/settings.scss";
+.my-data {
+  position: relative;
+  height: 100%;
+
+  .my-data-header {
+    padding: rem(5px) rem(15px);
+    @media screen and (min-width: $screen-m) {
+      padding: rem(20px);
+      padding-bottom: rem(5px);
+    }
+    h2.title-no-data {
+      font-size: rem(18px);
+      max-width: 80%;
+    }
+    h3.title-create-data {
+      font-size: rem(14px);
+      font-weight: 500;
+      text-transform: uppercase;
+      max-width: 80%;
+      color: $slate;
+    }
+    p {
+      margin: rem(10px) 0;
+      line-height: 1.7;
+    }
+  }
+
+  .add-btn {
+    display: flex;
+
+    align-items: center;
+
+    .add-icon {
+      height: 12px;
+      width: 12px;
+      margin-left: 4px;
+    }
+  }
+
+  .my-data-toolbar {
+    margin-top: 20px;
+  }
+
+  .my-data-list {
+    margin-top: 20px;
+
+    .dataset-toggle {
+      display: flex;
+      flex-direction: column;
+
+      margin-bottom: rem(20px);
+
+      &:last-child {
+        margin-bottom: rem(5px);
+      }
+
+      .dataset-toolbar {
+        display: flex;
+        margin-left: 28px;
+        font-size: 14px;
+        padding: 8px 0 0 0;
+
+        .dataset-tool {
+          display: flex;
+          align-items: center;
+          padding: 0 8px 0 0;
+          .tool-button {
+          }
+
+          .tool-icon {
+            margin-left: 4px;
+            fill: $green-gfw;
+          }
+
+          .tool-title {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}

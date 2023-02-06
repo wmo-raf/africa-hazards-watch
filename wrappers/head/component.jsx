@@ -12,9 +12,9 @@ const Head = ({ title, description, noIndex, metaTags }) =>
     <NextHead>
       <title>{title}</title>
       <meta name="description" content={description} />
-      <meta name="author" content="Vizzuality" />
+      <meta name="author" content="WMOAfrica" />
       <meta name="twitter:card" content="summary" />
-      <meta name="twitter:creator" content="@globalforests" />
+      <meta name="twitter:creator" content="@wmo" />
       <meta name="twitter:description" content={description} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />

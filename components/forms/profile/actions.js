@@ -2,26 +2,26 @@ import { createThunkAction } from "redux/actions";
 import { FORM_ERROR } from "final-form";
 
 import { updateProfile } from "services/user";
-import { setMyHw } from "providers/myhw-provider/actions";
+import { setMyHW } from "providers/myhw-provider/actions";
 
 export const saveProfile = createThunkAction(
   "saveProfile",
   ({
     id,
     signUpForNewsletter,
-    subsector,
-    subsector_otherInput,
+    sector,
+    sector_otherInput,
     howDoYouUse,
     howDoYouUse_otherInput,
+    loggedIn,
     ...rest
   }) => (dispatch) => {
     const postData = {
-      id,
       ...rest,
-      subsector:
-        subsector && subsector.includes("Other")
-          ? `Other: ${subsector_otherInput || ""}`
-          : subsector,
+      sector:
+        sector && sector.includes("Other")
+          ? `Other: ${sector_otherInput || ""}`
+          : sector,
       howDoYouUse:
         howDoYouUse && howDoYouUse.includes("Other")
           ? [
@@ -29,12 +29,6 @@ export const saveProfile = createThunkAction(
               `Other: ${howDoYouUse_otherInput || ""}`,
             ]
           : howDoYouUse,
-      signUpForNewsletter:
-        !!signUpForNewsletter &&
-        signUpForNewsletter.length &&
-        signUpForNewsletter.includes("newsletter")
-          ? "true"
-          : false,
     };
 
     return updateProfile(id, postData)
@@ -42,7 +36,7 @@ export const saveProfile = createThunkAction(
         if (response.data && response.data.data) {
           const { attributes } = response.data.data;
           dispatch(
-            setMyGFW({
+            setMyHW({
               loggedIn: true,
               id: response.data.data.id,
               ...attributes,
@@ -53,10 +47,18 @@ export const saveProfile = createThunkAction(
         return true;
       })
       .catch((error) => {
-        const { errors } = error.response.data;
+        const { errors } = (error.response && error.response.data) || {};
+
+        if (errors && errors[0] && errors[0].detail) {
+          err = errors[0].detail;
+        } else {
+          if (error.message) {
+            err = error.message;
+          }
+        }
 
         return {
-          [FORM_ERROR]: errors[0].detail,
+          [FORM_ERROR]: err,
         };
       });
   }

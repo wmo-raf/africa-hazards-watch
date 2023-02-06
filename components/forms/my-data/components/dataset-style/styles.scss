@@ -1,0 +1,42 @@
+@import "~styles/settings.scss";
+
+.c-style-form {
+  max-height: 500px;
+  overflow-y: scroll;
+  .color-values {
+    .c-array-title {
+      padding: 20px 0 0;
+      text-transform: uppercase;
+      font-size: rem(12px);
+      color: #333;
+      margin-bottom: rem(5px);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+    }
+
+    .array-wrapper {
+      min-height: 100px;
+      padding: 30px;
+      border-left: dashed 1px $green-gfw;
+
+      .fields-container {
+        border-left: dashed 1px $green-gfw;
+        border-top: dashed 1px $green-gfw;
+        // border-radius: 4px;
+        padding: 30px;
+
+        .c-form-field {
+          max-width: 300px;
+        }
+      }
+
+      .remove-btn {
+        margin: 10px 0 20px;
+        .delete-icon {
+          fill: $alert;
+        }
+      }
+    }
+  }
+}

@@ -1,15 +1,15 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
 
-import './styles.scss';
+import "./styles.scss";
 
 class Checkbox extends PureComponent {
   render() {
-    const { className, value } = this.props;
+    const { className, value, id } = this.props;
     return (
-      <div className={cx('c-checkbox', className)}>
-        <span className={cx('green-square', { checked: value })} />
+      <div id={id && id} className={cx("c-checkbox", className)}>
+        <span className={cx("green-square", { checked: value })} />
       </div>
     );
   }
@@ -17,7 +17,7 @@ class Checkbox extends PureComponent {
 
 Checkbox.propTypes = {
   className: PropTypes.string,
-  value: PropTypes.bool
+  value: PropTypes.bool,
 };
 
 export default Checkbox;

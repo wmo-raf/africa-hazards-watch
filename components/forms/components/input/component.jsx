@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/label-has-for */
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { Field } from 'react-final-form';
-import cx from 'classnames';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import { Field } from "react-final-form";
+import cx from "classnames";
 
-import { composeValidators } from 'components/forms/validations';
+import { composeValidators } from "components/forms/validations";
 
-import FieldWrapper from 'components/forms/components/field-wrapper';
+import FieldWrapper from "components/forms/components/field-wrapper";
 
-import './styles.scss';
+import "./styles.scss";
 
 class Input extends PureComponent {
   static propTypes = {
@@ -21,7 +21,7 @@ class Input extends PureComponent {
     required: PropTypes.bool,
     collapse: PropTypes.bool,
     infoClick: PropTypes.func,
-    className: PropTypes.string
+    className: PropTypes.string,
   };
 
   render() {
@@ -35,7 +35,9 @@ class Input extends PureComponent {
       required,
       infoClick,
       collapse,
-      className
+      disabled,
+      helpText,
+      className,
     } = this.props;
 
     return (
@@ -55,8 +57,9 @@ class Input extends PureComponent {
             collapse={collapse}
             value={input.value}
           >
-            {type === 'textarea' ? (
+            {type === "textarea" ? (
               <textarea
+                disabled={disabled}
                 className="c-form-input textarea"
                 {...input}
                 type={type}
@@ -64,12 +67,14 @@ class Input extends PureComponent {
               />
             ) : (
               <input
-                className={cx('c-form-input', className)}
+                className={cx("c-form-input", className)}
                 {...input}
+                disabled={disabled}
                 type={type}
                 placeholder={placeholder}
               />
             )}
+            {helpText && <div className="c-form-help-text">{helpText}</div>}
           </FieldWrapper>
         )}
       </Field>

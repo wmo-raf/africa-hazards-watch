@@ -7,7 +7,7 @@ import DashboardImageLarge from "assets/images/aois/aoi-dashboard-small@2x.png";
 
 import "./styles.scss";
 
-const MyGfwNoAreas = () => (
+const MyHwNoAreas = () => (
   <div className="c-no-areas">
     <Row>
       <Column width={[1, 5 / 12]}>
@@ -35,4 +35,4 @@ const MyGfwNoAreas = () => (
   </div>
 );
 
-export default MyGfwNoAreas;
+export default MyHwNoAreas;

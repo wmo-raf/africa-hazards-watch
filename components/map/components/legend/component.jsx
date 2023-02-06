@@ -18,6 +18,7 @@ import Loader from "components/ui/loader";
 import NoContent from "components/ui/no-content";
 import SentenceSelector from "components/sentence-selector";
 import DateTimeSelector from "components/datetime-selector";
+import LayerFilterSelector from "components/layer-filter-selector";
 import WidgetCaution from "components/widget/components/widget-caution";
 import Icon from "components/ui/icon";
 
@@ -39,10 +40,12 @@ const MapLegend = ({
   onChangeOrder,
   onChangeTimeline,
   onChangeThreshold,
+
   onToggleLayer,
   onSelectLayer,
   onChangeLayer,
   onChangeParam,
+  onChangeFilterParam,
   onChangeDecodeParam,
   onChangeInfo,
   loading,
@@ -92,8 +95,8 @@ const MapLegend = ({
               statement,
               citation,
               disclaimer,
-              filterParams,
-              paramsFilterConfig,
+              layerFilterParams,
+              layerFilterParamsConfig,
               legendImage,
             } = activeLayer || {};
 
@@ -191,6 +194,7 @@ const MapLegend = ({
                           className="param-selector"
                           {...paramConfig}
                           availableDates={
+                            // use dates from update provider else use dates from  initial config
                             layerTimestamps[activeLayer.id] &&
                             !isEmpty(layerTimestamps[activeLayer.id])
                               ? layerTimestamps[activeLayer.id]
@@ -200,12 +204,9 @@ const MapLegend = ({
                             params[paramConfig.key] || paramConfig.default
                           }
                           onChange={(value) => {
-                            onChangeParam(
-                              activeLayer,
-                              {
-                                [paramConfig.key]: value,
-                              },
-                            );
+                            onChangeParam(activeLayer, {
+                              [paramConfig.key]: value,
+                            });
                           }}
                         />
                       ) : paramConfig.options ? (
@@ -233,6 +234,33 @@ const MapLegend = ({
                       ) : null
                     )}
                 </div>
+                {activeLayer &&
+                  layerFilterParams &&
+                  layerFilterParamsConfig &&
+                  layerFilterParamsConfig.map((filterParam) => {
+                    if (filterParam.options) {
+                      return (
+                        <LayerFilterSelector
+                          key={`${activeLayer.name}-${filterParam.key}`}
+                          uiType={filterParam}
+                          name={name}
+                          className="param-selector"
+                          {...filterParam}
+                          value={
+                            layerFilterParams[filterParam.key] ||
+                            filterParam.default
+                          }
+                          onChange={(e) =>
+                            onChangeFilterParam(activeLayer, {
+                              [filterParam.key]: e,
+                            })
+                          }
+                        />
+                      );
+                    }
+
+                    return null;
+                  })}
 
                 {(isSelectorLayer || isMultiSelectorLayer) &&
                   selectorLayerConfig && (

@@ -25,7 +25,7 @@ const ProfileModal = ({ setProfileModalOpen, profileComplete }) => {
       onRequestClose={() => setProfileModalOpen(false)}
     >
       <div className="c-profile-modal">
-        <ProfileForm source="myGfw" />
+        <ProfileForm source="myHw" />
       </div>
     </Modal>
   );

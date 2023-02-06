@@ -1,3 +1,4 @@
+import findIndex from "lodash/findIndex";
 import * as actions from "./actions";
 
 export const initialState = {
@@ -18,12 +19,53 @@ const setDatasets = (state, { payload }) => ({
   loading: false,
 });
 
-const setDatasetsWithMetadata = (state, { payload }) => ({
-  ...state,
-  ...payload,
-});
+const updateDatasets = (state, { payload }) => {
+  const newDatasets = [...payload];
+
+  const { data: datasets } = state;
+
+  const data = [...datasets];
+
+  for (let i = 0; i < newDatasets.length; i++) {
+    const dataset = newDatasets[i];
+
+    const index = findIndex(datasets, ["id", dataset.id]);
+
+    if (index > -1) {
+      data.splice(index, 1, dataset); // substitution
+    } else {
+      data.push(dataset); // addition
+    }
+  }
+
+  return {
+    ...state,
+    data,
+  };
+};
+
+const removeDataset = (state, { payload }) => {
+  const datasetToRemove = { ...payload };
+
+  const { data: datasets } = state;
+
+  const data = [...datasets];
+
+  const index = findIndex(datasets, ["id", datasetToRemove.id]);
+
+  if (index > -1) {
+    data.splice(index, 1); // remove from array
+  }
+
+  return {
+    ...state,
+    data,
+  };
+};
 
 export default {
   [actions.setDatasets]: setDatasets,
   [actions.setDatasetsLoading]: setDatasetsLoading,
+  [actions.updateDatasets]: updateDatasets,
+  [actions.removeDataset]: removeDataset,
 };

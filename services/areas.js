@@ -6,7 +6,7 @@ const REQUEST_URL = "/area";
 
 export const getArea = (id, userToken = null) =>
   apiRequest
-    .get(`${REQUEST_URL}/${id}`, {
+    .get(`${REQUEST_URL}/${id}/`, {
       headers: {
         ...(userToken && {
           Authorization: `Bearer ${userToken}`,
@@ -37,7 +37,7 @@ export const getArea = (id, userToken = null) =>
     });
 
 export const getAreas = () =>
-  apiAuthRequest.get(REQUEST_URL).then((areasResponse) => {
+  apiAuthRequest.get(`${REQUEST_URL}/`).then((areasResponse) => {
     const { data: areas } = areasResponse.data;
 
     return areas.map((area) => {
@@ -68,7 +68,7 @@ export const getAreas = () =>
 export const saveArea = (data) =>
   apiAuthRequest({
     method: data.id ? "PATCH" : "POST",
-    url: data.id ? `${REQUEST_URL}/${data.id}` : REQUEST_URL,
+    url: data.id ? `${REQUEST_URL}/${data.id}/` : `${REQUEST_URL}/`,
     data,
   }).then((areaResponse) => {
     const { data: area } = areaResponse.data;
@@ -91,5 +91,5 @@ export const deleteArea = (id) => {
     action: "User deletes aoi",
     label: id,
   });
-  return apiAuthRequest.delete(`${REQUEST_URL}/${id}`);
+  return apiAuthRequest.delete(`${REQUEST_URL}/${id}/`);
 };

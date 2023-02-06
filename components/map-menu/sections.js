@@ -65,5 +65,6 @@ export const searchSections = [
     slug: "my-hw",
     icon: myHWIcon,
     Component: MyHW,
+    large: false,
   },
 ];

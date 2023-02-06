@@ -1,6 +1,3 @@
-import { fetchTimestamps } from "services/timestamps";
-import { parseISO, format, addDays, startOfHour } from "date-fns";
-
 const datasetName = "Precipitation Forecast";
 const layerName = "gfs_precipitation_1_hr";
 const metadataId = "4ba0fb8c-3e9e-42ea-8956-f961dc80f71f";
@@ -8,23 +5,6 @@ const dataPath = "/gskydata/gfs/gfs-precipitation-1-hr";
 
 const category = 1;
 const subCategory = 1;
-
-const generateLayers = (timestamps = []) => {
-  // get current hour
-  const currentHour = startOfHour(new Date());
-  const latest = currentHour.toISOString();
-
-  const time = parseISO(latest);
-  const end = addDays(time, 7);
-  const dateFormat = "do MMM y hh:mmm";
-
-  const periodStr = `Latest: ${format(time, dateFormat)} to ${format(
-    end,
-    dateFormat
-  )}`;
-
-  return;
-};
 
 export default [
   {
@@ -51,7 +31,7 @@ export default [
           source: {
             type: "raster",
             tiles: [
-              `http://197.254.13.228:8081/ows/gfs?service=WMS&request=GetMap&version=1.1.1&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time={time}&layers=${layerName}&clip_feature={clip_feature}`,
+              `http://20.56.94.119/gsky/ows/gfs?service=WMS&request=GetMap&version=1.1.1&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time={time}&layers=${layerName}&clip_feature={clip_feature}`,
             ],
             minzoom: 3,
             maxzoom: 12,
@@ -90,12 +70,6 @@ export default [
             availableDates: [],
           },
         ],
-        timeParamSentenceConfig: {
-          param: "time",
-          format: "do MMM y hh:mm",
-          add: 7,
-          template: "Selected Period : {time}",
-        },
         hidePastTimestamps: true, // we might need to hide past forecast
         data_path: dataPath,
         analysisConfig: [

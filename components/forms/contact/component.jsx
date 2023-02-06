@@ -66,7 +66,7 @@ class ContactForm extends PureComponent {
               {submitSucceeded ? (
                 <div className="feedback-message">
                   <h3>
-                    Thank you for contacting Global Forest Watch! Check your
+                    Thank you for contacting Africa Hazards Watch! Check your
                     inbox for a confirmation email.
                   </h3>
                   <p>Interested in getting news and updates from us?</p>
@@ -96,7 +96,7 @@ class ContactForm extends PureComponent {
                       name="email"
                       type="email"
                       label="email"
-                      placeholder="example@globalforestwatch.org"
+                      placeholder="example@africahazardswatch.org"
                       validate={[email]}
                       required
                     />

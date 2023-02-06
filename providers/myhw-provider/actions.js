@@ -19,6 +19,7 @@ export const getUserProfile = createThunkAction(
             .then((response) => {
               if (response.status < 400 && response.data) {
                 const { data } = response.data;
+
                 dispatch(
                   setMyHW({
                     loggedIn: true,

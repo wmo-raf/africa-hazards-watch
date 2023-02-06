@@ -299,7 +299,7 @@ class Header extends PureComponent {
                       }
                     >
                       <Icon icon={arrowIcon} className="breadcrumb-icon" />
-                      Go to Global dashboard
+                      Go to Africa dashboard
                     </button>
                   </a>
                 </Link>

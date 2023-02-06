@@ -1,42 +1,63 @@
-import React, { PureComponent, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { Form } from 'react-final-form';
-import sortBy from 'lodash/sortBy';
+import React, { PureComponent, Fragment } from "react";
+import PropTypes from "prop-types";
+import { Form } from "react-final-form";
+import sortBy from "lodash/sortBy";
 
-import CountryDataProvider from 'providers/country-data-provider';
-import Input from 'components/forms/components/input';
-import Select from 'components/forms/components/select';
+import CountryDataProvider from "providers/country-data-provider";
+import Input from "components/forms/components/input";
+import Select from "components/forms/components/select";
 
-// import Checkbox from 'components/forms/components/checkbox';
-import Radio from 'components/forms/components/radio';
+import Checkbox from "components/forms/components/checkbox";
+import Radio from "components/forms/components/radio";
 
-import Submit from 'components/forms/components/submit';
-import ConfirmationMessage from 'components/confirmation-message';
-import Button from 'components/ui/button';
-import Error from 'components/forms/components/error';
+import Submit from "components/forms/components/submit";
+import ConfirmationMessage from "components/confirmation-message";
+import Button from "components/ui/button";
+import Error from "components/forms/components/error";
 
 import {
   email as validateEmail,
-  hasValidOption
-} from 'components/forms/validations';
+  hasValidOption,
+} from "components/forms/validations";
 
-import { sectors, howDoYouUse, interests } from './config';
+import {
+  sectors,
+  howDoYouUse,
+  interests,
+  scaleOfOperations,
+  typeOfOrganization,
+} from "./config";
 
-import './styles.scss';
+import "./styles.scss";
 
 class ProfileForm extends PureComponent {
   static propTypes = {
     initialValues: PropTypes.object,
     countries: PropTypes.array,
     saveProfile: PropTypes.func,
-    source: PropTypes.string
+    source: PropTypes.string,
   };
 
   render() {
     const { initialValues, countries, saveProfile, source } = this.props;
-    const sectorsOptions = Object.keys(sectors).map(s => ({
+    const sectorsOptions = sectors.map((s) => ({
       label: s,
-      value: s
+      value: s,
+    }));
+
+    const interestsOptions = interests.map((s) => ({
+      label: s,
+      value: s,
+    }));
+
+    const typeOfOrgOptions = typeOfOrganization.map((t) => ({
+      label: t,
+      value: t,
+    }));
+
+    const scaleOfOperationsOptions = scaleOfOperations.map((s) => ({
+      label: s,
+      value: s,
     }));
 
     return (
@@ -52,15 +73,15 @@ class ProfileForm extends PureComponent {
             submitError,
             submitSucceeded,
             form: { reset },
-            values = {}
+            values = {},
           }) => (
             <form className="c-profile-form" onSubmit={handleSubmit}>
               <div className="row">
                 {submitSucceeded ? (
                   <div className="column small-12">
                     <ConfirmationMessage
-                      title="Thank you for updating your my HW profile!"
-                      description="You may wish to read our <a href='/privacy-policy' target='_blank'>privacy policy</a>, which provides further information about how we use personal data."
+                      title="Thank you for updating your My HW profile!"
+                      description="You may wish to read our <a href='/privacy' target='_blank'>privacy policy</a>, which provides further information about how we use personal data."
                     />
                     <Button
                       className="reset-form-btn"
@@ -76,8 +97,8 @@ class ProfileForm extends PureComponent {
                     <div className="column small-12">
                       <h1>Your profile</h1>
                       <h3>
-                        We use this information to make Global Forest Watch more
-                        useful for you. Your privacy is important to us and
+                        We use this information to make Africa Hazards Watch
+                        more useful for you. Your privacy is important to us and
                         we&apos;ll never share your information without your
                         consent.
                       </h3>
@@ -89,11 +110,20 @@ class ProfileForm extends PureComponent {
                         label="last name / surname"
                         required
                       />
+                      <Radio
+                        name="gender"
+                        label="Gender"
+                        options={[
+                          { label: "Male", value: "M" },
+                          { label: "Female", value: "F" },
+                        ]}
+                        required
+                      />
                       <Input
                         name="email"
                         type="email"
                         label="email"
-                        placeholder="example@globalforestwatch.org"
+                        placeholder="example@africahazardswatch.org"
                         validate={[validateEmail]}
                         required
                       />
@@ -103,30 +133,46 @@ class ProfileForm extends PureComponent {
                         options={sectorsOptions}
                         placeholder="Select a sector"
                         validate={[
-                          value => hasValidOption(value, sectorsOptions)
+                          (value) => hasValidOption(value, sectorsOptions),
+                        ]}
+                        required
+                        selectInput={
+                          values.sector && values.sector.includes("Other")
+                        }
+                      />
+                      <p className="section-name">Your organization Details</p>
+                      <Input
+                        name="organization"
+                        label="Organization / Company"
+                        required
+                      />
+                      <Select
+                        name="organizationType"
+                        label="Type of Organization"
+                        options={typeOfOrgOptions}
+                        placeholder="Select type of your organization"
+                        validate={[
+                          (value) => hasValidOption(value, typeOfOrgOptions),
+                        ]}
+                        required
+                        selectInput={
+                          values.typeOfOrganization &&
+                          values.typeOfOrganization.includes("Other")
+                        }
+                      />
+                      <Select
+                        name="scaleOfOperations"
+                        label="Scale of Operations"
+                        options={scaleOfOperationsOptions}
+                        placeholder="Select scale of operations"
+                        validate={[
+                          (value) =>
+                            hasValidOption(value, scaleOfOperationsOptions),
                         ]}
                         required
                       />
-                      {values.sector &&
-                        sectors[values.sector] && (
-                        <Radio
-                          name="subsector"
-                          label="Role"
-                          options={sectors[values.sector].map(s => ({
-                            label: s,
-                            value: s.replace(/( )+|(\/)+/g, '_'),
-                            radioInput: s === 'Other:'
-                          }))}
-                          selectedOption={values.subsector}
-                          required
-                        />
-                      )}
-                      <Input name="jobTitle" label="job title" />
-                      <Input
-                        name="company"
-                        label="Company / organization"
-                        required
-                      />
+
+                      <Input name="position" label="Position" />
                       <p className="section-name">Where are you located?</p>
                       <Select
                         name="country"
@@ -136,54 +182,37 @@ class ProfileForm extends PureComponent {
                         required
                       />
                       <Input name="city" label="city" />
-                      <Input
-                        name="state"
-                        label="state / department / province"
-                      />
-                      <p className="section-name">
-                        What area are you most interested in?
-                      </p>
-                      <Select
-                        name="aoiCountry"
-                        label="country"
-                        options={countries}
-                        placeholder="Select a country"
-                      />
-                      <Input name="aoiCity" label="city" />
-                      <Input
-                        name="aoiState"
-                        label="state / department / province"
-                      />
-                      <Select
+                      {/* <Checkbox
                         name="interests"
                         label="What topics are you interested in?"
-                        options={interests.sort()}
+                        options={interestsOptions}
                         required
-                        multiple
-                      />
-                      <Select
+                      /> */}
+                      {/* <Checkbox
                         name="howDoYouUse"
-                        label="how do you use global forest watch?"
+                        label="how do you use east africa hazards watch?"
                         options={[
                           ...sortBy(
-                            howDoYouUse.map(r => ({
+                            howDoYouUse.map((r) => ({
                               label: r,
-                              value: r
+                              value: r,
                             })),
-                            'label'
+                            "label"
                           ),
-                          { label: 'Other', value: 'Other' }
+                          { label: "Other", value: "Other" },
                         ]}
-                        selectInput={values.howDoYouUse && values.howDoYouUse.includes('Other')}
-                        multiple
+                        selectInput={
+                          values.howDoYouUse &&
+                          values.howDoYouUse.includes("Other")
+                        }
                         required
-                      />
+                      /> */}
                       {/* <Checkbox
                         name="signUpToNewsletter"
                         options={[
                           {
                             label:
-                              'Subscribe to monthly GFW newsletters and updates based on your interests.',
+                              'Subscribe to monthly HW newsletters and updates based on your interests.',
                             value: true
                           }
                         ]}
@@ -203,13 +232,15 @@ class ProfileForm extends PureComponent {
                         submitError={submitError}
                       />
                       <Submit submitting={submitting}>
-                        {source === 'AreaOfInterestModal' ? 'next' : 'save'}
+                        {source === "AreaOfInterestModal" ? "next" : "save"}
                       </Submit>
                     </div>
                     <div className="column small-12">
                       <p className="delete-profile">
-                        <a href="mailto:gfw@wri-org">Email us </a>
-                        to delete your MyGFW account.
+                        <a href="mailto:ahw@africahazardswatch.org">
+                          Email us{" "}
+                        </a>
+                        to delete your MyHw account.
                       </p>
                     </div>
                   </Fragment>

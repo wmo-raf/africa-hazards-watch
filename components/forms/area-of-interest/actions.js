@@ -1,5 +1,6 @@
 import { createThunkAction } from "redux/actions";
 import { FORM_ERROR } from "final-form";
+import bbox from "turf-bbox";
 
 import { saveArea, deleteArea } from "services/areas";
 
@@ -21,7 +22,6 @@ export const saveAreaOfInterest = createThunkAction(
     language,
     updates,
     admin,
-    wdpaid,
     use,
     application,
     viewAfterSave,
@@ -34,6 +34,9 @@ export const saveAreaOfInterest = createThunkAction(
       payload: { type, adm0, adm1, adm2 },
     } = location || {};
     const isCountry = type === "country";
+
+    const bounds =
+      geostoreData && geostoreData.geojson && bbox(geostoreData.geojson);
 
     const postData = {
       id,
@@ -51,13 +54,11 @@ export const saveAreaOfInterest = createThunkAction(
       email,
       language: "en",
       weeklyForecastUpdates: updates.includes("weeklyForecastUpdates"),
-      dekadalDroughtUpdates: updates.includes("dekadalDroughtUpdates"),
-      foodSecurityUpdates: updates.includes("foodSecurityUpdates"),
+      monthlyClimateChangeSummary: updates.includes(
+        "monthlyClimateChangeSummary"
+      ),
       ...(admin && {
         admin,
-      }),
-      ...(wdpaid && {
-        wdpaid,
       }),
       ...(use && {
         use,
@@ -124,7 +125,7 @@ export const deleteAreaOfInterest = createThunkAction(
         }
       })
       .catch((error) => {
-        const { errors } = error.response.data;
+        const { errors } = error?.response?.data || {};
 
         return {
           [FORM_ERROR]: errors[0].detail,

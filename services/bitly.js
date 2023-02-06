@@ -9,7 +9,7 @@ export const getShortenUrl = (longUrl) =>
     {
       headers: {
         'content-type': 'application/json',
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_BITLY_TOKEN}`,
+        Authorization: `Bearer ${process.env.BITLY_TOKEN}`,
       },
     }
   );

@@ -141,7 +141,7 @@ class Share extends PureComponent {
         {shouldRenderShare && (
           <div className="social-container">
             <Button
-              extLink={`https://twitter.com/intent/tweet?text=${title}&via=globalforests&url=${shareUrl}`}
+              extLink={`https://twitter.com/intent/tweet?text=${title}&via=africahazardswatchs&url=${shareUrl}`}
               className="social-button"
               theme="theme-button-light theme-button-grey  square"
               onClick={() =>

@@ -54,7 +54,7 @@ export default create({
 
 export const gskyTimestampsRequest = create({
   timeout: TIMEOUT,
-  baseURL: "http://197.254.13.228:8081/mas",
+  baseURL: "http://20.56.94.119/gsky/mas",
 });
 
 export const synopTimestampsRequest = create({
@@ -64,4 +64,13 @@ export const synopTimestampsRequest = create({
   timeout: TIMEOUT,
   baseURL: "http://197.254.13.228:9001/met_web/date_ls", // TODO : ENABLE IN PRODUCTION
   // baseURL: "http://localhost:9001/met_web/date_ls", // TODO : SET TO PRODUCTION
+});
+
+export const myDataRequest = create({
+  timeout: TIMEOUT,
+  baseURL: `${HW_API}/my-data`,
+  headers: {
+    "content-type": "application/json",
+    Authorization: `Bearer ${!isServer && localStorage.getItem("userToken")}`,
+  },
 });

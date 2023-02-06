@@ -298,7 +298,7 @@ class MapPromptsContainer extends PureComponent {
                 clearAnalysisView();
               },
               next: () => {
-                setAnalysisView({ type: "country", adm0: "BRA" });
+                setAnalysisView({ type: "country", adm0: "KEN" });
               },
             },
           },

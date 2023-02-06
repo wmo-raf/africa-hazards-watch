@@ -1,7 +1,7 @@
 import { get } from "axios";
 
 const QUERIES = {
-  metsat: "https://eahazardswatch.icpac.net/live-imagery/api/v1/metsat/time",
+  metsat: "http://20.56.94.119/sat-imagery/metsat/time",
 };
 
 export const getLatestDates = ({ fromDate, layerId }) => {

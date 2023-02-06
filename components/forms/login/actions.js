@@ -12,10 +12,11 @@ export const loginUser = createThunkAction("logUserIn", (data) => (dispatch) =>
       }
     })
     .catch((error) => {
-      const { errors } = error.response.data;
+      const { errors } = (error.response && error.response.data) || {};
 
       return {
-        [FORM_ERROR]: errors[0].detail,
+        [FORM_ERROR]:
+          (errors && errors[0].detail) || (error.message && error.message),
       };
     })
 );

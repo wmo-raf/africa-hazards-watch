@@ -14,7 +14,7 @@ const WebhookModal = ({ open, onRequestClose }) => (
   >
     <h3>What is this feature?</h3>
     <p>
-      Webhooks are data sent on demand from one app (GFW) to another over
+      Webhooks are data sent on demand from one app (AHW) to another over
       HTTP(S) instead of through the command line in your computer,
       formatted in XML, JSON, or form-encoded serialization.
     </p>

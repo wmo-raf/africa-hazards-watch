@@ -1,27 +1,20 @@
-.datetime-selector {
+.datetimeSelector {
   padding: 16px 0;
 }
-
 .s-title {
   margin-top: 5px;
   margin-bottom: 5px;
   font-size: 14px;
 }
 
-.controlsContainer {
-  width: 200px;
+.datetimeAndPicker {
+  float: left;
+  width: 230px;
   height: 31px;
   background: #e9e9e9a8;
   position: relative;
   margin-right: 5px;
   border-radius: 2px;
-}
-
-.datetimeAndPicker {
-  float: left;
-  position: relative;
-  display: flex;
-  align-items: center;
 }
 
 .time {
@@ -38,7 +31,7 @@
   left: 30px;
   position: absolute;
   right: 30px;
-  width: 140px;
+  width: 170px;
   height: 100%;
   text-align: center;
   &:hover {
@@ -47,8 +40,7 @@
 }
 
 .datetimePrevious,
-.datetimeNext,
-.datetimeRecent {
+.datetimeNext {
   &:focus,
   &:hover {
     opacity: 0.9;
@@ -93,26 +85,5 @@
   &:hover,
   &:focus {
     border-left: 1px solid rgba(255, 255, 255, 0.15);
-  }
-}
-
-.datetimeRecent {
-  position: relative;
-  vertical-align: middle;
-  border-left: 1px solid rgba(255, 255, 255, 0.15);
-  height: 30px;
-  width: 30px;
-  background: #e9e9e9a8;
-  &:hover,
-  &:focus {
-    background: #cfcccca8;
-  }
-
-  &[disabled],
-  &[disabled]:hover,
-  &[disabled]:focus {
-    opacity: 0.4;
-    cursor: default;
-    background: #e9e9e9a8;
   }
 }

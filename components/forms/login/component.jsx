@@ -51,6 +51,7 @@ class LoginForm extends PureComponent {
       narrow,
       className,
     } = this.props;
+
     const { showForm } = this.state;
 
     const formMeta = {
@@ -127,7 +128,7 @@ class LoginForm extends PureComponent {
                       <h1>Login to my HW</h1>
                       <h3>
                         Log in is required so you can view, manage, and delete
-                        your areas of interest.
+                        your data and areas of interest.
                       </h3>
                     </Column>
                   )}

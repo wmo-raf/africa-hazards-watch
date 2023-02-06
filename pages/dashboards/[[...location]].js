@@ -109,7 +109,7 @@ export const getServerSideProps = async ({ params, query, req }) => {
   let countryData = await getCategorisedCountries(true);
 
   if (!type || type === "africa") {
-    // get global data
+    // get africa data
     const data = await getSentenceData();
     const parsedSentence = parseSentence(data);
     // const description = parseStringWithVars(
@@ -240,7 +240,7 @@ export const getServerSideProps = async ({ params, query, req }) => {
 function getCanonical(props, query) {
   const category = isServer ? props.category : query.category;
   const shouldShowCat = category !== "summary";
-  const path = `https://www.globalforestwatch.org${
+  const path = `https://www.africahazardswatch.org${
     isServer ? props?.basePath : window.location.pathname.slice(0, -1)
   }`;
   return `${path}${shouldShowCat ? `?category=${category}` : ""}`;

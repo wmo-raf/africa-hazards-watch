@@ -1,0 +1,10 @@
+{
+  "sizeLimit": 10000000,
+  "featureLimit": 1000,
+  "types": [
+    ".nc",
+    ".geotiff",
+    ".tiff",
+    ".tif"
+  ]
+}

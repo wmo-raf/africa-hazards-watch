@@ -14,3 +14,5 @@ export const ERA5_MONTHLY_TOTAL_PRECIPITATION_MEAN_DATASET =
 
 export const ERA5_MONTHLY_TOTAL_PRECIPITATION_ANOMALY_DATASET =
   "era5monthly_precipitation_1_day_anomaly";
+
+  export const TEMPERATURE_PROJECTION_DATASET="mean_temperature_projections"

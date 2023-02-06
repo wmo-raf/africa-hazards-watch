@@ -1,7 +1,7 @@
 import { apiRequest } from 'utils/request';
 
 const QUERIES = {
-  ogrConvert: '/v2/ogr/convert'
+  ogrConvert: '/ogr/convert'
 };
 
 export const uploadShapeFile = (

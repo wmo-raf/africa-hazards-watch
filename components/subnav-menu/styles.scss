@@ -1,4 +1,4 @@
-@import '~styles/settings.scss';
+@import "~styles/settings.scss";
 $subnav-height: rem(60px);
 
 .c-subnav-menu {
@@ -62,6 +62,11 @@ $subnav-height: rem(60px);
 
         span {
           margin-top: rem(3px);
+        }
+
+        &.disabled {
+          color: $light-grey;
+          cursor: not-allowed;
         }
       }
 

@@ -265,7 +265,7 @@ export const getDatasetsWithConfig = createSelector(
         opacity,
         bbox,
         citation = null,
-        filterParams,
+        layerFilterParams,
       } = layerConfig || {};
 
       return {
@@ -299,10 +299,10 @@ export const getDatasetsWithConfig = createSelector(
               },
             }),
 
-            ...(!isEmpty(l.filterParams) && {
-              filterParams: {
-                ...l.filterParams,
-                ...filterParams,
+            ...(!isEmpty(l.layerFilterParams) && {
+              layerFilterParams: {
+                ...l.layerFilterParams,
+                ...layerFilterParams,
               },
             }),
           };
