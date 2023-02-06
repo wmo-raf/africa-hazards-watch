@@ -5,7 +5,7 @@ export const PG_FEATURESERV_URL = "http://20.56.94.119/pg4w/featureserv/";
 
 export const PG_WEATHER_FEATURESERV_URL =
   // "http://localhost:9001";
-  "http://197.254.13.228:9001"; // TODO : ENABLE IN PRODUCTION
+  "http://20.56.94.119/gts-data"; // TODO : ENABLE IN PRODUCTION
 
 export const GEOSTORE_URL = "http://20.56.94.119/api/geostore/";
 

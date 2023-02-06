@@ -44,7 +44,7 @@ export const windSpeedDirection = (timestamps = []) => {
           layers: [
             {
               'type': 'symbol',
-              "source-layer": "public.hourly_wind",
+              "source-layer": "default",
               metadata: {
                 position: "top",
               },
