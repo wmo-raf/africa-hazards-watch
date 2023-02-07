@@ -24,6 +24,8 @@ class MyDatasetForm extends PureComponent {
       setMyDataSettings,
       modalIntent,
       activeMyDataset,
+      myDatasetId,
+      canDelete,
     } = this.props;
 
     const sections = [
@@ -100,7 +102,13 @@ class MyDatasetForm extends PureComponent {
             <div className="row">
               <div className="column small-12">
                 <div className="manager-section">
-                  {activeSection ? <ActiveSectionComponent /> : null}
+                  {activeSection ? (
+                    <ActiveSectionComponent
+                      canDelete={canDelete}
+                      activeMyDataset={activeMyDataset}
+                      myDatasetId={myDatasetId}
+                    />
+                  ) : null}
                 </div>
               </div>
             </div>
