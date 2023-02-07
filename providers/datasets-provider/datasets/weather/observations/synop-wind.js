@@ -1,37 +1,22 @@
-import { parseISO, format, addDays } from "date-fns";
 import { PG_WEATHER_FEATURESERV_URL } from "utils/apis";
 
 const datasetName = "Wind Speed & Direction";
 const layerName = "3_hour_wind";
 
 export const windSpeedDirection = (timestamps = []) => {
-  const latest = timestamps[timestamps.length - 1];
-
-  if (!latest) {
-    return [];
-  }
-
-  const time = parseISO(latest);
-  const end = addDays(time, 7);
-  const dateFormat = "mmm, yyyy";
-
-  const periodStr = `Latest: ${format(time, dateFormat)} to ${format(
-    end,
-    dateFormat
-  )}`;
+  const latest = "";
 
   return [
-
     {
       name: datasetName,
       id: layerName,
       type: "layer",
-      citation: periodStr,
+      citation: "",
       default: false,
-      dataset: 'synoptic_charts',
+      dataset: "synoptic_charts",
       active: false,
-      "isMultiLayer": true,
-      "nestedLegend": true,
+      isMultiLayer: true,
+      nestedLegend: true,
       layerConfig: {
         type: "vector",
         source: {
@@ -43,18 +28,17 @@ export const windSpeedDirection = (timestamps = []) => {
         render: {
           layers: [
             {
-              'type': 'symbol',
+              type: "symbol",
               "source-layer": "default",
               metadata: {
                 position: "top",
               },
-              'paint': {
+              paint: {
                 // 'icon-opacity': 0.8 + b * 0.008,
                 // 'icon-color': 'red'
-
               },
-              'layout': {
-                "icon-image":[
+              layout: {
+                "icon-image": [
                   "case",
                   [">=", ["to-number", ["get", "wind_speed"]], 107],
                   "barbs-22",
@@ -102,34 +86,36 @@ export const windSpeedDirection = (timestamps = []) => {
                   "okta-0",
                   "okta-0",
                 ],
-                'icon-size':[
+                "icon-size": [
                   "case",
                   [">=", ["to-number", ["get", "wind_speed"]], 3],
                   ["literal", 0.4],
                   ["literal", 0.1],
-                ] ,
-                'icon-allow-overlap': true,
-                'icon-rotation-alignment': 'map',
-                'icon-rotate': {
-                  'property': 'wind_direction',
-                  'stops': [[0, 90], [360, 450]]
+                ],
+                "icon-allow-overlap": true,
+                "icon-rotation-alignment": "map",
+                "icon-rotate": {
+                  property: "wind_direction",
+                  stops: [
+                    [0, 90],
+                    [360, 450],
+                  ],
                 },
-                "icon-anchor": 'bottom',
-                "icon-offset":[
+                "icon-anchor": "bottom",
+                "icon-offset": [
                   "case",
                   [">=", ["to-number", ["get", "wind_speed"]], 3],
-                  ["literal", [5,-15]],
-                  ["literal", [0,65]],
-                ]
-              }
-
+                  ["literal", [5, -15]],
+                  ["literal", [0, 65]],
+                ],
+              },
             },
-          ]
-        }
+          ],
+        },
       },
       legendConfig: {
         type: "",
-        items: []
+        items: [],
       },
       params: {
         time: `${latest}`,
@@ -143,7 +129,7 @@ export const windSpeedDirection = (timestamps = []) => {
           sentence: "{selector}",
           type: "datetime",
           dateFormat: { currentTime: "yyyy-mm-dd HH:MM" },
-          availableDates: timestamps
+          availableDates: timestamps,
         },
       ],
 
@@ -162,7 +148,6 @@ export const windSpeedDirection = (timestamps = []) => {
       //     { column: "wind_direction", property: "Direction (°)" },
       //   ],
       // },
-    }
-  ]
-}
-
+    },
+  ];
+};

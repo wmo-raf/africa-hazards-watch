@@ -1,36 +1,22 @@
-import { parseISO, format, addDays } from "date-fns";
 import { PG_WEATHER_FEATURESERV_URL } from "utils/apis";
 
 const datasetName = "Dew Point Temperature";
 const layerName = "dewpoint_temperature";
 
 export const dewTemperature = (timestamps = []) => {
-  const latest = timestamps[timestamps.length - 1];
-
-  if (!latest) {
-    return [];
-  }
-
-  const time = parseISO(latest);
-  const end = addDays(time, 7);
-  const dateFormat = "mmm, yyyy";
-
-  const periodStr = `Latest: ${format(time, dateFormat)} to ${format(
-    end,
-    dateFormat
-  )}`;
+  const latest = "";
 
   return [
     {
       name: datasetName,
       id: layerName,
       type: "layer",
-      citation: periodStr,
+      citation: "",
       default: false,
-      dataset: 'synoptic_charts',
-      active:false,
-      "isMultiLayer": true,
-      "nestedLegend": true,
+      dataset: "synoptic_charts",
+      active: false,
+      isMultiLayer: true,
+      nestedLegend: true,
       layerConfig: {
         type: "vector",
         source: {
@@ -102,16 +88,16 @@ export const dewTemperature = (timestamps = []) => {
               layout: {
                 "text-field": "{dewpoint_temperature}",
                 "text-font": ["Noto Sans Regular"],
-                'text-size': 12,
+                "text-size": 12,
                 "text-allow-overlap": true,
-                "text-offset":[-2, 1]
+                "text-offset": [-2, 1],
 
                 // "icon-text-fit":"both"
               },
-              paint:{
-                "text-halo-width":0.1,
-                "text-halo-blur":0,
-                "text-halo-color":"#000",
+              paint: {
+                "text-halo-width": 0.1,
+                "text-halo-blur": 0,
+                "text-halo-color": "#000",
                 "text-color": [
                   "case",
                   [">=", ["to-number", ["get", "dewpoint_temperature"]], 53],
@@ -142,15 +128,11 @@ export const dewTemperature = (timestamps = []) => {
                   "rgb(33, 102, 172)",
                   [">=", ["to-number", ["get", "dewpoint_temperature"]], -55],
                   "rgb(5, 48, 97)",
-                  "#fff"
-                ]
-              }
-
+                  "#fff",
+                ],
+              },
             },
-
-
           ],
-
         },
       },
       legendConfig: {
@@ -173,7 +155,7 @@ export const dewTemperature = (timestamps = []) => {
         ],
       },
       params: {
-        time: `${latest}`
+        time: `${latest}`,
       },
       paramsSelectorColumnView: true,
       paramsSelectorConfig: [
@@ -194,6 +176,5 @@ export const dewTemperature = (timestamps = []) => {
       //   ],
       // },
     },
-  ]
-}
-
+  ];
+};

@@ -1,7 +1,4 @@
-import { fetchSynopTimestamps } from "services/timestamps";
-import { parseISO, format, addDays } from "date-fns";
 import { PG_WEATHER_FEATURESERV_URL } from "utils/apis";
-
 
 const datasetName = "Cloud Base Height";
 const layerName = "3_hour_cloud_base_height";
@@ -11,30 +8,24 @@ const category = 1;
 const subCategory = 4;
 const dataPath = "/cloud_base_height";
 
-const generateLayers = (timestamps = []) => {
-  const latest = timestamps[timestamps.length - 1];
-
-  if (!latest) {
-    return [];
-  }
-
-  const time = parseISO(latest);
-  const end = addDays(time, 7);
-  const dateFormat = "mmm, yyyy";
-
-  const periodStr = `Latest: ${format(time, dateFormat)} to ${format(
-    end,
-    dateFormat
-  )}`;
-
-  return [
-    {
-      name: datasetName,
-      id: layerName,
-      type: "layer",
-      citation: periodStr,
-      default: false,
-      dataset: layerName,
+export default [
+  {
+    name: datasetName,
+    id: layerName,
+    dataset: layerName,
+    layer: layerName,
+    category,
+    sub_category: subCategory,
+    metadata: metadataId,
+    citation: "GTS Synop, 3 Hourly",
+    layers: [
+      {
+        name: datasetName,
+        id: layerName,
+        type: "layer",
+        citation: "",
+        default: false,
+        dataset: layerName,
         layerConfig: {
           type: "vector",
           source: {
@@ -61,35 +52,35 @@ const generateLayers = (timestamps = []) => {
                       [22, 180],
                     ],
                   },
-                  'circle-color': [
+                  "circle-color": [
                     "case",
-                    [">=", ["to-number", ["get", 'cloud_base_height']], 15000],
+                    [">=", ["to-number", ["get", "cloud_base_height"]], 15000],
                     "rgb(96,208,204)",
-                    [">=", ["to-number", ["get", 'cloud_base_height']], 10000],
+                    [">=", ["to-number", ["get", "cloud_base_height"]], 10000],
                     "rgb(75,197,153)",
-                    [">=", ["to-number", ["get", 'cloud_base_height']], 7000],
+                    [">=", ["to-number", ["get", "cloud_base_height"]], 7000],
                     "rgb(56,185,101)",
-                    [">=", ["to-number", ["get", 'cloud_base_height']], 5000],
+                    [">=", ["to-number", ["get", "cloud_base_height"]], 5000],
                     "rgb(34,174,51)",
-                    [">=", ["to-number", ["get", 'cloud_base_height']], 3500],
+                    [">=", ["to-number", ["get", "cloud_base_height"]], 3500],
                     "rgb(112,199,39)",
-                    [">=", ["to-number", ["get", 'cloud_base_height']], 2500],
+                    [">=", ["to-number", ["get", "cloud_base_height"]], 2500],
                     "rgb(159,218,59)",
-                    [">=", ["to-number", ["get", 'cloud_base_height']], 1500],
+                    [">=", ["to-number", ["get", "cloud_base_height"]], 1500],
                     "rgb(207,236,78)",
-                    [">=", ["to-number", ["get", 'cloud_base_height']], 700],
+                    [">=", ["to-number", ["get", "cloud_base_height"]], 700],
                     "rgb(207,255,21)",
-                    [">=", ["to-number", ["get", 'cloud_base_height']], 500],
+                    [">=", ["to-number", ["get", "cloud_base_height"]], 500],
                     "rgb(254,255,98)",
-                    [">=", ["to-number", ["get", 'cloud_base_height']], 300],
+                    [">=", ["to-number", ["get", "cloud_base_height"]], 300],
                     "rgb(252,222,2)",
-                    [">=", ["to-number", ["get", 'cloud_base_height']], 200],
+                    [">=", ["to-number", ["get", "cloud_base_height"]], 200],
                     "rgb(255,153,0)",
-                    [">", ["to-number", ["get", 'cloud_base_height']], 0],
+                    [">", ["to-number", ["get", "cloud_base_height"]], 0],
                     "#ff0200",
-                    "#fff"
-                  ]
-                }
+                    "#fff",
+                  ],
+                },
               },
 
               {
@@ -101,15 +92,12 @@ const generateLayers = (timestamps = []) => {
                 layout: {
                   "text-field": "{cloud_base_height}",
                   "text-font": ["Noto Sans Regular"],
-                  'text-size': 6,
+                  "text-size": 6,
                   "text-allow-overlap": false,
 
                   // "icon-text-fit":"both"
                 },
-
-
               },
-
             ],
           },
         },
@@ -131,8 +119,8 @@ const generateLayers = (timestamps = []) => {
           ],
         },
         params: {
-          time: `${latest}`
-                },
+          time: "",
+        },
         paramsSelectorColumnView: true,
         paramsSelectorConfig: [
           {
@@ -141,40 +129,21 @@ const generateLayers = (timestamps = []) => {
             sentence: "{selector}",
             type: "datetime",
             dateFormat: { currentTime: "yyyy-mm-dd HH:MM" },
-            availableDates: timestamps,
+            availableDates: [],
           },
         ],
         interactionConfig: {
           output: [
             { column: "name", property: "Name" },
-            { column: "cloud_base_height", property: "Base height",units:"m"},
-            { column: "message", property: "Message", },
+            {
+              column: "cloud_base_height",
+              property: "Base height",
+              units: "m",
+            },
+            { column: "message", property: "Message" },
           ],
         },
       },
-    ]
-  }
-
-  export default [
-    {
-      name: datasetName,
-      id: layerName,
-      dataset: layerName,
-      layer: layerName,
-      category,
-      sub_category: subCategory,
-      metadata: metadataId,
-      citation: "GTS Synop, 3 Hourly",
-      getLayers: async () => {
-        return await fetchSynopTimestamps(dataPath)
-          .then((res) => {
-            const timestamps = (res.data && res.data.timestamps) || [];
-            return generateLayers(timestamps);
-
-          })
-          .catch(() => {
-            return generateLayers([]);
-          });
-      },
-    },
-  ];
+    ],
+  },
+];

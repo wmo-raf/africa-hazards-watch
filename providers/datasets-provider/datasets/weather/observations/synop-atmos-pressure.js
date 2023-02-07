@@ -1,36 +1,22 @@
-import { parseISO, format, addDays } from "date-fns";
 import { PG_WEATHER_FEATURESERV_URL } from "utils/apis";
 
 const datasetName = "Atmospheric Pressure";
 const layerName = "atmospheric_pressure";
 
 export const atmosphericPressure = (timestamps = []) => {
-  const latest = timestamps[timestamps.length - 1];
-
-  if (!latest) {
-    return [];
-  }
-
-  const time = parseISO(latest);
-  const end = addDays(time, 7);
-  const dateFormat = "mmm, yyyy";
-
-  const periodStr = `Latest: ${format(time, dateFormat)} to ${format(
-    end,
-    dateFormat
-  )}`;
+  const latest = "";
 
   return [
     {
       name: datasetName,
       id: layerName,
       type: "layer",
-      citation: periodStr,
+      citation: "",
       default: false,
-      dataset: 'synoptic_charts',
-      active:false,
-      "isMultiLayer": true,
-      "nestedLegend": true,
+      dataset: "synoptic_charts",
+      active: false,
+      isMultiLayer: true,
+      nestedLegend: true,
       layerConfig: {
         type: "vector",
         source: {
@@ -41,7 +27,6 @@ export const atmosphericPressure = (timestamps = []) => {
         },
         render: {
           layers: [
-
             // {
             //   "source-layer": "public.hourly_atm_pressure",
             //   metadata: {
@@ -104,17 +89,17 @@ export const atmosphericPressure = (timestamps = []) => {
               layout: {
                 "text-field": "{atm_pressure}",
                 "text-font": ["Noto Sans Regular"],
-                'text-size': 12,
+                "text-size": 12,
                 "text-allow-overlap": true,
-                "text-offset":[2, -1]
+                "text-offset": [2, -1],
 
                 // "icon-text-fit":"both"
               },
-              paint:{
-                "text-halo-width":0.1,
-                "text-halo-blur":0,
-                "text-halo-color":"#000",
-                "text-color":[
+              paint: {
+                "text-halo-width": 0.1,
+                "text-halo-blur": 0,
+                "text-halo-color": "#000",
+                "text-color": [
                   "case",
                   [">=", ["to-number", ["get", "atm_pressure"]], 1054],
                   "rgb(47, 7, 8)",
@@ -146,17 +131,11 @@ export const atmosphericPressure = (timestamps = []) => {
                   "rgb(255, 51, 255)",
                   [">=", ["to-number", ["get", "atm_pressure"]], 940],
                   "rgb(115, 114, 114)",
-                  "#333"
-                ]
-
-
-              }
-
+                  "#333",
+                ],
+              },
             },
-
-
           ],
-
         },
       },
       legendConfig: {
@@ -178,8 +157,8 @@ export const atmosphericPressure = (timestamps = []) => {
         ],
       },
       params: {
-        time: `${latest}`
-            },
+        time: `${latest}`,
+      },
       paramsSelectorColumnView: true,
       paramsSelectorConfig: [
         {
@@ -200,7 +179,5 @@ export const atmosphericPressure = (timestamps = []) => {
       //   ],
       // },
     },
-  ]
-}
-
-
+  ];
+};

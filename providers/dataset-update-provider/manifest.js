@@ -4,6 +4,12 @@ import gfsWindSpeed from "./updates/gfs-wind-speed";
 import gfsMeanSeaLevelPressure from "./updates/gfs-mean-sea-level-pressure";
 import gfsRelativeHumidity from "./updates/gfs-relative-humidity";
 
+import synopticCharts from "./updates/synoptic-charts";
+import synopHumidity from "./updates/synop-humidity";
+import synopLiquidPrecipitation from "./updates/synop-liquid-precipitation";
+import synopCloudType from "./updates/synop-cloud-type";
+import synopCloudBaseHeight from "./updates/synop-cloud-base-height";
+
 import liveImageryNaturalColor from "./updates/live-imagery-natural-color";
 import liveImageryMultisensorPrecipitation from "./updates/live-imagery-multisensor-precipitation";
 import capAlerts from "./updates/cap-alerts";
@@ -19,6 +25,11 @@ export default {
   gfsRelativeHumidity,
   gfsTemperature,
   gfsWindSpeed,
+  synopticCharts,
+  synopHumidity,
+  synopLiquidPrecipitation,
+  synopCloudType,
+  synopCloudBaseHeight,
   liveImageryNaturalColor,
   capAlerts,
   liveImageryMultisensorPrecipitation,

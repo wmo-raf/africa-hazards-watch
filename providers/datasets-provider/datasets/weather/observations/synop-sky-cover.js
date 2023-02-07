@@ -1,36 +1,22 @@
-import { parseISO, format, addDays } from "date-fns";
 import { PG_WEATHER_FEATURESERV_URL } from "utils/apis";
 
 const datasetName = "Sky Cover (okta)";
 const layerName = "3_hour_sky_cover";
 
 export const skyCoverage = (timestamps = []) => {
-  const latest = timestamps[timestamps.length - 1];
-
-  if (!latest) {
-    return [];
-  }
-
-  const time = parseISO(latest);
-  const end = addDays(time, 7);
-  const dateFormat = "mmm, yyyy";
-
-  const periodStr = `Latest: ${format(time, dateFormat)} to ${format(
-    end,
-    dateFormat
-  )}`;
+  const latest = "";
 
   return [
     {
       name: datasetName,
       id: layerName,
       type: "layer",
-      citation: periodStr,
+      citation: "",
       default: false,
-      dataset: 'synoptic_charts',
+      dataset: "synoptic_charts",
       active: false,
-      "isMultiLayer": true,
-      "nestedLegend": true,
+      isMultiLayer: true,
+      nestedLegend: true,
       layerConfig: {
         type: "vector",
         source: {
@@ -42,28 +28,26 @@ export const skyCoverage = (timestamps = []) => {
         render: {
           layers: [
             {
-              'type': 'symbol',
+              type: "symbol",
 
               "source-layer": "default",
               metadata: {
                 position: "top",
               },
-              'layout': {
-                'icon-image': ["concat", "okta-", ["get", "sky_coverage"]],
-                'icon-size':
-                {
+              layout: {
+                "icon-image": ["concat", "okta-", ["get", "sky_coverage"]],
+                "icon-size": {
                   base: 4,
                   stops: [
                     [2, 0.1],
                     [22, 120],
                   ],
                 },
-                'icon-allow-overlap': true,
-                'icon-offset': [0, 1]
-              }
-
-            }
-          ]
+                "icon-allow-overlap": true,
+                "icon-offset": [0, 1],
+              },
+            },
+          ],
         },
       },
       legendConfig: {
@@ -72,7 +56,7 @@ export const skyCoverage = (timestamps = []) => {
           // {
           //   icon: "/assets/layer-icons/cloudcover.png",
           // },
-        ]
+        ],
       },
       params: {
         time: `${latest}`,
@@ -96,5 +80,5 @@ export const skyCoverage = (timestamps = []) => {
       //   ],
       // },
     },
-  ]
-}
+  ];
+};

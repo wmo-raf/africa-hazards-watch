@@ -1,5 +1,3 @@
-import { fetchSynopTimestamps } from "services/timestamps";
-import { parseISO, format, addDays } from "date-fns";
 import { PG_WEATHER_FEATURESERV_URL } from "utils/apis";
 
 const datasetName = "Relative Humidity";
@@ -10,30 +8,24 @@ const category = 1;
 const subCategory = 4;
 const dataPath = "/humidity";
 
-const generateLayers = (timestamps = []) => {
-  const latest = timestamps[timestamps.length - 1];
-
-  if (!latest) {
-    return [];
-  }
-
-  const time = parseISO(latest);
-  const end = addDays(time, 7);
-  const dateFormat = "mmm, yyyy";
-
-  const periodStr = `Latest: ${format(time, dateFormat)} to ${format(
-    end,
-    dateFormat
-  )}`;
-
-  return [
-    {
-      name: datasetName,
-      id: layerName,
-      type: "layer",
-      citation: periodStr,
-      default: false,
-      dataset: layerName,
+export default [
+  {
+    name: datasetName,
+    id: layerName,
+    dataset: layerName,
+    layer: layerName,
+    category,
+    sub_category: subCategory,
+    metadata: metadataId,
+    citation: "GTS Synop, 3 Hourly",
+    layers: [
+      {
+        name: datasetName,
+        id: layerName,
+        type: "layer",
+        citation: "",
+        default: false,
+        dataset: layerName,
         layerConfig: {
           type: "vector",
           source: {
@@ -91,9 +83,9 @@ const generateLayers = (timestamps = []) => {
                     "rgb(166, 15, 20)",
                     [">=", ["to-number", ["get", "humidity"]], 0],
                     "rgb(229, 59, 46)",
-                    "#fff"
-                  ]
-                }
+                    "#fff",
+                  ],
+                },
               },
               {
                 "source-layer": "default",
@@ -104,13 +96,12 @@ const generateLayers = (timestamps = []) => {
                 layout: {
                   "text-field": "{humidity}",
                   "text-font": ["Noto Sans Regular"],
-                  'text-size': 6,
+                  "text-size": 6,
                   "text-allow-overlap": false,
 
                   // "icon-text-fit":"both"
                 },
               },
-
             ],
           },
         },
@@ -134,7 +125,7 @@ const generateLayers = (timestamps = []) => {
           ],
         },
         params: {
-          time: `${latest}`,
+          time: "",
         },
         paramsSelectorColumnView: true,
         paramsSelectorConfig: [
@@ -144,42 +135,17 @@ const generateLayers = (timestamps = []) => {
             sentence: "{selector}",
             type: "datetime",
             dateFormat: { currentTime: "yyyy-mm-dd HH:MM" },
-            availableDates:timestamps,
+            availableDates: [],
           },
         ],
         interactionConfig: {
           output: [
             { column: "name", property: "Name" },
-            { column: "humidity", property: "Humidity", units:"%"},
-            { column: "message", property: "Message", },
+            { column: "humidity", property: "Humidity", units: "%" },
+            { column: "message", property: "Message" },
           ],
         },
       },
-    ]
-  }
-
-  export default [
-    {
-      name: datasetName,
-      id: layerName,
-      dataset: layerName,
-      layer: layerName,
-      category,
-      sub_category: subCategory,
-      metadata: metadataId,
-      citation: "GTS Synop, 3 Hourly",
-      getLayers: async () => {
-        return await fetchSynopTimestamps(dataPath)
-          .then((res) => {
-            const timestamps = (res.data && res.data.timestamps) || [];
-
-            return generateLayers(timestamps);
-
-          })
-          .catch(() => {
-            return generateLayers([]);
-          });
-      },
-    },
-  ];
-
+    ],
+  },
+];

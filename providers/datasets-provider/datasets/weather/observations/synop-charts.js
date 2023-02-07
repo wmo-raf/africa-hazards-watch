@@ -1,5 +1,3 @@
-import { fetchSynopTimestamps } from "services/timestamps";
-import { parseISO, format, addDays } from "date-fns";
 import { airTemperature } from "./synop-air-temperature";
 import { dewTemperature } from "./synop-dew-temperature";
 import { atmosphericPressure } from "./synop-atmos-pressure";
@@ -16,29 +14,16 @@ const subCategory = 4;
 const dataPath = "/air_temperature";
 
 const generateLayers = (timestamps = []) => {
-  const latest = timestamps[timestamps.length - 1];
-
-  if (!latest) {
-    return [];
-  }
-
-  const time = parseISO(latest);
-  const end = addDays(time, 7);
-  const dateFormat = "mmm, yyyy";
-
-  const periodStr = `Latest: ${format(time, dateFormat)} to ${format(
-    end,
-    dateFormat
-  )}`;
+  const latest = "";
 
   return [
     {
       name: datasetName,
       id: layerName,
       type: "layer",
-      citation: periodStr,
+      citation: "",
       default: true,
-      "active": true,
+      active: true,
       dataset: layerName,
       layerConfig: {
         type: "vector",
@@ -51,28 +36,24 @@ const generateLayers = (timestamps = []) => {
         render: {
           layers: [
             {
-              'type': 'circle',
+              type: "circle",
 
               "source-layer": "default",
               metadata: {
                 position: "top",
               },
-              'paint': {
+              paint: {
                 "circle-color": "white",
-                "circle-opacity":0,
-                "circle-radius":40
-              }
-
-            }
+                "circle-opacity": 0,
+                "circle-radius": 40,
+              },
+            },
           ],
-
         },
       },
-      legendConfig: {
-
-      },
+      legendConfig: {},
       params: {
-        time: `${latest}`
+        time: `${latest}`,
       },
       paramsSelectorColumnView: true,
       paramsSelectorConfig: [
@@ -89,31 +70,36 @@ const generateLayers = (timestamps = []) => {
         output: [
           { column: "name", property: "Name" },
           {
-            column: "air_temperature", property: "Air Temperature",
-            units: "°C"
+            column: "air_temperature",
+            property: "Air Temperature",
+            units: "°C",
           },
           {
-            column: "dewpoint_temperature", property: "Dew Point Temperature",
-            units: "°C"
+            column: "dewpoint_temperature",
+            property: "Dew Point Temperature",
+            units: "°C",
           },
           {
-            column: "atm_pressure", property: "Atmospheric Pressure",
-            units: "Hpa"
+            column: "atm_pressure",
+            property: "Atmospheric Pressure",
+            units: "Hpa",
           },
           {
-            column: "wind_speed", property: "Wind Speed",
-            units: "Knots"
+            column: "wind_speed",
+            property: "Wind Speed",
+            units: "Knots",
           },
           {
-            column: "wind_direction", property: "Wind Direction",
-            units: "°"
+            column: "wind_direction",
+            property: "Wind Direction",
+            units: "°",
           },
-          { column: "message", property: "Message", },
+          { column: "message", property: "Message" },
         ],
       },
 
-      "isMultiLayer": true,
-      "nestedLegend": true
+      isMultiLayer: true,
+      nestedLegend: true,
     },
 
     ...airTemperature(timestamps),
@@ -121,12 +107,8 @@ const generateLayers = (timestamps = []) => {
     ...atmosphericPressure(timestamps),
     ...skyCoverage(timestamps),
     ...windSpeedDirection(timestamps),
-
-
-
-  ]
-}
-
+  ];
+};
 
 export default [
   {
@@ -138,18 +120,7 @@ export default [
     sub_category: subCategory,
     metadata: metadataId,
     citation: "GTS Synop, 3 Hourly",
-    "isMultiLayer": true,
-
-    getLayers: async () => {
-      return await fetchSynopTimestamps(dataPath)
-        .then((res) => {
-          const timestamps = (res.data && res.data.timestamps) || [];
-          return generateLayers(timestamps);
-
-        })
-        .catch(() => {
-          return generateLayers([]);
-        });
-    },
+    isMultiLayer: true,
+    layers: generateLayers([]),
   },
 ];

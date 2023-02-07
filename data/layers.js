@@ -9,6 +9,12 @@ export const GFS_RELATIVE_HUMIDITY = "gfs_relative_humidity";
 export const GFS_SUNSHINE = "gfs_sunshine_1_hr";
 export const GFS_WIND_SPEED = "gfs_wind_speed";
 
+export const OBS_SYNOPTIC_CHARTS = "synoptic_charts";
+export const OBS_SYNOPTIC_HUMIDITY = "3_hour_humidity";
+export const OBS_SYNOPTIC_LIQUID_PRECIPITATION = "3_hour_liquid_precipitation";
+export const OBS_SYNOPTIC_CLOUD_TYPE = "3_hour_cloud_type";
+export const OBS_SYNOPTIC_CLOUD_BASE_HEIGHT = "3_hour_cloud_base_height";
+
 export const ERA5_MONTHLY_SURFACE_TEMPERATURE_MEAN =
   "era5monthly_temperature_2_m";
 
