@@ -31,7 +31,7 @@ export default [
           source: {
             type: "raster",
             tiles: [
-              `http://localhost/ows/climatechange?service=WMS&request=GetMap&version=1.1.1&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time={time}&layers=tas_{scenario}_{period}_{quantity}`,
+              `http://20.56.94.119/gsky/ows/climatechange/?service=WMS&request=GetMap&version=1.1.1&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time={time}&layers=tas_{scenario}_{period}_{quantity}`,
             ],
             minzoom: 3,
             maxzoom: 12,

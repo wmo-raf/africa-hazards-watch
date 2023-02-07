@@ -1,3 +1,3 @@
 import landcover from "./landcover";
 
-export default [];
+export default [...landcover];
