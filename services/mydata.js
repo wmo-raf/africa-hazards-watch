@@ -80,7 +80,7 @@ export const getMyDatasets = () =>
 export const saveMyDataset = (data) => {
   return apiAuthRequest({
     method: data.id ? "PUT" : "POST",
-    url: data.id ? `/my-data/dataset/${data.id}/` : "/dataset/",
+    url: data.id ? `/my-data/dataset/${data.id}/` : "/my-data/dataset/",
     data,
   }).then((myDatasetResponse) => {
     const { data: d } = myDatasetResponse;
