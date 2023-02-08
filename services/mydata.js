@@ -1,4 +1,4 @@
-import { myDataRequest } from "utils/request";
+import { apiAuthRequest } from "utils/request";
 
 import { trackEvent } from "utils/analytics";
 
@@ -61,24 +61,26 @@ const getDatasetConfig = (d) => {
 };
 
 export const getMyDataset = (id, userToken = null) => {
-  return myDataRequest.get(`/dataset/${id}`).then((myDatasetResponse) => {
-    const { data: myDataset } = myDatasetResponse.data;
+  return apiAuthRequest
+    .get(`/my-data/dataset/${id}`)
+    .then((myDatasetResponse) => {
+      const { data: myDataset } = myDatasetResponse.data;
 
-    return myDataset;
-  });
+      return myDataset;
+    });
 };
 
 export const getMyDatasets = () =>
-  myDataRequest.get("/dataset/").then((myDatasetsResponse) => {
+  apiAuthRequest.get("/my-data/dataset/").then((myDatasetsResponse) => {
     const { data: myDatasets } = myDatasetsResponse;
 
     return myDatasets.map((d) => getDatasetConfig(d));
   });
 
 export const saveMyDataset = (data) => {
-  return myDataRequest({
+  return apiAuthRequest({
     method: data.id ? "PUT" : "POST",
-    url: data.id ? `/dataset/${data.id}/` : "/dataset/",
+    url: data.id ? `/my-data/dataset/${data.id}/` : "/dataset/",
     data,
   }).then((myDatasetResponse) => {
     const { data: d } = myDatasetResponse;
@@ -101,7 +103,7 @@ export const deleteMyDataset = (id) => {
     action: "User deletes myDataset",
     label: id,
   });
-  return myDataRequest.delete(`/dataset/${id}/`).then((res) => {
+  return apiAuthRequest.delete(`/my-data/dataset/${id}/`).then((res) => {
     const { data: d } = res;
 
     const myDataset = getDatasetConfig(d);
@@ -127,8 +129,8 @@ export const uploadDatasetFile = (
   formData.append("file", file);
   formData.append("dataset_id", dataset_id);
 
-  return myDataRequest({
-    url: "/upload/",
+  return apiAuthRequest({
+    url: "/my-data/upload/",
     method: "POST",
     data: formData,
     onUploadProgress,
@@ -147,14 +149,14 @@ export const uploadDatasetFile = (
 };
 
 export const getMyDatasetUploads = (datasetId) =>
-  myDataRequest.get(`/dataset/${datasetId}/uploads/`).then((res) => {
+  apiAuthRequest.get(`/my-data/dataset/${datasetId}/uploads/`).then((res) => {
     const { data: myDatasetUploads } = res;
 
     return myDatasetUploads;
   });
 
 export const deleteDatasetUploadFile = (uploadId) => {
-  return myDataRequest.delete(`/upload/${uploadId}/`).then((res) => {
+  return apiAuthRequest.delete(`/my-data/upload/${uploadId}/`).then((res) => {
     const upload = res.data;
     trackEvent({
       category: "User Datasets",
@@ -167,9 +169,9 @@ export const deleteDatasetUploadFile = (uploadId) => {
 };
 
 export const publishMyDatasetRaster = (data) => {
-  return myDataRequest({
+  return apiAuthRequest({
     method: "POST",
-    url: "/raster/create/",
+    url: "/my-data/raster/create/",
     data,
   }).then((rasterResponse) => {
     const { data: d } = rasterResponse;
@@ -194,8 +196,10 @@ export const publishMyDatasetRaster = (data) => {
 };
 
 export const getMyDatasetRasterFiles = (datasetId, datesOnly = false) =>
-  myDataRequest
-    .get(`/dataset/${datasetId}/rasters/${datesOnly ? "?dates_only" : ""}`)
+  apiAuthRequest
+    .get(
+      `/my-data/dataset/${datasetId}/rasters/${datesOnly ? "?dates_only" : ""}`
+    )
     .then((res) => {
       const { data: myDatasetRasters } = res;
       return myDatasetRasters;
