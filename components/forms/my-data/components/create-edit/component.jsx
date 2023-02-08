@@ -89,14 +89,14 @@ export default class DatasetCreateEdit extends PureComponent {
                 label="Data Variable"
                 required
               />
-              <Input
+              {/* <Input
                 type="text"
                 name="country"
                 disabled
                 label="Dataset Country"
                 helpText="Data you upload will be cropped to your profile's country. You can update this from your profile."
                 required
-              />
+              /> */}
 
               <Error
                 valid={valid}
