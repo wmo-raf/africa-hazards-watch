@@ -1,6 +1,6 @@
 import { getLatestDates } from "services/live-imagery";
 
-const layerId = "msg_fes:h60b";
+const layerId = "mumi:worldcloudmap_ir108";
 
 export default {
   layer: layerId,

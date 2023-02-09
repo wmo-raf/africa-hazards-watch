@@ -1,8 +1,8 @@
 const category = 1;
 const subCategory = 2;
 
-const layerId = "msg_fes:h60b";
-const name = "Precipitation Estimates";
+const layerId = "mumi:worldcloudmap_ir108";
+const name = "Infrared Cloud Imagery";
 
 export default [
   {
@@ -14,7 +14,7 @@ export default [
     sub_category: subCategory,
     metadata: "",
     isNearRealTime: true,
-    citation: "EUMETSAT, Updated every 15 minutes",
+    citation: "EUMETSAT, Updated every 3 Hours",
     layers: [
       {
         name: name,
@@ -47,9 +47,6 @@ export default [
           },
         ],
         legendConfig: {},
-        legendImage: {
-          url: `https://view.eumetsat.int/geoserver/ows?service=WMS&request=GetLegendGraphic&version=1.3.0&layer=${layerId}&transparent=true&style=&format=image/png`,
-        },
       },
     ],
   },

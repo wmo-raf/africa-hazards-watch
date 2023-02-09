@@ -12,6 +12,8 @@ import synopCloudBaseHeight from "./updates/synop-cloud-base-height";
 
 import liveImageryNaturalColor from "./updates/live-imagery-natural-color";
 import liveImageryMultisensorPrecipitation from "./updates/live-imagery-multisensor-precipitation";
+import worldcloudmap_ir108 from "./updates/worldcloudmap_ir108";
+
 import capAlerts from "./updates/cap-alerts";
 import tropicalCyclones from "./updates/tropical-cyclones";
 
@@ -33,6 +35,7 @@ export default {
   liveImageryNaturalColor,
   capAlerts,
   liveImageryMultisensorPrecipitation,
+  worldcloudmap_ir108,
   tropicalCyclones,
   // gfsPrecipitableWaterTotal,
   // gfsCloudWaterTotal,
