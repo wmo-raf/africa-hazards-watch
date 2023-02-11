@@ -92,7 +92,7 @@ class NewsletterForm extends PureComponent {
             <form className="c-newsletter-form" onSubmit={handleSubmit}>
               {submitSucceeded ? (
                 <SuccessMessage
-                  title="Thank you for subscribing to Africa Hazards Watch newsletters and updates!"
+                  title="Thank you for subscribing to Hazards Watch newsletters and updates!"
                   description="You may wish to read our <a href='/privacy-policy' target='_blank'>privacy policy</a>, which provides further information about how we use personal data."
                 />
               ) : (
@@ -108,7 +108,7 @@ class NewsletterForm extends PureComponent {
                     name="email"
                     type="email"
                     label="email"
-                    placeholder="example@africahazardswatch.org"
+                    placeholder="example@hazardswatch.org"
                     validate={[validateEmail]}
                     required
                   />

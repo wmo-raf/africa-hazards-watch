@@ -45,7 +45,7 @@ import {
 
 const notFoundProps = {
   error: 404,
-  title: "Dashboard Not Found | Africa Hazards Watch",
+  title: "Dashboard Not Found | Hazards Watch",
   errorTitle: "Dashboard Not Found",
 };
 
@@ -225,7 +225,7 @@ export const getServerSideProps = async ({ params, query, req }) => {
       return {
         props: {
           error: 401,
-          title: "Area is private | Africa Hazards Watch",
+          title: "Area is private | Hazards Watch",
           errorTitle: "Area is private",
         },
       };
@@ -240,7 +240,7 @@ export const getServerSideProps = async ({ params, query, req }) => {
 function getCanonical(props, query) {
   const category = isServer ? props.category : query.category;
   const shouldShowCat = category !== "summary";
-  const path = `https://www.africahazardswatch.org${
+  const path = `https://www.hazardswatch.org${
     isServer ? props?.basePath : window.location.pathname.slice(0, -1)
   }`;
   return `${path}${shouldShowCat ? `?category=${category}` : ""}`;

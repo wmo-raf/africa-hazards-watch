@@ -4,7 +4,7 @@ import { getLocationData } from "services/location";
 
 const notFoundProps = {
   error: 404,
-  title: "Location Not Found | Africa Hazards Watch",
+  title: "Location Not Found | Hazards Watch",
   errorTitle: "Location Not Found",
 };
 

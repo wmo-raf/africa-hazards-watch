@@ -80,7 +80,7 @@ class ModalWelcome extends PureComponent {
             label: 'Close',
           });
         }}
-        title="Welcome to the Africa Hazards Watch map!"
+        title="Welcome to the Hazards Watch map!"
         className="c-modal-welcome"
       >
         {this.getContent()}

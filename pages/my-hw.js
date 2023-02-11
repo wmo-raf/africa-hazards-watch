@@ -3,7 +3,7 @@ import MyHw from "layouts/my-hw";
 
 const MyHwPage = () => (
   <PageLayout
-    title="my HW | Africa Hazards Watch"
+    title="my HW | Hazards Watch"
     description="Create an account or log into my HW"
     noIndex
   >

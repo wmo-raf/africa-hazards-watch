@@ -25,7 +25,7 @@ export const topics = [
 export const tools = [
   {
     value: "AHW",
-    label: "Africa Hazards Watch",
+    label: "Hazards Watch",
   },
   {
     value: "not-applicable",

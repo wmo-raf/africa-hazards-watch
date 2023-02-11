@@ -97,7 +97,7 @@ class ProfileForm extends PureComponent {
                     <div className="column small-12">
                       <h1>Your profile</h1>
                       <h3>
-                        We use this information to make Africa Hazards Watch
+                        We use this information to make Hazards Watch
                         more useful for you. Your privacy is important to us and
                         we&apos;ll never share your information without your
                         consent.
@@ -123,7 +123,7 @@ class ProfileForm extends PureComponent {
                         name="email"
                         type="email"
                         label="email"
-                        placeholder="example@africahazardswatch.org"
+                        placeholder="example@hazardswatch.org"
                         validate={[validateEmail]}
                         required
                       />
@@ -237,7 +237,7 @@ class ProfileForm extends PureComponent {
                     </div>
                     <div className="column small-12">
                       <p className="delete-profile">
-                        <a href="mailto:ahw@africahazardswatch.org">
+                        <a href="mailto:ahw@hazardswatch.org">
                           Email us{" "}
                         </a>
                         to delete your MyHw account.

@@ -14,15 +14,15 @@ const ModalGFWClimate = () => {
   return (
     <Modal
       open={!!gfwclimate}
-      contentLabel="Africa Hazards Watch Climate"
+      contentLabel="Hazards Watch Climate"
       onRequestClose={() => {
         setModalClimateOpen(false);
       }}
-      title="Africa Hazards Watch Climate."
+      title="Hazards Watch Climate."
       className="c-gfw-climate-modal"
     >
       <p>
-        {`The Africa Hazards Watch Climate website is no longer available. We
+        {`The Hazards Watch Climate website is no longer available. We
         hope you can find the data and information you're looking for
         here. If not, `}
         <a

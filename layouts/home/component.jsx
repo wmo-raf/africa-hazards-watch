@@ -54,7 +54,7 @@ const HomePage = ({ summary, uses, apps, news }) => {
       <Cover
         className="home-cover"
         title="Climate Intelligence for Action"
-        description="Africa Hazards Watch offers the latest risk information and near real-time weather and climate data to empower people and organizations to make better decisions."
+        description="Hazards Watch offers the latest risk information and near real-time weather and climate data to empower people and organizations to make better decisions."
         bgImage={bgImage}
         webP={bgImageWebP}
         large
@@ -118,7 +118,7 @@ const HomePage = ({ summary, uses, apps, news }) => {
               Start Making Climate Smart Decisions
             </h3>
             <div className="features-desc">
-              Africa Hazards Watch aggregates data from NMHSs, Regional Centers
+              Hazards Watch aggregates data from NMHSs, Regional Centers
               and Global Producing Centers to inform on climate decisions
             </div>
             <ButtonComponent>Explore Map</ButtonComponent>
@@ -188,7 +188,7 @@ const HomePage = ({ summary, uses, apps, news }) => {
 
       <div className="section-uses">
         <h3 className="section-title">
-          What can you do with Africa Hazards Watch?
+          What can you do with Hazards Watch?
         </h3>
         {uses && (
           <Carousel
@@ -249,7 +249,7 @@ const HomePage = ({ summary, uses, apps, news }) => {
                 <Column>
                   <h3 className="involve-title">Get Involved</h3>
                   <div className="involve-text">
-                    Africa Hazards Watch is a User Driven system. Give us
+                    Hazards Watch is a User Driven system. Give us
                     feedback and let us know how to improve the system.
                   </div>
                 </Column>

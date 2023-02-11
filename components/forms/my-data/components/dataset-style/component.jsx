@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { Form } from "react-final-form";
+import { Form, Field } from "react-final-form";
 import arrayMutators from "final-form-arrays";
 import { FieldArray } from "react-final-form-arrays";
 
@@ -7,14 +7,13 @@ import Input from "components/forms/components/input";
 import Error from "components/forms/components/error";
 import Submit from "components/forms/components/submit";
 import ConfirmationMessage from "components/confirmation-message";
-import Select from "components/forms/components/select";
-import Checkbox from "components/forms/components/checkbox";
+
+import ColorPicker from "components/forms/components/color-picker";
+
 import Button from "components/ui/button";
 import Icon from "components/ui/icon";
 
 import deleteIcon from "assets/icons/delete.svg?sprite";
-
-import { legendTypes } from "./config";
 
 import "./styles.scss";
 
@@ -33,7 +32,19 @@ export default class DatasetStyle extends PureComponent {
   };
 
   handleSaveStyle(values) {
-    console.log(values);
+    const data = {
+      min_data_value: Number(values.min_data_value),
+      max_data_value: Number(values.max_data_value),
+      colors:
+        (values.colors &&
+          values.colors.map((c) => ({
+            rgba: c.color,
+            threshold: Number(c.threshold),
+          }))) ||
+        [],
+    };
+
+    console.log(data);
   }
 
   render() {
@@ -82,24 +93,16 @@ export default class DatasetStyle extends PureComponent {
                 <ConfirmationMessage simple {...confirmationMeta} />
               )}
 
-              <Select
-                name="legendType"
-                label="Style Type"
-                placeholder="Select style type"
-                options={legendTypes}
-                required
-              />
-
               <Input
                 type="number"
-                name="min_value"
+                name="min_data_value"
                 label="Minimum Data Value"
                 required
               />
 
               <Input
                 type="number"
-                name="max_value"
+                name="max_data_value"
                 label="Maximum Data Value"
                 required
               />
@@ -107,40 +110,21 @@ export default class DatasetStyle extends PureComponent {
               <div className="color-values">
                 <div className="c-array-title">Color Values</div>
                 <div className="array-wrapper">
-                  <FieldArray name="color_values" required>
+                  <FieldArray name="colors" required>
                     {({ fields }) => (
                       <div>
                         {fields.map((name, index) => (
-                          <>
+                          <div>
                             <div key={name} className="fields-container">
                               <Input
                                 type="number"
-                                name="threshold"
+                                name={`${name}.threshold`}
                                 label="Threshold"
                                 required
                               />
-                              <Input
-                                type="number"
-                                name="r"
-                                label="R"
-                                required
-                              />
-                              <Input
-                                type="number"
-                                name="g"
-                                label="G"
-                                required
-                              />
-                              <Input
-                                type="number"
-                                name="b"
-                                label="B"
-                                required
-                              />
-                              <Input
-                                type="number"
-                                name="a"
-                                label="A"
+                              <ColorPicker
+                                name={`${name}.color`}
+                                label="Color"
                                 required
                               />
                             </div>
@@ -148,25 +132,26 @@ export default class DatasetStyle extends PureComponent {
                             <Button
                               className="remove-btn"
                               theme="theme-button-medium theme-button-light"
-                              onClick={() => fields.remove(index)}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                fields.remove(index);
+                              }}
                             >
                               <Icon icon={deleteIcon} className="delete-icon" />
                             </Button>
-                          </>
+                          </div>
                         ))}
 
                         <Button
                           className="add-btn"
                           theme="theme-button-small"
-                          onClick={() =>
+                          onClick={(e) => {
+                            e.preventDefault();
                             fields.push({
                               threshold: "",
-                              r: "",
-                              g: "",
-                              b: "",
-                              a: "",
-                            })
-                          }
+                              color: "",
+                            });
+                          }}
                         >
                           Add new
                         </Button>
@@ -175,16 +160,6 @@ export default class DatasetStyle extends PureComponent {
                   </FieldArray>
                 </div>
               </div>
-
-              <Checkbox
-                name="interpolate"
-                options={[
-                  {
-                    label: "Interpolate",
-                    value: true,
-                  },
-                ]}
-              />
 
               <Error
                 valid={valid}

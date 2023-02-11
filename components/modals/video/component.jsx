@@ -8,7 +8,7 @@ import './styles.scss';
 const ModalVideo = ({ open, src, onRequestClose }) => (
   <Modal
     open={open}
-    contentLabel="What is Africa Hazards Watch video"
+    contentLabel="What is Hazards Watch video"
     onRequestClose={onRequestClose}
     className="c-modal-video"
   >
@@ -18,7 +18,7 @@ const ModalVideo = ({ open, src, onRequestClose }) => (
       height="100%"
       frameBorder="0"
       allowFullScreen
-      title="What is Africa Hazards Watch video"
+      title="What is Hazards Watch video"
     />
   </Modal>
 );

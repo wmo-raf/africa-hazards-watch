@@ -3,7 +3,7 @@ import Page404 from "layouts/404";
 
 const Custom404 = () => (
   <StaticLayout
-    title="Page Not Found | Africa Hazards Watch"
+    title="Page Not Found | Hazards Watch"
     description="You may have mistyped the address or the page may have moved."
     noIndex
   >

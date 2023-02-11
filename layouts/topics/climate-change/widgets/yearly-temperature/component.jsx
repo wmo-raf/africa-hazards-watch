@@ -25,7 +25,7 @@ const OPTIONS = {
   },
   credits: {
     enabled: false,
-    text: "africahazardswatch.wmo.int",
+    text: "hazardswatch.wmo.int",
     href: "",
     position: {
       align: "right",

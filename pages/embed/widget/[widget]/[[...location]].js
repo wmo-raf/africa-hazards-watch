@@ -19,7 +19,7 @@ import {
 
 const errorProps = {
   error: 404,
-  title: "Widget Not Found | Africa Hazards Watch",
+  title: "Widget Not Found | Hazards Watch",
   errorTitle: "Widget Not Found",
 };
 
@@ -39,7 +39,7 @@ export const getStaticProps = async ({ params }) => {
     return {
       props: {
         widget: widget || "",
-        title: `Africa Hazards Watch Statistics | AHW`,
+        title: `Hazards Watch Statistics | AHW`,
         description: `Explore interactive data charts and analyze africa climate trends.`,
       },
     };
@@ -50,7 +50,7 @@ export const getStaticProps = async ({ params }) => {
       return {
         props: {
           error: 401,
-          title: "Area is private | Africa Hazards Watch",
+          title: "Area is private | Hazards Watch",
           errorTitle: "Area is private",
         },
       };

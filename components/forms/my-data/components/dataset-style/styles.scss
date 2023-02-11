@@ -1,9 +1,13 @@
 @import "~styles/settings.scss";
 
 .c-style-form {
-  max-height: 500px;
+  min-height: 600px;
   overflow-y: scroll;
+  margin-bottom: 40px;
+
   .color-values {
+    margin-bottom: 60px;
+
     .c-array-title {
       padding: 20px 0 0;
       text-transform: uppercase;

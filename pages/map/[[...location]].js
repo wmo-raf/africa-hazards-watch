@@ -21,7 +21,7 @@ import { setMapPrompts } from "components/prompts/map-prompts/actions";
 
 const notFoundProps = {
   error: 404,
-  title: "Location Not Found | Africa Hazards Watch",
+  title: "Location Not Found | Hazards Watch",
   errorTitle: "Location Not Found",
 };
 
@@ -39,7 +39,7 @@ export const getServerSideProps = async ({ req, params }) => {
   if (!type || type === "africa") {
     return {
       props: {
-        title: "Africa Hazards Watch | AHW",
+        title: "Hazards Watch | AHW",
         description: "Monitoring Hazards in Africa",
       },
     };
@@ -105,7 +105,7 @@ export const getServerSideProps = async ({ req, params }) => {
       return {
         props: {
           error: 401,
-          title: "Area is private | Africa Hazards Watch",
+          title: "Area is private | Hazards Watch",
           errorTitle: "Area is private",
         },
       };

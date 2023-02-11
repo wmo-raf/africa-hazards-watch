@@ -47,9 +47,9 @@ class WidgetFooter extends PureComponent {
             <a
               target="_blank"
               rel="noopener noreferrer"
-              href="https://www.africahazardswatch.org"
+              href="https://www.hazardswatch.org"
             >
-              Africa Hazards Watch
+              Hazards Watch
             </a>
           </span>
         )}

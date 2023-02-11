@@ -2,12 +2,12 @@ import Head from 'next/head';
 import PropTypes from 'prop-types';
 
 const SearchBoxSeo = ({ description }) => {
-  const NAME = 'Africa Hazards Watch';
-  const IMAGE = 'https://www.africahazardswatch.org/assets/card-2.png';
-  const LOGO = 'https://www.africahazardswatch.org/assets/ahw.png';
-  const URL = 'https://www.africahazardswatch.org/';
+  const NAME = 'Hazards Watch';
+  const IMAGE = 'https://www.hazardswatch.org/assets/card-2.png';
+  const LOGO = 'https://www.hazardswatch.org/assets/ahw.png';
+  const URL = 'https://www.hazardswatch.org/';
   const SEARCH_TARGET =
-    'https://www.africahazardswatch.org/search/?query={search_term_string}';
+    'https://www.hazardswatch.org/search/?query={search_term_string}';
 
   const ADDRESS = {
     '@type': 'PostalAddress',

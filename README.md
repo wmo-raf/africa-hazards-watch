@@ -1,1 +1,1 @@
-# Africa Hazards Watch
+# Hazards Watch

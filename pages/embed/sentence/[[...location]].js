@@ -24,7 +24,7 @@ import DynamicSentence from "components/ui/dynamic-sentence";
 
 const notFoundProps = {
   error: 404,
-  title: "Dashboard Not Found | Africa Hazards Watch",
+  title: "Dashboard Not Found | Hazards Watch",
   errorTitle: "Dashboard Not Found",
 };
 
@@ -137,7 +137,7 @@ export const getServerSideProps = async ({ params }) => {
       return {
         props: {
           error: 401,
-          title: "Area is private | Africa Hazards Watch",
+          title: "Area is private | Hazards Watch",
           errorTitle: "Area is private",
         },
       };

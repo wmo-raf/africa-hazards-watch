@@ -18,7 +18,7 @@ const Header = ({ setModalContactUsOpen, fullScreen, slim }) => {
       className="c-header"
       slim={slim}
       customLogo={eahwLogo}
-      logoAlt="Africa Hazards Watch"
+      logoAlt="Hazards Watch"
       navMain={config.navMain}
       userAccount={config.userAccount}
       moreLinks={config.moreLinks}

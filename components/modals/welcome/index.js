@@ -108,7 +108,7 @@ const mapStateToProps = (state) => {
     showPrompts: selectShowMapPrompts(state),
     title: hideModal
       ? "Map How-To Guide"
-      : "Welcome to new Africa Hazards Watch map!",
+      : "Welcome to new Hazards Watch map!",
     description: "What would you like to do?",
   };
 };
