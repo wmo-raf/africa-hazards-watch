@@ -1,14 +1,14 @@
-import { createAction, createThunkAction } from 'redux/actions';
-import { getGeostore, saveGeostore } from 'services/geostore';
+import { createAction, createThunkAction } from "redux/actions";
+import { getGeostore, saveGeostore } from "services/geostore";
 
-import { tropicsIntersection } from 'utils/intersections';
+import { tropicsIntersection } from "utils/intersections";
 
-export const setGeostoreLoading = createAction('setGeostoreLoading');
-export const setGeostore = createAction('setGeostore');
-export const clearGeostore = createAction('clearGeostore');
+export const setGeostoreLoading = createAction("setGeostoreLoading");
+export const setGeostore = createAction("setGeostore");
+export const clearGeostore = createAction("clearGeostore");
 
 export const fetchGeostore = createThunkAction(
-  'fetchGeostore',
+  "fetchGeostore",
   (params) => (dispatch) => {
     const { type, adm0, adm1, adm2, token } = params;
     if (type && adm0) {
@@ -17,6 +17,8 @@ export const fetchGeostore = createThunkAction(
         .then((geostore) => {
           if (geostore) {
             dispatch(setGeostore(tropicsIntersection(params, geostore)));
+          } else {
+            dispatch(setGeostoreLoading({ loading: false, error: true }));
           }
         })
         .catch(() => {
@@ -27,7 +29,7 @@ export const fetchGeostore = createThunkAction(
 );
 
 export const getGeostoreId = createThunkAction(
-  'getGeostoreId',
+  "getGeostoreId",
   ({ geojson, callback }) => (dispatch) => {
     if (geojson) {
       dispatch(setGeostoreLoading({ loading: true, error: false }));
