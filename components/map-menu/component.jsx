@@ -11,8 +11,37 @@ import MenuMobile from "./components/menu-mobile";
 import "./styles.scss";
 
 class MapMenu extends PureComponent {
+  componentDidUpdate(prevProps) {
+    const {
+      comparing,
+      activeDatasets,
+      activeCompareSide,
+      setMapSettings,
+    } = this.props;
+    const { comparing: prevComparing } = prevProps;
+
+    // set all existing layers to a default map side
+    if (prevComparing !== comparing) {
+      let newActiveDatasets = [...activeDatasets];
+
+      const datasets = newActiveDatasets.map((d) => ({
+        ...d,
+        mapSide: activeCompareSide,
+      }));
+
+      setMapSettings({
+        datasets: datasets,
+      });
+    }
+  }
+
   onToggleLayer = (data, enable) => {
-    const { activeDatasets, recentActive, zoom } = this.props;
+    const {
+      activeDatasets,
+      recentActive,
+      zoom,
+      activeCompareSide,
+    } = this.props;
     const { dataset, layer, iso, category } = data;
 
     let newActiveDatasets = [...activeDatasets];
@@ -27,11 +56,11 @@ class MapMenu extends PureComponent {
           dataset,
           opacity: 1,
           visibility: true,
+
           layers: [layer],
-          ...(iso &&
-            iso.length === 1 && {
-              iso: iso[0],
-            }),
+          ...(activeCompareSide && {
+            mapSide: activeCompareSide,
+          }),
         },
       ].concat([...newActiveDatasets]);
     }

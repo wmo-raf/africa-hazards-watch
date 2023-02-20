@@ -1,14 +1,42 @@
 @import "~styles/settings.scss";
 
+.c-legend {
+  min-height: rem(150px);
+}
+
 .c-legend,
 .c-legend-item {
+  .c-maplegend-compare {
+    width: 100%;
+
+    .compare-nav {
+      padding: 4px 2px 0;
+      border-bottom: none;
+      position: relative;
+      z-index: 2;
+      height: auto;
+      // background-color: rgba($green-gfw, 0.1);
+
+      .buttons {
+        height: 26px;
+        border: none;
+
+        button {
+          border-top-right-radius: 4px;
+          border-top-left-radius: 4px;
+          overflow: hidden;
+        }
+      }
+    }
+
+    .compare-nodata {
+      margin-top: 50px;
+    }
+  }
+
   font-family: $font-family-1;
   width: 100%;
   background: $white;
-
-  &.-empty {
-    min-height: rem(150px);
-  }
 
   > div {
     border: 0;

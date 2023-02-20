@@ -62,8 +62,9 @@ class Legend extends PureComponent {
   };
 
   onToggleLayer = (layer, enable) => {
-    const { activeDatasets, setMapSettings } = this.props;
+    const { activeDatasets, setMapSettings, activeCompareSide } = this.props;
     const { dataset } = layer;
+
     const newActiveDatasets = activeDatasets.map((newDataset, i) => {
       if (newDataset.dataset === dataset) {
         const newActiveDataset = activeDatasets[i];

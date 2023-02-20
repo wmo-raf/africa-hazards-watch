@@ -1,13 +1,14 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
 
-import MapLegend from 'components/map/components/legend';
+import MapLegend from "components/map/components/legend";
 // import SatelliteBasemaps from 'components/satellite-basemaps';
-import Analysis from 'components/analysis';
-import SubNavMenu from 'components/subnav-menu';
+import Analysis from "components/analysis";
+import SubNavMenu from "components/subnav-menu";
+import CompareControls from "components/map/components/compare/components/compare-controls";
 
-import './styles.scss';
+import "./styles.scss";
 
 class DataAnalysisMenu extends PureComponent {
   static propTypes = {
@@ -48,13 +49,21 @@ class DataAnalysisMenu extends PureComponent {
   };
 
   render() {
-    const { className, showAnalysis, menuSection, hidden, embed } = this.props;
+    const {
+      className,
+      showAnalysis,
+      menuSection,
+      hidden,
+      embed,
+      setMapSettings,
+      comparing,
+    } = this.props;
 
     return (
       <div
         className={cx(
-          'c-data-analysis-menu',
-          'map-tour-legend',
+          "c-data-analysis-menu",
+          "map-tour-legend",
           { relocate: !!menuSection && menuSection.Component },
           { big: menuSection && menuSection.large },
           { embed },
@@ -68,7 +77,18 @@ class DataAnalysisMenu extends PureComponent {
           checkActive
         />
         {!hidden && !showAnalysis && <MapLegend className="map-legend" />}
-        {/* {!hidden && !showAnalysis && <SatelliteBasemaps />} */}
+        {!hidden && !showAnalysis && (
+          <CompareControls
+            className="map-compare-control"
+            active={comparing}
+            onChange={() =>
+              setMapSettings({
+                comparing: !comparing,
+                activeCompareSide: !comparing ? "left" : null,
+              })
+            }
+          />
+        )}
         {!hidden && showAnalysis && <Analysis className="map-analysis" />}
       </div>
     );

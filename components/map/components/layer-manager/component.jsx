@@ -143,7 +143,15 @@ class LayerManagerComponent extends PureComponent {
   handleOnRemove = (layerModel) => {};
 
   render() {
-    const { layers, basemap, map } = this.props;
+    const { layers, basemap, map, mapSide } = this.props;
+
+    let filteredLayers = layers;
+
+    if (mapSide) {
+      filteredLayers = layers.filter(
+        (l) => (l.mapSide && l.mapSide === mapSide) || l.isBoundary
+      );
+    }
 
     const basemapLayer =
       basemap && basemap.url
@@ -161,7 +169,7 @@ class LayerManagerComponent extends PureComponent {
           }
         : null;
 
-    const allLayers = [basemapLayer].concat(layers).filter((l) => l);
+    const allLayers = [basemapLayer].concat(filteredLayers).filter((l) => l);
 
     return (
       <LayerManager map={map} plugin={PluginMapboxGl} providers={{}}>

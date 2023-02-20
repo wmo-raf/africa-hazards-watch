@@ -1,7 +1,8 @@
-@import '~styles/settings';
+@import "~styles/settings";
+@import "~mapbox-gl-compare/dist/mapbox-gl-compare.css";
 
 .c-map {
-  position: relative;
+  position: absolute;
   width: 100%;
   height: 100%;
 

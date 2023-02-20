@@ -4,7 +4,11 @@ import {
   getActiveDatasetsFromState,
   getLayerGroups,
   getActiveLayers,
+  getComparing,
+  getActiveCompareSide,
 } from "components/map/selectors";
+
+import layersIcon from "assets/icons/layers.svg?sprite";
 
 const selectLatestLoading = (state) => state.latest && state.latest.loading;
 const selectDatasetsLoading = (state) =>
@@ -51,10 +55,31 @@ const getLegendLayerGroups = createSelector([getLayerGroups], (groups) => {
   });
 });
 
+export const getLegendCompareLinks = createSelector(
+  [getActiveCompareSide],
+  (activeCompareSide) => [
+    {
+      label: "LEFT",
+      icon: layersIcon,
+      active: activeCompareSide === "left",
+      mapSide: "left",
+    },
+    {
+      label: "RIGHT",
+      icon: layersIcon,
+      active: activeCompareSide === "right",
+      mapSide: "right",
+    },
+  ]
+);
+
 export const getLegendProps = createStructuredSelector({
   loading: getLoading,
+  comparing: getComparing,
   layerGroups: getLegendLayerGroups,
   activeDatasets: getActiveDatasetsFromState,
   layerTimestamps: selectLayerTimestamps,
   activeLayers: getActiveLayers,
+  compareLinks: getLegendCompareLinks,
+  activeCompareSide: getActiveCompareSide,
 });

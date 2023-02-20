@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment, PureComponent, createRef } from "react";
 import PropTypes from "prop-types";
 import isEqual from "lodash/isEqual";
 import isEmpty from "lodash/isEmpty";
@@ -12,6 +12,7 @@ import Tip from "components/ui/tip";
 import Loader from "components/ui/loader";
 import Icon from "components/ui/icon";
 import Map from "components/ui/map";
+import MapboxCompare from "./mapbox-compare";
 
 import iconCrosshair from "assets/icons/crosshair.svg?sprite";
 
@@ -27,6 +28,84 @@ import { pulsingDot } from "./mapImages";
 
 // Styles
 import "./styles.scss";
+
+class RenderMap extends PureComponent {
+  render() {
+    const {
+      mapStyle,
+      viewport,
+      bounds,
+      onViewportChange,
+      onClick,
+      onMouseMove,
+      onLoad,
+      mapInteractiveLayerIds,
+      minZoom,
+      maxZoom,
+      onClickAnalysis,
+      drawing,
+      onDrawComplete,
+      drawingMode,
+      mapSide,
+      style,
+    } = this.props;
+
+    return (
+      <Map
+        comparing={!!mapSide}
+        mapStyle={mapStyle}
+        viewport={viewport}
+        bounds={bounds}
+        onViewportChange={onViewportChange}
+        onClick={onClick}
+        onMouseMove={onMouseMove}
+        onLoad={({ map: _map }) => onLoad(_map, mapSide)}
+        interactiveLayerIds={mapInteractiveLayerIds}
+        attributionControl={false}
+        minZoom={minZoom}
+        maxZoom={maxZoom}
+        style={style}
+        getCursor={({ isHovering, isDragging }) => {
+          if (drawing) return "crosshair";
+          if (isDragging) return "grabbing";
+          if (isHovering) return "pointer";
+          return "grab";
+        }}
+      >
+        {(map) => (
+          <Fragment>
+            {/* LAYER MANAGER */}
+            <LayerManagerWrapper map={map} mapSide={mapSide} />
+
+            {!mapSide && (
+              <>
+                {/* POPUP */}
+                <Popup map={map} onClickAnalysis={onClickAnalysis} />
+                {/* Hover POPUP */}
+                <MapToolTip />
+                {/* DRAWING */}
+                <Draw
+                  map={map}
+                  drawing={drawing}
+                  onDrawComplete={onDrawComplete}
+                  drawingMode={drawingMode}
+                />
+                {/* SCALE */}
+                <Scale className="map-scale" map={map} viewport={viewport} />
+                {/* ATTRIBUTIONS */}
+                <Attributions
+                  className="map-attributions"
+                  map={map}
+                  viewport={viewport}
+                />
+              </>
+            )}
+          </Fragment>
+        )}
+      </Map>
+    );
+  }
+}
 
 class MapComponent extends Component {
   static propTypes = {
@@ -62,7 +141,12 @@ class MapComponent extends Component {
   state = {
     bounds: {},
     drawClicks: 0,
+    leftMap: null,
+    rightMap: null,
+    compareMap: null,
   };
+
+  mapCompareContainer = createRef();
 
   componentDidUpdate(prevProps, prevState) {
     const {
@@ -103,16 +187,16 @@ class MapComponent extends Component {
     }
 
     if (basemap?.basemapGroup !== prevBasemap.basemapGroup) {
-      this.setBasemap();
-      this.setLabels();
+      this.applyBaseMap();
+      this.applyLabels();
     }
 
     if (mapLabels !== prevMapLabels || lang !== prevLang) {
-      this.setLabels();
+      this.applyLabels();
     }
 
     if (mapRoads !== prevMapRoads) {
-      this.setRoads();
+      this.applyRoads();
     }
 
     // if bbox is change by action fit bounds
@@ -199,11 +283,19 @@ class MapComponent extends Component {
     }
   }
 
-  onViewportChange = debounce((viewport) => {
+  componentWillUnmount() {
+    if (this.state.compareMap) {
+      this.state.compareMap.remove();
+    }
+  }
+
+  onViewportChange = debounce((viewport, mapSide) => {
     const { setMapSettings, location } = this.props;
     const { latitude, longitude, bearing, pitch, zoom } = viewport;
 
-    const mapBounds = this.map && this.map.getBounds().toArray();
+    let mapBounds;
+
+    mapBounds = this.map && this.map.getBounds().toArray();
 
     setMapSettings({
       center: {
@@ -219,19 +311,36 @@ class MapComponent extends Component {
   }, 250);
 
   onStyleLoad = () => {
-    this.setBasemap();
-    this.setLabels();
-    this.setRoads();
+    this.applyBaseMap();
+    this.applyLabels();
+    this.applyRoads();
   };
 
-  onLoad = ({ map }) => {
+  onLoad = (map, mapSide) => {
     const { setMapSettings } = this.props;
-    this.map = map;
+
+    // remove any if existing
+    if (this.state.compareMap) {
+      this.state.compareMap.remove();
+      this.setState({ compareMap: null });
+    }
+
+    this.map = null;
+
+    if (mapSide) {
+      if (mapSide === "left") {
+        this.setState({ leftMap: map }, this.checkCompareMapsLoad);
+      } else {
+        this.setState({ rightMap: map }, this.checkCompareMapsLoad);
+      }
+    } else {
+      this.map = map;
+    }
 
     // Labels
-    this.setBasemap();
-    this.setLabels();
-    this.setRoads();
+    this.applyBaseMap();
+    this.applyLabels();
+    this.applyRoads();
 
     // const mapBounds = this.map.getBounds().toArray();
 
@@ -246,7 +355,22 @@ class MapComponent extends Component {
 
     // add images
 
-    map.addImage("pulsing-dot", pulsingDot, { pixelRatio: 2 });
+    // map.addImage("pulsing-dot", pulsingDot, { pixelRatio: 2 });
+  };
+
+  checkCompareMapsLoad = () => {
+    const { comparing } = this.props;
+    const { leftMap, rightMap } = this.state;
+
+    if (comparing && leftMap && rightMap) {
+      const compareMap = new MapboxCompare(
+        leftMap,
+        rightMap,
+        this.mapCompareContainer.current
+      );
+
+      this.setState({ compareMap: compareMap });
+    }
   };
 
   onClick = (e) => {
@@ -294,12 +418,28 @@ class MapComponent extends Component {
     }
   };
 
-  setBasemap = () => {
+  applyBaseMap = () => {
+    const { leftMap, rightMap } = this.state;
+
+    if (!this.map) {
+      if (leftMap) {
+        this.setBasemap(leftMap);
+      }
+      if (rightMap) {
+        this.setBasemap(rightMap);
+      }
+    } else {
+      this.setBasemap(this.map);
+    }
+  };
+
+  setBasemap = (map) => {
     const { basemap } = this.props;
     const BASEMAP_GROUPS = ["basemap"];
 
-    if (this.map) {
-      const { layers, metadata } = this.map.getStyle();
+    if (map && map.getStyle()) {
+      const { layers, metadata } = map.getStyle();
+
       const basemapGroups = Object.keys(metadata["mapbox:groups"]).filter(
         (k) => {
           const { name } = metadata["mapbox:groups"][k];
@@ -334,9 +474,9 @@ class MapComponent extends Component {
         const match = _layer.metadata["mapbox:group"] === basemapToDisplay.id;
 
         if (!match) {
-          this.map.setLayoutProperty(_layer.id, "visibility", "none");
+          map.setLayoutProperty(_layer.id, "visibility", "none");
         } else {
-          this.map.setLayoutProperty(_layer.id, "visibility", "visible");
+          map.setLayoutProperty(_layer.id, "visibility", "visible");
         }
       });
     }
@@ -344,13 +484,28 @@ class MapComponent extends Component {
     return true;
   };
 
-  setLabels = () => {
+  applyLabels = () => {
+    const { leftMap, rightMap } = this.state;
+    if (!this.map) {
+      if (leftMap) {
+        this.setLabels(leftMap);
+      }
+
+      if (rightMap) {
+        this.setLabels(rightMap);
+      }
+    } else {
+      this.setLabels(this.map);
+    }
+  };
+
+  setLabels = (map) => {
     const { basemap, lang, mapLabels } = this.props;
 
     const LABELS_GROUP = ["labels"];
 
-    if (this.map) {
-      const { layers, metadata } = this.map.getStyle();
+    if (map && map.getStyle()) {
+      const { layers, metadata } = map.getStyle();
 
       const labelGroups = Object.keys(metadata["mapbox:groups"]).filter((k) => {
         const { name } = metadata["mapbox:groups"][k];
@@ -381,27 +536,39 @@ class MapComponent extends Component {
 
       labelLayers.forEach((_layer) => {
         const match = _layer.metadata["mapbox:group"] === labelsToDisplay.id;
-        this.map.setLayoutProperty(
+        map.setLayoutProperty(
           _layer.id,
           "visibility",
           match && mapLabels ? "visible" : "none"
         );
-        this.map.setLayoutProperty(_layer.id, "text-field", [
-          "get",
-          `name_${lang}`,
-        ]);
+        map.setLayoutProperty(_layer.id, "text-field", ["get", `name_${lang}`]);
       });
     }
 
     return true;
   };
 
-  setRoads = () => {
+  applyRoads = () => {
+    const { leftMap, rightMap } = this.state;
+    if (!this.map) {
+      if (leftMap) {
+        this.setRoads(leftMap);
+      }
+
+      if (rightMap) {
+        this.setRoads(rightMap);
+      }
+    } else {
+      this.setRoads(this.map);
+    }
+  };
+
+  setRoads = (map) => {
     const ROADS_GROUP = ["roads"];
 
-    if (this.map) {
+    if (map && map.getStyle()) {
       const { mapRoads } = this.props;
-      const { layers, metadata } = this.map.getStyle();
+      const { layers, metadata } = map.getStyle();
 
       const groups =
         metadata &&
@@ -424,7 +591,7 @@ class MapComponent extends Component {
 
       roadLayers.forEach((l) => {
         const visibility = mapRoads ? "visible" : "none";
-        this.map.setLayoutProperty(l.id, "visibility", visibility);
+        map.setLayoutProperty(l.id, "visibility", visibility);
       });
     }
   };
@@ -449,6 +616,7 @@ class MapComponent extends Component {
       onClickAnalysis,
       onDrawComplete,
       drawingMode,
+      comparing,
     } = this.props;
 
     let tipText;
@@ -465,6 +633,13 @@ class MapComponent extends Component {
       ...hoverableLayerIds,
     ];
 
+    const style = {
+      position: "absolute",
+      top: 0,
+      bottom: 0,
+      left: 0,
+    };
+
     return (
       <div
         className={cx("c-map", { "no-pointer-events": drawing }, className)}
@@ -480,53 +655,60 @@ class MapComponent extends Component {
           animateFill={false}
           disabled={!drawing}
         >
-          <Map
-            mapStyle={mapStyle}
-            viewport={viewport}
-            bounds={this.state.bounds}
-            onViewportChange={this.onViewportChange}
-            onClick={this.onClick}
-            onMouseMove={this.onMouseMove}
-            onLoad={this.onLoad}
-            interactiveLayerIds={mapInteractiveLayerIds}
-            attributionControl={false}
-            minZoom={minZoom}
-            maxZoom={maxZoom}
-            getCursor={({ isHovering, isDragging }) => {
-              if (drawing) return "crosshair";
-              if (isDragging) return "grabbing";
-              if (isHovering) return "pointer";
-              return "grab";
-            }}
-          >
-            {(map) => (
-              <Fragment>
-                {/* POPUP */}
-                <Popup map={this.map} onClickAnalysis={onClickAnalysis} />
-
-                {/* Hover POPUP */}
-                <MapToolTip />
-
-                {/* LAYER MANAGER */}
-                <LayerManagerWrapper map={map} />
-                {/* DRAWING */}
-                <Draw
-                  map={map}
-                  drawing={drawing}
-                  onDrawComplete={onDrawComplete}
-                  drawingMode={drawingMode}
-                />
-                {/* SCALE */}
-                <Scale className="map-scale" map={map} viewport={viewport} />
-                {/* ATTRIBUTIONS */}
-                <Attributions
-                  className="map-attributions"
-                  map={map}
-                  viewport={viewport}
-                />
-              </Fragment>
-            )}
-          </Map>
+          {comparing ? (
+            <div
+              ref={this.mapCompareContainer}
+              style={{ ...style, width: "100%" }}
+            >
+              <RenderMap
+                comparing={comparing}
+                mapSide="left"
+                mapStyle={mapStyle}
+                viewport={viewport}
+                bounds={this.state.bounds}
+                onClick={this.onClick}
+                onMouseMove={this.onMouseMove}
+                onLoad={this.onLoad}
+                attributionControl={false}
+                minZoom={minZoom}
+                maxZoom={maxZoom}
+                style={style}
+              />
+              <RenderMap
+                comparing={comparing}
+                mapSide="right"
+                mapStyle={mapStyle}
+                viewport={viewport}
+                bounds={this.state.bounds}
+                onClick={this.onClick}
+                onMouseMove={this.onMouseMove}
+                onLoad={this.onLoad}
+                attributionControl={false}
+                minZoom={minZoom}
+                maxZoom={maxZoom}
+                style={style}
+              />
+            </div>
+          ) : (
+            <RenderMap
+              comparing={comparing}
+              mapStyle={mapStyle}
+              viewport={viewport}
+              bounds={this.state.bounds}
+              onViewportChange={this.onViewportChange}
+              onClick={this.onClick}
+              onMouseMove={this.onMouseMove}
+              onLoad={this.onLoad}
+              interactiveLayerIds={mapInteractiveLayerIds}
+              attributionControl={false}
+              minZoom={minZoom}
+              maxZoom={maxZoom}
+              onClickAnalysis={onClickAnalysis}
+              drawing={drawing}
+              onDrawComplete={onDrawComplete}
+              drawingMode={drawingMode}
+            />
+          )}
         </Tooltip>
         <Icon className="map-icon-crosshair" icon={iconCrosshair} />
         {loading && (

@@ -241,6 +241,7 @@ class Map extends Component {
       touchZoom,
       touchRotate,
       doubleClickZoom,
+      comparing,
       ...mapboxProps
     } = this.props;
     const { viewport, loaded, flying } = this.state;
@@ -249,7 +250,7 @@ class Map extends Component {
       <div
         ref={this.mapContainer}
         className={classnames({
-          "c-mapbox-map": true,
+          "c-mapbox-map": !comparing,
           [customClass]: !!customClass,
         })}
       >

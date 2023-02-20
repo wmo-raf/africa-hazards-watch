@@ -144,6 +144,16 @@ export const getDrawing = createSelector(
   (settings) => settings.drawing
 );
 
+export const getComparing = createSelector(
+  [getMapSettings],
+  (settings) => settings.comparing
+);
+
+export const getActiveCompareSide = createSelector(
+  [getMapSettings],
+  (settings) => settings.activeCompareSide
+);
+
 export const getDrawingMode = createSelector(
   [getMapSettings],
   (settings) => settings.drawingMode
@@ -266,6 +276,7 @@ export const getDatasetsWithConfig = createSelector(
         bbox,
         citation = null,
         layerFilterParams,
+        mapSide,
       } = layerConfig || {};
 
       return {
@@ -290,6 +301,7 @@ export const getDatasetsWithConfig = createSelector(
             opacity,
             bbox,
             citation,
+            mapSide,
             color: d.color,
             active: layers && layers.length && layers.includes(l.id),
             ...(!isEmpty(layerParams) && {
@@ -677,6 +689,7 @@ export const getMapProps = createStructuredSelector({
   mapRoads: getMapRoads,
   drawing: getDrawing,
   drawingMode: getDrawingMode,
+  comparing: getComparing,
   canBound: getCanBound,
   geostoreBbox: getGeostoreBbox,
   geostoreType: getGeostoreType,

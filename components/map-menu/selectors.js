@@ -7,6 +7,8 @@ import {
   getActiveDatasetsFromState,
   getLayerGroups,
   getMapZoom,
+  getActiveCompareSide,
+  getComparing,
 } from "components/map/selectors";
 
 import { getEmbed } from "layouts/map/selectors";
@@ -351,4 +353,6 @@ export const getMenuProps = createStructuredSelector({
   analysisLoading: getAnalysisLoading,
   zoom: getMapZoom,
   alertDataset: getAlertDataset,
+  comparing: getComparing,
+  activeCompareSide: getActiveCompareSide,
 });
