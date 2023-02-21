@@ -33,6 +33,8 @@ import LayerMoreInfo from "./components/layer-more-info";
 import SubNavMenu from "components/subnav-menu";
 
 import updateIcon from "assets/icons/refresh.svg?sprite";
+import moveLeftIcon from "assets/icons/move-left.svg?sprite";
+import moveRightIcon from "assets/icons/move-right.svg?sprite";
 
 import "./styles.scss";
 import "./themes/vizzuality-legend.scss";
@@ -42,7 +44,6 @@ const MapLegendContent = ({
   onChangeOrder,
   onChangeTimeline,
   onChangeThreshold,
-
   onToggleLayer,
   onSelectLayer,
   onChangeLayer,
@@ -54,9 +55,23 @@ const MapLegendContent = ({
   className,
   layerTimestamps,
   activeLayers,
+  onChangeMapSide,
+  activeCompareSide,
+  comparing,
+  mapSide,
   ...rest
 }) => {
-  const noLayers = !layerGroups || !layerGroups.length;
+  let filteredLayerGroups = layerGroups;
+
+  // filter by mapSide
+  if (mapSide) {
+    filteredLayerGroups =
+      filteredLayerGroups &&
+      filteredLayerGroups.length &&
+      filteredLayerGroups.filter((l) => l.mapSide === mapSide);
+  }
+
+  const noLayers = !filteredLayerGroups || !filteredLayerGroups.length;
 
   if (noLayers) {
     return <NoContent message="No layers selected" />;
@@ -68,7 +83,7 @@ const MapLegendContent = ({
       collapsable={false}
       onChangeOrder={onChangeOrder}
     >
-      {layerGroups.map((lg, i) => {
+      {filteredLayerGroups.map((lg, i) => {
         const {
           isSelectorLayer,
           isMultiLayer,
@@ -81,6 +96,7 @@ const MapLegendContent = ({
           statementConfig,
           caution,
           name,
+          dataset,
         } = lg || {};
 
         const activeLayer = layers && layers.find((l) => l.active);
@@ -104,6 +120,10 @@ const MapLegendContent = ({
         const isUpdating = activeLayers.find(
           (l) => l.id === activeLayer.id && l.isUpdating
         );
+
+        const moveTo =
+          activeCompareSide &&
+          (activeCompareSide === "left" ? "Right" : "Left");
 
         return (
           <LegendListItem
@@ -145,6 +165,24 @@ const MapLegendContent = ({
               </LegendItemToolbar>
             }
           >
+            {comparing && (
+              <div className="compare-move-controls">
+                <div
+                  className="action"
+                  onClick={() => onChangeMapSide(dataset)}
+                >
+                  <Icon
+                    icon={
+                      activeCompareSide === "left"
+                        ? moveRightIcon
+                        : moveLeftIcon
+                    }
+                  />
+                  <div> Move {moveTo}</div>
+                </div>
+              </div>
+            )}
+
             {citation && <div>{citation}</div>}
             {disclaimer && <div className="disclaimer">{disclaimer}</div>}
             {isUpdating && (
@@ -331,19 +369,17 @@ class MapLegendCompare extends Component {
         {activeCompareSide === "left" && (
           <MapLegendContent
             {...this.props}
-            layerGroups={
-              layerGroups &&
-              layerGroups.filter((l) => l.mapSide && l.mapSide === "left")
-            }
+            comparing
+            mapSide="left"
+            layerGroups={layerGroups}
           />
         )}
         {activeCompareSide === "right" && (
           <MapLegendContent
             {...this.props}
-            layerGroups={
-              layerGroups &&
-              layerGroups.filter((l) => l.mapSide && l.mapSide === "right")
-            }
+            comparing
+            mapSide="right"
+            layerGroups={layerGroups}
           />
         )}
       </div>

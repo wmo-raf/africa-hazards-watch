@@ -1,5 +1,6 @@
 @import "~styles/settings";
-@import "~mapbox-gl-compare/dist/mapbox-gl-compare.css";
+
+@import "~styles/mapbox-compare.scss";
 
 .c-map {
   position: absolute;

@@ -366,7 +366,8 @@ class MapComponent extends Component {
       const compareMap = new MapboxCompare(
         leftMap,
         rightMap,
-        this.mapCompareContainer.current
+        this.mapCompareContainer.current,
+        { orientation: "vertical" }
       );
 
       this.setState({ compareMap: compareMap });

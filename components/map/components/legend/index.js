@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import difference from "lodash/difference";
 import { trackEvent } from "utils/analytics";
+import uniqueId from "lodash/uniqueId";
 
 import * as modalActions from "components/modals/meta/actions";
 import * as mapActions from "components/map/actions";
@@ -27,6 +28,33 @@ class Legend extends PureComponent {
         }
         return activeDataset;
       }),
+    });
+  };
+
+  onChangeMapSide = (datasetId) => {
+    const { setMapSettings, activeDatasets } = this.props;
+
+    let mapSide;
+
+    const datasets = activeDatasets.map((d) => {
+      const activeDataset = { ...d };
+
+      if (d.dataset === datasetId) {
+        if (d.mapSide === "left") {
+          mapSide = "right";
+        } else {
+          mapSide = "left";
+        }
+
+        activeDataset.mapSide = mapSide;
+      }
+
+      return activeDataset;
+    });
+
+    setMapSettings({
+      datasets: datasets,
+      activeCompareSide: mapSide,
     });
   };
 
@@ -77,10 +105,14 @@ class Legend extends PureComponent {
       }
       return newDataset;
     });
+
+    //
     setMapSettings({
       datasets: newActiveDatasets,
       ...(enable && { canBound: true }),
     });
+
+    //
     trackEvent({
       category: "Map data",
       action: enable ? "User turns on a layer" : "User turns off a layer",
@@ -109,12 +141,14 @@ class Legend extends PureComponent {
   onRemoveLayer = (currentLayer) => {
     const { setMapSettings } = this.props;
     const activeDatasets = [...this.props.activeDatasets];
+
     activeDatasets.forEach((l, i) => {
       if (l.dataset === currentLayer.dataset) {
         activeDatasets.splice(i, 1);
       }
     });
     setMapSettings({ datasets: activeDatasets });
+
     trackEvent({
       category: "Map data",
       action: "User turns off a layer",
@@ -249,6 +283,8 @@ class Legend extends PureComponent {
       onChangeFilterParam: this.onChangeFilterParam,
       onChangeDecodeParam: this.onChangeDecodeParam,
       setConfirmed: this.setConfirmed,
+      onChangeMapSide: this.onChangeMapSide,
+      onCopyToSide: this.onCopyToSide,
     });
   }
 }

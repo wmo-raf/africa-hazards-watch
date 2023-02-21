@@ -340,6 +340,7 @@ export const getLayerGroups = createSelector(
 
         return {
           ...dataset,
+          mapSide: layer.mapSide,
           ...(newMetadata && {
             metadata: newMetadata,
           }),

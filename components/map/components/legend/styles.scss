@@ -6,6 +6,39 @@
 
 .c-legend,
 .c-legend-item {
+  .compare-move-controls {
+    display: flex;
+
+    .action {
+      display: flex;
+      align-items: center;
+      padding: 4px 8px;
+      background-color: rgba($green-gfw, 0.1);
+      font-size: 12px;
+      font-weight: 400;
+      cursor: pointer;
+
+      .c-icon {
+        margin-right: 8px;
+        fill: $green-gfw;
+      }
+
+      &:first-child {
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
+      }
+
+      &:not(:last-child) {
+        border-right: 1px solid rgba($green-gfw, 0.1);
+      }
+
+      &:last-child {
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 2px;
+      }
+    }
+  }
+
   .c-maplegend-compare {
     width: 100%;
 
