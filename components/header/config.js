@@ -2,6 +2,7 @@ export default {
   navMain: [
     { label: "Map", href: "/map/" },
     { label: "Dashboard", href: "/dashboards/africa/" },
+    { label: "Why Hazards Watch?", href: "/value/" },
   ],
   userAccount: { visible: true, path: "/my-hw", label: "my HW" },
   exploreAllAppsLink: "",
