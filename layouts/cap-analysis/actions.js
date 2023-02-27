@@ -1,6 +1,8 @@
 import { all, spread } from "axios";
 
 import { createAction, createThunkAction } from "redux/actions";
+import useRouter from "utils/router";
+
 import { getAlertDetail } from "services/cap-alerts";
 import { saveGeostore } from "services/geostore";
 import { getAreaIntersectAnalysis } from "services/area-analysis";
@@ -9,8 +11,6 @@ export const setCapGeostore = createAction("setCapGeostore");
 export const setCapAnalysis = createAction("setCapAnalysis");
 export const setCapLoading = createAction("setCapLoading");
 export const setCapAlert = createAction("setCapAlert");
-
-const DEFAULT_ANALYSIS_LAYERS = ["airports", "power_plants", "dams"];
 
 export const fetchCapDetail = createThunkAction(
   "fetchCapDetail",
@@ -22,21 +22,6 @@ export const fetchCapDetail = createThunkAction(
         dispatch(setCapAlert(capData));
 
         dispatch(setCapLoading({ loading: false, error: "" }));
-
-        if (capData.alert) {
-          const { area } = capData.alert.info;
-
-          if (area && area.features) {
-            dispatch(
-              getAlertsAnalysis({
-                features: area.features,
-                layers: DEFAULT_ANALYSIS_LAYERS,
-              })
-            );
-
-            dispatch(getAlertsGeostoreIds(area.features));
-          }
-        }
       })
       .catch((error) => {
         console.log(error);
@@ -123,5 +108,20 @@ export const getAlertsAnalysis = createThunkAction(
           dispatch(setCapAnalysis({ loading: false, data: {} }));
         });
     }
+  }
+);
+
+export const setCapSection = createThunkAction(
+  "setCapSection",
+  (newSection) => () => {
+    const { query, asPath, pushQuery } = useRouter();
+
+    pushQuery({
+      pathname: asPath?.split("?")?.[0],
+      query: {
+        ...query,
+        section: newSection,
+      },
+    });
   }
 );

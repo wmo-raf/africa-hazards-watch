@@ -1,5 +1,145 @@
 @import "~styles/settings.scss";
 
-.l-analysis-page {
-//   background-color: #f4f6f7;
+.l-cap-page {
+  .l-cap-header {
+    padding-top: 60px;
+    background-color: #f4f6f7;
+
+    h1 {
+      font-size: 30px;
+    }
+
+    .cap-status-wrapper {
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+
+      background-color: rgba($green-gfw, 0.1);
+      width: fit-content;
+      padding: 20px;
+      border-radius: 8px;
+
+      .cap-status {
+        font-size: 18px;
+        font-weight: 500;
+        color: $green-gfw;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid $green-gfw;
+      }
+
+      .cap-time {
+        list-style: none;
+
+        ul {
+          list-style-type: none;
+
+          li {
+            position: relative;
+            margin: 0;
+            padding-bottom: 10px;
+            padding-left: 20px;
+
+            .list-dot {
+              border-width: 1px;
+              background-color: $green-gfw;
+              height: 14px;
+              width: 14px;
+              position: absolute;
+              left: 1px;
+              top: 4px;
+              border-radius: 50%;
+            }
+
+            .time-type {
+              font-weight: 500;
+              color: $slate;
+            }
+          }
+
+          li:before {
+            content: "";
+            background-color: $green-gfw;
+            position: absolute;
+            bottom: 0;
+            top: 0;
+            left: 6px;
+            width: 3px;
+          }
+        }
+      }
+    }
+
+    .l-cap-map {
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .map-legend {
+      display: flex;
+      padding: 4px 8px;
+      align-items: center;
+      background-color: rgba($green-gfw, 0.1);
+      font-size: 14px;
+      flex-wrap: wrap;
+
+      .legend-items {
+        display: flex;
+        align-items: center;
+        .legend-item {
+          display: flex;
+          align-items: center;
+          margin-left: 10px;
+          .legend-color {
+            margin-right: 4px;
+            height: 12px;
+            width: 12px;
+          }
+        }
+      }
+    }
+  }
+
+  .cap-info {
+    padding: 20px 0;
+
+    .s-item {
+      padding: 4px 8px;
+      background-color: rgba($green-gfw, 0.1);
+      border-radius: 8px;
+
+      .type {
+        font-weight: 500;
+      }
+    }
+  }
+
+  .sticky-cap-content-bar {
+    width: 100%;
+  }
+
+  .l-cap-tabs {
+    width: 100%;
+    background-color: #f4f6f7;
+    .content-tabs {
+      display: flex;
+      border-bottom: 1px solid $grey-dark;
+
+      .content-tab {
+        padding: 10px;
+        margin-right: 20px;
+        cursor: pointer;
+
+        &.active {
+          border-bottom: 2px solid $green-gfw;
+          margin-bottom: -1px;
+        }
+      }
+    }
+  }
+
+  .l-cap-content {
+    padding-top: 40px;
+    padding-bottom: 100px;
+  }
 }

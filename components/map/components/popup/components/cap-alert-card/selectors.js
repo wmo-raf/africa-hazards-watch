@@ -137,15 +137,16 @@ export const getCardData = createSelector(
 
     const { website } = (capData.sourceInfo && capData.sourceInfo) || {};
 
-    const buttons = website
-      ? [
-          {
-            text: "MORE DETAILS",
-            extLink: website,
-            theme: `theme-button-small`,
-          },
-        ]
-      : [];
+    const buttons =
+      capData && capData.link
+        ? [
+            {
+              text: "DETAILS",
+              extLink: `/cap/?capUrl=${capData.link}&section=detail`,
+              theme: `theme-button-small`,
+            },
+          ]
+        : [];
 
     return {
       ...capData,

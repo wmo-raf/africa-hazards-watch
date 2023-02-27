@@ -1,0 +1,30 @@
+@import "~styles/settings.scss";
+
+.map-exposure {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  background-color: rgba($green-gfw, 0.1);
+  padding: 20px;
+  margin: 5px;
+
+  .summary-title {
+    font-size: 14px;
+    font-weight: 500;
+
+    .c-icon {
+      height: 20px;
+      width: 20px;
+    }
+  }
+
+  .summary-value {
+    font-size: 20px;
+    font-weight: 500;
+  }
+}

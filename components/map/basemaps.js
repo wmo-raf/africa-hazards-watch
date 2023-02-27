@@ -39,4 +39,23 @@ export default {
     mapStyle: "http://20.56.94.119/tileserver-gl/styles/ahw/style.json",
     url: "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
   },
+  defaultWithLabels: {
+    label: "Default With Labels",
+    description: "Default Basemap with Lables",
+    value: "default_with_labels",
+    color: "#131620",
+    baseStyle: false,
+    hasSettings: false,
+    mapStyle:
+      "http://20.56.94.119/tileserver-gl/styles/basemap_with_labels/style.json",
+  },
+  basicWithLabels: {
+    label: "Basic With Labels",
+    description: "Basic Basemap with Lables",
+    value: "basic_with_labels",
+    color: "#131620",
+    baseStyle: false,
+    hasSettings: false,
+    mapStyle: "http://20.56.94.119/tileserver-gl/styles/basic/style.json",
+  },
 };
