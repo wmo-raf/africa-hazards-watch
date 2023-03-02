@@ -1,0 +1,97 @@
+@import "~styles/settings.scss";
+
+.c-location-picker {
+  position: relative;
+  background-color: $slate-light;
+  padding: rem(50px) 0;
+  width: 100%;
+  min-height: rem(250px);
+
+  @media screen and(min-width: $screen-l) {
+    padding: rem(60px) rem(30px) rem(50px) 0;
+    min-height: rem(350px);
+  }
+
+  .sections-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .c-map-picker {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background-color: #fff;
+    overflow: hidden;
+    border-radius: 4px;
+    margin-top: 20px;
+
+    &.no-pointer-events {
+      .overlays {
+        pointer-events: none;
+      }
+    }
+
+    @media screen and(min-width: $screen-l) {
+      margin-top: 0;
+    }
+
+    svg {
+      background-color: $border;
+      opacity: 1;
+      position: absolute;
+      z-index: 1;
+      height: 100%;
+    }
+
+    .error-msg {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: rem(25px);
+      position: absolute;
+      z-index: 1;
+      background: $border;
+    }
+
+    &.small {
+      .error-msg {
+        padding: rem(3px);
+        font-size: rem(11px);
+      }
+    }
+
+    .location-type-control {
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      display: flex;
+      width: fit-content;
+      background-color: $white;
+      box-shadow: $pop-box-shadow;
+      font-size: 14px;
+      padding: 8px;
+      color: $slate;
+      z-index: 5;
+      border-radius: 4px;
+
+      .location-option {
+        padding: 0 8px;
+        margin-right: 4px;
+        cursor: pointer;
+
+        border: 1px solid $grey;
+        border-radius: 20px;
+
+        &.active {
+          background-color: $green-gfw;
+          border: none;
+          color: $white;
+        }
+      }
+    }
+  }
+}
