@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import cx from "classnames";
+
 import { formatNumber } from "utils/format";
 import Button from "components/ui/button";
 
@@ -7,13 +9,13 @@ import "./styles.scss";
 
 class PointSentence extends Component {
   static propTypes = {
-    data: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-    selected: PropTypes.object,
+    lat: PropTypes.number,
+    lon: PropTypes.number,
     onAnalyze: PropTypes.func,
   };
 
   render() {
-    const { lat, lon, onAnalyze } = this.props;
+    const { lat, lon, onAnalyze, actionLabel, small } = this.props;
 
     return lat && lon ? (
       <div className="c-point-sentence">
@@ -27,11 +29,12 @@ class PointSentence extends Component {
         </div>
 
         <Button
+          theme={cx({ "theme-button-medium": small })}
           onClick={() => {
             onAnalyze();
           }}
         >
-          analyze
+          {actionLabel ? actionLabel : "analyze"}
         </Button>
       </div>
     ) : null;

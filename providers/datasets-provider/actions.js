@@ -16,7 +16,7 @@ export const removeDataset = createAction("removeDataset");
 export const fetchDatasets = createThunkAction(
   "fetchDatasets",
   (activeDatasets) => (dispatch, getState) => {
-    const currentActiveDatasets = [...activeDatasets];
+    const currentActiveDatasets = (activeDatasets && [...activeDatasets]) || [];
 
     dispatch(setDatasetsLoading({ loading: true, error: false }));
 
