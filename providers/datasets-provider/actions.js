@@ -42,7 +42,8 @@ export const fetchDatasets = createThunkAction(
               delete d.getLayers;
               return d;
             });
-          const allDatasets = localDatasets.concat(asyncDatasetsWithLayers);
+          const allDatasets =
+            localDatasets.concat(asyncDatasetsWithLayers) || [];
 
           const initialVisibleDatasets = allDatasets.filter(
             (d) => d.initialVisible

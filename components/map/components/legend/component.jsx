@@ -117,9 +117,9 @@ const MapLegendContent = ({
           legendImage,
         } = activeLayer || {};
 
-        const isUpdating = activeLayers.find(
-          (l) => l.id === activeLayer.id && l.isUpdating
-        );
+        const isUpdating =
+          activeLayer &&
+          activeLayers.find((l) => l.id === activeLayer.id && l.isUpdating);
 
         const moveTo =
           activeCompareSide &&
