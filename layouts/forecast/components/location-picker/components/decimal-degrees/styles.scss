@@ -1,0 +1,44 @@
+@import "~styles/settings.scss";
+
+.c-decimal-degrees {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+
+  max-width: 300px;
+
+  .coord-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+
+    .label {
+      margin-right: 10px;
+    }
+
+    .coord-input {
+      border: 0;
+      border-bottom: solid 1px $white;
+      width: calc(100% - 51px);
+      background-color: $slate-light;
+
+      color: #fff;
+
+      &.error {
+        color: $alert;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .error-message {
+    color: $alert;
+  }
+
+  .submit-btn {
+    margin-top: rem(10px);
+  }
+}
