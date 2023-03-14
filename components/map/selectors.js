@@ -618,19 +618,33 @@ export const getInteractions = createSelector(
   [getInteractionsData, getActiveLayers],
   (interactions, activeLayers) => {
     if (isEmpty(interactions)) return null;
-    return Object.keys(interactions).map((layerId) => {
-      const layer = activeLayers.find((l) => l.id === layerId);
-      const { data, ...interaction } = interactions?.[layerId] || {};
 
-      return {
-        ...interaction,
-        data: {
-          ...data,
-          ...data?.properties,
-        },
-        layer,
-      };
-    });
+    const interactiveLayers = activeLayers.filter(
+      (l) =>
+        !isEmpty(l.interactionConfig) &&
+        l.layerConfig &&
+        l.layerConfig.render &&
+        l.layerConfig.render.layers
+    );
+
+    return Object.keys(interactions).reduce((all, layerId) => {
+      const layer = interactiveLayers.find((l) => l.id === layerId);
+
+      if (layer) {
+        const { data, ...interaction } = interactions?.[layerId] || {};
+
+        all.push({
+          ...interaction,
+          data: {
+            ...data,
+            ...data?.properties,
+          },
+          layer,
+        });
+      }
+
+      return all;
+    }, []);
   }
 );
 
