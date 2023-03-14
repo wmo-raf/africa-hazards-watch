@@ -6,6 +6,7 @@ import localCategories from "./categories.json";
 
 export const setSectionsLoading = createAction("setSectionsLoading");
 export const setSections = createAction("setSections");
+export const setSubCategorySettings = createAction("setSubCategorySettings");
 
 export const fetchSections = createThunkAction(
   "fetchSections",

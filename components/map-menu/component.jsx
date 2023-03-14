@@ -103,6 +103,7 @@ class MapMenu extends PureComponent {
       mobileSections,
       activeSection,
       setMenuSettings,
+      setSubCategorySettings,
       menuSection,
       loading,
       analysisLoading,
@@ -166,6 +167,7 @@ class MapMenu extends PureComponent {
               isDesktop={isDesktop}
               setMenuSettings={setMenuSettings}
               onToggleLayer={this.onToggleLayer}
+              onToggleSubCategoryCollapse={setSubCategorySettings}
               {...props}
               {...((menuSection === "datasets" || menuSection === "alerts") && {
                 ...rest,

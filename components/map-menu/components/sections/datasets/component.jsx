@@ -30,6 +30,8 @@ class Datasets extends PureComponent {
       setMenuSettings,
       handleRemoveCountry,
       handleAddCountry,
+      onToggleSubCategoryCollapse,
+      id: sectionId,
     } = this.props;
 
     return (
@@ -49,9 +51,9 @@ class Datasets extends PureComponent {
           )}
         {menuSection && datasetCategory && (
           <Fragment>
-            <div className="countries-selection">
-              {/* <span className="sub-title">country-specific data</span> */}
-              {/* <div className="pills">
+            {/* <div className="countries-selection">
+              <span className="sub-title">country-specific data</span>
+              <div className="pills">
                 {selectedCountries &&
                   selectedCountries.map((c) => (
                     <Pill
@@ -74,8 +76,8 @@ class Datasets extends PureComponent {
                     onChange={handleAddCountry}
                   />
                 )}
-              </div> */}
-            </div>
+              </div>
+            </div> */}
             {countriesWithoutData &&
               !!countriesWithoutData.length &&
               selectedCountries &&
@@ -101,7 +103,12 @@ class Datasets extends PureComponent {
               )}
             {subCategories
               ? subCategories.map((subCat) => (
-                  <DatasetSection key={subCat.slug} {...subCat}>
+                  <DatasetSection
+                    key={subCat.slug}
+                    sectionId={sectionId}
+                    {...subCat}
+                    onToggleCollapse={onToggleSubCategoryCollapse}
+                  >
                     {!isEmpty(subCat.datasets) ? (
                       subCat.datasets.map((d) => (
                         <LayerToggle

@@ -27,6 +27,8 @@ const getAnalysisLoading = (state) => state.analysis && state.analysis.loading;
 const getDatasets = (state) => state.datasets && state.datasets.data;
 const getLocation = (state) => state.location && state.location.payload;
 const getApiSections = (state) => (state.sections && state.sections.data) || [];
+const getSectionSettings = (state) =>
+  (state.sections && state.sections.settings) || [];
 
 export const getMenuSection = createSelector(
   [getMenuSettings],
@@ -163,8 +165,9 @@ export const getDatasetSectionsWithData = createSelector(
     getActiveDatasetsFromState,
     getDatasetCategory,
     getMenuSection,
+    getSectionSettings,
   ],
-  (sections, activeDatasets, datasetCategory, menuSection) => {
+  (sections, activeDatasets, datasetCategory, menuSection, sectionSettings) => {
     if (!activeDatasets) return sections;
     const datasetIds = activeDatasets.map((d) => d.dataset);
 

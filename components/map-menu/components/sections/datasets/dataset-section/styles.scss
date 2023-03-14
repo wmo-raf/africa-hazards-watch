@@ -1,19 +1,71 @@
-@import '~styles/settings';
+@import "~styles/settings";
 
 .c-dataset-section {
   position: relative;
   padding: 0 rem(20px);
+  margin-bottom: rem(20px);
+  padding-bottom: rem(20px);
+
+  &.collapsed {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
 
   .dataset-header {
     margin-bottom: rem(20px);
+    background-color: rgba($green-gfw, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+    cursor: pointer;
   }
 
-  .title {
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1.1;
-    color: $greyish-brown;
-    text-transform: uppercase;
+  .title-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .title {
+      display: flex;
+      align-items: center;
+
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.1;
+      color: $greyish-brown;
+      text-transform: uppercase;
+
+      .dataset-count {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: rem(14px);
+        height: rem(14px);
+        background-color: $green-gfw;
+        border-radius: 100%;
+        font-size: 9px;
+        font-weight: 500;
+        letter-spacing: -0.3px;
+        color: $white;
+        margin-right: 8px;
+      }
+
+      .category-icon {
+        margin-right: 8px;
+        fill: $green-gfw;
+      }
+    }
+
+    .collapse-icon {
+      display: flex;
+      align-items: center;
+      margin-left: 8px;
+
+      .c-icon {
+        fill: $green-gfw;
+        height: 14px;
+        width: 14px;
+      }
+    }
   }
 
   .subtitle {
@@ -36,19 +88,19 @@
     }
   }
 
-  margin-bottom: rem(20px);
-  padding-bottom: rem(20px);
-
-  &:not(:last-child) {
-    &::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      // right: rem(-20px);
-      left: rem(20px);
-      width: calc(100% - #{rem(20px)});
-      height: rem(1px);
-      background-color: rgba($hot-grey, 0.3);
-    }
+  .datasets-list {
   }
+
+  // &:not(:last-child) {
+  //   &::before {
+  //     content: "";
+  //     position: absolute;
+  //     bottom: 0;
+  //     // right: rem(-20px);
+  //     left: rem(20px);
+  //     width: calc(100% - #{rem(20px)});
+  //     height: rem(1px);
+  //     background-color: rgba($hot-grey, 0.3);
+  //   }
+  // }
 }
