@@ -5,12 +5,12 @@ import {
   getActiveDatasetsFromState,
 } from "components/map/selectors";
 
-import allUpdateProviders from "./manifest";
+import allUpdateProviders from "./updates";
 
 export const getUpdateProviders = createSelector(
   [getActiveLayers, getActiveDatasetsFromState],
   (activeLayers, activeDatasets) => {
-    const updateProviders = Object.values(allUpdateProviders).filter((p) =>
+    const updateProviders = allUpdateProviders.filter((p) =>
       activeLayers.find((l) => l.id === p.layer)
     );
 

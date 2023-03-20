@@ -1,3 +1,4 @@
 import landcover from "./landcover";
+import dustForecast from "./dust-forecast";
 
-export default [...landcover];
+export default [...dustForecast, ...landcover];

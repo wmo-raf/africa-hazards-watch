@@ -1,4 +1,5 @@
-@import '~styles/settings.scss';
+@import "~styles/settings.scss";
+$plain-menu: #f1f1f1;
 
 .c-datasets {
   height: 100%;
@@ -22,6 +23,47 @@
       width: rem(10px);
       height: rem(10px);
       margin-right: rem(10px);
+    }
+  }
+
+  .model-options-wrapper {
+    padding-bottom: 20px;
+
+    .model-options-title {
+      font-size: 14px;
+      color: $slate;
+      margin-bottom: 8px;
+    }
+
+    .model-options {
+      width: 100%;
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      font-size: 12px;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 10px;
+      background-color: $plain-menu;
+      color: $slate;
+
+      .model-option {
+        margin-right: 0;
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.2em 0;
+        cursor: pointer;
+        user-select: none;
+
+        &.active {
+          border-radius: 1em;
+          color: white;
+          background-color: $green-gfw;
+          box-shadow: 0 0 4px 0 black;
+        }
+      }
     }
   }
 

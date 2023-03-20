@@ -35,6 +35,11 @@ export const getMenuSection = createSelector(
   (settings) => settings.menuSection
 );
 
+export const getSelectedForecastModel = createSelector(
+  [getMenuSettings],
+  (settings) => settings.selectedForecastModel
+);
+
 export const getSelectedCountries = createSelector(
   [getMenuSettings],
   (settings) => settings.selectedCountries
@@ -176,6 +181,7 @@ export const getDatasetSectionsWithData = createSelector(
         sections.length &&
         sections.map((s) => {
           const { datasets, subCategories } = s;
+
           return {
             ...s,
             active: datasetCategory === s.category && menuSection === s.slug,
@@ -358,4 +364,5 @@ export const getMenuProps = createStructuredSelector({
   alertDataset: getAlertDataset,
   comparing: getComparing,
   activeCompareSide: getActiveCompareSide,
+  selectedForecastModel: getSelectedForecastModel,
 });

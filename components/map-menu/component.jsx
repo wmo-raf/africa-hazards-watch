@@ -168,6 +168,9 @@ class MapMenu extends PureComponent {
               setMenuSettings={setMenuSettings}
               onToggleLayer={this.onToggleLayer}
               onToggleSubCategoryCollapse={setSubCategorySettings}
+              onToggleForecastModel={(model) =>
+                setMenuSettings({ selectedForecastModel: model })
+              }
               {...props}
               {...((menuSection === "datasets" || menuSection === "alerts") && {
                 ...rest,

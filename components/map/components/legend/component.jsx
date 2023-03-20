@@ -97,6 +97,7 @@ const MapLegendContent = ({
           caution,
           name,
           dataset,
+          citation,
         } = lg || {};
 
         const activeLayer = layers && layers.find((l) => l.active);
@@ -110,7 +111,7 @@ const MapLegendContent = ({
           moreInfo,
           timelineParams,
           statement,
-          citation,
+          // citation: layerCitation,
           disclaimer,
           layerFilterParams,
           layerFilterParamsConfig,

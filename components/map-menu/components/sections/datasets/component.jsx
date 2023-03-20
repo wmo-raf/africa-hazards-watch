@@ -1,10 +1,11 @@
 import React, { PureComponent, Fragment } from "react";
 import PropTypes from "prop-types";
 import isEmpty from "lodash/isEmpty";
+import cx from "classnames";
 
 import NoContent from "components/ui/no-content";
 import LayerToggle from "components/map/components/legend/components/layer-toggle";
-// import Pill from "components/ui/pill";
+
 // import Dropdown from "components/ui/dropdown";
 import Basemaps from "components/basemaps";
 
@@ -31,7 +32,9 @@ class Datasets extends PureComponent {
       handleRemoveCountry,
       handleAddCountry,
       onToggleSubCategoryCollapse,
+      onToggleForecastModel,
       id: sectionId,
+      selectedForecastModel,
     } = this.props;
 
     return (
@@ -109,18 +112,63 @@ class Datasets extends PureComponent {
                     {...subCat}
                     onToggleCollapse={onToggleSubCategoryCollapse}
                   >
+                    {subCat.model_options && (
+                      <div className="model-options-wrapper">
+                        {subCat.model_options_title && (
+                          <div className="model-options-title">
+                            {subCat.model_options_title}
+                          </div>
+                        )}
+                        <div className="model-options">
+                          {subCat.model_options.map((modelOption) => (
+                            <div
+                              key={modelOption.value}
+                              className={cx("model-option", {
+                                active:
+                                  modelOption.value === selectedForecastModel,
+                              })}
+                              onClick={() => {
+                                onToggleForecastModel(modelOption.value);
+                              }}
+                            >
+                              {modelOption.label}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                     {!isEmpty(subCat.datasets) ? (
-                      subCat.datasets.map((d) => (
-                        <LayerToggle
-                          key={d.id}
-                          className="dataset-toggle"
-                          data={{ ...d, dataset: d.id }}
-                          onToggle={onToggleLayer}
-                          onInfoClick={setModalMetaSettings}
-                          showSubtitle
-                          category={datasetCategory}
-                        />
-                      ))
+                      subCat.datasets.map((d) => {
+                        if (subCat.model_options && selectedForecastModel) {
+                          if (d.model && selectedForecastModel === d.model) {
+                            return (
+                              <LayerToggle
+                                key={d.id}
+                                className="dataset-toggle"
+                                data={{ ...d, dataset: d.id }}
+                                onToggle={onToggleLayer}
+                                onInfoClick={setModalMetaSettings}
+                                showSubtitle
+                                category={datasetCategory}
+                              />
+                            );
+                          } else {
+                            return null;
+                          }
+                        }
+
+                        return (
+                          <LayerToggle
+                            key={d.id}
+                            className="dataset-toggle"
+                            data={{ ...d, dataset: d.id }}
+                            onToggle={onToggleLayer}
+                            onInfoClick={setModalMetaSettings}
+                            showSubtitle
+                            category={datasetCategory}
+                          />
+                        );
+                      })
                     ) : (
                       <NoContent
                         className="no-datasets"

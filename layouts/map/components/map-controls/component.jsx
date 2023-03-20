@@ -10,6 +10,7 @@ import { trackEvent } from "utils/analytics";
 import plusIcon from "assets/icons/plus.svg?sprite";
 import minusIcon from "assets/icons/minus.svg?sprite";
 import shareIcon from "assets/icons/share.svg?sprite";
+import refreshIcon from "assets/icons/refresh.svg?sprite";
 import fullscreenIcon from "assets/icons/fit-zoom.svg?sprite";
 import helpIocn from "assets/icons/help.svg?sprite";
 import searchIcon from "assets/icons/search.svg?sprite";
@@ -305,6 +306,22 @@ class MapControlsButtons extends PureComponent {
     );
   }
 
+  renderMapReloadButton() {
+    return (
+      <Button
+        className="map-control -reload"
+        theme="theme-button-map-control"
+        onClick={() => {
+          // reload map page without query params
+          window.location = window.location.pathname;
+        }}
+        tooltip={{ text: "Reload Map" }}
+      >
+        <Icon icon={refreshIcon} />
+      </Button>
+    );
+  }
+
   // <Tooltip
   //       className="basemaps-tooltip"
   //       theme="light"
@@ -391,6 +408,7 @@ class MapControlsButtons extends PureComponent {
                 {this.renderShowPanelsButton()}
                 {this.renderShareButton()}
                 {this.renderMapOptions(showBasemaps)}
+                {this.renderMapReloadButton()}
                 {this.renderMapTourBtn()}
               </div>
               {this.renderMapPosition()}

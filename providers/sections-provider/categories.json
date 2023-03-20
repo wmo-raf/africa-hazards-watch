@@ -1,133 +1,142 @@
-{
-
-  "data": {
-    "objects": [{
+[
+  {
+    "title": "Alerts",
+    "active": true,
+    "icon": "alert",
+    "id": "alerts",
+    "info": null,
+    "sub_categories": [
+      {
         "active": true,
-        "icon": "alert",
         "id": "alerts",
-        "info": null,
-        "sub_categories": [{
-          "active": true,
-          "id": "alerts",
-          "title": "Alerts"
-        }],
         "title": "Alerts"
-      }, {
+      }
+    ]
+  },
+  {
+    "title": "Weather",
+    "active": true,
+    "icon": "rainfall",
+    "id": 1,
+    "info": null,
+    "sub_categories": [
+      {
         "active": true,
-        "icon": "rainfall",
         "id": 1,
-        "info": null,
-        "order": 1,
-        "sub_categories": [
-          {
-            "active": true,
-            "id": 4,
-            "title": "3 Hour SYNOP Observations"
-          },{
-            "active": true,
-            "id": 1,
-            "sort_order": 1,
-            "title": "Short Range Forecast"
-          },
-          {
-            "active": false,
-            "id": 3,
-            "title": "Long Range Forecast"
-          }, {
-            "active": true,
-            "id": 2,
-            "title": "Satellite Imagery"
-          }
-
-
+        "title": "Weather Forecast",
+        "model_options": [
+          { "label": "GFS", "value": "gfs", "active": true },
+          { "label": "ECMWF - 0.4°", "value": "ecmwf" }
         ],
-        "title": "Weather"
+        "model_options_title": "Forecast Model"
       },
       {
         "active": true,
-        "icon": "climate_change",
-        "id": 2,
-        "info": null,
-        "order": 2,
-        "sub_categories": [{
-            "active": true,
-            "id": 1,
-            "title": "Monthly Averages"
-          },
-          {
-            "active": true,
-            "id": 2,
-            "title": "Monthly Anomalies"
-          }, {
-            "active": true,
-            "id": 3,
-            "title": "Climate Projections"
-          }
-        ],
-        "title": "Climate"
-      },
-      {
-        "active": true,
-        "icon": "agric",
-        "id": 3,
-        "info": null,
-        "order": 3,
-        "sub_categories": [{
-          "active": true,
-          "id": 1,
-          "title": "Food Security"
-        }],
-        "title": "Agriculture"
-      },
-      {
-        "active": true,
-        "icon": "drought",
         "id": 4,
-        "info": null,
-        "order": 4,
-        "sub_categories": [],
-        "title": "Drought"
+        "title": "SYNOP Observations"
       },
       {
         "active": false,
-        "icon": "floods",
-        "id": 5,
-        "info": null,
-        "order": 5,
-        "sub_categories": [],
-        "title": "Floods"
-      },
-      {
-        "title": "Environment",
-        "active": true,
-        "icon": "env",
-        "id": 6,
-        "info": null,
-        "sub_categories": [{
-          "active": true,
-          "id": 1,
-          "title": "LandCover"
-        }]
+        "id": 3,
+        "title": "Long Range Forecast"
       },
       {
         "active": true,
-        "icon": "landuse",
+        "id": 2,
+        "title": "Satellite Imagery"
+      }
+    ]
+  },
+  {
+    "title": "Climate",
+    "active": true,
+    "icon": "climate_change",
+    "id": 2,
+    "info": null,
+    "sub_categories": [
+      {
+        "active": true,
+        "id": 1,
+        "title": "Monthly Averages"
+      },
+      {
+        "active": true,
+        "id": 2,
+        "title": "Monthly Anomalies"
+      },
+      {
+        "active": true,
+        "id": 3,
+        "title": "Climate Projections"
+      }
+    ]
+  },
+  {
+    "title": "Agriculture",
+    "active": true,
+    "icon": "agric",
+    "id": 3,
+    "info": null,
+    "sub_categories": [
+      {
+        "active": true,
+        "id": 1,
+        "title": "Food Security"
+      }
+    ]
+  },
+  {
+    "title": "Drought",
+    "active": true,
+    "icon": "drought",
+    "id": 4,
+    "info": null,
+    "sub_categories": []
+  },
+  {
+    "title": "Floods",
+    "active": false,
+    "icon": "floods",
+    "id": 5,
+    "info": null,
+    "sub_categories": []
+  },
+  {
+    "title": "Environment",
+    "active": true,
+    "icon": "env",
+    "id": "environment",
+    "info": null,
+    "sub_categories": [
+      {
+        "active": true,
+        "id": "dust_forecast",
+        "title": "Dust Forecast - North Africa"
+      },
+      {
+        "active": true,
+        "id": "landcover",
+        "title": "LandCover"
+      }
+    ]
+  },
+  {
+    "title": "Exposure",
+    "active": true,
+    "icon": "landuse",
+    "id": 7,
+    "info": null,
+    "sub_categories": [
+      {
+        "active": true,
         "id": 7,
-        "info": null,
-        "order": 7,
-        "sub_categories": [{
-          "active": true,
-          "id": 7,
-          "sort_order": 0,
-          "title": "People"
-        }, {
-          "active": true,
-          "id": 16,
-          "sort_order": 1,
-          "title": "Infrastructure"
-        }],
-        "title": "Exposure"
+        "title": "People"
+      },
+      {
+        "active": true,
+        "id": 16,
+        "title": "Infrastructure"
       }
     ]
   }
-}
+]

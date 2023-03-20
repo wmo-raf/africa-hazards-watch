@@ -90,6 +90,8 @@ class Legend extends PureComponent {
   };
 
   onToggleLayer = (layer, enable) => {
+    console.log(layer);
+
     const { activeDatasets, setMapSettings, activeCompareSide } = this.props;
     const { dataset } = layer;
 

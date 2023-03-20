@@ -11,6 +11,7 @@ export const initialState = {
     myHWType: "myAOI",
     search: "",
     selectedCountries: [],
+    selectedForecastModel: "gfs",
   },
 };
 

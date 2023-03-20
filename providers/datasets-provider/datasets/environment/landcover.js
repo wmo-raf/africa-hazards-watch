@@ -2,14 +2,17 @@ const date = "2020-01-01T00:00:00.000Z";
 
 const layerName = "esa_world_cover";
 
+const category = "environment";
+const subCategory = "landcover";
+
 export default [
   {
     id: layerName,
     dataset: layerName,
     name: "Esa World Cover",
     layer: layerName,
-    category: 6,
-    sub_category: 1,
+    category: category,
+    sub_category: subCategory,
     metadata: "",
     citation: "ESA World Cover, 10M",
     layers: [
