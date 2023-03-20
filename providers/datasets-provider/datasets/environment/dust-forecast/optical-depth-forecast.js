@@ -42,8 +42,17 @@ export default [
           canClipToGeom: true,
         },
         legendConfig: {
-          type: "gradient",
-          items: [],
+          type: "choropleth",
+          items: [
+            { name: 0.2, color: "#A1EDE3" },
+            { name: 0.4, color: "#5CE3BA" },
+            { name: 0.8, color: "#FCD775" },
+            { name: 1.2, color: "#DA7230" },
+            { name: 1.6, color: "#9E6226" },
+            { name: 3.2, color: "#714921" },
+            { name: 6.4, color: "#392511" },
+            { name: "", color: "#1D1309" },
+          ],
         },
         params: {
           time: "",
