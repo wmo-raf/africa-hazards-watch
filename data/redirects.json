@@ -1,7 +1,12 @@
 [
-    {
-        "source": "/dashboards/",
-        "destination": "/dashboards/africa/",
-        "permanent": true
-    }
+  {
+    "source": "/dashboards/",
+    "destination": "/dashboards/africa/",
+    "permanent": true
+  },
+  {
+    "source": "/forecast/",
+    "destination": "/forecast/country/",
+    "permanent": true
+  }
 ]

@@ -2,7 +2,7 @@
 
 .c-location-picker {
   position: relative;
-  background-color: $slate-light;
+  background-color: $hw-dark;
   padding: rem(50px) 0;
   width: 100%;
   min-height: rem(250px);
@@ -12,9 +12,21 @@
     min-height: rem(350px);
   }
 
+  .loader {
+    background-color: $hw-dark;
+
+    .spinner {
+      border-top-color: $white;
+    }
+  }
+
   .sections-wrapper {
     display: flex;
     align-items: center;
+  }
+
+  .country-picker-dropdown {
+    margin-bottom: 20px;
   }
 
   .c-map-picker {
@@ -75,7 +87,7 @@
       font-size: 14px;
       padding: 8px;
       color: $slate;
-      z-index: 5;
+      z-index: 1;
       border-radius: 4px;
 
       .location-option {

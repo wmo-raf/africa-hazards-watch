@@ -96,7 +96,7 @@ class LocationPicker extends Component {
 
     return (
       <div className="c-location-picker">
-        {loading && <Loader className="loader" theme="theme-loader-light" />}
+        {loading && <Loader className="loader" />}
         <Row className="sections-wrapper">
           <Column width={[1, 1 / 2]}>
             {isPointPicker && (
@@ -108,6 +108,7 @@ class LocationPicker extends Component {
             {isCountryPicker && (
               <Dropdown
                 theme="theme-dropdown-dark"
+                className="country-picker-dropdown"
                 placeholder={`Select ${selectorMeta.typeVerb}`}
                 noItemsFound={`No ${selectorMeta.typeName} found`}
                 noSelectedValue={`Select ${selectorMeta.typeName}`}
@@ -134,6 +135,7 @@ class LocationPicker extends Component {
               regionData.options.length > 1 && (
                 <Dropdown
                   theme="theme-dropdown-dark"
+                  className="country-picker-dropdown"
                   placeholder="Select a region"
                   noItemsFound="No region found"
                   noSelectedValue="Select a region"
@@ -162,6 +164,7 @@ class LocationPicker extends Component {
               subRegionData.options.length > 1 && (
                 <Dropdown
                   theme="theme-dropdown-dark"
+                  className="country-picker-dropdown"
                   placeholder="Select a region"
                   noItemsFound="No region found"
                   noSelectedValue="Select a region"
