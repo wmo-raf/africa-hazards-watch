@@ -239,7 +239,7 @@ export default [
                 maxzoom: 4,
                 paint: {
                   "line-color": "#7f7f7f",
-                  "line-width": 0.7,
+                  "line-width": 1.5,
                 },
                 "source-layer": "pgadapter.africa_gadm36_political_boundaries",
                 type: "line",
@@ -249,7 +249,7 @@ export default [
                 maxzoom: 3,
                 paint: {
                   "line-color": "#7f7f7f",
-                  "line-width": 0.7,
+                  "line-width": 1.5,
                 },
                 "source-layer": "pgadapter.africa_gadm36_political_boundaries",
                 type: "line",
@@ -259,7 +259,7 @@ export default [
                 maxzoom: 4,
                 paint: {
                   "line-color": "#7f7f7f",
-                  "line-width": 0.7,
+                  "line-width": 1.5,
                 },
                 "source-layer": "pgadapter.africa_gadm36_political_boundaries",
                 type: "line",
@@ -269,7 +269,7 @@ export default [
                 maxzoom: 5,
                 paint: {
                   "line-color": "#7f7f7f",
-                  "line-width": 0.7,
+                  "line-width": 1.5,
                 },
                 "source-layer": "pgadapter.africa_gadm36_political_boundaries",
                 type: "line",
@@ -279,7 +279,7 @@ export default [
                 maxzoom: 6,
                 paint: {
                   "line-color": "#7f7f7f",
-                  "line-width": 0.7,
+                  "line-width": 1.5,
                 },
                 "source-layer": "pgadapter.africa_gadm36_political_boundaries",
                 type: "line",
@@ -289,7 +289,7 @@ export default [
                 maxzoom: 7,
                 paint: {
                   "line-color": "#7f7f7f",
-                  "line-width": 0.7,
+                  "line-width": 1.5,
                 },
                 "source-layer": "pgadapter.africa_gadm36_political_boundaries",
                 type: "line",
@@ -303,7 +303,7 @@ export default [
                 maxzoom: 8,
                 paint: {
                   "line-color": "#7f7f7f",
-                  "line-width": 0.7,
+                  "line-width": 1.5,
                 },
                 "source-layer": "pgadapter.africa_gadm36_political_boundaries",
                 type: "line",
@@ -314,7 +314,7 @@ export default [
                 minzoom: 3,
                 paint: {
                   "line-color": "#8b8b8b",
-                  "line-width": 0.3,
+                  "line-width": 1,
                 },
                 "source-layer": "pgadapter.africa_gadm36_political_boundaries",
                 type: "line",
@@ -325,7 +325,7 @@ export default [
                 minzoom: 4,
                 paint: {
                   "line-color": "#8b8b8b",
-                  "line-width": 0.3,
+                  "line-width": 1,
                 },
                 "source-layer": "pgadapter.africa_gadm36_political_boundaries",
                 type: "line",
@@ -336,7 +336,7 @@ export default [
                 minzoom: 5,
                 paint: {
                   "line-color": "#8b8b8b",
-                  "line-width": 0.3,
+                  "line-width": 1,
                 },
                 "source-layer": "pgadapter.africa_gadm36_political_boundaries",
                 type: "line",
@@ -347,7 +347,7 @@ export default [
                 minzoom: 6,
                 paint: {
                   "line-color": "#8b8b8b",
-                  "line-width": 0.3,
+                  "line-width": 1,
                 },
                 "source-layer": "pgadapter.africa_gadm36_political_boundaries",
                 type: "line",
@@ -358,7 +358,7 @@ export default [
                 minzoom: 7,
                 paint: {
                   "line-color": "#8b8b8b",
-                  "line-width": 0.3,
+                  "line-width": 1,
                 },
                 "source-layer": "pgadapter.africa_gadm36_political_boundaries",
                 type: "line",
@@ -373,7 +373,7 @@ export default [
                 minzoom: 8,
                 paint: {
                   "line-color": "#8b8b8b",
-                  "line-width": 0.3,
+                  "line-width": 1,
                 },
                 "source-layer": "pgadapter.africa_gadm36_political_boundaries",
                 type: "line",
@@ -384,7 +384,7 @@ export default [
                 paint: {
                   "line-color": "#444444",
                   "line-dasharray": [2, 4],
-                  "line-width": 0.5,
+                  "line-width": 0.7,
                 },
                 "source-layer": "pgadapter.africa_gadm36_political_boundaries",
                 type: "line",
@@ -395,7 +395,7 @@ export default [
                 paint: {
                   "line-color": "#444444",
                   "line-dasharray": [2, 4],
-                  "line-width": 0.5,
+                  "line-width": 0.7,
                 },
                 "source-layer": "pgadapter.africa_gadm36_political_boundaries",
                 type: "line",
@@ -406,7 +406,7 @@ export default [
                 paint: {
                   "line-color": "#444444",
                   "line-dasharray": [2, 4],
-                  "line-width": 0.5,
+                  "line-width": 0.7,
                 },
                 "source-layer": "pgadapter.africa_gadm36_political_boundaries",
                 type: "line",
@@ -417,7 +417,7 @@ export default [
                 paint: {
                   "line-color": "#444444",
                   "line-dasharray": [2, 4],
-                  "line-width": 0.5,
+                  "line-width": 0.7,
                 },
                 "source-layer": "pgadapter.africa_gadm36_political_boundaries",
                 type: "line",
@@ -428,7 +428,7 @@ export default [
                 paint: {
                   "line-color": "#444444",
                   "line-dasharray": [2, 4],
-                  "line-width": 0.5,
+                  "line-width": 0.7,
                 },
                 "source-layer": "pgadapter.africa_gadm36_political_boundaries",
                 type: "line",
@@ -443,7 +443,7 @@ export default [
                 paint: {
                   "line-color": "#444444",
                   "line-dasharray": [2, 4],
-                  "line-width": 0.5,
+                  "line-width": 0.7,
                 },
                 "source-layer": "pgadapter.africa_gadm36_political_boundaries",
                 type: "line",

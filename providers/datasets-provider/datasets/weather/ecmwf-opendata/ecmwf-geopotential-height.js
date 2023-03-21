@@ -42,8 +42,8 @@ export default [
                 "source-layer": "default",
                 type: "line",
                 paint: {
-                  "line-color": "#000",
-                  "line-width": 1.5,
+                  "line-color": "brown",
+                  "line-width": 1,
                 },
                 metadata: {
                   position: "top",

@@ -45,7 +45,21 @@ export default [
         },
         legendConfig: {
           type: "gradient",
-          items: [],
+          items: [
+            { name: "", color: "#4f57b7" },
+            { name: 0.2, color: "#554eb1" },
+            { name: "", color: "#4369c4" },
+            { name: 1, color: "#40a0b4" },
+            { name: "", color: "#4ec262" },
+            { name: 4, color: "#95db46" },
+            { name: "", color: "#dcea37" },
+            { name: 8, color: "#ebc038" },
+            { name: "", color: "#eaa43e" },
+            { name: 15, color: "#e97b48" },
+            { name: "", color: "#e1545d" },
+            { name: 30, color: "#be3066" },
+            { name: "40 mm", color: "#93174e" },
+          ],
         },
         params: {
           time: "",

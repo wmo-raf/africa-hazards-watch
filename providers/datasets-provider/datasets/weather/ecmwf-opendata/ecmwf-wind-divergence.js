@@ -42,8 +42,91 @@ export default [
           canClipToGeom: true,
         },
         legendConfig: {
-          type: "gradient",
-          items: [],
+          type: "choropleth",
+          items: [
+            {
+              name: -100,
+              color: "#00004c",
+            },
+            {
+              color: "#00007f",
+            },
+            {
+              color: "#0000b2",
+            },
+            {
+              color: "#0000e5",
+            },
+            {
+              name: -20,
+              color: "#0026ff",
+            },
+            {
+              color: "#004cff",
+            },
+            {
+              color: "#0072ff",
+            },
+            {
+              color: "#0099ff",
+            },
+            {
+              name: -9,
+              color: "#03bfff",
+            },
+            {
+              color: "#00d8fe",
+            },
+            {
+              color: "#32f2ff",
+            },
+            {
+              color: "#71ffff",
+            },
+            {
+              color: "#bfffff",
+            },
+            { name: 1, color: "#ffffff" },
+            {
+              color: "#ffff00",
+            },
+            {
+              color: "#ffe501",
+            },
+            {
+              color: "#ffcc02",
+            },
+            {
+              color: "#ffb202",
+            },
+            {
+              color: "#ff9900",
+            },
+            {
+              color: "#ff7f00",
+            },
+            {
+              name: 15,
+              color: "#ff6600",
+            },
+            {
+              color: "#ff4b00",
+            },
+            {
+              color: "#ff2500",
+            },
+            {
+              name: 50,
+              color: "#e50101",
+            },
+            {
+              color: "#b20000",
+            },
+            {
+              name: 100,
+              color: "#7f0000",
+            },
+          ],
         },
         params: {
           time: "",

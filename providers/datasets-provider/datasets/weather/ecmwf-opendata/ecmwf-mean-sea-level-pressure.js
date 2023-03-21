@@ -95,16 +95,16 @@ export default [
                 "source-layer": "default",
                 type: "line",
                 paint: {
-                  "line-color": "#000",
+                  "line-color": "brown",
                   "line-width": [
                     "case",
                     ["==", ["to-number", ["get", "el_val"]], 990],
-                    2,
+                    1,
                     ["==", ["to-number", ["get", "el_val"]], 1010],
-                    2,
+                    1,
                     ["==", ["to-number", ["get", "el_val"]], 1030],
-                    2,
-                    0.5,
+                    1,
+                    0.4,
                   ],
                 },
                 metadata: {

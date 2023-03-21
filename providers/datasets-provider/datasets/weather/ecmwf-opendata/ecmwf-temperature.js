@@ -42,7 +42,21 @@ export default [
         },
         legendConfig: {
           type: "gradient",
-          items: [],
+          items: [
+            { name: -20, color: "#9589D3" },
+            { name: "", color: "#96d1d8" },
+            { name: "-10", color: "#81ccc5" },
+            { name: "", color: "#67b4ba" },
+            { name: "0", color: "#5f8fc5" },
+            { name: "", color: "#508c3e" },
+            { name: "10", color: "#79921c" },
+            { name: "", color: "#aba10e" },
+            { name: "20", color: "#dfb106" },
+            { name: "", color: "#f39606" },
+            { name: "30", color: "#ec5f15" },
+            { name: "", color: "#be4112" },
+            { name: "40 °C", color: "#8A2B0A" },
+          ],
         },
         params: {
           time: "",

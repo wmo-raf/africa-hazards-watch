@@ -9,8 +9,8 @@ import ecmwfWindVorticity from "./ecmwf-wind-vorticity";
 import ecmwfWindspeed from "./ecmwf-windspeed";
 
 export default [
-  ...ecmwfTemperature,
   ...ecmwfPrecipitation,
+  ...ecmwfTemperature,
   ...ecmwfWindspeed,
   ...ecmwfWindDivergence,
   ...ecmwfWindVorticity,
