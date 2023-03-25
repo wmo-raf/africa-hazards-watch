@@ -16,7 +16,7 @@ const selectDatasetsLoading = (state) =>
 const selectCountryDataLoading = (state) =>
   state.countryData && state.countryData.loading;
 const selectLayerTimestamps = (state) =>
-  state.datasetsUpdate && state.datasetsUpdate.timestamps;
+  state.datasets && state.datasets.timestamps;
 
 export const getLoading = createSelector(
   [selectLatestLoading, selectDatasetsLoading, selectCountryDataLoading],

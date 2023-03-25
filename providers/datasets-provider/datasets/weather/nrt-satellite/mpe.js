@@ -1,10 +1,12 @@
+import { getLatestDates } from "services/live-imagery";
+
 const category = 1;
 const subCategory = 2;
 
 const layerId = "msg_fes:h60b";
 const name = "Precipitation Estimates";
 
-export default [
+const datasets = [
   {
     id: layerId,
     dataset: layerId,
@@ -54,3 +56,18 @@ export default [
     ],
   },
 ];
+
+const updates = [
+  {
+    layer: layerId,
+    getTimestamps: () => {
+      return getLatestDates({ layerId }).then((res) => {
+        const timestamps = (res.data && res.data.values) || [];
+        return timestamps;
+      });
+    },
+    updateInterval: 900000, // every 15 minutes
+  },
+];
+
+export default { datasets, updates };

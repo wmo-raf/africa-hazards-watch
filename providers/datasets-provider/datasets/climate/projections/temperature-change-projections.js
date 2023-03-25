@@ -1,6 +1,3 @@
-import { fetchTimestamps } from "services/timestamps";
-import { parseISO, format, addDays } from "date-fns";
-
 const datasetName = "Mean Temperature Projections";
 const layerName = "mean_temperature_projections";
 const metadataId = "";
@@ -9,7 +6,7 @@ const dataPath = "";
 const category = 2;
 const subCategory = 3;
 
-export default [
+const datasets = [
   {
     name: datasetName,
     id: layerName,
@@ -403,3 +400,7 @@ export default [
     ],
   },
 ];
+
+const updates = [];
+
+export default { datasets, updates };

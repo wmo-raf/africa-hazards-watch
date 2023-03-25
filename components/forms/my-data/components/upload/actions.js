@@ -19,8 +19,11 @@ import {
   removeMyDataUploads,
   setMyDataRasterFiles,
 } from "providers/mydata-provider/actions";
-import { updateDatasets } from "providers/datasets-provider/actions";
-import { setTimestamps } from "providers/dataset-update-provider/actions";
+import {
+  updateDatasets,
+  setTimestamps,
+} from "providers/datasets-provider/actions";
+
 import { setMapSettings } from "components/map/actions";
 import { setMyDataModalSettings } from "components/modals/my-data/actions";
 

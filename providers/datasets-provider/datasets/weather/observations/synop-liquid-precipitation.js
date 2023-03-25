@@ -1,14 +1,17 @@
 import { PG_WEATHER_FEATURESERV_URL } from "utils/apis";
+import { fetchSynopTimestamps } from "services/timestamps";
+
+import { OBS_SYNOPTIC_LIQUID_PRECIPITATION } from "data/layers";
 
 const datasetName = "Liquid Precipitation";
-const layerName = "3_hour_liquid_precipitation";
+const layerName = OBS_SYNOPTIC_LIQUID_PRECIPITATION;
 const metadataId = "60fcce77-8b70-4acf-b2a7-e18208db4cde";
 
 const category = 1;
 const subCategory = 4;
 const dataPath = "/liquid_precipitation";
 
-export default [
+const datasets = [
   {
     name: datasetName,
     id: layerName,
@@ -157,3 +160,32 @@ export default [
     ],
   },
 ];
+
+const updates = [
+  {
+    layer: OBS_SYNOPTIC_LIQUID_PRECIPITATION,
+    getTimestamps: (params = {}, token) => {
+      return fetchSynopTimestamps(dataPath).then((res) => {
+        const timestamps = (res.data && res.data.timestamps) || [];
+
+        return timestamps;
+      });
+    },
+    getCurrentLayerTime: (timestamps) => {
+      const now = new Date().setMinutes(0, 0, 0);
+
+      const nowDate = new Date(now).toISOString();
+
+      const hasDate = timestamps.includes(nowDate);
+
+      if (hasDate) {
+        return nowDate;
+      }
+
+      return timestamps[timestamps.length - 1];
+    },
+    updateInterval: 300000, // 5 minutes
+  },
+];
+
+export default { datasets, updates };

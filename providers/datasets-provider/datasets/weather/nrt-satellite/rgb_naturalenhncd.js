@@ -1,25 +1,31 @@
+import { getLatestDates } from "services/live-imagery";
+
 const category = 1;
 const subCategory = 2;
 
-export default [
+const layerId = "msg_fes:rgb_naturalenhncd";
+const name = "Natural Colour Enhanced RGB";
+const metadataId = "f4530e0b-6981-48b8-9121-163669099ee4";
+
+const datasets = [
   {
-    id: "msg_fes:rgb_naturalenhncd",
-    dataset: "msg_fes:rgb_naturalenhncd",
-    name: "Natural Colour Enhanced RGB",
-    layer: "msg_fes:rgb_naturalenhncd",
+    id: layerId,
+    dataset: layerId,
+    name: name,
+    layer: layerId,
     category: category,
     sub_category: subCategory,
-    metadata: "f4530e0b-6981-48b8-9121-163669099ee4",
+    metadata: metadataId,
     isNearRealTime: true,
     initialVisible: true,
     citation: "EUMETSAT, Updated every 15 minutes",
     layers: [
       {
-        name: "Natural Colour Enhanced RGB",
-        id: "msg_fes:rgb_naturalenhncd",
+        name: name,
+        id: layerId,
         type: "layer",
         default: true,
-        dataset: "msg_fes:rgb_naturalenhncd",
+        dataset: layerId,
         layerConfig: {
           type: "raster",
           source: {
@@ -49,3 +55,18 @@ export default [
     ],
   },
 ];
+
+const updates = [
+  {
+    layer: layerId,
+    getTimestamps: () => {
+      return getLatestDates({ layerId }).then((res) => {
+        const timestamps = (res.data && res.data.values) || [];
+        return timestamps;
+      });
+    },
+    updateInterval: 900000, // every 15 minutes
+  },
+];
+
+export default { datasets, updates };

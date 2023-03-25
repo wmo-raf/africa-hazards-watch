@@ -1,7 +1,7 @@
 const category = "alerts";
 const subCategory = "alerts";
 
-export default [
+const datasets = [
   {
     id: "cap_alerts",
     dataset: "cap_alerts",
@@ -130,3 +130,19 @@ export default [
     ],
   },
 ];
+
+const updates = [
+  {
+    layer: "cap_alerts",
+    getData: async (token) => {
+      const timestamp = new Date().getTime();
+
+      return `http://20.56.94.119/api/cap-alerts/?timestamp=${timestamp}`;
+    },
+    updateInterval: 1000 * 60 * 5, // every 5 minutes
+    // updateInterval: 1000 * 6, // every 5 minutes
+    zoomToDataExtent: false,
+  },
+];
+
+export default { datasets, updates };

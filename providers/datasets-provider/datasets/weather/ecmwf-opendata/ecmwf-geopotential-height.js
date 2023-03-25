@@ -1,4 +1,6 @@
 import { ECMWF_GEOPOTENTIAL_HEIGHT_FORECAST } from "data/layers";
+import { fetchTimestamps } from "services/timestamps";
+import { getNextDate } from "utils/time";
 
 const datasetName = "Geopotential Height";
 const layerName = ECMWF_GEOPOTENTIAL_HEIGHT_FORECAST;
@@ -9,7 +11,7 @@ const timestampsDataPath =
 const category = 1;
 const subCategory = 1;
 
-export default [
+const datasets = [
   {
     name: datasetName,
     id: layerName,
@@ -122,3 +124,28 @@ export default [
     ],
   },
 ];
+
+const updates = [
+  {
+    layer: ECMWF_GEOPOTENTIAL_HEIGHT_FORECAST,
+    getTimestamps: (params = {}, token) => {
+      return fetchTimestamps(timestampsDataPath).then((res) => {
+        const timestamps = (res.data && res.data.timestamps) || [];
+
+        return timestamps;
+      });
+    },
+    getCurrentLayerTime: (timestamps) => {
+      const nextDate = getNextDate(timestamps);
+
+      if (nextDate) {
+        return nextDate;
+      }
+
+      return timestamps[timestamps.length - 1];
+    },
+    updateInterval: 300000, // 5 minutes
+  },
+];
+
+export default { datasets, updates };

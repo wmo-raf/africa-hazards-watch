@@ -5,10 +5,20 @@ import era5monthlyPrecipitation1DayAnomaly from "./era5monthly-precipitation-1-d
 
 import projections from "./projections";
 
-export default [
-  ...era5Temperature,
-  ...era5Precipitation,
-  ...era5monthlyTemperature2MAnomaly,
-  ...era5monthlyPrecipitation1DayAnomaly,
-  ...projections,
+const datasets = [
+  ...era5Temperature.datasets,
+  ...era5Precipitation.datasets,
+  ...era5monthlyTemperature2MAnomaly.datasets,
+  ...era5monthlyPrecipitation1DayAnomaly.datasets,
+  ...projections.datasets,
 ];
+
+const updates = [
+  ...era5Temperature.updates,
+  ...era5Precipitation.updates,
+  ...era5monthlyTemperature2MAnomaly.updates,
+  ...era5monthlyPrecipitation1DayAnomaly.updates,
+  ...projections.updates,
+];
+
+export default { datasets, updates };

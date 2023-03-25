@@ -3,12 +3,11 @@ import PropTypes from "prop-types";
 import cx from "classnames";
 import { Desktop, Mobile } from "@erick-otenyo/hw-components";
 
-import SectionsProvider from "~/providers/sections-provider";
+import SectionsProvider from "providers/sections-provider";
 import CountryDataProvider from "providers/country-data-provider";
 import GeostoreProvider from "providers/geostore-provider";
 import GeodescriberProvider from "providers/geodescriber-provider";
 import DatasetsProvider from "providers/datasets-provider";
-import DatasetUpdateProvider from "providers/dataset-update-provider";
 import AreasProvider from "providers/areas-provider";
 import MyDataProvider from "providers/mydata-provider";
 import LocationProvider from "providers/location-provider";
@@ -100,7 +99,6 @@ class MainMapComponent extends PureComponent {
         <LayerClipProvider />
         <CountryDataProvider />
         <DatasetsProvider />
-        <DatasetUpdateProvider />
         <GeostoreProvider />
         <GeodescriberProvider />
         <MyDataProvider />

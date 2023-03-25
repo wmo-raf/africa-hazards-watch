@@ -8,7 +8,7 @@ const timestampsDataPath = "/gskydata/gfs/gfs-sunshine-1-hr";
 const category = 1;
 const subCategory = 1;
 
-export default [
+const datasets = [
   {
     name: datasetName,
     id: layerName,
@@ -70,3 +70,7 @@ export default [
     ],
   },
 ];
+
+const updates = [];
+
+export default { datasets, updates };

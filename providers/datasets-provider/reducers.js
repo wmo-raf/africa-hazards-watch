@@ -6,6 +6,10 @@ export const initialState = {
   error: false,
   meta: null,
   data: [],
+  layerUpdatingStatus: {},
+  layerLoadingStatus: {},
+  timestamps: {},
+  geojsonData: {},
 };
 
 const setDatasetsLoading = (state, { payload }) => ({
@@ -63,9 +67,33 @@ const removeDataset = (state, { payload }) => {
   };
 };
 
+const setLayerUpdatingStatus = (state, { payload }) => ({
+  ...state,
+  layerUpdatingStatus: { ...state.layerUpdatingStatus, ...payload },
+});
+
+const setLayerLoadingStatus = (state, { payload }) => ({
+  ...state,
+  layerLoadingStatus: { ...state.layerLoadingStatus, ...payload },
+});
+
+const setTimestamps = (state, { payload }) => ({
+  ...state,
+  timestamps: { ...state.timestamps, ...payload },
+});
+
+const setGeojsonData = (state, { payload }) => ({
+  ...state,
+  geojsonData: { ...state.geojsonData, ...payload },
+});
+
 export default {
   [actions.setDatasets]: setDatasets,
   [actions.setDatasetsLoading]: setDatasetsLoading,
   [actions.updateDatasets]: updateDatasets,
   [actions.removeDataset]: removeDataset,
+  [actions.setTimestamps]: setTimestamps,
+  [actions.setGeojsonData]: setGeojsonData,
+  [actions.setLayerUpdatingStatus]: setLayerUpdatingStatus,
+  [actions.setLayerLoadingStatus]: setLayerLoadingStatus,
 };

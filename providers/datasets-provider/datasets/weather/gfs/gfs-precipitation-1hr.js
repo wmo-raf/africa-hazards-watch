@@ -1,12 +1,16 @@
+import { fetchTimestamps } from "services/timestamps";
+import { getNextDate } from "utils/time";
+import { GFS_PRECIPITATION_FORECAST } from "data/layers";
+
 const datasetName = "Precipitation Forecast";
-const layerName = "gfs_precipitation_1_hr";
+const layerName = GFS_PRECIPITATION_FORECAST;
 const metadataId = "4ba0fb8c-3e9e-42ea-8956-f961dc80f71f";
 const dataPath = "/gskydata/gfs/gfs-precipitation-1-hr";
 
 const category = 1;
 const subCategory = 1;
 
-export default [
+const datasets = [
   {
     name: datasetName,
     id: layerName,
@@ -83,3 +87,28 @@ export default [
     ],
   },
 ];
+
+const updates = [
+  {
+    layer: GFS_PRECIPITATION_FORECAST,
+    getTimestamps: (params = {}, token) => {
+      return fetchTimestamps(dataPath).then((res) => {
+        const timestamps = (res.data && res.data.timestamps) || [];
+
+        return timestamps;
+      });
+    },
+    getCurrentLayerTime: (timestamps) => {
+      const nextDate = getNextDate(timestamps);
+
+      if (nextDate) {
+        return nextDate;
+      }
+
+      return timestamps[timestamps.length - 1];
+    },
+    updateInterval: 300000, // 5 minutes
+  },
+];
+
+export default { datasets, updates };

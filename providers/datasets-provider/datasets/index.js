@@ -10,12 +10,18 @@ import { isFunction } from "lodash";
 
 const allDatasets = [
   ...boundaries,
-  ...alerts,
-  ...weather,
-  ...climate,
+  ...alerts.datasets,
+  ...weather.datasets,
+  ...climate.datasets,
   ...foodSecurity,
   ...environment,
   ...exposure,
+];
+
+export const layersUpdateProviders = [
+  ...alerts.updates,
+  ...weather.updates,
+  ...climate.updates,
 ];
 
 const datasetsWithLayers = allDatasets.filter(

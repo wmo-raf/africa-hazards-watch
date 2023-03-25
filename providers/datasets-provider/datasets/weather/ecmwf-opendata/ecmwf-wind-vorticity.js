@@ -1,4 +1,6 @@
 import { ECMWF_WIND_VORTICITY } from "data/layers";
+import { fetchTimestamps } from "services/timestamps";
+import { getNextDate } from "utils/time";
 
 const datasetName = "Wind Vorticity";
 const layerName = ECMWF_WIND_VORTICITY;
@@ -9,7 +11,7 @@ const owsNameSpace = "ecmwf-opendata";
 const category = 1;
 const subCategory = 1;
 
-export default [
+const datasets = [
   {
     name: datasetName,
     id: layerName,
@@ -171,3 +173,28 @@ export default [
     ],
   },
 ];
+
+const updates = [
+  {
+    layer: ECMWF_WIND_VORTICITY,
+    getTimestamps: (params = {}, token) => {
+      return fetchTimestamps(timestampsDataPath).then((res) => {
+        const timestamps = (res.data && res.data.timestamps) || [];
+
+        return timestamps;
+      });
+    },
+    getCurrentLayerTime: (timestamps) => {
+      const nextDate = getNextDate(timestamps);
+
+      if (nextDate) {
+        return nextDate;
+      }
+
+      return timestamps[timestamps.length - 1];
+    },
+    updateInterval: 300000, // 5 minutes
+  },
+];
+
+export default { datasets, updates };

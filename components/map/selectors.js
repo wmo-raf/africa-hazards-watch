@@ -26,15 +26,15 @@ export const selectGeostore = (state) => state.geostore && state.geostore.data;
 const getLocation = (state) => state.location;
 const selectLocation = (state) => state.location && state.location.payload;
 const selectLayersGeojsonData = (state) =>
-  state.datasetsUpdate && state.datasetsUpdate.geojsonData;
+  state.datasets && state.datasets.geojsonData;
 const selectHoverFeature = (state) =>
   state.map && state.map.data.hoverInteraction.feature;
 
 const selectLayersUpdatingStatus = (state) =>
-  state.datasetsUpdate && state.datasetsUpdate.layerUpdatingStatus;
+  state.datasets && state.datasets.layerUpdatingStatus;
 
 const selectLayersLoadingStatus = (state) =>
-  state.datasetsUpdate && state.datasetsUpdate.layerLoadingStatus;
+  state.datasets && state.datasets.layerLoadingStatus;
 
 // CONSTS
 export const getMapSettings = (state) => state.map?.settings || {};

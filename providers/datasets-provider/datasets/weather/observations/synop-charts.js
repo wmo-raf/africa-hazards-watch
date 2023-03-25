@@ -4,6 +4,9 @@ import { atmosphericPressure } from "./synop-atmos-pressure";
 import { windSpeedDirection } from "./synop-wind";
 import { skyCoverage } from "./synop-sky-cover";
 import { PG_WEATHER_FEATURESERV_URL } from "utils/apis";
+import { fetchSynopTimestamps } from "services/timestamps";
+
+import { OBS_SYNOPTIC_CHARTS } from "data/layers";
 
 const datasetName = "Synoptic Charts";
 const layerName = "synoptic_charts";
@@ -110,7 +113,7 @@ const generateLayers = (timestamps = []) => {
   ];
 };
 
-export default [
+const datasets = [
   {
     name: datasetName,
     id: layerName,
@@ -124,3 +127,32 @@ export default [
     layers: generateLayers([]),
   },
 ];
+
+const updates = [
+  {
+    layer: OBS_SYNOPTIC_CHARTS,
+    getTimestamps: (params = {}, token) => {
+      return fetchSynopTimestamps(dataPath).then((res) => {
+        const timestamps = (res.data && res.data.timestamps) || [];
+
+        return timestamps;
+      });
+    },
+    getCurrentLayerTime: (timestamps) => {
+      const now = new Date().setMinutes(0, 0, 0);
+
+      const nowDate = new Date(now).toISOString();
+
+      const hasDate = timestamps.includes(nowDate);
+
+      if (hasDate) {
+        return nowDate;
+      }
+
+      return timestamps[timestamps.length - 1];
+    },
+    updateInterval: 900000, // 15 minutes
+  },
+];
+
+export default { datasets, updates };

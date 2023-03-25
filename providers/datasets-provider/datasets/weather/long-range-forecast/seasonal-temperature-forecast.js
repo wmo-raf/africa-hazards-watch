@@ -9,7 +9,7 @@ const dataPath = "/gskydata/tera/gfs-precipitation-1-hr";
 const category = 1;
 const subCategory = 3;
 
-export default [
+const datasets = [
   {
     name: datasetName,
     id: layerName,
@@ -124,3 +124,7 @@ export default [
     ],
   },
 ];
+
+const updates = [];
+
+export { datasets, updates };

@@ -6,7 +6,7 @@ import { selectActiveLang } from "utils/lang";
 
 const selectLoading = (state) => state.mapMenu && state.mapMenu.loading;
 const selectLayersGeojsonData = (state) =>
-  state.datasetsUpdate && state.datasetsUpdate.geojsonData;
+  state.datasets && state.datasets.geojsonData;
 
 const selectMapSettings = (state) => state.map && state.map.settings;
 

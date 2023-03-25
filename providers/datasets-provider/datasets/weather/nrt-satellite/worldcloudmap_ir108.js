@@ -1,10 +1,12 @@
+import { getLatestDates } from "services/live-imagery";
+
 const category = 1;
 const subCategory = 2;
 
 const layerId = "mumi:worldcloudmap_ir108";
 const name = "Infrared Cloud Imagery";
 
-export default [
+const datasets = [
   {
     id: layerId,
     dataset: layerId,
@@ -51,3 +53,18 @@ export default [
     ],
   },
 ];
+
+const updates = [
+  {
+    layer: layerId,
+    getTimestamps: () => {
+      return getLatestDates({ layerId }).then((res) => {
+        const timestamps = (res.data && res.data.values) || [];
+        return timestamps;
+      });
+    },
+    updateInterval: 900000, // every 15 minutes
+  },
+];
+
+export default { datasets, updates };

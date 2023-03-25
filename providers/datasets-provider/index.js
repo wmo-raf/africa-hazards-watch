@@ -3,11 +3,16 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import reducerRegistry from "redux/registry";
 
-import * as actions from "./actions";
+import * as ownActions from "./actions";
 import reducers, { initialState } from "./reducers";
 import { getDatasetProps } from "./selectors";
+import { setMapSettings } from "components/map/actions";
+import LayerUpdate from "./Update";
 
-// import TimeProvider from "../dataset-autoupdate-provider/TimeProvider";
+const actions = {
+  ...ownActions,
+  setMapSettings,
+};
 
 class DatasetsProvider extends PureComponent {
   componentDidMount() {
@@ -16,8 +21,15 @@ class DatasetsProvider extends PureComponent {
     fetchDatasets(activeDatasets);
   }
 
+  getLayerUpdateCompoments = () => {
+    const { updateProviders } = this.props;
+    return updateProviders.map((t) => (
+      <LayerUpdate key={t.layer} {...t} {...this.props} />
+    ));
+  };
+
   render() {
-    return null;
+    return this.getLayerUpdateCompoments();
   }
 }
 

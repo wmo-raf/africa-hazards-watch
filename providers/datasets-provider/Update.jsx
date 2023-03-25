@@ -1,28 +1,15 @@
 import { PureComponent } from "react";
-import { connect } from "react-redux";
 import bbox from "turf-bbox";
 import { isEmpty } from "lodash";
 
-import { getDatasetUpdateProps } from "./selectors";
-import { setMapSettings } from "components/map/actions";
-import * as ownActions from "./actions";
-
-const actions = {
-  ...ownActions,
-  setMapSettings,
-};
-
-class LayerUpdateProvider extends PureComponent {
+class LayerUpdate extends PureComponent {
   componentDidMount() {
     const { updateInterval } = this.props;
 
     this.doUpdate({ isInitial: true });
 
     if (updateInterval) {
-      this.interval = setInterval(
-        () => this.doUpdate({}),
-        updateInterval || 1000
-      );
+      this.interval = setInterval(() => this.doUpdate({}), updateInterval);
     }
   }
 
@@ -133,4 +120,4 @@ class LayerUpdateProvider extends PureComponent {
   }
 }
 
-export default connect(getDatasetUpdateProps, actions)(LayerUpdateProvider);
+export default LayerUpdate;

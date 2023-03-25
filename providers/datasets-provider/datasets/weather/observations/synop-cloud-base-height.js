@@ -1,14 +1,17 @@
 import { PG_WEATHER_FEATURESERV_URL } from "utils/apis";
+import { fetchSynopTimestamps } from "services/timestamps";
+
+import { OBS_SYNOPTIC_CLOUD_BASE_HEIGHT } from "data/layers";
 
 const datasetName = "Cloud Base Height";
-const layerName = "3_hour_cloud_base_height";
+const layerName = OBS_SYNOPTIC_CLOUD_BASE_HEIGHT;
 const metadataId = "60fcce77-8b70-4acf-b2a7-e18208db4cde";
 
 const category = 1;
 const subCategory = 4;
 const dataPath = "/cloud_base_height";
 
-export default [
+const datasets = [
   {
     name: datasetName,
     id: layerName,
@@ -147,3 +150,32 @@ export default [
     ],
   },
 ];
+
+const updates = [
+  {
+    layer: OBS_SYNOPTIC_CLOUD_BASE_HEIGHT,
+    getTimestamps: (params = {}, token) => {
+      return fetchSynopTimestamps(dataPath).then((res) => {
+        const timestamps = (res.data && res.data.timestamps) || [];
+
+        return timestamps;
+      });
+    },
+    getCurrentLayerTime: (timestamps) => {
+      const now = new Date().setMinutes(0, 0, 0);
+
+      const nowDate = new Date(now).toISOString();
+
+      const hasDate = timestamps.includes(nowDate);
+
+      if (hasDate) {
+        return nowDate;
+      }
+
+      return timestamps[timestamps.length - 1];
+    },
+    updateInterval: 900000, // 15 minutes
+  },
+];
+
+export default { datasets, updates };
