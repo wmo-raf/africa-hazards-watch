@@ -146,7 +146,7 @@ class MapPromptsContainer extends PureComponent {
             target: ".c-data-analysis-menu",
             placement: "right",
             content:
-              "Analyze hazards within your area of interest by clicking a shape on the map or drawing or uploading a shape.",
+              "Analyze data within your area of interest by clicking a shape on the map or drawing or uploading a shape.",
             disableBeacon: true,
             actions: {
               prev: () => {
@@ -181,7 +181,7 @@ class MapPromptsContainer extends PureComponent {
           {
             target: ".analysis-boundary-menu",
             content:
-              "For a one click analysis, first choose your preferred map boundaries (political boundaries, river basins, ecoregions). Then click on a shape on the map and the analysis will be performed.",
+              "For a one click analysis, first choose your preferred map boundaries (political boundaries). Then click on a shape on the map and the analysis will be performed.",
             disableBeacon: true,
             placement: "right",
             actions: {
