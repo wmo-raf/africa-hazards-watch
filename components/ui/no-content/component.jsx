@@ -1,15 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import tree from 'assets/icons/tree.png';
+import satellite from "assets/icons/satellite.png";
 
-import './styles.scss';
+import "./styles.scss";
 
 const NoContent = ({ className, message, icon, children }) => (
   <div className={`c-no-content ${className}`}>
     <p className="message">
       {children || message}
-      {icon && <img className="message-icon" src={tree} alt="tree" />}
+      {icon && <img className="message-icon" src={satellite} alt="tree" />}
     </p>
   </div>
 );
@@ -18,11 +18,11 @@ NoContent.propTypes = {
   icon: PropTypes.bool,
   className: PropTypes.string,
   message: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 NoContent.defaultProps = {
-  icon: false
+  icon: false,
 };
 
 export default NoContent;

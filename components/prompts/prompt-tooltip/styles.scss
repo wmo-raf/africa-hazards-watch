@@ -1,9 +1,9 @@
-@import '~styles/settings.scss';
+@import "~styles/settings.scss";
 
 .c-prompt-tooltip {
   font-size: rem(14px);
   color: $white;
-  background-color: #333;
+  background-color: $hw-dark;
   padding: rem(30px);
   max-width: rem(300px);
   position: relative;

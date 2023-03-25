@@ -24,17 +24,17 @@ const Footer = ({ setModalContactUsOpen }) => {
         url: "#",
         label: "Contact Us",
       }}
-      partnersConfig={{
-        visible: true,
-        infiniteScroll: false,
-        convener: {
-          title: "A continental partnership convened by",
-          url: "#",
-          logo: wmoLogo,
-          label: "WMO",
-        },
-        partners: partners,
-      }}
+      // partnersConfig={{
+      //   visible: true,
+      //   infiniteScroll: false,
+      //   convener: {
+      //     title: "A continental partnership convened by",
+      //     url: "#",
+      //     logo: wmoLogo,
+      //     label: "WMO",
+      //   },
+      //   partners: partners,
+      // }}
       footerBottomLinks={footerBottomLinks}
     />
   );
