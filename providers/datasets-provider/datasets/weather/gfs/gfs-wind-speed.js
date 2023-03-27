@@ -34,7 +34,7 @@ const datasets = [
           source: {
             type: "raster",
             tiles: [
-              `http://20.56.94.119/gsky/ows/gfs?service=WMS&request=GetMap&version=1.1.1&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time={time}&layers={height}&clip_feature={clip_feature}`,
+              `http://20.56.94.119/gsky/ows/gfs?service=WMS&request=GetMap&version=1.1.1&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time={time}&layers={height}&geojson_feature_id={geojson_feature_id}`,
             ],
             minzoom: 3,
             maxzoom: 12,
@@ -85,7 +85,7 @@ const datasets = [
         },
         params: {
           time: "",
-          clip_feature: "",
+          geojson_feature_id: "",
           height: "gfs_wind_speed_10_m",
         },
         paramsSelectorColumnView: true,

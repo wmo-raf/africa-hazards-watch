@@ -2,6 +2,9 @@ import { PureComponent } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import reducerRegistry from "redux/registry";
+import isEqual from "lodash/isEqual";
+import uniq from "lodash/uniq";
+import isEmpty from "lodash/isEmpty";
 
 import * as ownActions from "./actions";
 import reducers, { initialState } from "./reducers";
@@ -16,12 +19,98 @@ const actions = {
 
 class DatasetsProvider extends PureComponent {
   componentDidMount() {
-    const { fetchDatasets, activeDatasets } = this.props;
+    const { fetchDatasets, activeDatasets, location, geostore } = this.props;
 
     fetchDatasets(activeDatasets);
+
+    if (
+      location &&
+      location.type === "country" &&
+      geostore &&
+      geostore.geojson
+    ) {
+      this.updateMapSettings();
+    }
   }
 
-  getLayerUpdateCompoments = () => {
+  componentDidUpdate(prevProps, prevState) {
+    const { activeDatasets, location, geostore, clipToGeostore } = this.props;
+
+    const {
+      layers: prevLayers,
+      location: prevLocation,
+      geostore: prevGeostore,
+      clipToGeostore: prevClipToGeostore,
+    } = prevProps;
+
+    const datasets = uniq(activeDatasets);
+    const prevDatasets = uniq(prevProps.activeDatasets);
+
+    if (
+      !isEqual(location, prevLocation) ||
+      datasets.length != prevDatasets.length ||
+      clipToGeostore != prevClipToGeostore ||
+      !isEqual(geostore, prevGeostore)
+    ) {
+      if (clipToGeostore && !isEmpty(geostore)) {
+        if (location && location.type === "country") {
+          this.updateMapSettings();
+        }
+      } else {
+        this.updateMapSettings(true);
+      }
+
+      if (location && location.type === "africa") {
+        this.updateMapSettings(true);
+      }
+    }
+  }
+
+  updateMapSettings(clear) {
+    const {
+      activeDatasets,
+      layers,
+      location,
+      setMapSettings,
+      isDashboard,
+      geostore,
+    } = this.props;
+
+    if (!isDashboard) {
+      const datasets = uniq(activeDatasets);
+
+      const mapDatasets = datasets.map((d) => {
+        const dataset = { ...d };
+
+        layers.forEach((l) => {
+          if (
+            l.layerConfig &&
+            l.layerConfig.canClipToGeom &&
+            dataset.layers.includes(l.id)
+          ) {
+            let geojson_feature_id = "";
+
+            if (!clear && !isEmpty(geostore) && geostore.id) {
+              geojson_feature_id = geostore.id;
+            }
+
+            dataset.params = {
+              ...dataset.params,
+              geojson_feature_id: clear ? "" : geojson_feature_id,
+            };
+          }
+        });
+
+        return dataset;
+      });
+
+      setMapSettings({
+        datasets: mapDatasets,
+      });
+    }
+  }
+
+  getLayerUpdateComponents = () => {
     const { updateProviders } = this.props;
     return updateProviders.map((t) => (
       <LayerUpdate key={t.layer} {...t} {...this.props} />
@@ -29,7 +118,7 @@ class DatasetsProvider extends PureComponent {
   };
 
   render() {
-    return this.getLayerUpdateCompoments();
+    return this.getLayerUpdateComponents();
   }
 }
 

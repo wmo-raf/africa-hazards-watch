@@ -39,7 +39,7 @@ class RenderMap extends PureComponent {
       onClick,
       onMouseMove,
       onLoad,
-      mapInteractiveLayerIds,
+      interactiveLayerIds,
       minZoom,
       maxZoom,
       onClickAnalysis,
@@ -60,7 +60,7 @@ class RenderMap extends PureComponent {
         onClick={onClick}
         onMouseMove={onMouseMove}
         onLoad={({ map: _map }) => onLoad(_map, mapSide)}
-        interactiveLayerIds={mapInteractiveLayerIds}
+        interactiveLayerIds={interactiveLayerIds}
         attributionControl={false}
         minZoom={minZoom}
         maxZoom={maxZoom}
@@ -293,9 +293,7 @@ class MapComponent extends Component {
     const { setMapSettings, location } = this.props;
     const { latitude, longitude, bearing, pitch, zoom } = viewport;
 
-    let mapBounds;
-
-    mapBounds = this.map && this.map.getBounds().toArray();
+    let mapBounds = this.map && this.map.getBounds().toArray();
 
     setMapSettings({
       center: {

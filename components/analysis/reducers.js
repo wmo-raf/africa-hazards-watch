@@ -9,7 +9,6 @@ export const initialState = {
   location: {},
   settings: {
     showDraw: false,
-    clipToBoundary: false,
   },
 };
 

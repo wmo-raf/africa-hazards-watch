@@ -5,7 +5,6 @@ import { trackEvent } from "utils/analytics";
 
 import withTooltipEvt from "components/ui/with-tooltip-evt";
 import { setModalMetaSettings } from "components/modals/meta/actions";
-import { setAnalysisSettings } from "components/analysis/actions";
 import * as mapActions from "components/map/actions";
 
 import { getBasemapsProps } from "./selectors";
@@ -13,7 +12,6 @@ import BasemapsComponent from "./component";
 
 const actions = {
   setModalMetaSettings,
-  setAnalysisSettings,
   ...mapActions,
 };
 
@@ -88,14 +86,6 @@ class BasemapsContainer extends React.Component {
     });
   };
 
-  handleOnLayerSettingToggle = (setting) => {
-    const { setAnalysisSettings, analysisSettings } = this.props;
-
-    if (analysisSettings && analysisSettings[setting] !== undefined) {
-      setAnalysisSettings({ [setting]: !analysisSettings[setting] });
-    }
-  };
-
   render() {
     return (
       <BasemapsComponent
@@ -104,7 +94,6 @@ class BasemapsContainer extends React.Component {
         selectLabels={this.selectLabels}
         selectBoundaries={this.selectBoundaries}
         selectRoads={this.selectRoads}
-        onLayerSettingToggle={this.handleOnLayerSettingToggle}
       />
     );
   }

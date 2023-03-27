@@ -9,6 +9,7 @@ import {
   getMapZoom,
   getActiveCompareSide,
   getComparing,
+  selectGeostore,
 } from "components/map/selectors";
 
 import { getEmbed } from "layouts/map/selectors";
@@ -29,6 +30,7 @@ const getLocation = (state) => state.location && state.location.payload;
 const getApiSections = (state) => (state.sections && state.sections.data) || [];
 const getSectionSettings = (state) =>
   (state.sections && state.sections.settings) || [];
+const selectClipToGeostore = (state) => state.map?.settings?.clipToGeostore;
 
 export const getMenuSection = createSelector(
   [getMenuSettings],
@@ -365,4 +367,7 @@ export const getMenuProps = createStructuredSelector({
   comparing: getComparing,
   activeCompareSide: getActiveCompareSide,
   selectedForecastModel: getSelectedForecastModel,
+  clipToGeostore: selectClipToGeostore,
+  geostore: selectGeostore,
+  allDatasets: getDatasets,
 });

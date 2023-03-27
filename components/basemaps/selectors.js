@@ -13,7 +13,8 @@ import {
   getAllBoundaries,
 } from "components/analysis/selectors";
 
-export const selectAnalysisSettings = (state) => state.analysis?.settings;
+export const selectClipToGeostore = (state) =>
+  state.map?.settings?.clipToGeostore;
 
 export const getLabelsOptions = createSelector([], () => [
   {
@@ -58,5 +59,5 @@ export const getBasemapsProps = createStructuredSelector({
   labels: getLabelsOptions,
   roads: getRoadsOptions,
   roadsSelected: getRoadsSelected,
-  analysisSettings: selectAnalysisSettings,
+  clipToGeostore: selectClipToGeostore,
 });

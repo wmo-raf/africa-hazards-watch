@@ -3,7 +3,13 @@ import PropTypes from "prop-types";
 import Dropdown from "components/ui/dropdown";
 import cx from "classnames";
 
-import { Row, Column, Button, Mobile, Desktop } from "@erick-otenyo/hw-components";
+import {
+  Row,
+  Column,
+  Button,
+  Mobile,
+  Desktop,
+} from "@erick-otenyo/hw-components";
 
 import Icon from "components/ui/icon";
 import Toggle from "components/ui/toggle";
@@ -37,15 +43,13 @@ const Basemaps = ({
   setModalMetaSettings,
   selectBasemap,
   onClose,
-  onLayerSettingToggle,
-  analysisSettings,
+  setMapSettings,
+  clipToGeostore,
 }) => {
   const [showBasemaps, setShowBasemaps] = useState(false);
   const selectedBoundaries = activeBoundaries
     ? { label: activeBoundaries.name }
     : boundaries?.[0];
-
-  const { clipToBoundary } = analysisSettings || {};
 
   return (
     <div
@@ -151,7 +155,7 @@ const Basemaps = ({
             <Row>
               <Column>
                 <Desktop>
-                  <h4>Analysis Settings</h4>
+                  <h4>Settings</h4>
                 </Desktop>
               </Column>
               <Column>
@@ -159,8 +163,10 @@ const Basemaps = ({
                   <div className="setting-toggle ">
                     <Toggle
                       theme="toggle-large"
-                      value={clipToBoundary}
-                      onToggle={() => onLayerSettingToggle("clipToBoundary")}
+                      value={clipToGeostore}
+                      onToggle={() =>
+                        setMapSettings({ clipToGeostore: !clipToGeostore })
+                      }
                     />
                     <div>Clip To Boundary</div>
                   </div>

@@ -41,6 +41,9 @@ class MapMenu extends PureComponent {
       recentActive,
       zoom,
       activeCompareSide,
+      clipToGeostore,
+      geostore,
+      allDatasets,
     } = this.props;
     const { dataset, layer, iso, category } = data;
 
@@ -51,15 +54,28 @@ class MapMenu extends PureComponent {
         (l) => l.dataset !== dataset
       );
     } else {
+      const matchingLayer = allDatasets
+        .find((d) => d.id === dataset)
+        ?.layers?.find((l) => l.id == layer);
+
+      const shouldClipToGeostore = !!(
+        clipToGeostore &&
+        matchingLayer &&
+        matchingLayer.layerConfig?.canClipToGeom &&
+        geostore?.id
+      );
+
       newActiveDatasets = [
         {
           dataset,
           opacity: 1,
           visibility: true,
-
           layers: [layer],
           ...(activeCompareSide && {
             mapSide: activeCompareSide,
+          }),
+          ...(shouldClipToGeostore && {
+            params: { geojson_feature_id: geostore.id },
           }),
         },
       ].concat([...newActiveDatasets]);

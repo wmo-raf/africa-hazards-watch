@@ -30,7 +30,7 @@ const datasets = [
           source: {
             type: "raster",
             tiles: [
-              `http://20.56.94.119/gsky/ows/era5?service=WMS&request=GetMap&version=1.1.1&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time={time}&layers=${layerName}`,
+              `http://20.56.94.119/gsky/ows/era5?service=WMS&request=GetMap&version=1.1.1&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time={time}&layers=${layerName}&geojson_feature_id={geojson_feature_id}`,
             ],
             minzoom: 3,
             maxzoom: 12,
@@ -43,6 +43,7 @@ const datasets = [
         },
         params: {
           time: "",
+          geojson_feature_id: "",
         },
         paramsSelectorConfig: [
           {
