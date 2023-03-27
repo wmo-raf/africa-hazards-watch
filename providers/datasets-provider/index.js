@@ -23,12 +23,7 @@ class DatasetsProvider extends PureComponent {
 
     fetchDatasets(activeDatasets);
 
-    if (
-      location &&
-      location.type === "country" &&
-      geostore &&
-      geostore.geojson
-    ) {
+    if (geostore && geostore.geojson) {
       this.updateMapSettings();
     }
   }
@@ -53,14 +48,8 @@ class DatasetsProvider extends PureComponent {
       !isEqual(geostore, prevGeostore)
     ) {
       if (clipToGeostore && !isEmpty(geostore)) {
-        if (location && location.type === "country") {
-          this.updateMapSettings();
-        }
+        this.updateMapSettings();
       } else {
-        this.updateMapSettings(true);
-      }
-
-      if (location && location.type === "africa") {
         this.updateMapSettings(true);
       }
     }
