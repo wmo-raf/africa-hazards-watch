@@ -1,4 +1,6 @@
 import { DUST_OPTICAL_DEPTH_FORECAST } from "data/layers";
+import { fetchTimestamps } from "services/timestamps";
+import { getNextDate } from "utils/time";
 
 const datasetName = "Dust Optical Depth Forecast (550nm)";
 const layerName = DUST_OPTICAL_DEPTH_FORECAST;
@@ -11,7 +13,7 @@ const owsNameSpace = "dust-forecast";
 const category = "environment";
 const subCategory = "dust_forecast";
 
-export default [
+const datasets = [
   {
     name: datasetName,
     id: layerName,
@@ -80,3 +82,28 @@ export default [
     ],
   },
 ];
+
+const updates = [
+  {
+    layer: DUST_OPTICAL_DEPTH_FORECAST,
+    getTimestamps: (params = {}, token) => {
+      return fetchTimestamps(timestampsDataPath).then((res) => {
+        const timestamps = (res.data && res.data.timestamps) || [];
+
+        return timestamps;
+      });
+    },
+    getCurrentLayerTime: (timestamps) => {
+      const nextDate = getNextDate(timestamps);
+
+      if (nextDate) {
+        return nextDate;
+      }
+
+      return timestamps[timestamps.length - 1];
+    },
+    updateInterval: 900000, // 15 minutes
+  },
+];
+
+export default { datasets, updates };

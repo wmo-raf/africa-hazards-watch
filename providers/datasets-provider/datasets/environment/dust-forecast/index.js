@@ -1,4 +1,14 @@
 import opticalDepthForecast from "./optical-depth-forecast";
 import surfaceConcentration from "./surface-concentration";
 
-export default [...opticalDepthForecast, ...surfaceConcentration];
+const datasets = [
+  ...opticalDepthForecast.datasets,
+  ...surfaceConcentration.datasets,
+];
+
+const updates = [
+  ...opticalDepthForecast.updates,
+  ...surfaceConcentration.updates,
+];
+
+export default { datasets, updates };

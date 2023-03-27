@@ -1,4 +1,4 @@
-export default [
+const datasets = [
   {
     id: "world_pop_100_2020",
     dataset: "world_pop_100_2020",
@@ -86,3 +86,5 @@ export default [
     ],
   },
 ];
+
+export default { datasets };

@@ -9,19 +9,20 @@ import exposure from "./exposure";
 import { isFunction } from "lodash";
 
 const allDatasets = [
-  ...boundaries,
+  ...boundaries.datasets,
   ...alerts.datasets,
   ...weather.datasets,
   ...climate.datasets,
-  ...foodSecurity,
-  ...environment,
-  ...exposure,
+  ...foodSecurity.datasets,
+  ...environment.datasets,
+  ...exposure.datasets,
 ];
 
 export const layersUpdateProviders = [
   ...alerts.updates,
   ...weather.updates,
   ...climate.updates,
+  ...environment.updates,
 ];
 
 const datasetsWithLayers = allDatasets.filter(

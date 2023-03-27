@@ -147,7 +147,7 @@ const countriesFilter = [
 
 areasFilter.push(areaTimeFilter);
 
-export default [
+const datasets = [
   {
     name: "IPC - Acute Food Insecurity",
     id: "ipc_a",
@@ -368,3 +368,5 @@ export default [
     ],
   },
 ];
+
+export default { datasets };

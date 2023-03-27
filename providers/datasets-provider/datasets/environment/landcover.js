@@ -5,7 +5,7 @@ const layerName = "esa_world_cover";
 const category = "environment";
 const subCategory = "landcover";
 
-export default [
+const datasets = [
   {
     id: layerName,
     dataset: layerName,
@@ -98,3 +98,5 @@ export default [
     ],
   },
 ];
+
+export default { datasets };

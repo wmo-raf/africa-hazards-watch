@@ -1,4 +1,4 @@
-export default [
+const datasets = [
   {
     name: "Airports",
     id: "africa_airports",
@@ -76,3 +76,5 @@ export default [
     ],
   },
 ];
+
+export default { datasets };

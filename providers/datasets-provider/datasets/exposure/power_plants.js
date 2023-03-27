@@ -1,4 +1,4 @@
-export default [
+const datasets = [
   {
     name: "Power Plants",
     id: "africa_power_plants",
@@ -73,3 +73,5 @@ export default [
     ],
   },
 ];
+
+export default { datasets };

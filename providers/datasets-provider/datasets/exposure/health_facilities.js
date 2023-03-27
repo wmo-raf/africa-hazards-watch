@@ -1,4 +1,4 @@
-export default [
+const datasets = [
   {
     name: "Health Facilities",
     id: "africa_health_facilities",
@@ -63,3 +63,5 @@ export default [
     ],
   },
 ];
+
+export default { datasets };

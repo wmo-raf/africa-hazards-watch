@@ -1,4 +1,4 @@
-export default [
+const datasets = [
   {
     id: "political-boundaries",
     dataset: "political-boundaries",
@@ -516,3 +516,5 @@ export default [
     ],
   },
 ];
+
+export default { datasets };
