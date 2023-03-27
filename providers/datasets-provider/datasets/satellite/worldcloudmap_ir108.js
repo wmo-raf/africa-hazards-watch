@@ -1,11 +1,10 @@
 import { getLatestDates } from "services/live-imagery";
 
-const category = 1;
-const subCategory = 2;
+const category = "satellite";
+const subCategory = "satellite_imagery";
 
-const layerId = "msg_fes:rgb_naturalenhncd";
-const name = "Natural Colour Enhanced RGB";
-const metadataId = "f4530e0b-6981-48b8-9121-163669099ee4";
+const layerId = "mumi:worldcloudmap_ir108";
+const name = "Infrared Cloud Imagery";
 
 const datasets = [
   {
@@ -15,10 +14,9 @@ const datasets = [
     layer: layerId,
     category: category,
     sub_category: subCategory,
-    metadata: metadataId,
+    metadata: "",
     isNearRealTime: true,
-    initialVisible: true,
-    citation: "EUMETSAT, Updated every 15 minutes",
+    citation: "EUMETSAT, Updated every 3 Hours",
     layers: [
       {
         name: name,
@@ -31,7 +29,7 @@ const datasets = [
           source: {
             type: "raster",
             tiles: [
-              "http://20.56.94.119/sat-imagery/metsat/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&FORMAT=image/png8&TRANSPARENT=true&LAYERS=msg_fes:rgb_naturalenhncd&time={time}&STYLES=&tiled=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}",
+              `http://20.56.94.119/sat-imagery/metsat/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&FORMAT=image/png8&TRANSPARENT=true&LAYERS=${layerId}&time={time}&STYLES=&tiled=true&WIDTH=256&HEIGHT=256&CRS=EPSG:3857&BBOX={bbox-epsg-3857}`,
             ],
             minzoom: 3,
             maxzoom: 12,

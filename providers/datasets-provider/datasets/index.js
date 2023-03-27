@@ -4,6 +4,7 @@ import climate from "./climate";
 import foodSecurity from "./food-security";
 import alerts from "./alerts";
 import environment from "./environment";
+import satellite from "./satellite";
 
 import exposure from "./exposure";
 import { isFunction } from "lodash";
@@ -11,6 +12,7 @@ import { isFunction } from "lodash";
 const allDatasets = [
   ...boundaries.datasets,
   ...alerts.datasets,
+  ...satellite.datasets,
   ...weather.datasets,
   ...climate.datasets,
   ...foodSecurity.datasets,
@@ -21,6 +23,7 @@ const allDatasets = [
 export const layersUpdateProviders = [
   ...alerts.updates,
   ...weather.updates,
+  ...satellite.updates,
   ...climate.updates,
   ...environment.updates,
 ];

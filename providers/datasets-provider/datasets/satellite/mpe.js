@@ -1,7 +1,7 @@
 import { getLatestDates } from "services/live-imagery";
 
-const category = 1;
-const subCategory = 2;
+const category = "satellite";
+const subCategory = "satellite_imagery";
 
 const layerId = "msg_fes:h60b";
 const name = "Precipitation Estimates";
