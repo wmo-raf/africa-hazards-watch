@@ -22,7 +22,7 @@ const datasets = [
     sub_category: subCategory,
     metadata: metadataId,
     citation: "ECMWF IFS, 3-Hourly for the next 6 days, 0.4° grid spacing",
-    group: "ecmwf",
+    model: "ecmwf",
     layers: [
       {
         name: datasetName,

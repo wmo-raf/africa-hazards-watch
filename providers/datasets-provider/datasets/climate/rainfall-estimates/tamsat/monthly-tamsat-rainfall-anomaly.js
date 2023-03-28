@@ -40,8 +40,37 @@ const datasets = [
           canClipToGeom: true,
         },
         legendConfig: {
-          type: "gradient",
-          items: [],
+          type: "choropleth",
+          items: [
+            {
+              name: -100,
+              color: "#ee3d00",
+            },
+            {
+              name: -50,
+              color: "#efae07",
+            },
+            {
+              name: -20,
+              color: "#faf790",
+            },
+            {
+              name: 20,
+              color: "#ffffff",
+            },
+            {
+              name: 50,
+              color: "#c1f0ff",
+            },
+            {
+              name: 100,
+              color: "#7fc1ee",
+            },
+            {
+              name: 150,
+              color: "#4b91ff",
+            },
+          ],
         },
         params: {
           time: "",

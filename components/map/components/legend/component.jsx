@@ -6,13 +6,14 @@ import isEmpty from "lodash/isEmpty";
 import {
   Legend,
   LegendListItem,
-  LegendItemTypes,
   LegendItemToolbar,
   LegendItemButtonOpacity,
   LegendItemButtonInfo,
   LegendItemButtonRemove,
   Icons,
 } from "vizzuality-components";
+
+import LegendItemTypes from "./components/legend-item-types";
 
 import Loader from "components/ui/loader";
 import NoContent from "components/ui/no-content";
