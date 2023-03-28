@@ -8,7 +8,7 @@
     "sub_categories": [
       {
         "active": true,
-        "id": "alerts",
+        "id": "cap_alerts",
         "title": "Alerts"
       }
     ]
@@ -17,27 +17,27 @@
     "title": "Weather",
     "active": true,
     "icon": "rainfall",
-    "id": 1,
+    "id": "weather",
     "info": null,
     "sub_categories": [
       {
         "active": true,
-        "id": 1,
+        "id": "weather-forecast",
         "title": "Weather Forecast",
-        "model_options": [
-          { "label": "GFS", "value": "gfs", "active": true },
+        "group_options": [
+          { "label": "GFS", "value": "gfs", "default": true },
           { "label": "ECMWF - 0.4°", "value": "ecmwf" }
         ],
-        "model_options_title": "Forecast Model"
+        "group_options_title": "Forecast Model"
       },
       {
         "active": true,
-        "id": 4,
+        "id": "synop-observations",
         "title": "SYNOP Observations"
       },
       {
         "active": false,
-        "id": 3,
+        "id": "long-range-forecast",
         "title": "Long Range Forecast"
       },
       {
@@ -65,22 +65,32 @@
     "title": "Climate",
     "active": true,
     "icon": "climate_change",
-    "id": 2,
+    "id": "climate",
     "info": null,
     "sub_categories": [
       {
         "active": true,
-        "id": 1,
+        "id": "rainfall_estimates",
+        "title": "Rainfall Estimates",
+        "group_options": [
+          { "label": "CHIRPS", "value": "chirps", "default": true },
+          { "label": "TAMSAT", "value": "tamsat" }
+        ],
+        "group_options_title": "Data Product"
+      },
+      {
+        "active": true,
+        "id": "monthly-averages",
         "title": "Monthly Averages"
       },
       {
         "active": true,
-        "id": 2,
+        "id": "monthly-anomalies",
         "title": "Monthly Anomalies"
       },
       {
         "active": true,
-        "id": 3,
+        "id": "climate-projections",
         "title": "Climate Projections"
       }
     ]
@@ -89,12 +99,12 @@
     "title": "Agriculture",
     "active": true,
     "icon": "agric",
-    "id": 3,
+    "id": "agriculture",
     "info": null,
     "sub_categories": [
       {
         "active": true,
-        "id": 1,
+        "id": "food-security",
         "title": "Food Security"
       }
     ]
@@ -103,7 +113,7 @@
     "title": "Drought",
     "active": true,
     "icon": "drought",
-    "id": 4,
+    "id": "drought",
     "info": null,
     "sub_categories": []
   },
@@ -111,7 +121,7 @@
     "title": "Floods",
     "active": false,
     "icon": "floods",
-    "id": 5,
+    "id": "floods",
     "info": null,
     "sub_categories": []
   },
@@ -138,17 +148,17 @@
     "title": "Exposure",
     "active": true,
     "icon": "landuse",
-    "id": 7,
+    "id": "exposure",
     "info": null,
     "sub_categories": [
       {
         "active": true,
-        "id": 7,
+        "id": "people",
         "title": "People"
       },
       {
         "active": true,
-        "id": 16,
+        "id": "infrastructure",
         "title": "Infrastructure"
       }
     ]

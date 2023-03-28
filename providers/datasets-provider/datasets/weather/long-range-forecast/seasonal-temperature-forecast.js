@@ -6,8 +6,8 @@ const layerName = "seasonal_temperature_2m";
 const metadataId = "";
 const dataPath = "/gskydata/tera/gfs-precipitation-1-hr";
 
-const category = 1;
-const subCategory = 3;
+const category = "weather";
+const subCategory = "long-range-forecast";
 
 const datasets = [
   {

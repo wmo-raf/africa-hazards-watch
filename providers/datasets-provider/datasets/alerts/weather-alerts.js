@@ -1,5 +1,5 @@
 const category = "alerts";
-const subCategory = "alerts";
+const subCategory = "cap_alerts";
 
 const datasets = [
   {

@@ -126,6 +126,7 @@ class MapMenu extends PureComponent {
       embed,
       isDesktop,
       recentActive,
+      subCategoryGroupsSelected,
       ...props
     } = this.props;
     const {
@@ -184,9 +185,15 @@ class MapMenu extends PureComponent {
               setMenuSettings={setMenuSettings}
               onToggleLayer={this.onToggleLayer}
               onToggleSubCategoryCollapse={setSubCategorySettings}
-              onToggleForecastModel={(model) =>
-                setMenuSettings({ selectedForecastModel: model })
-              }
+              subCategoryGroupsSelected={subCategoryGroupsSelected}
+              onToggleGroupOption={(groupKey, groupOptionValue) => {
+                setMenuSettings({
+                  subCategoryGroupsSelected: {
+                    ...subCategoryGroupsSelected,
+                    [groupKey]: groupOptionValue,
+                  },
+                });
+              }}
               {...props}
               {...((menuSection === "datasets" || menuSection === "alerts") && {
                 ...rest,

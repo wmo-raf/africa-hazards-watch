@@ -1,3 +1,6 @@
+const category = "exposure";
+const subCategory = "infrastructure";
+
 const datasets = [
   {
     name: "Health Facilities",
@@ -7,8 +10,8 @@ const datasets = [
     published: true,
     status: "saved",
     layer: "africa_health_facilities",
-    category: 7,
-    sub_category: 16,
+    category: category,
+    sub_category: subCategory,
     metadata: "32eb95cc-0447-4475-a6f4-df65ade3eb92",
     layers: [
       {

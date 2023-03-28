@@ -1,3 +1,6 @@
+const category = "exposure";
+const subCategory = "infrastructure";
+
 const datasets = [
   {
     name: "Power Plants",

@@ -1,14 +1,12 @@
-import { GFS_MEAN_SEA_LEVEL_PRESSURE } from "data/layers";
 import { fetchTimestamps } from "services/timestamps";
-import { getNextDate } from "utils/time";
 
-const datasetName = "Mean Sea Level Pressure ";
-const layerName = GFS_MEAN_SEA_LEVEL_PRESSURE;
-const metadataId = "73c163c2-606c-4f27-85dc-4762268c8b9f";
-const timestampsDataPath = "/gskydata/gfs/gfs-mean-sea-level-pressure";
+const datasetName = "Monthly Surface Temperature Anomaly";
+const layerName = "era5monthly_temperature_2_m_anomaly";
+const metadataId = "60fcce77-8b70-4acf-b2a7-e18208db4cde";
+const dataPath = "/gskydata/era5/era5monthly-temperature-2-m-anomaly";
 
-const category = "weather";
-const subCategory = "weather-forecast";
+const category = "climate";
+const subCategory = "monthly-anomalies";
 
 const datasets = [
   {
@@ -19,14 +17,12 @@ const datasets = [
     category: category,
     sub_category: subCategory,
     metadata: metadataId,
-    citation: "GFS, Hourly for the next 5 days",
-    group: "gfs",
+    citation: "ERA5 reanalysis, Reference 1991 - 2020",
     layers: [
       {
         name: datasetName,
         id: layerName,
         type: "layer",
-        citation: "",
         default: true,
         dataset: layerName,
         layerConfig: {
@@ -34,7 +30,7 @@ const datasets = [
           source: {
             type: "raster",
             tiles: [
-              `http://20.56.94.119/gsky/ows/gfs?service=WMS&request=GetMap&version=1.1.1&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time={time}&layers=${layerName}&geojson_feature_id={geojson_feature_id}`,
+              `http://20.56.94.119/gsky/ows/era5?service=WMS&request=GetMap&version=1.1.1&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time={time}&layers=${layerName}&geojson_feature_id={geojson_feature_id}`,
             ],
             minzoom: 3,
             maxzoom: 12,
@@ -49,25 +45,30 @@ const datasets = [
           time: "",
           geojson_feature_id: "",
         },
-        paramsSelectorColumnView: true,
         paramsSelectorConfig: [
           {
             key: "time",
             required: true,
             sentence: "{selector}",
             type: "datetime",
-            dateFormat: { currentTime: "yyyy-mm-dd HH:MM" },
+            dateFormat: { currentTime: "mmmm, yyyy" },
             availableDates: [],
           },
         ],
         timeParamSentenceConfig: {
           param: "time",
-          format: "do MMM y hh:mm",
+          format: "mmm, yyyy",
           add: 7,
           template: "Selected Period : {time}",
         },
         hidePastTimestamps: true, // we might need to hide past forecast
-        data_path: timestampsDataPath,
+        data_path: dataPath,
+        analysisConfig: [
+          {
+            key: "era5_temperature_anomaly",
+            type: "admin",
+          },
+        ],
       },
     ],
   },
@@ -75,24 +76,17 @@ const datasets = [
 
 const updates = [
   {
-    layer: GFS_MEAN_SEA_LEVEL_PRESSURE,
+    layer: layerName,
     getTimestamps: (params = {}, token) => {
-      return fetchTimestamps(timestampsDataPath).then((res) => {
+      return fetchTimestamps(dataPath).then((res) => {
         const timestamps = (res.data && res.data.timestamps) || [];
 
         return timestamps;
       });
     },
     getCurrentLayerTime: (timestamps) => {
-      const nextDate = getNextDate(timestamps);
-
-      if (nextDate) {
-        return nextDate;
-      }
-
       return timestamps[timestamps.length - 1];
     },
-    updateInterval: 300000, // 5 minutes
   },
 ];
 

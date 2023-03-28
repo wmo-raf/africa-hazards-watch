@@ -19,6 +19,9 @@ import {
   bags,
 } from "./layers";
 
+const category = "agriculture";
+const subCategory = "food-security";
+
 const layerData = {
   countries: { ...countries },
   chCountries: { ...chCountries },
@@ -156,8 +159,8 @@ const datasets = [
     published: true,
     status: "saved",
     layer: "ipc_a",
-    category: 3,
-    sub_category: 1,
+    category: category,
+    sub_category: subCategory,
     metadata: "46f0b628-70c4-4637-a32d-1e493b97bf9d",
     layers: [
       {

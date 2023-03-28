@@ -7,8 +7,8 @@ const layerName = GFS_PRECIPITATION_FORECAST;
 const metadataId = "4ba0fb8c-3e9e-42ea-8956-f961dc80f71f";
 const dataPath = "/gskydata/gfs/gfs-precipitation-1-hr";
 
-const category = 1;
-const subCategory = 1;
+const category = "weather";
+const subCategory = "weather-forecast";
 
 const datasets = [
   {
@@ -20,7 +20,7 @@ const datasets = [
     sub_category: subCategory,
     metadata: metadataId,
     citation: "GFS, Hourly for the next 5 days",
-    model: "gfs",
+    group: "gfs",
     // initialVisible: true,
     layers: [
       {

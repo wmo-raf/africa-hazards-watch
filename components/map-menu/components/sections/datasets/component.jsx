@@ -32,9 +32,9 @@ class Datasets extends PureComponent {
       handleRemoveCountry,
       handleAddCountry,
       onToggleSubCategoryCollapse,
-      onToggleForecastModel,
+      onToggleGroupOption,
       id: sectionId,
-      selectedForecastModel,
+      subCategoryGroupsSelected,
     } = this.props;
 
     return (
@@ -105,78 +105,103 @@ class Datasets extends PureComponent {
                 </div>
               )}
             {subCategories
-              ? subCategories.map((subCat) => (
-                  <DatasetSection
-                    key={subCat.slug}
-                    sectionId={sectionId}
-                    {...subCat}
-                    onToggleCollapse={onToggleSubCategoryCollapse}
-                  >
-                    {subCat.model_options && (
-                      <div className="model-options-wrapper">
-                        {subCat.model_options_title && (
-                          <div className="model-options-title">
-                            {subCat.model_options_title}
-                          </div>
-                        )}
-                        <div className="model-options">
-                          {subCat.model_options.map((modelOption) => (
-                            <div
-                              key={modelOption.value}
-                              className={cx("model-option", {
-                                active:
-                                  modelOption.value === selectedForecastModel,
-                              })}
-                              onClick={() => {
-                                onToggleForecastModel(modelOption.value);
-                              }}
-                            >
-                              {modelOption.label}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                    {!isEmpty(subCat.datasets) ? (
-                      subCat.datasets.map((d) => {
-                        if (subCat.model_options && selectedForecastModel) {
-                          if (d.model && selectedForecastModel === d.model) {
-                            return (
-                              <LayerToggle
-                                key={d.id}
-                                className="dataset-toggle"
-                                data={{ ...d, dataset: d.id }}
-                                onToggle={onToggleLayer}
-                                onInfoClick={setModalMetaSettings}
-                                showSubtitle
-                                category={datasetCategory}
-                              />
-                            );
-                          } else {
-                            return null;
-                          }
-                        }
+              ? subCategories.map((subCat) => {
+                  const groupKey = `${sectionId}-${subCat.id}`;
+                  let selectedGroup = subCategoryGroupsSelected[groupKey];
+                  // set default group
+                  if (
+                    !selectedGroup &&
+                    subCat.group_options &&
+                    !!subCat.group_options.length
+                  ) {
+                    const defaultGroup =
+                      subCat.group_options.find((o) => o.default) ||
+                      subCat.group_options[0];
 
-                        return (
-                          <LayerToggle
-                            key={d.id}
-                            className="dataset-toggle"
-                            data={{ ...d, dataset: d.id }}
-                            onToggle={onToggleLayer}
-                            onInfoClick={setModalMetaSettings}
-                            showSubtitle
-                            category={datasetCategory}
-                          />
-                        );
-                      })
-                    ) : (
-                      <NoContent
-                        className="no-datasets"
-                        message="No datasets available"
-                      />
-                    )}
-                  </DatasetSection>
-                ))
+                    selectedGroup = defaultGroup.value;
+                  }
+
+                  return (
+                    <DatasetSection
+                      key={subCat.slug}
+                      sectionId={sectionId}
+                      {...subCat}
+                      onToggleCollapse={onToggleSubCategoryCollapse}
+                    >
+                      {subCat.group_options && (
+                        <div className="group-options-wrapper">
+                          {subCat.group_options_title && (
+                            <div className="group-options-title">
+                              {subCat.group_options_title}
+                            </div>
+                          )}
+                          <div className="group-options">
+                            {subCat.group_options.map((groupOption) => {
+                              return (
+                                <div
+                                  key={groupOption.value}
+                                  className={cx("group-option", {
+                                    active: groupOption.value === selectedGroup,
+                                  })}
+                                  onClick={() => {
+                                    onToggleGroupOption(
+                                      groupKey,
+                                      groupOption.value
+                                    );
+                                  }}
+                                >
+                                  {groupOption.label}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
+                      {!isEmpty(subCat.datasets) ? (
+                        subCat.datasets.map((d) => {
+                          if (
+                            d.group &&
+                            subCat.group_options &&
+                            !!subCat.group_options.length
+                          ) {
+                            if (d.group && d.group === selectedGroup) {
+                              return (
+                                <LayerToggle
+                                  key={d.id}
+                                  className="dataset-toggle"
+                                  data={{ ...d, dataset: d.id }}
+                                  onToggle={onToggleLayer}
+                                  onInfoClick={setModalMetaSettings}
+                                  showSubtitle
+                                  category={datasetCategory}
+                                />
+                              );
+                            } else {
+                              return null;
+                            }
+                          }
+
+                          return (
+                            <LayerToggle
+                              key={d.id}
+                              className="dataset-toggle"
+                              data={{ ...d, dataset: d.id }}
+                              onToggle={onToggleLayer}
+                              onInfoClick={setModalMetaSettings}
+                              showSubtitle
+                              category={datasetCategory}
+                            />
+                          );
+                        })
+                      ) : (
+                        <NoContent
+                          className="no-datasets"
+                          message="No datasets available"
+                        />
+                      )}
+                    </DatasetSection>
+                  );
+                })
               : datasets &&
                 datasets.map((d, i) => (
                   <LayerToggle

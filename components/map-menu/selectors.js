@@ -37,6 +37,11 @@ export const getMenuSection = createSelector(
   (settings) => settings.menuSection
 );
 
+export const getSubCategoryGroupsSelected = createSelector(
+  [getMenuSettings],
+  (settings) => settings.subCategoryGroupsSelected
+);
+
 export const getSelectedForecastModel = createSelector(
   [getMenuSettings],
   (settings) => settings.selectedForecastModel
@@ -370,4 +375,5 @@ export const getMenuProps = createStructuredSelector({
   clipToGeostore: selectClipToGeostore,
   geostore: selectGeostore,
   allDatasets: getDatasets,
+  subCategoryGroupsSelected: getSubCategoryGroupsSelected,
 });

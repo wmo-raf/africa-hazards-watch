@@ -5,8 +5,8 @@ const layerName = "era5monthly_temperature_2_m";
 const metadataId = "60fcce77-8b70-4acf-b2a7-e18208db4cde";
 const dataPath = "/gskydata/era5/era5monthly-temperature-2-m";
 
-const category = 2;
-const subCategory = 1;
+const category = "climate";
+const subCategory = "monthly-averages";
 
 const datasets = [
   {

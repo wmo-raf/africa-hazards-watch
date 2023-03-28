@@ -1,11 +1,14 @@
+const category = "exposure";
+const subCategory = "people";
+
 const datasets = [
   {
     id: "world_pop_100_2020",
     dataset: "world_pop_100_2020",
     name: "Population 2020 - Grid, 100m",
     layer: "world_pop_100_2020",
-    category: 7,
-    sub_category: 7,
+    category: category,
+    sub_category: subCategory,
     metadata: "a928f7d5-bfe0-4570-9987-d3475d42bfbd",
     citation: "WorldPop constrained, 2020",
     layers: [

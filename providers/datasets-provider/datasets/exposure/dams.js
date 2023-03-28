@@ -1,3 +1,6 @@
+const category = "exposure";
+const subCategory = "infrastructure";
+
 const datasets = [
   {
     name: "Dams",
@@ -7,8 +10,8 @@ const datasets = [
     published: true,
     status: "saved",
     layer: "africa_dams",
-    category: 7,
-    sub_category: 16,
+    category: category,
+    sub_category: subCategory,
     metadata: "4ab406e5-64bd-4049-9ef4-59a6c9c8503b",
     layers: [
       {

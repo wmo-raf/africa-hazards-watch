@@ -26,16 +26,17 @@ $plain-menu: #f1f1f1;
     }
   }
 
-  .model-options-wrapper {
+  .group-options-wrapper {
     padding-bottom: 20px;
 
-    .model-options-title {
+    .group-options-title {
       font-size: 14px;
       color: $slate;
       margin-bottom: 8px;
+      font-weight: 500;
     }
 
-    .model-options {
+    .group-options {
       width: 100%;
       position: relative;
       display: flex;
@@ -47,7 +48,7 @@ $plain-menu: #f1f1f1;
       background-color: $plain-menu;
       color: $slate;
 
-      .model-option {
+      .group-option {
         margin-right: 0;
         flex-grow: 1;
         display: flex;

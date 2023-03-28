@@ -7,8 +7,9 @@ const datasetName = "Relative Humidity";
 const layerName = OBS_SYNOPTIC_HUMIDITY;
 const metadataId = "60fcce77-8b70-4acf-b2a7-e18208db4cde";
 
-const category = 1;
-const subCategory = 4;
+const category = "weather";
+const subCategory = "synop-observations";
+
 const dataPath = "/humidity";
 
 const datasets = [

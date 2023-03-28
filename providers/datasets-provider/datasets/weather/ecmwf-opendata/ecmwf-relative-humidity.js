@@ -9,8 +9,8 @@ const timestampsDataPath =
   "/gskydata/ecmwf-forecast/oper_fc_relative_humidity_pl_1000";
 const owsNameSpace = "ecmwf-opendata";
 
-const category = 1;
-const subCategory = 1;
+const category = "weather";
+const subCategory = "weather-forecast";
 
 const datasets = [
   {
@@ -22,7 +22,7 @@ const datasets = [
     sub_category: subCategory,
     metadata: metadataId,
     citation: "ECMWF IFS, 3-Hourly for the next 6 days, 0.4° grid spacing",
-    model: "ecmwf",
+    group: "ecmwf",
     layers: [
       {
         name: datasetName,

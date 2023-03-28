@@ -1,12 +1,12 @@
 import { fetchTimestamps } from "services/timestamps";
 
-const datasetName = "Monthly Surface Temperature Anomaly";
-const layerName = "era5monthly_temperature_2_m_anomaly";
-const metadataId = "60fcce77-8b70-4acf-b2a7-e18208db4cde";
-const dataPath = "/gskydata/era5/era5monthly-temperature-2-m-anomaly";
+const datasetName = "Monthly Total Precipitation Average";
+const layerName = "era5monthly_precipitation_1_day";
+const metadataId = "0cf9e8d5-42eb-426c-811b-e89661eb2ff3";
+const dataPath = "/gskydata/era5/era5monthly-precipitation-1-day";
 
-const category = 2;
-const subCategory = 2;
+const category = "climate";
+const subCategory = "monthly-averages";
 
 const datasets = [
   {
@@ -17,7 +17,7 @@ const datasets = [
     category: category,
     sub_category: subCategory,
     metadata: metadataId,
-    citation: "ERA5 reanalysis, Reference 1991 - 2020",
+    citation: "ERA5 reanalysis, From 1959 to recent",
     layers: [
       {
         name: datasetName,
@@ -39,7 +39,23 @@ const datasets = [
         },
         legendConfig: {
           type: "gradient",
-          items: [],
+          items: [
+            { name: 0, color: "#52478d" },
+            { name: "", color: "#4f57b7" },
+            { name: 0.2, color: "#554eb1" },
+            { name: "", color: "#4369c4" },
+            { name: 1, color: "#40a0b4" },
+            { name: "", color: "#4ec262" },
+            { name: 4, color: "#95db46" },
+            { name: "", color: "#dcea37" },
+            { name: 8, color: "#ebc038" },
+            { name: "", color: "#eaa43e" },
+            { name: 15, color: "#e97b48" },
+            { name: "", color: "#e15e5d" },
+            { name: 30, color: "#be3066" },
+            { name: "", color: "#93174e" },
+            { name: "50 mm", color: "#541029" },
+          ],
         },
         params: {
           time: "",
@@ -65,7 +81,7 @@ const datasets = [
         data_path: dataPath,
         analysisConfig: [
           {
-            key: "era5_temperature_anomaly",
+            key: "era5_yearly_precipitation",
             type: "admin",
           },
         ],

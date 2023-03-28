@@ -7,8 +7,8 @@ const layerName = GFS_CLOUD_WATER_TOTAL;
 const metadataId = "73c163c2-606c-4f27-85dc-4762268c8b9f";
 const timestampsDataPath = "/gskydata/gfs/gfs-cloud-water-total";
 
-const category = 1;
-const subCategory = 1;
+const category = "weather";
+const subCategory = "weather-forecast";
 
 const datasets = [
   {
@@ -20,7 +20,7 @@ const datasets = [
     sub_category: subCategory,
     metadata: metadataId,
     citation: "GFS, Hourly for the next 5 days",
-    model: "gfs",
+    group: "gfs",
     layers: [
       {
         name: datasetName,

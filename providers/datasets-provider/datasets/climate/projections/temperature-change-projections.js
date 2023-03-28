@@ -3,8 +3,8 @@ const layerName = "mean_temperature_projections";
 const metadataId = "";
 const dataPath = "";
 
-const category = 2;
-const subCategory = 3;
+const category = "climate";
+const subCategory = "climate-projections";
 
 const datasets = [
   {
