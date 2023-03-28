@@ -1,13 +1,12 @@
 import boundaries from "./boundaries";
 import weather from "./weather";
 import climate from "./climate";
-import foodSecurity from "./food-security";
+import agriculture from "./agriculture";
 import alerts from "./alerts";
 import environment from "./environment";
 import satellite from "./satellite";
 
 import exposure from "./exposure";
-import { isFunction } from "lodash";
 
 const allDatasets = [
   ...boundaries.datasets,
@@ -15,7 +14,7 @@ const allDatasets = [
   ...satellite.datasets,
   ...weather.datasets,
   ...climate.datasets,
-  ...foodSecurity.datasets,
+  ...agriculture.datasets,
   ...environment.datasets,
   ...exposure.datasets,
 ];
@@ -25,17 +24,8 @@ export const layersUpdateProviders = [
   ...weather.updates,
   ...satellite.updates,
   ...climate.updates,
+  ...agriculture.updates,
   ...environment.updates,
 ];
 
-const datasetsWithLayers = allDatasets.filter(
-  (d) =>
-    (d.layers && !!d.layers.length) || (d.getLayers && isFunction(d.getLayers))
-);
-
-export const localDatasets = datasetsWithLayers.filter((d) => !d.getLayers);
-
-// datasets that need to initialize layers from a remote source
-export const asyncDatasets = datasetsWithLayers.filter(
-  (d) => d.getLayers && isFunction(d.getLayers)
-);
+export default allDatasets;
