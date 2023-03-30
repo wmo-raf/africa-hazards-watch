@@ -1,14 +1,20 @@
-import tamsatRainfallEstimate from "./monthly-tamsat-rainfall-estimate";
-import tamsatRainfallAnomaly from "./monthly-tamsat-rainfall-anomaly";
+import pentadalTamsatRainfallAnomaly from "./pentadal-tamsat-rainfall-anomaly";
+import pentadalTamsatRainfallEstimate from "./pentadal-tamsat-rainfall-estimate";
+import monthlyTamsatRainfallEstimate from "./monthly-tamsat-rainfall-estimate";
+import monthlyTamsatRainfallAnomaly from "./monthly-tamsat-rainfall-anomaly";
 
 const datasets = [
-  ...tamsatRainfallEstimate.datasets,
-  ...tamsatRainfallAnomaly.datasets,
+  ...pentadalTamsatRainfallEstimate.datasets,
+  ...pentadalTamsatRainfallAnomaly.datasets,
+  ...monthlyTamsatRainfallEstimate.datasets,
+  ...monthlyTamsatRainfallAnomaly.datasets,
 ];
 
 const updates = [
-  ...tamsatRainfallEstimate.updates,
-  ...tamsatRainfallAnomaly.updates,
+  ...pentadalTamsatRainfallEstimate.updates,
+  ...pentadalTamsatRainfallAnomaly.updates,
+  ...monthlyTamsatRainfallEstimate.updates,
+  ...monthlyTamsatRainfallAnomaly.updates,
 ];
 
 export default { datasets, updates };

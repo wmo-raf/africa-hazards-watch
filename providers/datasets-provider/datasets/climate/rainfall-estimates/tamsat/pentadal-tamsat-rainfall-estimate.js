@@ -1,9 +1,10 @@
 import { fetchTimestamps } from "services/timestamps";
 
 const datasetName = "Pentadal Rainfall Estimates";
-const layerName = "pentadal_chirps_rainfall_estimate";
+const layerName = "tamsat_pentadal_rainfall_estimate_rfe";
 const metadataId = "";
-const dataPath = "/gskydata/chirps-rainfall/pentadal_chirps_rainfall_estimate";
+const dataPath =
+  "/gskydata/tamsat-rainfall/tamsat_pentadal_rainfall_estimate_rfe";
 const owsNameSpace = "rainfall-estimates";
 
 const category = "climate";
@@ -18,8 +19,8 @@ const datasets = [
     category: category,
     sub_category: subCategory,
     metadata: metadataId,
-    citation: "CHIRPS, From 1981 to recent",
-    group: "chirps",
+    citation: "TAMSAT, From 1983 to recent",
+    group: "tamsat",
     layers: [
       {
         name: datasetName,

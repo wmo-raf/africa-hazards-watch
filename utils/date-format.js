@@ -1,4 +1,6 @@
 import { defined } from "utils/core";
+import dateFormat from "dateformat";
+import { endOfMonth } from "date-fns";
 
 /**
  * Formats a date according to the locale if provided, otherwise in a dd/mm/yyyy format.
@@ -49,4 +51,80 @@ export function formatDateTime(d, locale) {
  */
 function pad(s) {
   return s < 10 ? "0" + s : `${s}`;
+}
+
+const getOrdinalNum = (number) => {
+  let selector;
+
+  if (number <= 0) {
+    selector = 4;
+  } else if ((number > 3 && number < 21) || number % 10 > 3) {
+    selector = 0;
+  } else {
+    selector = number % 10;
+  }
+
+  return number + ["th", "st", "nd", "rd", ""][selector];
+};
+
+function getPentadFromDateString(dateString) {
+  const date = new Date(dateString);
+
+  const lastDayOfMonth = endOfMonth(date).getDate();
+
+  const day = date.getDate();
+
+  if (day <= 5) {
+    return [1, "1-5th"];
+  }
+
+  if (day <= 10) {
+    return [2, "6-10th"];
+  }
+
+  if (day <= 15) {
+    return [3, "11-15th"];
+  }
+
+  if (day <= 20) {
+    return [4, "16-20th"];
+  }
+
+  if (day <= 25) {
+    return [4, "21-25th"];
+  }
+  return [6, `26-${getOrdinalNum(lastDayOfMonth)}`];
+}
+
+// if day <= 5:
+// next_pentad_start = datetime(date.year, date.month, 6)
+// next_pentad_num = 2
+// elif day <= 10:
+// next_pentad_start = datetime(date.year, date.month, 11)
+// next_pentad_num = 3
+// elif day <= 15:
+// next_pentad_start = datetime(date.year, date.month, 16)
+// next_pentad_num = 4
+// elif day <= 20:
+// next_pentad_start = datetime(date.year, date.month, 21)
+// next_pentad_num = 5
+// elif day <= 25:
+// next_pentad_start = datetime(date.year, date.month, 26)
+// next_pentad_num = 6
+// else:
+// next_pentad_start = date + relativedelta.relativedelta(months=1, day=1)
+// next_pentad_num = 1
+
+export function dFormatter(date, format, asPeriod) {
+  let formated = dateFormat(date, format);
+
+  if (asPeriod) {
+    if (asPeriod === "pentadal") {
+      const [pentad, duration] = getPentadFromDateString(date);
+
+      formated = `${formated} - P${pentad} ${duration}`;
+    }
+  }
+
+  return formated;
 }

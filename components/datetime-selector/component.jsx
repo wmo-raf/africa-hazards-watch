@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import dateFormater from "dateformat";
 import PropTypes from "prop-types";
 import Icon from "components/ui/icon";
 
@@ -9,6 +8,7 @@ import prevIcon from "assets/icons/prev.svg?sprite";
 import nextIcon from "assets/icons/next.svg?sprite";
 
 import "./styles.scss";
+import { dFormatter } from "~/utils/date-format";
 
 class DateTimeSelectorSection extends Component {
   state = {
@@ -103,7 +103,11 @@ class DateTimeSelectorSection extends Component {
       const time = selectedTime;
       if (defined(dateFormat.currentTime)) {
         format = dateFormat;
-        discreteTime = dateFormater(time, dateFormat.currentTime);
+        discreteTime = dFormatter(
+          time,
+          dateFormat.currentTime,
+          dateFormat.asPeriod
+        );
       } else {
         discreteTime = formatDateTime(time);
       }

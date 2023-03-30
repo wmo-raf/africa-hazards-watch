@@ -1,9 +1,10 @@
 import { fetchTimestamps } from "services/timestamps";
 
-const datasetName = "Pentadal Rainfall Estimates";
-const layerName = "pentadal_chirps_rainfall_estimate";
+const datasetName = "Pentadal Rainfall Anomalies";
+const layerName = "tamsat_pentadal_rainfall_anomaly_rfe";
 const metadataId = "";
-const dataPath = "/gskydata/chirps-rainfall/pentadal_chirps_rainfall_estimate";
+const dataPath =
+  "/gskydata/tamsat-rainfall/tamsat_pentadal_rainfall_anomaly_rfe";
 const owsNameSpace = "rainfall-estimates";
 
 const category = "climate";
@@ -18,8 +19,8 @@ const datasets = [
     category: category,
     sub_category: subCategory,
     metadata: metadataId,
-    citation: "CHIRPS, From 1981 to recent",
-    group: "chirps",
+    citation: "TAMSAT, From 1983 to recent",
+    group: "tamsat",
     layers: [
       {
         name: datasetName,
@@ -43,52 +44,32 @@ const datasets = [
           type: "choropleth",
           items: [
             {
-              name: 1.0,
+              name: -30,
+              color: "#ee3d00",
+            },
+            {
+              name: -20,
+              color: "#efae07",
+            },
+            {
+              name: -10,
+              color: "#faf790",
+            },
+            {
+              name: 10,
               color: "#ffffff",
             },
             {
-              name: "",
-              color: "#cfb8b6",
+              name: 20,
+              color: "#c1f0ff",
             },
             {
-              name: 10.0,
-              color: "#c3ffc3",
+              name: 30,
+              color: "#7fc1ee",
             },
             {
-              name: "",
-              color: "#03ff81",
-            },
-            {
-              name: 20.0,
-              color: "#c1efff",
-            },
-            {
-              name: "",
-              color: "#7fc2ee",
-            },
-            {
-              name: 40.0,
-              color: "#1891ff",
-            },
-            {
-              name: "",
-              color: "#1075ce",
-            },
-            {
-              name: 75.0,
-              color: "#fff790",
-            },
-            {
-              name: "",
-              color: "#efae04",
-            },
-            {
-              name: 150.0,
-              color: "#ef3d01",
-            },
-            {
-              name: "",
-              color: "#8c0000",
+              name: 40,
+              color: "#4b91ff",
             },
           ],
         },

@@ -166,7 +166,8 @@
     "viewport-mercator-project": "6.1.1",
     "vizzuality-components": "^3.0.3",
     "webp-loader": "^0.6.0",
-    "webpack-filter-warnings-plugin": "^1.2.1"
+    "webpack-filter-warnings-plugin": "^1.2.1",
+    "xml2js": "^0.4.23"
   },
   "resolutions": {
     "node-forge": "^0.10.0",

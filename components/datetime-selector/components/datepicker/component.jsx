@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import dateFormat from "dateformat";
 import uniq from "lodash/uniq";
 import merge from "lodash/merge";
 import DatePicker from "react-datepicker";
 import moment from "moment";
 import { defined } from "utils/core";
-import { formatDateTime } from "utils/date-format";
+import { formatDateTime, dFormatter } from "utils/date-format";
 import classNames from "classnames";
 
 import Icon from "components/ui/icon";
@@ -283,6 +282,8 @@ class DateTimePicker extends Component {
 
   renderList = (items) => {
     if (defined(items)) {
+      console.log(this.props.dateFormat);
+
       return (
         <div className="grid">
           <div className="gridHeading">Select a time</div>
@@ -297,7 +298,11 @@ class DateTimePicker extends Component {
                 }}
               >
                 {defined(this.props.dateFormat)
-                  ? dateFormat(item, this.props.dateFormat.currentTime)
+                  ? dFormatter(
+                      item,
+                      this.props.dateFormat.currentTime,
+                      this.props.dateFormat.asPeriod
+                    )
                   : formatDateTime(item)}
               </button>
             ))}
