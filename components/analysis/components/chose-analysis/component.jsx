@@ -211,35 +211,52 @@ class ChoseAnalysis extends PureComponent {
       setMapSettings,
       setAnalysisSettings,
       clearAnalysisError,
+      isMapComparing,
     } = this.props;
     return (
       <div className="c-chose-analysis">
-        <div className="title">ANALYZE DATASETS</div>
-        <div className="options">
-          <button
-            className={cx({ selected: !showDraw })}
-            onClick={() => {
-              setAnalysisSettings({ showDraw: false });
-              setMapSettings({ drawing: false });
-              clearAnalysisError();
-            }}
-          >
-            <div className="button-wrapper">
-              <Icon icon={squarePointIcon} className="icon-square-point" />
-              <div className="label">CLICK A LAYER ON THE MAP</div>
+        {isMapComparing ? (
+          <div className="comparison-mode">
+            <p>Exit comparison mode to analyze data</p>
+            <Button
+              theme="theme-button-medium theme-button-light"
+              onClick={() => {
+                setMapSettings({ comparing: false });
+              }}
+            >
+              Exit comparison
+            </Button>
+          </div>
+        ) : (
+          <>
+            <div className="title">ANALYZE DATASETS</div>
+            <div className="options">
+              <button
+                className={cx({ selected: !showDraw })}
+                onClick={() => {
+                  setAnalysisSettings({ showDraw: false });
+                  setMapSettings({ drawing: false });
+                  clearAnalysisError();
+                }}
+              >
+                <div className="button-wrapper">
+                  <Icon icon={squarePointIcon} className="icon-square-point" />
+                  <div className="label">CLICK A LAYER ON THE MAP</div>
+                </div>
+              </button>
+              <button
+                className={cx("draw-upload-tab", { selected: showDraw })}
+                onClick={() => setAnalysisSettings({ showDraw: true })}
+              >
+                <div className="button-wrapper">
+                  <Icon icon={polygonIcon} className="icon-polygon" />
+                  <div className="label">DRAW OR UPLOAD SHAPE</div>
+                </div>
+              </button>
             </div>
-          </button>
-          <button
-            className={cx("draw-upload-tab", { selected: showDraw })}
-            onClick={() => setAnalysisSettings({ showDraw: true })}
-          >
-            <div className="button-wrapper">
-              <Icon icon={polygonIcon} className="icon-polygon" />
-              <div className="label">DRAW OR UPLOAD SHAPE</div>
-            </div>
-          </button>
-        </div>
-        {showDraw ? this.renderPolygonOption() : this.renderLayerOption()}
+            {showDraw ? this.renderPolygonOption() : this.renderLayerOption()}
+          </>
+        )}
       </div>
     );
   }

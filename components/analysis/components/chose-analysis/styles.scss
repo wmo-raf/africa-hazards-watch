@@ -1,8 +1,20 @@
-@import '~styles/settings';
+@import "~styles/settings";
 
 .c-chose-analysis {
   padding: rem(27px) rem(20px);
   width: 100%;
+
+  .comparison-mode {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    p {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  }
 
   .title {
     font-size: 14px;
@@ -53,7 +65,7 @@
 
       &.selected {
         &::before {
-          content: '';
+          content: "";
           position: absolute;
           bottom: rem(-15px);
           left: rem(10px);

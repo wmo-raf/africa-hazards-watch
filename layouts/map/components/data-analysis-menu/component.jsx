@@ -20,6 +20,7 @@ class DataAnalysisMenu extends PureComponent {
     setMainMapSettings: PropTypes.func,
     setMapSettings: PropTypes.func,
     clearAnalysisError: PropTypes.func,
+    clearAnalysis: PropTypes.func,
     embed: PropTypes.bool,
   };
 
@@ -57,6 +58,7 @@ class DataAnalysisMenu extends PureComponent {
       embed,
       setMapSettings,
       comparing,
+      clearAnalysis,
     } = this.props;
 
     return (
@@ -81,12 +83,16 @@ class DataAnalysisMenu extends PureComponent {
           <CompareControls
             className="map-compare-control"
             active={comparing}
-            onChange={() =>
+            onChange={() => {
+              if (!comparing) {
+                clearAnalysis({ isComparing: true });
+              }
+
               setMapSettings({
                 comparing: !comparing,
                 activeCompareSide: !comparing ? "left" : null,
-              })
-            }
+              });
+            }}
           />
         )}
         {!hidden && showAnalysis && <Analysis className="map-analysis" />}

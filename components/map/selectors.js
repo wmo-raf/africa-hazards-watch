@@ -145,8 +145,14 @@ export const getDrawing = createSelector(
 );
 
 export const getComparing = createSelector(
-  [getMapSettings],
-  (settings) => settings.comparing
+  [getMapSettings, getLocation],
+  (settings, location) => {
+    const isMapPage = location.pathname.includes("map");
+
+    const { type } = location?.payload || {};
+
+    return settings.comparing && isMapPage && (!type || type === "africa");
+  }
 );
 
 export const getActiveCompareSide = createSelector(
