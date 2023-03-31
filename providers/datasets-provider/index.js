@@ -19,22 +19,37 @@ const actions = {
 
 class DatasetsProvider extends PureComponent {
   componentDidMount() {
-    const { fetchDatasets, activeDatasets, location, geostore } = this.props;
+    const {
+      fetchDatasets,
+      activeDatasets,
+      location,
+      geostore,
+      mapLocationGeostore,
+    } = this.props;
 
     fetchDatasets(activeDatasets);
 
-    if (geostore && geostore.geojson) {
+    const mapGeostore = !isEmpty(geostore) ? geostore : mapLocationGeostore;
+
+    if (mapGeostore && mapGeostore.geojson) {
       this.updateMapSettings();
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { activeDatasets, location, geostore, clipToGeostore } = this.props;
+    const {
+      activeDatasets,
+      location,
+      geostore,
+      clipToGeostore,
+      mapLocationGeostore,
+    } = this.props;
 
     const {
       layers: prevLayers,
       location: prevLocation,
       geostore: prevGeostore,
+      mapLocationGeostore: prevMapLocationGeostore,
       clipToGeostore: prevClipToGeostore,
     } = prevProps;
 
@@ -45,9 +60,13 @@ class DatasetsProvider extends PureComponent {
       !isEqual(location, prevLocation) ||
       datasets.length != prevDatasets.length ||
       clipToGeostore != prevClipToGeostore ||
-      !isEqual(geostore, prevGeostore)
+      !isEqual(geostore, prevGeostore) ||
+      !isEqual(mapLocationGeostore, prevMapLocationGeostore)
     ) {
-      if (clipToGeostore && !isEmpty(geostore)) {
+      if (
+        clipToGeostore &&
+        (!isEmpty(geostore) || !isEmpty(mapLocationGeostore))
+      ) {
         this.updateMapSettings();
       } else {
         this.updateMapSettings(true);
@@ -63,10 +82,13 @@ class DatasetsProvider extends PureComponent {
       setMapSettings,
       isDashboard,
       geostore,
+      mapLocationGeostore,
     } = this.props;
 
     if (!isDashboard) {
       const datasets = uniq(activeDatasets);
+
+      const mapGeostore = !isEmpty(geostore) ? geostore : mapLocationGeostore;
 
       const mapDatasets = datasets.map((d) => {
         const dataset = { ...d };
@@ -79,8 +101,8 @@ class DatasetsProvider extends PureComponent {
           ) {
             let geojson_feature_id = "";
 
-            if (!clear && !isEmpty(geostore) && geostore.id) {
-              geojson_feature_id = geostore.id;
+            if (!clear && !isEmpty(mapGeostore) && mapGeostore.id) {
+              geojson_feature_id = mapGeostore.id;
             }
 
             dataset.params = {

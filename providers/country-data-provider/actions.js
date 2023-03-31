@@ -1,12 +1,16 @@
 import { createAction, createThunkAction } from "redux/actions";
 import { parseGadm36Id } from "utils/gadm";
 import uniqBy from "lodash/uniqBy";
+import turfBbox from "turf-bbox";
 
 import {
   getCountriesProvider,
   getRegionsProvider,
   getSubRegionsProvider,
 } from "services/country";
+import { setMapSettings } from "components/map/actions";
+import getCountryBoundaryDataset from "../datasets-provider/datasets/boundaries/country";
+import { updateDatasets } from "../datasets-provider/actions";
 
 export const setCountriesSSR = createAction("setCountriesSSR");
 
@@ -23,12 +27,38 @@ export const setCountryLinks = createAction("setCountryLinks");
 
 export const getCountries = createThunkAction(
   "getCountries",
-  () => (dispatch) => {
+  () => (dispatch, getState) => {
     dispatch(setCountriesLoading(true));
     getCountriesProvider()
       .then((gadm36Countries) => {
-        dispatch(setGadmCountries(gadm36Countries.data.rows));
-        dispatch(setCountries(gadm36Countries.data.rows));
+        const countries = gadm36Countries?.data?.rows;
+
+        dispatch(setGadmCountries(countries));
+
+        const { settings } = getState().mapMenu;
+
+        const { mapLocationContext } = settings || {};
+
+        // set country boundary data
+        if (mapLocationContext !== "africa") {
+          if (!!countries.length) {
+            const country = countries.find((c) => c.iso === mapLocationContext);
+
+            if (country) {
+              const boundaryDataset = getCountryBoundaryDataset(country.iso);
+
+              dispatch(updateDatasets(boundaryDataset));
+
+              if (country.bbox) {
+                const bbox = turfBbox(country.bbox);
+                // zoom to country bounds
+                dispatch(setMapSettings({ bbox: bbox }));
+              }
+            }
+          }
+        }
+
+        dispatch(setCountries(countries));
         dispatch(setCountriesLoading(false));
       })
       .catch(() => {

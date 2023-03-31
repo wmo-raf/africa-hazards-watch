@@ -2,12 +2,17 @@ import { pgFeatureServRequest } from "utils/request";
 import { getGadm36Id } from "utils/gadm";
 
 const convertToOptions = (countries) =>
-  countries.map((c) => ({ label: c.name, value: c.iso }));
+  countries.map((c) => ({
+    label: c.name,
+    value: c.iso,
+  }));
 
 export const getCountriesProvider = () => {
   const url = `/functions/postgisftw.africa_countries_list/items.json`;
   return pgFeatureServRequest.get(url).then((resp) => {
-    resp.data = { rows: resp.data };
+    resp.data = {
+      rows: resp.data?.map((c) => ({ ...c, bbox: JSON.parse(c.bbox) })),
+    };
     return resp;
   });
 };

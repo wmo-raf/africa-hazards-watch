@@ -1,4 +1,3 @@
-import boundaries from "./boundaries";
 import weather from "./weather";
 import climate from "./climate";
 import agriculture from "./agriculture";
@@ -9,7 +8,6 @@ import satellite from "./satellite";
 import exposure from "./exposure";
 
 const allDatasets = [
-  ...boundaries.datasets,
   ...alerts.datasets,
   ...satellite.datasets,
   ...weather.datasets,

@@ -5,18 +5,29 @@ import { tropicsIntersection } from "utils/intersections";
 
 export const setGeostoreLoading = createAction("setGeostoreLoading");
 export const setGeostore = createAction("setGeostore");
+export const setMapLocationContextGeostore = createAction(
+  "setMapLocationContextGeostore"
+);
 export const clearGeostore = createAction("clearGeostore");
 
 export const fetchGeostore = createThunkAction(
   "fetchGeostore",
   (params) => (dispatch) => {
-    const { type, adm0, adm1, adm2, token } = params;
+    const { type, adm0, adm1, adm2, token, mapLocationContext } = params;
     if (type && adm0) {
       dispatch(setGeostoreLoading({ loading: true, error: false }));
       getGeostore({ type, adm0, adm1, adm2, token })
         .then((geostore) => {
           if (geostore) {
-            dispatch(setGeostore(tropicsIntersection(params, geostore)));
+            if (!mapLocationContext) {
+              dispatch(setGeostore(tropicsIntersection(params, geostore)));
+            } else {
+              dispatch(
+                setMapLocationContextGeostore(
+                  tropicsIntersection(params, geostore)
+                )
+              );
+            }
           } else {
             dispatch(setGeostoreLoading({ loading: false, error: true }));
           }

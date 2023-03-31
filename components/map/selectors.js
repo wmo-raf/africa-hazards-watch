@@ -3,6 +3,7 @@ import flatten from "lodash/flatten";
 import isEmpty from "lodash/isEmpty";
 import flatMap from "lodash/flatMap";
 import sortBy from "lodash/sortBy";
+import uniqBy from "lodash/unionBy";
 
 import { defined } from "utils/core";
 
@@ -245,7 +246,9 @@ export const getLoadingMessage = createSelector(
 
 export const getActiveDatasetsFromState = createSelector(
   getMapSettings,
-  (settings) => settings.datasets
+  (settings) => {
+    return settings.datasets;
+  }
 );
 
 export const getActiveDatasetIds = createSelector(
@@ -336,23 +339,28 @@ export const getLayerGroups = createSelector(
   (datasets, activeDatasetsState) => {
     if (isEmpty(datasets) || isEmpty(activeDatasetsState)) return null;
 
-    return activeDatasetsState
-      .map((layer) => {
-        const dataset = datasets.find((d) => d.id === layer.dataset);
+    const layerGroups = uniqBy(
+      activeDatasetsState
+        .map((layer) => {
+          const dataset = datasets.find((d) => d.id === layer.dataset);
 
-        const { metadata } =
-          (dataset && dataset.layers.find((l) => l.active)) || {};
-        const newMetadata = metadata || (dataset && dataset.metadata);
+          const { metadata } =
+            (dataset && dataset.layers.find((l) => l.active)) || {};
+          const newMetadata = metadata || (dataset && dataset.metadata);
 
-        return {
-          ...dataset,
-          mapSide: layer.mapSide,
-          ...(newMetadata && {
-            metadata: newMetadata,
-          }),
-        };
-      })
-      .filter((d) => !isEmpty(d));
+          return {
+            ...dataset,
+            ...(dataset && { mapSide: layer.mapSide }),
+            ...(newMetadata && {
+              metadata: newMetadata,
+            }),
+          };
+        })
+        .filter((d) => !isEmpty(d)),
+      "id"
+    );
+
+    return layerGroups;
   }
 );
 

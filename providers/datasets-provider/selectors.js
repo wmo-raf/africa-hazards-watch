@@ -5,6 +5,9 @@ import {
   getActiveDatasetsFromState,
 } from "components/map/selectors";
 
+export const selectmapLocationGeostore = (state) =>
+  state.geostore && state.geostore.mapLocationGeostore;
+
 export const selectLocation = (state) =>
   state.location && state.location.payload;
 
@@ -29,6 +32,7 @@ export const getDatasetProps = createStructuredSelector({
   updateProviders: getUpdateProviders,
   layers: getActiveLayers,
   geostore: selectGeostore,
+  mapLocationGeostore: selectmapLocationGeostore,
   location: selectLocation,
   clipToGeostore: selectClipToGeostore,
 });

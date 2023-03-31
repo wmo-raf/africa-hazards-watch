@@ -46,7 +46,7 @@ class LegendItemTypes extends PureComponent {
       params,
       sqlParams
     );
-    const { url } = JSON.parse(parsedConfig);
+    const { url } = (parsedConfig && JSON.parse(parsedConfig)) || {};
 
     if (url) {
       this.fetchLegend(url);

@@ -14,13 +14,18 @@ export const initialState = {
   countryLinks: {},
 };
 
-const mapLocations = (locations) => {
+const mapLocations = (locations, options) => {
   const locationsMapped = [];
   locations.forEach((location) => {
     if (location.iso || location.id > 0) {
       locationsMapped.push({
         label: location.name,
         value: location.iso || location.id,
+        ...(options &&
+          options.includeBBox &&
+          location.bbox && {
+            bbox: location.bbox,
+          }),
       });
     }
   });
@@ -44,12 +49,12 @@ const setSubRegionsLoading = (state, { payload }) => ({
 
 const setCountries = (state, { payload }) => ({
   ...state,
-  countries: mapLocations(payload),
+  countries: mapLocations(payload, { includeBBox: true }),
 });
 
 const setGadmCountries = (state, { payload }) => ({
   ...state,
-  gadmCountries: mapLocations(payload),
+  gadmCountries: mapLocations(payload, { includeBBox: true }),
 });
 
 const setRegions = (state, { payload }) => ({

@@ -1,17 +1,19 @@
 CREATE OR REPLACE FUNCTION postgisftw.africa_countries_list(country_iso text default '')
-RETURNS TABLE(iso text, name text)
+RETURNS TABLE(iso text, name text, bbox text)
 AS $$
 BEGIN
     IF coalesce(TRIM(country_iso), '') = '' THEN
         RETURN QUERY
             SELECT t.gid_0::text as iso,
-                t.name_0::text as name
+                t.name_0::text as name,
+                t.bbox::text as bbox
             FROM pgadapter.africa_gadm36_countries t
             ORDER BY t.name_1;
     ELSE
         RETURN QUERY
             SELECT t.gid_0::text as iso,
-                    t.name_0::text as name
+                    t.name_0::text as name,
+                    t.bbox::text as bbox
             FROM pgadapter.africa_gadm36_countries t
             WHERE t.gid_0 = country_iso
             ORDER BY t.name_1;

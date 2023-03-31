@@ -1,33 +1,45 @@
-import * as actions from './actions';
+import * as actions from "./actions";
 
 export const initialState = {
   loading: false,
   error: false,
-  data: {}
+  data: {},
+  mapLocationGeostore: {},
 };
 
 const setGeostore = (state, { payload }) => ({
   ...state,
   data: {
     ...state.data,
-    ...payload
+    ...payload,
   },
   loading: false,
-  error: false
+  error: false,
 });
 
-const clearGeostore = state => ({
+const setMapLocationContextGeostore = (state, { payload }) => ({
   ...state,
-  data: {}
+  mapLocationGeostore: {
+    ...state.mapLocationGeostore,
+    ...payload,
+  },
+  loading: false,
+  error: false,
+});
+
+const clearGeostore = (state) => ({
+  ...state,
+  data: {},
 });
 
 const setGeostoreLoading = (state, { payload }) => ({
   ...state,
-  ...payload
+  ...payload,
 });
 
 export default {
   [actions.setGeostore]: setGeostore,
+  [actions.setMapLocationContextGeostore]: setMapLocationContextGeostore,
   [actions.clearGeostore]: clearGeostore,
-  [actions.setGeostoreLoading]: setGeostoreLoading
+  [actions.setGeostoreLoading]: setGeostoreLoading,
 };
