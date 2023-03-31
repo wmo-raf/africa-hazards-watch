@@ -396,33 +396,46 @@ class MapControlsButtons extends PureComponent {
     const { className, isDesktop, showBasemaps, hidePanels } = this.props;
 
     return (
-      <div className={`c-map-controls ${className || ""}`}>
-        {isDesktop ? (
-          <Fragment>
+      <>
+        {/* {isDesktop && (
+          <div className="c-map-controls top-map-controls">
             {!hidePanels && (
-              <div className="map-actions">{this.renderBasemapsTooltip()}</div>
-            )}
-            <div className="map-tour-map-controls">
-              <div className="controls-wrapper">
-                {this.renderZoomButtons()}
-                {this.renderShowPanelsButton()}
-                {this.renderShareButton()}
-                {this.renderMapOptions(showBasemaps)}
-                {this.renderMapReloadButton()}
-                {this.renderMapTourBtn()}
+              <div className="map-actions">
+                <div>Hello</div>
               </div>
-              {this.renderMapPosition()}
-            </div>
-          </Fragment>
-        ) : (
-          <Fragment>
-            <div className="mobile-controls-wrapper">
-              {this.renderSearchButton()}
-              {this.renderShareButton()}
-            </div>
-          </Fragment>
-        )}
-      </div>
+            )}
+          </div>
+        )} */}
+        <div className={`c-map-controls ${className || ""}`}>
+          {isDesktop ? (
+            <Fragment>
+              {!hidePanels && (
+                <div className="map-actions">
+                  {this.renderBasemapsTooltip()}
+                </div>
+              )}
+              <div className="map-tour-map-controls">
+                <div className="controls-wrapper">
+                  {this.renderZoomButtons()}
+                  {this.renderShowPanelsButton()}
+                  {this.renderShareButton()}
+                  {this.renderMapOptions(showBasemaps)}
+                  {this.renderMapReloadButton()}
+                  {this.renderMapTourBtn()}
+                </div>
+                {this.renderMapPosition()}
+              </div>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <div className="mobile-controls-wrapper">
+                {this.renderSearchButton()}
+                {this.renderShareButton()}
+              </div>
+            </Fragment>
+          )}
+        </div>
+      </>
     );
   }
 }

@@ -282,8 +282,6 @@ class DateTimePicker extends Component {
 
   renderList = (items) => {
     if (defined(items)) {
-      console.log(this.props.dateFormat);
-
       return (
         <div className="grid">
           <div className="gridHeading">Select a time</div>

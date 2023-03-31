@@ -32,6 +32,11 @@ const clearGeostore = (state) => ({
   data: {},
 });
 
+const clearMapLocationContextGeostore = (state) => ({
+  ...state,
+  mapLocationGeostore: {},
+});
+
 const setGeostoreLoading = (state, { payload }) => ({
   ...state,
   ...payload,
@@ -42,4 +47,5 @@ export default {
   [actions.setMapLocationContextGeostore]: setMapLocationContextGeostore,
   [actions.clearGeostore]: clearGeostore,
   [actions.setGeostoreLoading]: setGeostoreLoading,
+  [actions.clearMapLocationContextGeostore]: clearMapLocationContextGeostore,
 };

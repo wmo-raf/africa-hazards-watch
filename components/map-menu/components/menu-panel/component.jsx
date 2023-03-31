@@ -1,16 +1,16 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import cx from 'classnames';
-import startCase from 'lodash/startCase';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
+import startCase from "lodash/startCase";
 
-import Loader from 'components/ui/loader';
-import Button from 'components/ui/button';
-import Icon from 'components/ui/icon';
-import closeIcon from 'assets/icons/close.svg?sprite';
-import arrowIcon from 'assets/icons/arrow-down.svg?sprite';
-import posed, { PoseGroup } from 'react-pose';
+import Loader from "components/ui/loader";
+import Button from "components/ui/button";
+import Icon from "components/ui/icon";
+import closeIcon from "assets/icons/close.svg?sprite";
+import arrowIcon from "assets/icons/arrow-down.svg?sprite";
+import posed, { PoseGroup } from "react-pose";
 
-import './styles.scss';
+import "./styles.scss";
 
 const PanelMobile = posed.div({
   enter: {
@@ -43,16 +43,17 @@ const PanelDesktop = posed.div({
 class MenuPanel extends PureComponent {
   panelLabel() {
     const { label, category, setMenuSettings } = this.props;
-    const isSearch = label.toLowerCase() === 'search';
+    const isSearch = label.toLowerCase() === "search";
 
     if (category || isSearch) {
       return (
         <button
           onClick={() =>
             setMenuSettings({
-              ...(category && { datasetCategory: '' }),
-              ...(isSearch && { searchType: '' }),
-            })}
+              ...(category && { datasetCategory: "" }),
+              ...(isSearch && { searchType: "" }),
+            })
+          }
         >
           <Icon icon={arrowIcon} className="icon-return" />
           <span>{isSearch ? label : startCase(category)}</span>
@@ -83,8 +84,8 @@ class MenuPanel extends PureComponent {
           <Panel
             key="menu-container"
             className={cx(
-              'c-menu-panel',
-              'map-tour-menu-panel',
+              "c-menu-panel",
+              "map-tour-menu-panel",
               { large },
               className
             )}
@@ -99,7 +100,7 @@ class MenuPanel extends PureComponent {
                 >
                   <Icon
                     icon={arrowIcon}
-                    className={cx('icon-close-panel', { collapsed })}
+                    className={cx("icon-close-panel", { collapsed })}
                   />
                 </Button>
               </div>

@@ -21,6 +21,7 @@ const datasets = [
     metadata: metadataId,
     citation: "TAMSAT, From 1983 to recent",
     group: "tamsat",
+    global: true,
     layers: [
       {
         name: datasetName,

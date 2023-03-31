@@ -53,7 +53,7 @@ export const fetchDatasets = createThunkAction(
           if (country.bbox) {
             const bbox = turfBbox(country.bbox);
             // zoom to country bounds
-            dispatch(setMapSettings({ bbox: bbox, padding: 20 }));
+            dispatch(setMapSettings({ bbox: bbox, clipToGeostore: true }));
           }
         }
       }

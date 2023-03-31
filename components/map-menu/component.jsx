@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import cx from "classnames";
 import remove from "lodash/remove";
 import { trackEvent } from "utils/analytics";
+import isEmpty from "lodash/isEmpty";
 
 import MenuPanel from "./components/menu-panel";
 import MenuDesktop from "./components/menu-desktop";
@@ -43,6 +44,7 @@ class MapMenu extends PureComponent {
       activeCompareSide,
       clipToGeostore,
       geostore,
+      mapLocationGeostore,
       allDatasets,
     } = this.props;
     const { dataset, layer, iso, category } = data;
@@ -58,11 +60,13 @@ class MapMenu extends PureComponent {
         .find((d) => d.id === dataset)
         ?.layers?.find((l) => l.id == layer);
 
+      const mapGeostore = !isEmpty(geostore) ? geostore : mapLocationGeostore;
+
       const shouldClipToGeostore = !!(
         clipToGeostore &&
         matchingLayer &&
         matchingLayer.layerConfig?.canClipToGeom &&
-        geostore?.id
+        mapGeostore?.id
       );
 
       newActiveDatasets = [
@@ -75,7 +79,7 @@ class MapMenu extends PureComponent {
             mapSide: activeCompareSide,
           }),
           ...(shouldClipToGeostore && {
-            params: { geojson_feature_id: geostore.id },
+            params: { geojson_feature_id: mapGeostore.id },
           }),
         },
       ].concat([...newActiveDatasets]);

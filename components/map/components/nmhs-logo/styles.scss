@@ -1,0 +1,61 @@
+@import "~styles/settings.scss";
+.c-map-nmhs-logo {
+  border-radius: 2px;
+  max-width: 180px;
+  min-width: 150px;
+  padding: 2px 4px;
+  position: absolute;
+  left: rem(10px);
+  bottom: rem(60px);
+  z-index: 5;
+  height: 70px;
+  transition: transform 0.3s linear;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .intro {
+    padding: 2px 0 0 0;
+    font-size: 12px;
+    color: #fff;
+  }
+
+  &.top {
+    left: rem(10px);
+    top: rem(60px);
+  }
+  @media screen and (min-width: $screen-m) {
+    background-color: rgba($color: #000, $alpha: 0.5);
+    left: rem(14px);
+    bottom: rem(10px);
+    &.relocate {
+      transform: translateX(306px);
+    }
+    &.big {
+      transform: translateX(562px);
+    }
+  }
+  .c-icon {
+    height: 100%;
+    width: auto;
+  }
+
+  .nmhs-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    padding: 4px;
+    font-size: 14px;
+    color: $white !important;
+    line-height: 1;
+    cursor: pointer;
+
+    .nmhs-logo {
+      height: 100%;
+      object-fit: contain;
+      margin-right: 10px;
+    }
+  }
+}

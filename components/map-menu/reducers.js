@@ -4,7 +4,7 @@ export const initialState = {
   locations: [],
   loading: false,
   settings: {
-    mapLocationContext: "UGA",
+    mapLocationContext: "africa",
     menuSection: "",
     datasetCategory: "",
     exploreType: "topics",

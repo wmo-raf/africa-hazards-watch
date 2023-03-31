@@ -13,6 +13,7 @@ const datasets = [
     category: 7,
     sub_category: 16,
     metadata: "6e150e1a-a6f5-4cc9-921d-84bd2e01ab12",
+    global: true,
     layers: [
       {
         id: "africa_power_plants",

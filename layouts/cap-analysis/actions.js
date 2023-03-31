@@ -24,8 +24,6 @@ export const fetchCapDetail = createThunkAction(
         dispatch(setCapLoading({ loading: false, error: "" }));
       })
       .catch((error) => {
-        console.log(error);
-
         dispatch(setCapLoading({ loading: false, error: error }));
       });
   }
@@ -58,7 +56,6 @@ export const getAlertsGeostoreIds = createThunkAction(
           })
         )
         .catch((error) => {
-          console.log(error);
           dispatch(setCapGeostore({ loading: false, data: {} }));
         });
     }
@@ -104,7 +101,6 @@ export const getAlertsAnalysis = createThunkAction(
           })
         )
         .catch((error) => {
-          console.log(error);
           dispatch(setCapAnalysis({ loading: false, data: {} }));
         });
     }

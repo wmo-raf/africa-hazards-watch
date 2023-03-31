@@ -125,6 +125,7 @@ const datasets = [
     metadata: metadataId,
     citation: "GTS Synop, 3 Hourly",
     isMultiLayer: true,
+    global: true,
     layers: generateLayers([]),
   },
 ];

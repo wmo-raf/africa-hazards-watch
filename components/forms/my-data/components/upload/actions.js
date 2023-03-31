@@ -243,8 +243,6 @@ export const publishRaster = createThunkAction(
         }
       })
       .catch((error) => {
-        console.log(error);
-
         let err = (error.response && error.response.data) || [];
 
         err = err && err.detail;

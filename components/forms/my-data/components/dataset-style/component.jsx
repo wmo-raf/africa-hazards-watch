@@ -43,8 +43,6 @@ export default class DatasetStyle extends PureComponent {
           }))) ||
         [],
     };
-
-    console.log(data);
   }
 
   render() {

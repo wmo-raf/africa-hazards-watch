@@ -23,6 +23,8 @@ const datasets = [
     sub_category: subCategory,
     metadata: metadataId,
     citation: "Multi-Model, North Africa",
+    global: false,
+    region: "north_africa",
     layers: [
       {
         name: datasetName,

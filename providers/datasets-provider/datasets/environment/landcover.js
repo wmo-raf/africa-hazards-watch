@@ -15,6 +15,7 @@ const datasets = [
     sub_category: subCategory,
     metadata: "",
     citation: "ESA World Cover, 10M",
+    global: true,
     layers: [
       {
         name: "ESA World Cover",

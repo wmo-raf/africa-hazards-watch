@@ -13,6 +13,7 @@ const datasets = [
     category: category,
     sub_category: subCategory,
     metadata: "ecf74a56-2106-441e-8932-44b68a57c197",
+    global: true,
     layers: [
       {
         id: "africa_airports",

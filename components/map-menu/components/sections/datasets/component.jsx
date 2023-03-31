@@ -6,7 +6,8 @@ import cx from "classnames";
 import NoContent from "components/ui/no-content";
 import LayerToggle from "components/map/components/legend/components/layer-toggle";
 
-// import Dropdown from "components/ui/dropdown";
+import Pill from "components/ui/pill";
+import Dropdown from "components/ui/dropdown";
 import Basemaps from "components/basemaps";
 
 import DatasetSection from "./dataset-section";
@@ -29,13 +30,18 @@ class Datasets extends PureComponent {
       onToggleLayer,
       setModalMetaSettings,
       setMenuSettings,
-      handleRemoveCountry,
-      handleAddCountry,
+      handleChangeCountry,
       onToggleSubCategoryCollapse,
       onToggleGroupOption,
       id: sectionId,
       subCategoryGroupsSelected,
+      selectedCountry,
     } = this.props;
+
+    const matching =
+      countries &&
+      selectedCountry &&
+      countries.find((c) => c.value === selectedCountry);
 
     return (
       <div className="c-datasets">
@@ -54,33 +60,33 @@ class Datasets extends PureComponent {
           )}
         {menuSection && datasetCategory && (
           <Fragment>
-            {/* <div className="countries-selection">
-              <span className="sub-title">country-specific data</span>
+            <div className="countries-selection">
+              <span className="sub-title">Select Country</span>
               <div className="pills">
-                {selectedCountries &&
-                  selectedCountries.map((c) => (
-                    <Pill
-                      key={c.value}
-                      active={!countriesWithoutData.includes(c.label)}
-                      label={c.label}
-                      onRemove={() => handleRemoveCountry(c.value)}
-                    >
-                      {c.label}
-                    </Pill>
-                  ))}
+                {matching && (
+                  <Pill
+                    key={matching.value}
+                    active
+                    removable
+                    label={matching.label}
+                    onRemove={() => handleChangeCountry("africa")}
+                  >
+                    {matching.label}
+                  </Pill>
+                )}
                 {countries && !!countries.length && (
                   <Dropdown
                     className="country-dropdown"
                     theme="theme-dropdown-button theme-dropdown-button-small"
                     placeholder="+ Add country"
                     noItemsFound="No country found"
-                    noSelectedValue="+ Add country"
+                    noSelectedValue="+ Select country"
                     options={countries}
-                    onChange={handleAddCountry}
+                    onChange={handleChangeCountry}
                   />
                 )}
               </div>
-            </div> */}
+            </div>
             {countriesWithoutData &&
               !!countriesWithoutData.length &&
               selectedCountries &&

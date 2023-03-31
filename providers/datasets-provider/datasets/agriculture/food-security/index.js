@@ -162,6 +162,7 @@ const datasets = [
     category: category,
     sub_category: subCategory,
     metadata: "46f0b628-70c4-4637-a32d-1e493b97bf9d",
+    global: true,
     layers: [
       {
         id: "ipc_a",

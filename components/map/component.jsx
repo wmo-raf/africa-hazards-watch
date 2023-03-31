@@ -21,6 +21,7 @@ import Popup from "./components/popup";
 import MapToolTip from "./components/map-tooltip";
 import Draw from "./components/draw";
 import Attributions from "./components/attributions";
+import NMHSLogo from "./components/nmhs-logo";
 
 // Components
 import LayerManagerWrapper from "./components/layer-manager";
@@ -98,6 +99,7 @@ class RenderMap extends PureComponent {
                   map={map}
                   viewport={viewport}
                 />
+                <NMHSLogo top={false} />
               </>
             )}
           </Fragment>

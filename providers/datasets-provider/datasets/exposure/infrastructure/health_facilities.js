@@ -13,6 +13,7 @@ const datasets = [
     category: category,
     sub_category: subCategory,
     metadata: "32eb95cc-0447-4475-a6f4-df65ade3eb92",
+    global: true,
     layers: [
       {
         id: "africa_health_facilities",

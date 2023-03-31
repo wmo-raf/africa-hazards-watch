@@ -30,6 +30,7 @@ const datasets = [
     sub_category: subCategory,
     metadata: metadataId,
     citation: "GTS Synop, 3 Hourly",
+    global: true,
     layers: [
       {
         name: datasetName,

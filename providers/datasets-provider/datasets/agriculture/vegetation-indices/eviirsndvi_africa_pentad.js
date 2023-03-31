@@ -20,6 +20,7 @@ const datasets = [
     sub_category: subCategory,
     metadata: metadataId,
     citation: "eVIIRS, Pentadal, updated every 5 days",
+    global: true,
     layers: [
       {
         name: datasetName,

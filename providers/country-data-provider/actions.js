@@ -8,9 +8,14 @@ import {
   getRegionsProvider,
   getSubRegionsProvider,
 } from "services/country";
+import {
+  fetchGeostore,
+  clearMapLocationContextGeostore,
+} from "providers/geostore-provider/actions";
 import { setMapSettings } from "components/map/actions";
-import getCountryBoundaryDataset from "../datasets-provider/datasets/boundaries/country";
+import getCountryBoundaryDataset from "providers/datasets-provider/datasets/boundaries/country";
 import { updateDatasets } from "../datasets-provider/actions";
+import africaBoundary from "providers/datasets-provider/datasets/boundaries/africa";
 
 export const setCountriesSSR = createAction("setCountriesSSR");
 
@@ -52,7 +57,7 @@ export const getCountries = createThunkAction(
               if (country.bbox) {
                 const bbox = turfBbox(country.bbox);
                 // zoom to country bounds
-                dispatch(setMapSettings({ bbox: bbox }));
+                dispatch(setMapSettings({ bbox: bbox, clipToGeostore: true }));
               }
             }
           }
@@ -64,6 +69,57 @@ export const getCountries = createThunkAction(
       .catch(() => {
         dispatch(setCountriesLoading(false));
       });
+  }
+);
+
+export const updateMapLocationContext = createThunkAction(
+  "updateMapLocationContext",
+  (locationId) => (dispatch, getState) => {
+    if (!locationId || locationId === "africa") {
+      dispatch(updateDatasets(africaBoundary));
+
+      const africaBBox = [-17.66, -34.84, 51.42, 37.37];
+
+      dispatch(
+        setMapSettings({
+          bbox: africaBBox,
+          canBound: true,
+          clipToGeostore: false,
+        })
+      );
+      dispatch(clearMapLocationContextGeostore());
+    } else {
+      const { countries } = getState().countryData;
+      if (!!countries.length) {
+        const country = countries.find((c) => c.value === locationId);
+
+        if (country) {
+          const boundaryDataset = getCountryBoundaryDataset(country.value);
+
+          dispatch(updateDatasets(boundaryDataset));
+
+          dispatch(
+            fetchGeostore({
+              type: "country",
+              adm0: locationId,
+              mapLocationContext: locationId,
+            })
+          );
+
+          if (country.bbox) {
+            const bbox = turfBbox(country.bbox);
+            // zoom to country bounds
+            dispatch(
+              setMapSettings({
+                bbox: bbox,
+                canBound: true,
+                clipToGeostore: true,
+              })
+            );
+          }
+        }
+      }
+    }
   }
 );
 

@@ -16,6 +16,7 @@ const datasets = [
     sub_category: subCategory,
     metadata: metadataId,
     citation: "CMIP6 Projection, Up to 2100",
+    global: true,
     layers: [
       {
         name: datasetName,

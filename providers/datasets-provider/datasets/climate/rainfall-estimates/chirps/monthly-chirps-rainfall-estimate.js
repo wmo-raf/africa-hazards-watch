@@ -20,6 +20,7 @@ const datasets = [
     metadata: metadataId,
     citation: "CHIRPS, From 1981 to recent",
     group: "chirps",
+    global: true,
     layers: [
       {
         name: datasetName,

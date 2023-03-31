@@ -81,8 +81,6 @@ export const deleteMyDataset = createThunkAction(
         }
       })
       .catch((error) => {
-        console.log(error);
-
         return {
           [FORM_ERROR]: error,
         };

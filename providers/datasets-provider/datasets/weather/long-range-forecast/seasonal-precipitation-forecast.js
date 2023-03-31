@@ -19,6 +19,7 @@ const datasets = [
     sub_category: subCategory,
     metadata: metadataId,
     citation: "Multi-Model Ensemble",
+    global: true,
     layers: [
       {
         name: datasetName,

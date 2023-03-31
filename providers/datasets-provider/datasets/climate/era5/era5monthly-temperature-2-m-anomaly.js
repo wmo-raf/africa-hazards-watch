@@ -18,6 +18,7 @@ const datasets = [
     sub_category: subCategory,
     metadata: metadataId,
     citation: "ERA5 reanalysis, Reference 1991 - 2020",
+    global: true,
     layers: [
       {
         name: datasetName,

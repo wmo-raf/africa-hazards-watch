@@ -19,6 +19,7 @@ const datasets = [
     metadata: metadataId,
     citation: "GFS, Hourly for the next 5 days",
     group: "gfs",
+    global: true,
     layers: [
       {
         name: datasetName,

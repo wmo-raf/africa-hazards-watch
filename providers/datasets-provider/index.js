@@ -63,10 +63,9 @@ class DatasetsProvider extends PureComponent {
       !isEqual(geostore, prevGeostore) ||
       !isEqual(mapLocationGeostore, prevMapLocationGeostore)
     ) {
-      if (
-        clipToGeostore &&
-        (!isEmpty(geostore) || !isEmpty(mapLocationGeostore))
-      ) {
+      const mapGeostore = !isEmpty(geostore) ? geostore : mapLocationGeostore;
+
+      if (clipToGeostore && !isEmpty(mapGeostore)) {
         this.updateMapSettings();
       } else {
         this.updateMapSettings(true);

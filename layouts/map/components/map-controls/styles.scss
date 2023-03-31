@@ -1,5 +1,5 @@
-@import '~styles/settings.scss';
-@import '~styles/utils.scss';
+@import "~styles/settings.scss";
+@import "~styles/utils.scss";
 
 .c-map-controls {
   .c-icon {
@@ -167,6 +167,15 @@
     display: flex;
     justify-content: space-between;
   }
+}
+
+.c-map-controls.top-map-controls {
+  position: absolute;
+  top: rem(60px);
+  right: rem(15px);
+  z-index: 5;
+  background-color: $plain-menu;
+  height: subnav-height-dark;
 }
 
 .recent-imagery-panel,

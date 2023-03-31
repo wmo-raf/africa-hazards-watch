@@ -13,6 +13,7 @@ const datasets = [
     category: category,
     sub_category: subCategory,
     metadata: "4ab406e5-64bd-4049-9ef4-59a6c9c8503b",
+    global: true,
     layers: [
       {
         id: "africa_dams",

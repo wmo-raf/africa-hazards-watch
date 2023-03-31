@@ -11,6 +11,7 @@ const datasets = [
     sub_category: subCategory,
     metadata: "a928f7d5-bfe0-4570-9987-d3475d42bfbd",
     citation: "WorldPop constrained, 2020",
+    global: true,
     layers: [
       {
         name: "Population 2020 - Grid, 100m ",

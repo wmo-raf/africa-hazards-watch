@@ -31,25 +31,33 @@ const getApiSections = (state) => (state.sections && state.sections.data) || [];
 const getSectionSettings = (state) =>
   (state.sections && state.sections.settings) || [];
 const selectClipToGeostore = (state) => state.map?.settings?.clipToGeostore;
+export const selectmapLocationGeostore = (state) =>
+  state.geostore && state.geostore.mapLocationGeostore;
 
 export const getMenuSection = createSelector(
   [getMenuSettings],
   (settings) => settings.menuSection
 );
 
+export const getActiveCountries = createSelector(
+  [getCountries],
+  (countries) => {
+    if (isEmpty(countries)) return [];
+
+    const activeCountries = ["ETH", "NER"];
+
+    return countries.filter((c) => activeCountries.includes(c.value));
+  }
+);
+
+export const getSelectedCountry = createSelector(
+  [getMenuSettings],
+  (settings) => settings.mapLocationContext
+);
+
 export const getSubCategoryGroupsSelected = createSelector(
   [getMenuSettings],
   (settings) => settings.subCategoryGroupsSelected
-);
-
-export const getSelectedForecastModel = createSelector(
-  [getMenuSettings],
-  (settings) => settings.selectedForecastModel
-);
-
-export const getSelectedCountries = createSelector(
-  [getMenuSettings],
-  (settings) => settings.selectedCountries
 );
 
 export const getDatasetCategory = createSelector(
@@ -79,36 +87,16 @@ export const getPTWType = createSelector(
 
 // get countries by datasets
 export const getAvailableCountries = createSelector(
-  [getCountries, getDatasets],
-  (countries, datasets) => {
-    if (isEmpty(countries) || isEmpty(datasets)) return null;
-    const validIsos = flatten(
-      datasets.filter((d) => !d.global).map((d) => d.iso)
-    );
-    return countries.filter((c) => validIsos.includes(c.value));
-  }
-);
-
-export const getUnselectedCountries = createSelector(
-  [getAvailableCountries, getSelectedCountries],
-  (countries, selectedCountries) => {
-    if (!countries) return null;
-    return countries.filter((c) => !selectedCountries?.includes(c.value));
-  }
-);
-
-export const getActiveCountries = createSelector(
-  [getCountries, getSelectedCountries],
-  (countries, selectedCountries) => {
-    if (!countries) return null;
-    return countries.filter((c) => selectedCountries?.includes(c.value));
+  [getCountries],
+  (countries) => {
+    return countries;
   }
 );
 
 // build datasets with available countries data
 export const getDatasetSections = createSelector(
-  [getApiSections, getDatasets, getActiveCountries],
-  (apiSections, datasets, countries) => {
+  [getApiSections, getDatasets, getSelectedCountry],
+  (apiSections, datasets, selectedCountry) => {
     const sections = apiSections.map((section) => ({
       ...section,
       icon: icons[section.icon] ? icons[section.icon] : icons.defaultIcon,
@@ -145,26 +133,10 @@ export const getDatasetSections = createSelector(
           }));
         }
 
-        let countriesWithDatasets = [];
-
-        if (countries) {
-          countriesWithDatasets = countries.map((c) => ({
-            title: c.label,
-            slug: c.value,
-            datasets:
-              sectionDatasets &&
-              sectionDatasets.filter(
-                (d) => !d.global && d.iso.includes(c.value)
-              ),
-          }));
-        }
-
         return {
           ...s,
           datasets: sectionDatasets,
-          subCategories: countriesWithDatasets.concat(
-            subCategoriesWithDatasets
-          ),
+          subCategories: subCategoriesWithDatasets,
         };
       })
     );
@@ -355,8 +327,8 @@ export const getMenuProps = createStructuredSelector({
   activeSection: getActiveSectionWithData,
   menuSection: getMenuSection,
   countriesWithoutData: getZeroDataCountries,
-  countries: getUnselectedCountries,
-  selectedCountries: getActiveCountries,
+  countries: getActiveCountries,
+  selectedCountry: getSelectedCountry,
   activeDatasets: getActiveDatasetsFromState,
   datasetCategory: getDatasetCategory,
   datasetCategories: getDatasetCategories,
@@ -371,9 +343,9 @@ export const getMenuProps = createStructuredSelector({
   alertDataset: getAlertDataset,
   comparing: getComparing,
   activeCompareSide: getActiveCompareSide,
-  selectedForecastModel: getSelectedForecastModel,
   clipToGeostore: selectClipToGeostore,
   geostore: selectGeostore,
+  mapLocationGeostore: selectmapLocationGeostore,
   allDatasets: getDatasets,
   subCategoryGroupsSelected: getSubCategoryGroupsSelected,
 });

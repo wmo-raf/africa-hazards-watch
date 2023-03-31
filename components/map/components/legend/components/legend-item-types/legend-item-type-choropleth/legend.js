@@ -50,8 +50,6 @@ function createLegend(
   if (color.interpolate) {
     const n = Math.min(color.domain().length, color.range().length);
 
-    console.log(color.domain());
-
     x = color
       .copy()
       .rangeRound(quantize(interpolate(marginLeft, width - marginRight), n));

@@ -9,6 +9,9 @@ export const setMapLocationContextGeostore = createAction(
   "setMapLocationContextGeostore"
 );
 export const clearGeostore = createAction("clearGeostore");
+export const clearMapLocationContextGeostore = createAction(
+  "clearMapLocationContextGeostore"
+);
 
 export const fetchGeostore = createThunkAction(
   "fetchGeostore",

@@ -12,6 +12,7 @@ const datasets = [
     metadata: "",
     category: category,
     sub_category: subCategory,
+    global: true,
     layers: [
       {
         id: "cap_alerts",
