@@ -1,4 +1,6 @@
 import { fetchTimestamps } from "services/timestamps";
+import { POLITICAL_BOUNDARIES_DATASET } from "data/datasets";
+import { POLITICAL_BOUNDARIES } from "data/layers";
 
 const datasetName = "Monthly Rainfall Anomalies";
 const layerName = "monthly_rainfall_anomaly_rfe";
@@ -21,6 +23,7 @@ const datasets = [
     citation: "TAMSAT, From 1983 to recent",
     group: "tamsat",
     global: true,
+    capabilities: ["clip", "timeseries"],
     layers: [
       {
         name: datasetName,
@@ -95,7 +98,76 @@ const datasets = [
         },
         hidePastTimestamps: true, // we might need to hide past forecast
         data_path: dataPath,
-        analysisConfig: [],
+        gskyAnalysisConfig: {
+          widget: layerName,
+          wpsIdentifier: layerName,
+          owsNameSpace: owsNameSpace,
+          title: "TAMSAT - Monthly Rainfall Anomaly For {location}",
+          categories: ["summary"],
+          types: ["country", "geostore", "point"],
+          admins: ["adm0", "adm1", "adm2"],
+          large: true,
+          metaKey: "",
+          sortOrder: {},
+          visible: ["analysis", "dashboard"],
+          chartType: "composedChart",
+          colors: "weather",
+          sentences: {},
+          settings: {
+            time: "",
+          },
+          refetchKeys: ["time"],
+          requiresTime: true,
+          datasets: [
+            {
+              dataset: POLITICAL_BOUNDARIES_DATASET,
+              layers: [POLITICAL_BOUNDARIES],
+              boundary: true,
+            },
+            // forecast
+            {
+              dataset: layerName,
+              layers: [layerName],
+            },
+          ],
+          plotConfig: {
+            byCurrentDataMonth: true,
+            isAnomaly: true,
+            inverseAnomalyColor: true,
+            simpleNeedsAxis: true,
+            height: 250,
+            xKey: "year",
+            yKeys: {
+              bars: {
+                value: {
+                  yAxisId: "value",
+                  itemColor: true,
+                },
+              },
+            },
+            unit: " mm",
+            yAxis: {
+              yAxisId: "value",
+              domain: ["auto", "auto"],
+            },
+            referenceLine: {
+              y: 0,
+              yAxisId: "value",
+            },
+            tooltip: [
+              {
+                key: "date",
+                label: "Month",
+                formatConfig: { formatDate: true, dateFormat: "MMM yyyy" },
+              },
+              {
+                key: "value",
+                label: "Anomaly",
+                formatConfig: { formatNumber: true, units: "mm" },
+              },
+            ],
+          },
+        },
       },
     ],
   },

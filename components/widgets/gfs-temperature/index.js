@@ -40,6 +40,7 @@ export default {
   settings: {
     time: "",
   },
+  getConfig: () => {},
   getData: (params = {}, token) => {
     const {
       endpoint,

@@ -30,6 +30,7 @@ import LayerSelectorMenu from "./components/layer-selector-menu";
 import LayerStatement from "./components/layer-statement";
 import LayerAnalysisStatement from "./components/layer-analysis-statement";
 import LayerMoreInfo from "./components/layer-more-info";
+import LayerCapabilities from "components/layer-capabilities/component";
 
 import SubNavMenu from "components/subnav-menu";
 
@@ -99,6 +100,7 @@ const MapLegendContent = ({
           name,
           dataset,
           citation,
+          capabilities,
         } = lg || {};
 
         const activeLayer = layers && layers.find((l) => l.active);
@@ -193,6 +195,7 @@ const MapLegendContent = ({
                 <div>Updating ...</div>
               </div>
             )}
+            <LayerCapabilities capabilities={capabilities} />
             {legendImage && legendImage.url && (
               <div className="legend-image">
                 <img src={legendImage.url} />

@@ -18,6 +18,7 @@ const datasets = [
     isNearRealTime: true,
     citation: "EUMETSAT, Updated every 3 Hours",
     global: true,
+    capabilities: ["timeseries", "nearRealTime"],
     layers: [
       {
         name: name,

@@ -47,7 +47,7 @@ class WidgetContainer extends Component {
     const { location, settings, meta, status } = this.props;
     const params = { ...location, ...settings, status };
 
-    this.handleGetWidgetData({ ...params, GFW_META: meta });
+    this.handleGetWidgetData({ ...params });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -61,6 +61,7 @@ class WidgetContainer extends Component {
       prevState.error !== undefined &&
       !isEqual(error, prevState.error);
     const refetchSettings = pick(settings, refetchKeys);
+
     const refetchPrevSettings = pick(prevProps.settings, refetchKeys);
     const hasSettingsChanged = !isEqual(refetchSettings, refetchPrevSettings);
 
@@ -107,7 +108,7 @@ class WidgetContainer extends Component {
   }
 
   handleGetWidgetData = (params) => {
-    const { location, requiresTime } = this.props;
+    const { location, requiresTime, wpsIdentifier, owsNameSpace } = this.props;
 
     const isPoint = Boolean(
       location.type &&
@@ -135,7 +136,13 @@ class WidgetContainer extends Component {
       }
 
       if (canFetch) {
-        getData({ ...params, geostore, token: this.widgetDataFetch.token })
+        getData({
+          ...params,
+          geostore,
+          token: this.widgetDataFetch.token,
+          wpsIdentifier: wpsIdentifier,
+          owsNameSpace: owsNameSpace,
+        })
           .then((data) => {
             setWidgetData(data);
             setTimeout(() => {

@@ -1,6 +1,7 @@
 import reduce from "lodash/reduce";
 import isEqual from "lodash/isEqual";
 import { parseISO, getDaysInMonth } from "date-fns";
+import { getPentadFromDateString } from "./date-format";
 
 export const objDiff = (obj1, obj2) => {
   return reduce(
@@ -43,16 +44,102 @@ export const gskyWpsDataByYear = (data, options = {}) => {
   }, {});
 
   const dataByYear = Object.keys(byYear).reduce((all, year) => {
-    let mean = byYear[year].reduce((avg, item, _, { length }) => {
+    let value = byYear[year].reduce((avg, item, _, { length }) => {
       return avg + item.value / length;
     }, 0);
 
-    all.push({ year, mean });
+    all.push({ date: year, value });
 
     return all;
   }, []);
 
   return dataByYear;
+};
+
+export const gskyWpsDataByMonthNo = (data, month, yearAsTime = true) => {
+  const byYear = data.reduce((all, item) => {
+    const date = parseISO(item.date);
+    const year = date.getFullYear();
+    const dMonth = date.getMonth() + 1;
+
+    if (month === dMonth) {
+      let value = item.value;
+
+      const dValue = { value: value };
+
+      if (all[year]) {
+        all[year].push(dValue);
+      } else {
+        all[year] = [dValue];
+      }
+    }
+
+    return all;
+  }, {});
+
+  const dataByYear = Object.keys(byYear).reduce((all, year) => {
+    let value = byYear[year].reduce((avg, item, _, { length }) => {
+      return avg + item.value / length;
+    }, 0);
+
+    if (yearAsTime) {
+      all.push({ date: new Date(year, month - 1).toISOString(), year, value });
+    } else {
+      all.push({ date: year, value });
+    }
+
+    return all;
+  }, []);
+
+  return dataByYear;
+};
+
+export const gskyWpsDataByPentadNo = (data, pentad, yearAsTime = true) => {
+  let pentadStartDate;
+  const byYearMonth = data.reduce((all, item) => {
+    const [dPentad, _, pStart] = getPentadFromDateString(item.date);
+
+    pentadStartDate = pStart;
+
+    if (dPentad === pentad) {
+      const date = parseISO(item.date);
+      const year = date.getFullYear();
+      const dMonth = date.getMonth() + 1;
+
+      if (all[year]) {
+        if (all[year][dMonth]) {
+          all[year][dMonth].push(item);
+        } else {
+          all[year][dMonth] = [item];
+        }
+      } else {
+        all[year] = { [dMonth]: [item] };
+      }
+    }
+    return all;
+  }, {});
+
+  const dataByYearMonth = Object.keys(byYearMonth).reduce((all, year) => {
+    const yearMonthAv = Object.keys(byYearMonth[year]).reduce((m, month) => {
+      const monthAvg = byYearMonth[year][month].reduce(
+        (avg, item, _, { length }) => {
+          return avg + item.value / length;
+        },
+        0
+      );
+
+      const date = new Date(year, month, pentadStartDate).toISOString();
+
+      m.push({ date: date, year: year, value: monthAvg });
+      return m;
+    }, []);
+
+    all.push(...yearMonthAv);
+
+    return all;
+  }, []);
+
+  return dataByYearMonth;
 };
 
 export const gskyWpsPrecipitationDataByYear = (data) => {

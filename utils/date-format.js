@@ -67,7 +67,7 @@ const getOrdinalNum = (number) => {
   return number + ["th", "st", "nd", "rd", ""][selector];
 };
 
-function getPentadFromDateString(dateString) {
+export function getPentadFromDateString(dateString) {
   const date = new Date(dateString);
 
   const lastDayOfMonth = endOfMonth(date).getDate();
@@ -75,25 +75,25 @@ function getPentadFromDateString(dateString) {
   const day = date.getDate();
 
   if (day <= 5) {
-    return [1, "1-5th"];
+    return [1, "1-5th", 1];
   }
 
   if (day <= 10) {
-    return [2, "6-10th"];
+    return [2, "6-10th", 6];
   }
 
   if (day <= 15) {
-    return [3, "11-15th"];
+    return [3, "11-15th", 11];
   }
 
   if (day <= 20) {
-    return [4, "16-20th"];
+    return [4, "16-20th", 16];
   }
 
   if (day <= 25) {
-    return [4, "21-25th"];
+    return [4, "21-25th", 21];
   }
-  return [6, `26-${getOrdinalNum(lastDayOfMonth)}`];
+  return [6, `26-${getOrdinalNum(lastDayOfMonth)}`, 26];
 }
 
 // if day <= 5:

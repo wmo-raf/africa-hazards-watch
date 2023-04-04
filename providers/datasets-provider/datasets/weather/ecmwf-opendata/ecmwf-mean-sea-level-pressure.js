@@ -27,6 +27,7 @@ const datasets = [
     group: "ecmwf",
     isMultiLayer: true,
     global: true,
+    capabilities: ["clip", "timeseries"],
     layers: [
       {
         name: datasetName,

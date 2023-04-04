@@ -21,6 +21,7 @@ const datasets = [
     metadata: metadataId,
     citation: "eVIIRS, Pentadal, updated every 5 days",
     global: true,
+    capabilities: ["timeseries"],
     layers: [
       {
         name: datasetName,

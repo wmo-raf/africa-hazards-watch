@@ -25,6 +25,7 @@ const datasets = [
     citation: "Multi-Model, North Africa",
     global: false,
     region: "north_africa",
+    capabilities: ["clip", "timeseries"],
     layers: [
       {
         name: datasetName,

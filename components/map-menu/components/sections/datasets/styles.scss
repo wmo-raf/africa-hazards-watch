@@ -6,6 +6,29 @@ $plain-menu: #f1f1f1;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 
+  .login-header {
+    padding: rem(5px) rem(15px);
+    @media screen and (min-width: $screen-m) {
+      padding: rem(20px);
+      padding-bottom: rem(5px);
+    }
+
+    h3.title-login {
+      text-transform: uppercase;
+      color: $slate;
+      font-size: rem(14px);
+      font-weight: 500;
+      margin-bottom: rem(10px);
+    }
+    p {
+      margin: rem(10px) 0;
+      line-height: 1.7;
+    }
+    .myhw-login {
+      margin: rem(40px) 0;
+    }
+  }
+
   .datasets-header {
     text-transform: uppercase;
     display: flex;

@@ -24,7 +24,8 @@ import {
   getLocationPath,
 } from "./utils/config";
 
-import allWidgets from "./manifest";
+import customWidgets from "./manifest";
+import getWidget from "./gsky-generic-widget";
 
 const isServer = typeof window === "undefined";
 
@@ -200,10 +201,34 @@ export const getDatasetLayersWithAnalysis = createSelector(
   (datasets) => {
     return datasets.reduce((all, dataset) => {
       const layers =
-        (dataset.layers && dataset.layers.filter((l) => l.analysisConfig)) ||
+        (dataset.layers &&
+          dataset.layers.filter(
+            (l) => !isEmpty(l.analysisConfig) || !isEmpty(l.gskyAnalysisConfig)
+          )) ||
         [];
+
       return all.concat(layers);
     }, []);
+  }
+);
+
+export const getGskyLayerWidgets = createSelector(
+  [getActiveLayers],
+  (activeLayers) => {
+    const widgets = activeLayers.reduce((all, layer) => {
+      if (layer.gskyAnalysisConfig) {
+        const { widget } = layer.gskyAnalysisConfig;
+
+        all[widget] = {
+          ...getWidget(layer.gskyAnalysisConfig),
+          isGskyAnalysis: true,
+        };
+      }
+
+      return all;
+    }, {});
+
+    return widgets;
   }
 );
 
@@ -216,6 +241,7 @@ export const filterWidgetsByLocation = createSelector(
     getDatasetLayersWithAnalysis,
     getActiveLayers,
     selectAnalysis,
+    getGskyLayerWidgets,
   ],
   (
     location,
@@ -224,9 +250,12 @@ export const filterWidgetsByLocation = createSelector(
     widget,
     analysisLayers,
     activeLayers,
-    showAnalysis
+    showAnalysis,
+    gskyWidgets
   ) => {
     const { adminLevel, type, adm0, adm1, areaId } = location;
+
+    const allWidgets = { ...gskyWidgets, ...customWidgets };
 
     // map colors to widgets
     const widgets = Object.values(allWidgets).map((w) => {
@@ -257,10 +286,21 @@ export const filterWidgetsByLocation = createSelector(
       layersWithAnalysis = analysisLayers.map((l) => ({
         id: l.id,
         dataset: l.dataset,
-        keys: uniq(l.analysisConfig.map((k) => k.key)),
-        types: uniq(l.analysisConfig.map((k) => k.type)),
+        keys: uniq(l.analysisConfig?.map((k) => k.key)),
+        types: uniq(l.analysisConfig?.map((k) => k.type)),
       }));
     }
+
+    const gskyLayersWithAnalysis = Object.keys(gskyWidgets).map((key) => {
+      const w = gskyWidgets[key];
+
+      return {
+        id: w.widget,
+        dataset: w.widget,
+      };
+    });
+
+    layersWithAnalysis.push(...gskyLayersWithAnalysis);
 
     const datasetIds =
       layersWithAnalysis && layersWithAnalysis.map((l) => l.dataset);
@@ -268,7 +308,7 @@ export const filterWidgetsByLocation = createSelector(
       layersWithAnalysis && flatMap(layersWithAnalysis.map((l) => l.keys));
 
     const widgets_ = widgets.filter((w) => {
-      const { types, admins, datasets, visible } = w || {};
+      const { types, admins, datasets, visible, isGskyAnalysis } = w || {};
 
       const { status } = locationData || {};
 
@@ -292,21 +332,28 @@ export const filterWidgetsByLocation = createSelector(
         w.layers = widgetLayers;
       }
 
-      const analysisKeyIntersection =
-        datasets &&
-        intersection(
-          compact(
-            flatMap(
-              datasets
-                .filter((d) => !d.boundary)
-                .map((d) => {
-                  const keysArray = Array.isArray(d.keys) && d.keys;
-                  return keysArray;
-                })
-            )
-          ),
-          layerAnalysisKeys
-        );
+      let analysisKeyIntersection;
+
+      // skip checking for intersection keys if is gskyAnalysis: TODO: Time for a refactor of how we get widgets for analysis?
+      if (isGskyAnalysis) {
+        analysisKeyIntersection = [w.widget];
+      } else {
+        analysisKeyIntersection =
+          datasets &&
+          intersection(
+            compact(
+              flatMap(
+                datasets
+                  .filter((d) => !d.boundary)
+                  .map((d) => {
+                    const keysArray = Array.isArray(d.keys) && d.keys;
+                    return keysArray;
+                  })
+              )
+            ),
+            layerAnalysisKeys
+          );
+      }
 
       const hasLocation =
         types &&
@@ -333,6 +380,7 @@ export const filterWidgetsByLocation = createSelector(
 
     if (type === "use" && adm0 && adm1) {
       // filter widgets with layers that match adm0
+
       return widgets_.filter(
         (w) =>
           w.types &&
@@ -400,7 +448,7 @@ export const getLayerEndpoints = createSelector(
     return layers.map((l) => {
       // get ONLY one analysis config from list, with type that matches the relevant geostore/region /admin level
       const analysisConfig =
-        l.analysisConfig.find(
+        l.analysisConfig?.find(
           (a) => a.type === routeType || routeType === "use"
         ) || {};
 
@@ -643,7 +691,9 @@ export const getActiveWidget = createSelector(
     if (!widgets || analysis) return null;
     if (!activeWidgetKey) return widgets[0];
 
-    return widgets.find((w) => w.widget === activeWidgetKey);
+    const activeWidgets = widgets.find((w) => w.widget === activeWidgetKey);
+
+    return activeWidgets;
   }
 );
 

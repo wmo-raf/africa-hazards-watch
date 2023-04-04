@@ -13,6 +13,7 @@ const datasets = [
     category: category,
     sub_category: subCategory,
     global: true,
+    capabilities: ["nearRealTime"],
     layers: [
       {
         id: "cap_alerts",

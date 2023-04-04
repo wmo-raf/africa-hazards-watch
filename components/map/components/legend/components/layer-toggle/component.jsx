@@ -8,9 +8,10 @@ import Icon from "components/ui/icon";
 import { Tooltip } from "react-tippy";
 import Tip from "components/ui/tip";
 
+import LayerCapabilities from "components/layer-capabilities";
+
 import infoIcon from "assets/icons/info.svg?sprite";
 import helpIcon from "assets/icons/help.svg?sprite";
-import satelliteIcon from "assets/icons/satellite.svg?sprite";
 
 import "./styles.scss";
 
@@ -37,6 +38,7 @@ class LayerToggle extends PureComponent {
       citation,
       description,
       isNearRealTime,
+      capabilities,
     } = data;
 
     return (
@@ -99,12 +101,8 @@ class LayerToggle extends PureComponent {
               {`${citation}`}
             </div>
           )}
-          {isNearRealTime && (
-            <div className="nrt-indicator">
-              <span> Near Real Time</span>
-              <Icon icon={satelliteIcon} />
-            </div>
-          )}
+
+          <LayerCapabilities capabilities={capabilities} />
         </div>
       </div>
     );

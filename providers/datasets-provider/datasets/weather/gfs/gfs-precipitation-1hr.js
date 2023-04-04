@@ -23,6 +23,7 @@ const datasets = [
     group: "gfs",
     global: true,
     // initialVisible: true,
+    capabilities: ["clip", "timeseries", "analysis"],
     layers: [
       {
         name: datasetName,

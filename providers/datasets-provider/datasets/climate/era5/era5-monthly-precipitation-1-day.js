@@ -19,6 +19,7 @@ const datasets = [
     metadata: metadataId,
     citation: "ERA5 reanalysis, From 1959 to recent",
     global: true,
+    capabilities: ["clip", "timeseries", "analysis"],
     layers: [
       {
         name: datasetName,

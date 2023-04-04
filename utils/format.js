@@ -7,6 +7,10 @@ export const formatDate = (day) => {
   return dateFormat(parseISO(day), "MMM dd");
 };
 
+export const formatDateTime = (isoDate, format) => {
+  return dateFormat(parseISO(isoDate), format);
+};
+
 export const formatHour = (day) => dateFormat(parseISO(day), "MMM dd HH:mm");
 export const formatWeekday = (day) => dateFormat(parseISO(day), "ccc HH:mm");
 

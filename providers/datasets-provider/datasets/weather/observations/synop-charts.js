@@ -126,6 +126,7 @@ const datasets = [
     citation: "GTS Synop, 3 Hourly",
     isMultiLayer: true,
     global: true,
+    capabilities: ["timeseries"],
     layers: generateLayers([]),
   },
 ];

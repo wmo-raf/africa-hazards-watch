@@ -20,6 +20,7 @@ const datasets = [
     initialVisible: true,
     citation: "EUMETSAT, Updated every 15 minutes",
     global: true,
+    capabilities: ["timeseries", "nearRealTime"],
     layers: [
       {
         name: name,

@@ -23,6 +23,7 @@ const datasets = [
     metadata: metadataId,
     citation: "GTS Synop, 3 Hourly",
     global: true,
+    capabilities: ["timeseries"],
     layers: [
       {
         name: datasetName,

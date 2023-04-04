@@ -21,6 +21,7 @@ const datasets = [
     citation: "CHIRPS, From 1981 to recent",
     group: "chirps",
     global: true,
+    capabilities: ["clip", "timeseries"],
     layers: [
       {
         name: datasetName,

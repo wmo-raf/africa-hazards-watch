@@ -1,4 +1,6 @@
 import { fetchTimestamps } from "services/timestamps";
+import { POLITICAL_BOUNDARIES_DATASET } from "data/datasets";
+import { POLITICAL_BOUNDARIES } from "data/layers";
 
 const datasetName = "Monthly Rainfall Estimates";
 const layerName = "monthly_chirps_rainfall_estimate";
@@ -21,6 +23,7 @@ const datasets = [
     citation: "CHIRPS, From 1981 to recent",
     group: "chirps",
     global: true,
+    capabilities: ["clip", "timeseries"],
     layers: [
       {
         name: datasetName,
@@ -111,7 +114,74 @@ const datasets = [
         },
         hidePastTimestamps: true, // we might need to hide past forecast
         data_path: dataPath,
-        analysisConfig: [],
+        gskyAnalysisConfig: {
+          widget: layerName,
+          wpsIdentifier: layerName,
+          owsNameSpace: owsNameSpace,
+          title: "CHIRPS - Monthly Total Rainfall Estimate For {location}",
+          categories: ["summary"],
+          types: ["country", "geostore", "point"],
+          admins: ["adm0", "adm1", "adm2"],
+          large: true,
+          metaKey: "",
+          sortOrder: {},
+          visible: ["analysis", "dashboard"],
+          chartType: "composedChart",
+          colors: "weather",
+          sentences: {},
+          settings: {
+            time: "",
+          },
+          refetchKeys: ["time"],
+          requiresTime: true,
+          datasets: [
+            {
+              dataset: POLITICAL_BOUNDARIES_DATASET,
+              layers: [POLITICAL_BOUNDARIES],
+              boundary: true,
+            },
+            // forecast
+            {
+              dataset: layerName,
+              layers: [layerName],
+            },
+          ],
+          plotConfig: {
+            byCurrentDataMonth: true,
+            simpleNeedsAxis: true,
+            height: 250,
+            xKey: "year",
+            yKeys: {
+              bars: {
+                value: {
+                  yAxisId: "value",
+                  fill: "#367DA4",
+                },
+              },
+            },
+            unit: " mm",
+            yAxis: {
+              yAxisId: "value",
+              domain: ["auto", "auto"],
+            },
+            referenceLine: {
+              y: 0,
+              yAxisId: "value",
+            },
+            tooltip: [
+              {
+                key: "date",
+                label: "Month",
+                formatConfig: { formatDate: true, dateFormat: "MMM yyyy" },
+              },
+              {
+                key: "value",
+                label: "Rainfall",
+                formatConfig: { formatNumber: true, units: "mm" },
+              },
+            ],
+          },
+        },
       },
     ],
   },

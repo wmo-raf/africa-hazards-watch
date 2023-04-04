@@ -22,6 +22,7 @@ const datasets = [
     citation: "GFS, Hourly for the next 5 days",
     group: "gfs",
     global: true,
+    capabilities: ["clip", "timeseries"],
     layers: [
       {
         name: datasetName,

@@ -22,6 +22,7 @@ const datasets = [
     citation: "TAMSAT, From 1983 to recent",
     group: "tamsat",
     global: true,
+    capabilities: ["clip", "timeseries"],
     layers: [
       {
         name: datasetName,
