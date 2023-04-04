@@ -56,8 +56,6 @@ export const parseData = createSelector(
     } else if (byCurrentDataPentad && time) {
       const [pentad] = getPentadFromDateString(time);
       plotData = gskyWpsDataByPentadNo(data, pentad);
-
-      console.log(plotData, "DATAA");
     }
 
     if (isAnomaly) {

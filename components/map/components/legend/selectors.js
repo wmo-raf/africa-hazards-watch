@@ -24,38 +24,63 @@ export const getLoading = createSelector(
     latestLoading || datasetsLoading || countryDataLoading
 );
 
-const getLegendLayerGroups = createSelector([getLayerGroups], (groups) => {
-  if (!groups) return null;
+const getLegendLayerGroups = createSelector(
+  [getLayerGroups, selectLayerTimestamps],
+  (groups, layerTimestamps) => {
+    if (!groups) return null;
 
-  const lGroups = groups.filter((g) => !g.isBoundary && !g.isRecentImagery);
+    const lGroups = groups.filter((g) => !g.isBoundary && !g.isRecentImagery);
 
-  return lGroups.map((group) => {
-    const layers =
-      group.layers &&
-      group.layers.map((l) => {
-        if (l.dynamicLegendByParamConfig) {
-          const params = l.params;
+    return lGroups.map((group) => {
+      const layers =
+        group.layers &&
+        group.layers.map((l) => {
+          const timestampsForLayer = layerTimestamps[l.id];
 
-          for (const param in params) {
-            if (l.dynamicLegendByParamConfig[param]) {
-              const val = params[param];
+          if (l.paramsSelectorConfig) {
+            const paramsSelectorConfig = [...l.paramsSelectorConfig];
 
-              if (l.dynamicLegendByParamConfig[param][val]) {
-                l.legendConfig = l.dynamicLegendByParamConfig[param][val];
-                break;
-              } else {
-                l.legendConfig = {};
+            paramsSelectorConfig.forEach((p, index) => {
+              const param = { ...p };
+              if (timestampsForLayer && !!timestampsForLayer.length) {
+                const { type } = param;
+                if (type && type === "datetime") {
+                  param.availableDates = timestampsForLayer;
+                }
+                if (param.optionsFromTimeStamps) {
+                  param.options = timestampsForLayer;
+                }
+                paramsSelectorConfig[index] = { ...param };
+              }
+            });
+
+            l.paramsSelectorConfig = paramsSelectorConfig;
+          }
+
+          if (l.dynamicLegendByParamConfig) {
+            const params = l.params;
+
+            for (const param in params) {
+              if (l.dynamicLegendByParamConfig[param]) {
+                const val = params[param];
+
+                if (l.dynamicLegendByParamConfig[param][val]) {
+                  l.legendConfig = l.dynamicLegendByParamConfig[param][val];
+                  break;
+                } else {
+                  l.legendConfig = {};
+                }
               }
             }
           }
-        }
 
-        return { ...l };
-      });
+          return { ...l };
+        });
 
-    return { ...group, layers: layers };
-  });
-});
+      return { ...group, layers: layers };
+    });
+  }
+);
 
 export const getLegendCompareLinks = createSelector(
   [getActiveCompareSide],
@@ -80,7 +105,6 @@ export const getLegendProps = createStructuredSelector({
   comparing: getComparing,
   layerGroups: getLegendLayerGroups,
   activeDatasets: getActiveDatasetsFromState,
-  layerTimestamps: selectLayerTimestamps,
   activeLayers: getActiveLayers,
   compareLinks: getLegendCompareLinks,
   activeCompareSide: getActiveCompareSide,

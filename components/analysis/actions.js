@@ -252,12 +252,14 @@ export const uploadShape = createThunkAction(
 
 export const clearAnalysis = createThunkAction(
   "clearAnalysis",
-  ({ isComparing }) => (dispatch) => {
+  (options) => (dispatch) => {
+    const { isComparing } = options || {};
+
     const { query, pushQuery } = useRouter();
 
     // set datasests to be on the left side by defualt
     if (isComparing) {
-      const datasets = query?.map?.datasets.map((d) => ({
+      const datasets = query?.map?.datasets?.map((d) => ({
         ...d,
         mapSide: "left",
       }));

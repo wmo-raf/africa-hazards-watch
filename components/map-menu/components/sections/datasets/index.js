@@ -10,7 +10,7 @@ class DatasetsMenuContainer extends PureComponent {
   static propTypes = {
     activeDatasets: PropTypes.array,
     setMapSettings: PropTypes.func,
-    selectedCountry: PropTypes.array,
+    selectedCountry: PropTypes.string,
     setMenuSettings: PropTypes.func,
   };
 

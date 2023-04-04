@@ -10,7 +10,6 @@ import GeostoreProvider from "providers/geostore-provider";
 import GeodescriberProvider from "providers/geodescriber-provider";
 import DatasetsProvider from "providers/datasets-provider";
 import AreasProvider from "providers/areas-provider";
-import LocationProvider from "providers/location-provider";
 import MyHwProvider from "providers/myhw-provider";
 
 // import dashboardLinksSSR from 'data/dashboard-menu-ssr';
@@ -207,7 +206,6 @@ class DashboardsPage extends PureComponent {
         <GeostoreProvider />
         <GeodescriberProvider />
         <AreasProvider />
-        <LocationProvider />
         <MyHwProvider />
         {!embed && (
           <Desktop>

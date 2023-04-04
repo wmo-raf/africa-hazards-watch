@@ -10,7 +10,7 @@ import GeodescriberProvider from "providers/geodescriber-provider";
 import DatasetsProvider from "providers/datasets-provider";
 import AreasProvider from "providers/areas-provider";
 import MyDataProvider from "providers/mydata-provider";
-import LocationProvider from "providers/location-provider";
+
 import MyHwProvider from "providers/myhw-provider";
 
 import ModalWelcome from "components/modals/welcome";
@@ -29,6 +29,8 @@ import MapControlButtons from "./components/map-controls";
 import "./styles.scss";
 
 class MainMapComponent extends PureComponent {
+  state = { locationReady: false };
+
   static propTypes = {
     onDrawComplete: PropTypes.func,
     handleClickAnalysis: PropTypes.func,
@@ -101,7 +103,6 @@ class MainMapComponent extends PureComponent {
         <GeodescriberProvider />
         <MyDataProvider />
         <AreasProvider />
-        <LocationProvider />
         <MyHwProvider />
       </div>
     );

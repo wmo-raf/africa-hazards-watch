@@ -14,6 +14,11 @@ export const selectLocation = (state) =>
 export const selectClipToGeostore = (state) =>
   state.map?.settings?.clipToGeostore;
 
+const selectMapLocationContext = (state) =>
+  state.mapMenu?.settings?.mapLocationContext;
+
+const selectDatasetParams = (state) => state.datasets?.params;
+
 import { layersUpdateProviders } from "./datasets";
 
 export const getUpdateProviders = createSelector(
@@ -35,4 +40,6 @@ export const getDatasetProps = createStructuredSelector({
   mapLocationGeostore: selectmapLocationGeostore,
   location: selectLocation,
   clipToGeostore: selectClipToGeostore,
+  mapLocationContext: selectMapLocationContext,
+  datasetParams: selectDatasetParams,
 });

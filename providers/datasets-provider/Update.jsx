@@ -1,6 +1,16 @@
 import { PureComponent } from "react";
 import bbox from "turf-bbox";
-import { isEmpty } from "lodash";
+import { isEmpty, isEqual } from "lodash";
+import { connect } from "react-redux";
+
+import * as ownActions from "./actions";
+import { getDatasetProps } from "./selectors";
+import { setMapSettings } from "components/map/actions";
+
+const actions = {
+  ...ownActions,
+  setMapSettings,
+};
 
 class LayerUpdate extends PureComponent {
   componentDidMount() {
@@ -16,6 +26,32 @@ class LayerUpdate extends PureComponent {
   componentWillUnmount() {
     if (this.interval) {
       clearInterval(this.interval);
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const {
+      activeDatasets: prevActiveDatasets,
+      geostore: prevGeostore,
+      mapLocationGeostore: prevMapLocationGeostore,
+      clipToGeostore: prevClipToGeostore,
+    } = prevProps;
+
+    const {
+      activeDatasets,
+      clipToGeostore,
+      mapLocationGeostore,
+      geostore,
+    } = this.props;
+
+    const shouldUpdateClipping =
+      !isEqual(geostore, prevGeostore) ||
+      !isEqual(mapLocationGeostore, prevMapLocationGeostore) ||
+      clipToGeostore !== prevClipToGeostore ||
+      !isEqual(activeDatasets, prevActiveDatasets);
+
+    if (shouldUpdateClipping) {
+      this.doUpdateClipping();
     }
   }
 
@@ -56,17 +92,19 @@ class LayerUpdate extends PureComponent {
             newParams.time = newTime;
           }
 
+          const newDatasets = activeDatasets.map((l) => {
+            const dataset = { ...l };
+            if (l.layers.includes(layer)) {
+              dataset.params = {
+                ...dataset.params,
+                ...newParams,
+              };
+            }
+            return dataset;
+          });
+
           setMapSettings({
-            datasets: activeDatasets.map((l) => {
-              const dataset = { ...l };
-              if (l.layers.includes(layer)) {
-                dataset.params = {
-                  ...dataset.params,
-                  ...newParams,
-                };
-              }
-              return dataset;
-            }),
+            datasets: newDatasets,
           });
 
           setLayerUpdatingStatus({ [layer]: false });
@@ -115,9 +153,80 @@ class LayerUpdate extends PureComponent {
     }
   };
 
+  doUpdateClipping = () => {
+    const {
+      clipToGeostore,
+      mapLocationGeostore,
+      paramClipByGeostore,
+      paramClipByMapLocationContext,
+      geostore,
+      setDatasetParams,
+      layer,
+      layers,
+      mapLocationContext,
+    } = this.props;
+
+    const activeLayer = layers.find((l) => l.id === layer);
+
+    if (activeLayer) {
+      const { dataset, layerConfig } = activeLayer;
+      const { canClipToGeom } = layerConfig;
+
+      if (
+        canClipToGeom ||
+        paramClipByGeostore ||
+        paramClipByMapLocationContext
+      ) {
+        if (canClipToGeom) {
+          let geostoreObj;
+
+          if (!isEmpty(mapLocationGeostore)) {
+            geostoreObj = mapLocationGeostore;
+          }
+
+          if (!isEmpty(geostore)) {
+            geostoreObj = geostore;
+          }
+
+          const params = {
+            geojson_feature_id:
+              clipToGeostore && !isEmpty(geostoreObj) ? geostoreObj.id : "",
+          };
+
+          setDatasetParams({ dataset: dataset, params: params });
+        }
+
+        if (paramClipByMapLocationContext) {
+          const { param, value } =
+            paramClipByMapLocationContext(
+              clipToGeostore ? mapLocationContext : null
+            ) || {};
+          if (param && value) {
+            const params = { [param]: value };
+
+            setDatasetParams({ dataset: dataset, params: params });
+          }
+        }
+
+        if (
+          (!mapLocationContext || mapLocationContext === "africa") &&
+          paramClipByGeostore &&
+          !isEmpty(geostore)
+        ) {
+          const { param, value } =
+            paramClipByGeostore(clipToGeostore ? geostore : null) || {};
+          if (param && value) {
+            const params = { [param]: value };
+            setDatasetParams({ dataset: dataset, params: params });
+          }
+        }
+      }
+    }
+  };
+
   render() {
     return null;
   }
 }
 
-export default LayerUpdate;
+export default connect(getDatasetProps, actions)(LayerUpdate);

@@ -37,6 +37,8 @@ const selectLayersUpdatingStatus = (state) =>
 const selectLayersLoadingStatus = (state) =>
   state.datasets && state.datasets.layerLoadingStatus;
 
+const selectDatasetParams = (state) => state.datasets?.params;
+
 // CONSTS
 export const getMapSettings = (state) => state.map?.settings || {};
 export const getBasemaps = () => basemaps;
@@ -423,8 +425,30 @@ export const getLayersWithData = createSelector(
   }
 );
 
+export const getLayersWithParams = createSelector(
+  [getLayersWithData, selectDatasetParams],
+  (layers, datasetParams) => {
+    if (isEmpty(layers)) return null;
+    return layers.map((l) => {
+      const layer = { ...l };
+      if (
+        layer.dataset &&
+        !isEmpty(datasetParams) &&
+        datasetParams[layer.dataset] &&
+        !isEmpty(datasetParams[layer.dataset])
+      ) {
+        layer.params = {
+          ...layer.params,
+          ...datasetParams[layer.dataset],
+        };
+      }
+      return layer;
+    });
+  }
+);
+
 // flatten datasets into layers for the layer manager
-export const getAllLayers = createSelector(getLayersWithData, (layers) => {
+export const getAllLayers = createSelector(getLayersWithParams, (layers) => {
   if (isEmpty(layers)) return null;
 
   return layers;

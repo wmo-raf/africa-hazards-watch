@@ -55,7 +55,6 @@ const MapLegendContent = ({
   onChangeInfo,
   loading,
   className,
-  layerTimestamps,
   activeLayers,
   onChangeMapSide,
   activeCompareSide,
@@ -109,8 +108,6 @@ const MapLegendContent = ({
           params,
           paramsSelectorConfig,
           paramsSelectorColumnView,
-          decodeParams,
-          decodeParamsSelectorConfig,
           moreInfo,
           timelineParams,
           statement,
@@ -228,53 +225,65 @@ const MapLegendContent = ({
               {activeLayer &&
                 paramsSelectorConfig &&
                 params &&
-                paramsSelectorConfig.map((paramConfig) =>
-                  paramConfig.type === "datetime" && !isUpdating ? (
-                    <DateTimeSelector
-                      key={`${activeLayer.name}-${paramConfig.key}`}
-                      name={name}
-                      className="param-selector"
-                      {...paramConfig}
-                      availableDates={
-                        // use dates from update provider else use dates from  initial config
-                        layerTimestamps[activeLayer.id] &&
-                        !isEmpty(layerTimestamps[activeLayer.id])
-                          ? layerTimestamps[activeLayer.id]
-                          : paramConfig.availableDates
-                      }
-                      selectedTime={
-                        params[paramConfig.key] || paramConfig.default
-                      }
-                      onChange={(value) => {
-                        onChangeParam(activeLayer, {
-                          [paramConfig.key]: value,
-                        });
-                      }}
-                    />
-                  ) : paramConfig.options ? (
-                    <SentenceSelector
-                      key={`${activeLayer.name}-${paramConfig.key}`}
-                      name={name}
-                      className="param-selector"
-                      {...paramConfig}
-                      value={params[paramConfig.key] || paramConfig.default}
-                      columnView={paramsSelectorColumnView}
-                      onChange={(value) => {
-                        const selectedOption = paramConfig.options.find(
-                          (o) => o.value === value
-                        );
+                paramsSelectorConfig.map((paramConfig) => {
+                  // hidden
+                  if (paramConfig.hidden) {
+                    return null;
+                  }
 
-                        onChangeParam(
-                          activeLayer,
-                          {
+                  //datetime selector
+                  if (
+                    paramConfig.type === "datetime" &&
+                    !isUpdating &&
+                    paramConfig.availableDates &&
+                    !!paramConfig.availableDates.length
+                  ) {
+                    return (
+                      <DateTimeSelector
+                        key={`${activeLayer.name}-${paramConfig.key}`}
+                        name={name}
+                        className="param-selector"
+                        {...paramConfig}
+                        availableDates={paramConfig.availableDates}
+                        selectedTime={
+                          params[paramConfig.key] || paramConfig.default
+                        }
+                        onChange={(value) => {
+                          onChangeParam(activeLayer, {
                             [paramConfig.key]: value,
-                          },
-                          selectedOption
-                        );
-                      }}
-                    />
-                  ) : null
-                )}
+                          });
+                        }}
+                      />
+                    );
+                  }
+                  // options
+                  if (paramConfig.options) {
+                    return (
+                      <SentenceSelector
+                        key={`${activeLayer.name}-${paramConfig.key}`}
+                        name={name}
+                        className="param-selector"
+                        {...paramConfig}
+                        value={params[paramConfig.key] || paramConfig.default}
+                        columnView={paramsSelectorColumnView}
+                        onChange={(value) => {
+                          const selectedOption = paramConfig.options.find(
+                            (o) => o.value === value
+                          );
+                          onChangeParam(
+                            activeLayer,
+                            {
+                              [paramConfig.key]: value,
+                            },
+                            selectedOption
+                          );
+                        }}
+                      />
+                    );
+                  }
+
+                  return null;
+                })}
             </div>
             {activeLayer &&
               layerFilterParams &&

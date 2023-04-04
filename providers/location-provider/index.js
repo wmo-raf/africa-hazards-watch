@@ -60,7 +60,7 @@ const buildNewLocation = () => {
   };
 };
 
-const LocationProvider = ({ setLocation }) => {
+const LocationProvider = ({ setLocation, onReady }) => {
   const { events } = useRouter();
 
   const handleRouteChange = () => {
@@ -80,6 +80,12 @@ const LocationProvider = ({ setLocation }) => {
     }
 
     return null;
+  }, []);
+
+  useEffect(() => {
+    if (onReady) {
+      onReady();
+    }
   }, []);
 
   return null;

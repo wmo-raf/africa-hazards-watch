@@ -9,6 +9,7 @@ export const initialState = {
   layerUpdatingStatus: {},
   layerLoadingStatus: {},
   timestamps: {},
+  params: {},
   geojsonData: {},
 };
 
@@ -82,6 +83,32 @@ const setTimestamps = (state, { payload }) => ({
   timestamps: { ...state.timestamps, ...payload },
 });
 
+const setDatasetParams = (state, { payload }) => {
+  const { dataset, params } = payload;
+
+  if (dataset) {
+    if (state.params[dataset]) {
+      const dParams = { ...state.params[dataset] };
+      const newDParams = { ...dParams, ...params };
+
+      return {
+        ...state,
+        params: { ...state.params, [dataset]: newDParams },
+      };
+    } else {
+      return {
+        ...state,
+        params: { ...state.params, [dataset]: { ...params } },
+      };
+    }
+  }
+
+  return {
+    ...state,
+    params: { ...state.params },
+  };
+};
+
 const setGeojsonData = (state, { payload }) => ({
   ...state,
   geojsonData: { ...state.geojsonData, ...payload },
@@ -93,6 +120,7 @@ export default {
   [actions.updateDatasets]: updateDatasets,
   [actions.removeDataset]: removeDataset,
   [actions.setTimestamps]: setTimestamps,
+  [actions.setDatasetParams]: setDatasetParams,
   [actions.setGeojsonData]: setGeojsonData,
   [actions.setLayerUpdatingStatus]: setLayerUpdatingStatus,
   [actions.setLayerLoadingStatus]: setLayerLoadingStatus,

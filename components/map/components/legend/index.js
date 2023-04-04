@@ -74,12 +74,7 @@ class Legend extends PureComponent {
       if (ds.dataset === layer.dataset) {
         return {
           ...ds,
-          layers: [
-            layer.id,
-            ...(layer?.gladLOnly ? ["gladLOnly"] : []),
-            ...(layer?.gladSOnly ? ["gladSOnly"] : []),
-            ...(layer?.raddOnly ? ["raddOnly"] : []),
-          ],
+          layers: [layer.id],
         };
       }
       return ds;
@@ -163,35 +158,6 @@ class Legend extends PureComponent {
     }
   };
 
-  onChangeTimeline = (dates, currentLayer, absolute, timelineParams = null) => {
-    const { setMapSettings, activeDatasets } = this.props;
-    setMapSettings({
-      datasets: activeDatasets.map((l) => {
-        const dataset = { ...l };
-        if (l.layers.indexOf(currentLayer.id) > -1) {
-          dataset.timelineParams = {
-            ...dataset.timelineParams,
-            ...(timelineParams && {
-              ...timelineParams,
-            }),
-          };
-          if (absolute) {
-            dataset.timelineParams.startDateAbsolute = dates[0];
-            dataset.timelineParams.endDateAbsolute = dates[2];
-            dataset.timelineParams.startDate = dates[0];
-            dataset.timelineParams.endDate = dates[1];
-            dataset.timelineParams.trimEndDate = dates[2];
-          } else {
-            dataset.timelineParams.startDate = dates[0];
-            dataset.timelineParams.endDate = dates[1];
-            dataset.timelineParams.trimEndDate = dates[2];
-          }
-        }
-        return dataset;
-      }),
-    });
-  };
-
   onChangeParam = (currentLayer, newParam, paramConfig) => {
     const { setMapSettings, activeDatasets } = this.props;
 
@@ -206,6 +172,8 @@ class Legend extends PureComponent {
       }
     }
 
+    console.log("HELLO");
+
     setMapSettings({
       datasets: activeDatasets.map((l) => {
         const dataset = { ...l };
@@ -214,22 +182,6 @@ class Legend extends PureComponent {
             ...dataset.params,
             ...newParam,
             ...linkedParams,
-          };
-        }
-        return dataset;
-      }),
-    });
-  };
-
-  onChangeDecodeParam = (currentLayer, newParam) => {
-    const { setMapSettings, activeDatasets } = this.props;
-    setMapSettings({
-      datasets: activeDatasets.map((l) => {
-        const dataset = { ...l };
-        if (l.layers.includes(currentLayer.id)) {
-          dataset.decodeParams = {
-            ...dataset.params,
-            ...newParam,
           };
         }
         return dataset;
@@ -278,13 +230,10 @@ class Legend extends PureComponent {
       onSelectLayer: this.onSelectLayer,
       onRemoveLayer: this.onRemoveLayer,
       onChangeInfo: this.onChangeInfo,
-      onChangeTimeline: this.onChangeTimeline,
       onChangeParam: this.onChangeParam,
       onChangeFilterParam: this.onChangeFilterParam,
-      onChangeDecodeParam: this.onChangeDecodeParam,
       setConfirmed: this.setConfirmed,
       onChangeMapSide: this.onChangeMapSide,
-      onCopyToSide: this.onCopyToSide,
     });
   }
 }

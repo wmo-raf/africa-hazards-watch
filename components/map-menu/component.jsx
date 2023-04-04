@@ -37,17 +37,8 @@ class MapMenu extends PureComponent {
   }
 
   onToggleLayer = (data, enable) => {
-    const {
-      activeDatasets,
-      recentActive,
-      zoom,
-      activeCompareSide,
-      clipToGeostore,
-      geostore,
-      mapLocationGeostore,
-      allDatasets,
-    } = this.props;
-    const { dataset, layer, iso, category } = data;
+    const { activeDatasets, activeCompareSide } = this.props;
+    const { dataset, layer } = data;
 
     let newActiveDatasets = [...activeDatasets];
     if (!enable) {
@@ -56,19 +47,6 @@ class MapMenu extends PureComponent {
         (l) => l.dataset !== dataset
       );
     } else {
-      const matchingLayer = allDatasets
-        .find((d) => d.id === dataset)
-        ?.layers?.find((l) => l.id == layer);
-
-      const mapGeostore = !isEmpty(geostore) ? geostore : mapLocationGeostore;
-
-      const shouldClipToGeostore = !!(
-        clipToGeostore &&
-        matchingLayer &&
-        matchingLayer.layerConfig?.canClipToGeom &&
-        mapGeostore?.id
-      );
-
       newActiveDatasets = [
         {
           dataset,
@@ -77,9 +55,6 @@ class MapMenu extends PureComponent {
           layers: [layer],
           ...(activeCompareSide && {
             mapSide: activeCompareSide,
-          }),
-          ...(shouldClipToGeostore && {
-            params: { geojson_feature_id: mapGeostore.id },
           }),
         },
       ].concat([...newActiveDatasets]);

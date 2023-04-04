@@ -6,7 +6,7 @@
     "node": ">=14"
   },
   "scripts": {
-    "dev": "NODE_OPTIONS=--max_old_space_size=4096 next",
+    "dev": "NODE_OPTIONS=--max_old_space_size=6144 next",
     "build": "next build",
     "postbuild": "next-sitemap",
     "start": "next start",

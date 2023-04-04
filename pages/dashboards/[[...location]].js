@@ -22,6 +22,7 @@ import PageLayout from "wrappers/page";
 import Dashboards from "layouts/dashboards";
 
 import DashboardsUrlProvider from "providers/dashboards-url-provider";
+import LocationProvider from "providers/location-provider";
 
 import { setCountriesSSR } from "providers/country-data-provider/actions";
 
@@ -249,6 +250,7 @@ function getCanonical(props, query) {
 const DashboardsPage = (props) => {
   const dispatch = useDispatch();
   const [ready, setReady] = useState(false);
+  const [locationReady, setLocationReady] = useState(false);
   const { query, asPath, isFallback } = useRouter();
   const fullPathname = asPath?.split("?")?.[0];
   const {
@@ -317,17 +319,24 @@ const DashboardsPage = (props) => {
     }
   });
 
+  const handleOnLocationReady = () => {
+    setLocationReady(true);
+  };
+
   return (
     <PageLayout {...props}>
       <Head>
         <link rel="canonical" href={getCanonical(props, query)} />
       </Head>
+      <LocationProvider onReady={handleOnLocationReady} />
       <DashboardsUrlProvider />
-      <Dashboards
-        basePath={basePath}
-        ssrLocation={handleSSRLocation}
-        globalSentence={globalSentence}
-      />
+      {locationReady && (
+        <Dashboards
+          basePath={basePath}
+          ssrLocation={handleSSRLocation}
+          globalSentence={globalSentence}
+        />
+      )}
     </PageLayout>
   );
 };

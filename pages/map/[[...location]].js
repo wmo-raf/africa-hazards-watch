@@ -11,6 +11,7 @@ import FullscreenLayout from "wrappers/fullscreen";
 import Map from "layouts/map";
 
 import MapUrlProvider from "providers/map-url-provider";
+import LocationProvider from "providers/location-provider";
 
 import { setMapSettings } from "components/map/actions";
 import { setMainMapSettings } from "layouts/map/actions";
@@ -120,6 +121,7 @@ export const getServerSideProps = async ({ req, params }) => {
 const MapPage = (props) => {
   const dispatch = useDispatch();
   const [ready, setReady] = useState(false);
+  const [locationReady, setLocationReady] = useState(false);
   const { query, asPath, isFallback } = useRouter();
   const fullPathname = asPath?.split("?")?.[0];
 
@@ -160,12 +162,17 @@ const MapPage = (props) => {
     }
   });
 
+  const handleOnLocationReady = () => {
+    setLocationReady(true);
+  };
+
   return (
     <FullscreenLayout {...props}>
       {ready && (
         <>
+          <LocationProvider onReady={handleOnLocationReady} />
           <MapUrlProvider />
-          <Map />
+          {locationReady && <Map />}
         </>
       )}
     </FullscreenLayout>

@@ -57,7 +57,7 @@ export const getCountries = createThunkAction(
               if (country.bbox) {
                 const bbox = turfBbox(country.bbox);
                 // zoom to country bounds
-                dispatch(setMapSettings({ bbox: bbox, clipToGeostore: true }));
+                dispatch(setMapSettings({ bbox: bbox }));
               }
             }
           }
@@ -113,7 +113,6 @@ export const updateMapLocationContext = createThunkAction(
               setMapSettings({
                 bbox: bbox,
                 canBound: true,
-                clipToGeostore: true,
               })
             );
           }

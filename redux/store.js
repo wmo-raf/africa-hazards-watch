@@ -1,6 +1,6 @@
-import { useMemo } from 'react';
-import { configureStore } from '@reduxjs/toolkit';
-import { rootReducer } from 'fast-redux';
+import { useMemo } from "react";
+import { configureStore } from "@reduxjs/toolkit";
+import { rootReducer } from "fast-redux";
 
 const createStore = () =>
   configureStore({
