@@ -19,9 +19,111 @@ const actions = {
 class DatasetsProvider extends PureComponent {
   componentDidMount() {
     const { fetchDatasets, activeDatasets } = this.props;
-
     fetchDatasets(activeDatasets);
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    const {
+      activeDatasets: prevActiveDatasets,
+      geostore: prevGeostore,
+      mapLocationGeostore: prevMapLocationGeostore,
+      clipToGeostore: prevClipToGeostore,
+    } = prevProps;
+
+    const {
+      activeDatasets,
+      clipToGeostore,
+      mapLocationGeostore,
+      geostore,
+    } = this.props;
+
+    const shouldUpdateClipping =
+      !isEqual(geostore, prevGeostore) ||
+      !isEqual(mapLocationGeostore, prevMapLocationGeostore) ||
+      clipToGeostore !== prevClipToGeostore ||
+      !isEqual(activeDatasets, prevActiveDatasets);
+
+    if (shouldUpdateClipping) {
+      this.doUpdateClipping();
+    }
+  }
+
+  doUpdateClipping = () => {
+    const {
+      clipToGeostore,
+      mapLocationGeostore,
+      geostore,
+      setDatasetParams,
+      layers,
+      mapLocationContext,
+      updateProviders,
+    } = this.props;
+
+    updateProviders.forEach((update) => {
+      const {
+        paramClipByGeostore,
+        paramClipByMapLocationContext,
+        layer,
+      } = update;
+
+      const activeLayer = layers.find((l) => l.id === layer);
+
+      if (activeLayer) {
+        const { dataset, layerConfig } = activeLayer;
+        const { canClipToGeom } = layerConfig;
+
+        if (
+          canClipToGeom ||
+          paramClipByGeostore ||
+          paramClipByMapLocationContext
+        ) {
+          if (canClipToGeom) {
+            let geostoreObj;
+
+            if (!isEmpty(mapLocationGeostore)) {
+              geostoreObj = mapLocationGeostore;
+            }
+
+            if (!isEmpty(geostore)) {
+              geostoreObj = geostore;
+            }
+
+            const params = {
+              geojson_feature_id:
+                clipToGeostore && !isEmpty(geostoreObj) ? geostoreObj.id : "",
+            };
+
+            setDatasetParams({ dataset: dataset, params: params });
+          }
+
+          if (paramClipByMapLocationContext) {
+            const { param, value } =
+              paramClipByMapLocationContext(
+                clipToGeostore ? mapLocationContext : null
+              ) || {};
+            if (param && value) {
+              const params = { [param]: value };
+
+              setDatasetParams({ dataset: dataset, params: params });
+            }
+          }
+
+          if (
+            (!mapLocationContext || mapLocationContext === "africa") &&
+            paramClipByGeostore &&
+            !isEmpty(geostore)
+          ) {
+            const { param, value } =
+              paramClipByGeostore(clipToGeostore ? geostore : null) || {};
+            if (param && value) {
+              const params = { [param]: value };
+              setDatasetParams({ dataset: dataset, params: params });
+            }
+          }
+        }
+      }
+    });
+  };
 
   getLayerUpdateComponents = () => {
     const { updateProviders } = this.props;
