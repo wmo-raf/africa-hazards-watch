@@ -1,14 +1,14 @@
 import { getTimeValuesFromWMS } from "services/wms";
 
-const datasetName = "NDVI eVIIRS Data";
-const layerName = "eviirsndvi_africa_pentad_data";
+const datasetName = "NDVI eVIIRS Anomaly";
+const layerName = "eviirsndvi_africa_pentad_anom";
 const metadataId = "";
 
 const category = "agriculture";
 const subCategory = "vegetation-indices";
 
 const wmsBaseUrl =
-  "https://dmsdata.cr.usgs.gov/geoserver/fews_eviirsndvi_africa_pentad_data/eviirsndvi_africa_pentad_data/wms";
+  "https://dmsdata.cr.usgs.gov/geoserver/fews_eviirsndvi_africa_pentad_anom/eviirsndvi_africa_pentad_anom/wms";
 
 const datasets = [
   {
@@ -34,7 +34,7 @@ const datasets = [
           source: {
             type: "raster",
             tiles: [
-              `https://dmsdata.cr.usgs.gov/geoserver/fews_eviirsndvi_africa_pentad_data/eviirsndvi_africa_pentad_data/wms?service=WMS&request=GetMap&version=1.1.1&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time={time}&layers=${layerName}`,
+              `${wmsBaseUrl}?service=WMS&request=GetMap&version=1.1.1&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time={time}&layers=${layerName}`,
             ],
             minzoom: 3,
             maxzoom: 12,

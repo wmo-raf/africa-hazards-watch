@@ -105,13 +105,13 @@
     "sub_categories": [
       {
         "active": true,
-        "id": "food-security",
-        "title": "Food Security"
+        "id": "vegetation-indices",
+        "title": "Vegetation Indices"
       },
       {
         "active": true,
-        "id": "vegetation-indices",
-        "title": "Vegetation Indices"
+        "id": "food-security",
+        "title": "Food Security"
       }
     ]
   },

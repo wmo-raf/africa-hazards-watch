@@ -1,7 +1,7 @@
 import foodSecurity from "./food-security";
 import vegetationIndices from "./vegetation-indices";
 
-const datasets = [...foodSecurity.datasets, ...vegetationIndices.datasets];
+const datasets = [...vegetationIndices.datasets, ...foodSecurity.datasets];
 
 const updates = [...vegetationIndices.updates];
 

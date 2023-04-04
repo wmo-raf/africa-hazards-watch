@@ -20,7 +20,7 @@ const getCap = (capability) => {
     return {
       type: capability,
       icon: calendarIcon,
-      text: "Supports Timeseries",
+      text: "Supports Time",
     };
   }
 
