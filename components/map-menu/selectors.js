@@ -17,6 +17,7 @@ import { getEmbed } from "layouts/map/selectors";
 import { searchSections, mobileSections, upperSections } from "./sections";
 import Datasets from "./components/sections/datasets";
 import icons from "./icons";
+import ACTIVE_COUNTRIES_ISO from "./countries";
 
 const getMenuSettings = (state) => state.mapMenu?.settings || {};
 const getCountries = (state) =>
@@ -33,6 +34,7 @@ const getSectionSettings = (state) =>
 const selectClipToGeostore = (state) => state.map?.settings?.clipToGeostore;
 export const selectmapLocationGeostore = (state) =>
   state.geostore && state.geostore.mapLocationGeostore;
+const selectLoggedIn = (state) => state.myHw?.data?.loggedIn;
 
 export const getMenuSection = createSelector(
   [getMenuSettings],
@@ -44,9 +46,7 @@ export const getActiveCountries = createSelector(
   (countries) => {
     if (isEmpty(countries)) return [];
 
-    const activeCountries = ["ETH", "NER"];
-
-    return countries.filter((c) => activeCountries.includes(c.value));
+    return countries.filter((c) => ACTIVE_COUNTRIES_ISO.includes(c.value));
   }
 );
 
@@ -348,4 +348,5 @@ export const getMenuProps = createStructuredSelector({
   mapLocationGeostore: selectmapLocationGeostore,
   allDatasets: getDatasets,
   subCategoryGroupsSelected: getSubCategoryGroupsSelected,
+  loggedIn: selectLoggedIn,
 });

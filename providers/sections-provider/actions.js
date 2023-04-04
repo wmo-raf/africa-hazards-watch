@@ -15,9 +15,10 @@ export const fetchSections = createThunkAction(
     const sections = localCategories
       .filter((l) => l.active)
       .map((s) => ({
+        loginRequired: s.login_required,
         label: "layers",
         slug: "datasets",
-        category: s.title,
+        category: s.id,
         id: s.id,
         icon: s.icon,
         subCategories: s.sub_categories

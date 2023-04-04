@@ -19,6 +19,7 @@
     "icon": "rainfall",
     "id": "weather",
     "info": null,
+    "login_required": true,
     "sub_categories": [
       {
         "active": true,
