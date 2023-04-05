@@ -30,6 +30,7 @@ class MapPreview extends Component {
             viewport={viewport}
             onLoad={this.onLoad}
             attributionControl={false}
+            preserveDrawingBuffer={true}
             // dragPan={false}
             scrollZoom={false}
           />

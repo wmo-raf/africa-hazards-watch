@@ -141,6 +141,7 @@
     "react-stickynode": "1.4.1",
     "react-tagsinput": "^3.19.0",
     "react-tippy": "^1.4.0",
+    "react-to-print": "^2.14.12",
     "react-toggle": "^4.1.1",
     "react-twitter-conversion-tracker": "^1.0.0",
     "react-use-measure": "^2.1.1",

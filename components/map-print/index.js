@@ -1,3 +1,6 @@
-import Component from "./component";
+import { connect } from "react-redux";
 
-export default Component;
+import MapPrintComponent from "./component";
+import { getProps } from "./selectors";
+
+export default connect(getProps, null)(MapPrintComponent);

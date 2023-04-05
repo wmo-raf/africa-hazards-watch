@@ -1,10 +1,13 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
+import ReactToPrint from "react-to-print";
 import WebMercatorViewport from "viewport-mercator-project";
+import { Row, Column } from "@erick-otenyo/hw-components";
+import isEmpty from "lodash/isEmpty";
+
+import LegendItemTypes from "components/map/components/legend/components/legend-item-types";
 import Checkbox from "components/ui/checkbox";
-
 import Button from "components/ui/button";
-
 import MapPreview from "./preview-map";
 
 import hwLogo from "assets/logos/logo.png?webp";
@@ -18,14 +21,6 @@ class MapPrint extends PureComponent {
     this.setState({ mounted: true });
   }
 
-  handleOnPrint = () => {
-    try {
-      document.execCommand("print", false, null);
-    } catch (e) {
-      window.print();
-    }
-  };
-
   onMapPreviewLoad = (map) => {
     this.setState({ previewMapLoaded: true });
   };
@@ -34,8 +29,35 @@ class MapPrint extends PureComponent {
     this.setState({ [option]: !this.state[option] });
   };
 
+  renderLegendItems = () => {
+    const { activeLayers } = this.props;
+
+    return (
+      activeLayers &&
+      !!activeLayers.length &&
+      activeLayers.map((layer) => {
+        if (layer && (!isEmpty(layer.legendConfig) || layer.legendImage)) {
+          return (
+            <Column className="layer-legend" width={[1 / 3]}>
+              <div className="layer-title">{layer.name}</div>
+              {layer.legendImage && layer.legendImage.url ? (
+                <div className="legend-image">
+                  <img src={layer.legendImage.url} />
+                </div>
+              ) : (
+                <LegendItemTypes activeLayer={layer} />
+              )}
+            </Column>
+          );
+        }
+
+        return null;
+      })
+    );
+  };
+
   render() {
-    const { onCancel, mapPrintConfig } = this.props;
+    const { onCancel, mapPrintConfig, activeLayers } = this.props;
     const { mapStyle, viewport, bounds } = mapPrintConfig || {};
     const { previewMapLoaded, mounted, title } = this.state;
 
@@ -48,19 +70,26 @@ class MapPrint extends PureComponent {
         ...viewport,
       };
 
-      // try to fit parent map to new size
+      // try to fit parent mapstyle to new size
       const { longitude, latitude, zoom } =
         new WebMercatorViewport(v)?.fitBounds(bounds) || {};
 
       mapViewport = { ...viewport, longitude, latitude, zoom };
     }
 
+    const hasLayers =
+      activeLayers &&
+      activeLayers.find((l) => !isEmpty(l.legendConfig) || l.legendImage);
+
     return (
-      <section className="c-print-preview">
+      <section
+        className="c-print-preview"
+        ref={(el) => (this.printComponentRef = el)}
+      >
         <div className="report">
           <div className="full-height">
-            <div className="content-controls-container">
-              <div className="c-control">
+            <div className="report-controls">
+              <div className="r-control">
                 <Checkbox
                   id="title"
                   value={title}
@@ -71,24 +100,19 @@ class MapPrint extends PureComponent {
                 <label htmlFor="title">Add Map Title</label>
               </div>
             </div>
-            <div className="print-content">
+            <div className="report-body">
               <div className="page-header">
-                <div className="branding">
-                  <img
-                    className="brand-logo"
-                    src={hwLogo}
-                    alt="Hazards Watch"
-                  />
+                <div className="brand">
+                  <img className="logo" src={hwLogo} alt="Hazards Watch" />
                 </div>
                 {title && (
-                  <div className="map-title" contentEditable>
-                    Click to Edit Your Map Title
-                  </div>
+                  <h1 className="report-title" contentEditable>
+                    Click To Edit Map Title
+                  </h1>
                 )}
               </div>
-
               <div
-                className="map-preview-container"
+                className="print-map"
                 ref={(r) => {
                   this.mapContainer = r;
                 }}
@@ -101,26 +125,45 @@ class MapPrint extends PureComponent {
                   />
                 )}
               </div>
+              <div className="report-content">
+                <div className="map-legend-container">
+                  {hasLayers && (
+                    <>
+                      <div className="legend-container-header">Map Layers</div>
+                      <Row className="map-legend">
+                        {this.renderLegendItems()}
+                      </Row>
+                    </>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
-          <div className="print-config">
-            <div className="container">
-              <div className="print-controls">
-                <Button
-                  className="cancel-btn"
-                  theme="theme-button-light"
-                  onClick={onCancel}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  className="print-btn"
-                  disabled={!previewMapLoaded}
-                  onClick={this.handleOnPrint}
-                >
-                  Print
-                </Button>
-              </div>
+        </div>
+
+        <div className="print-config">
+          <div className="container">
+            <div className="print-controls">
+              <Button
+                className="print-ctrl cancel-btn"
+                theme="theme-button-light"
+                onClick={onCancel}
+              >
+                Cancel
+              </Button>
+              <ReactToPrint
+                trigger={() => {
+                  return (
+                    <Button
+                      className="print-ctrl print-btn"
+                      disabled={!previewMapLoaded}
+                    >
+                      Print
+                    </Button>
+                  );
+                }}
+                content={() => this.printComponentRef}
+              />
             </div>
           </div>
         </div>
@@ -132,6 +175,7 @@ class MapPrint extends PureComponent {
 MapPrint.propTypes = {
   onCancel: PropTypes.func,
   mapPrintConfig: PropTypes.object,
+  activeLayers: PropTypes.array,
 };
 
 MapPrint.defaultProps = {
