@@ -19,7 +19,7 @@ import {
   bags,
 } from "./layers";
 
-const category = "agriculture";
+const category = "exposure";
 const subCategory = "food-security";
 
 const datasetName = "IPC - Acute Food Insecurity";

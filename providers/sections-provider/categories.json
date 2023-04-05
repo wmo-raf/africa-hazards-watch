@@ -105,18 +105,8 @@
     "sub_categories": [
       {
         "active": true,
-        "id": "food-security",
-        "title": "Food Security"
-      },
-      {
-        "active": true,
         "id": "asap-agric-warnings",
         "title": "Agriculture Warnings"
-      },
-      {
-        "active": true,
-        "id": "vegetation-indices",
-        "title": "Vegetation Indices"
       },
       {
         "active": true,
@@ -151,7 +141,12 @@
       {
         "active": true,
         "id": "dust_forecast",
-        "title": "Dust Forecast - North Africa"
+        "title": "Dust Forecast"
+      },
+      {
+        "active": true,
+        "id": "vegetation-indices",
+        "title": "Vegetation Indices"
       },
       {
         "active": true,
@@ -167,6 +162,11 @@
     "id": "exposure",
     "info": null,
     "sub_categories": [
+      {
+        "active": true,
+        "id": "food-security",
+        "title": "Food Security"
+      },
       {
         "active": true,
         "id": "people",

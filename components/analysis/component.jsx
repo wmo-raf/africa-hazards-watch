@@ -131,7 +131,7 @@ class AnalysisComponent extends PureComponent {
           location.type &&
           location.adm0 != undefined && (
             <div className="analysis-actions">
-              {location.type === "country" && !location.areaId && (
+              {/* {location.type === "country" && !location.areaId && (
                 <Button
                   className="analysis-action-btn"
                   theme="theme-button-light"
@@ -156,7 +156,7 @@ class AnalysisComponent extends PureComponent {
                 >
                   DASHBOARD
                 </Button>
-              )}
+              )} */}
               {location.type !== "point" &&
                 (!activeArea || (activeArea && !activeArea.userArea)) && (
                   <Button
@@ -170,7 +170,7 @@ class AnalysisComponent extends PureComponent {
                       },
                     })}
                   >
-                    save in my HW
+                    save area
                   </Button>
                 )}
               {activeArea && activeArea.userArea && (
