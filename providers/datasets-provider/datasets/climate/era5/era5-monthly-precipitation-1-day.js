@@ -17,7 +17,8 @@ const datasets = [
     category: category,
     sub_category: subCategory,
     metadata: metadataId,
-    citation: "ERA5 reanalysis, From 1959 to recent",
+    citation:
+      "Amount of rainfall for a specific month. Timeseries visualizes how climate is changing",
     global: true,
     capabilities: ["clip", "timeseries", "analysis"],
     layers: [

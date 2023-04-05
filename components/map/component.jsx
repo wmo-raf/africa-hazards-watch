@@ -25,7 +25,7 @@ import NMHSLogo from "./components/nmhs-logo";
 
 // Components
 import LayerManagerWrapper from "./components/layer-manager";
-import { pulsingDot } from "./mapImages";
+// import { pulsingDot } from "./mapImages";
 
 // Styles
 import "./styles.scss";
@@ -138,6 +138,9 @@ class MapComponent extends Component {
     onClickAnalysis: PropTypes.func,
     onDrawComplete: PropTypes.func,
     lang: PropTypes.string,
+    printRequests: PropTypes.number,
+    mapPrinting: PropTypes.bool,
+    onMapGetStyle: PropTypes.func,
   };
 
   state = {
@@ -166,6 +169,7 @@ class MapComponent extends Component {
       basemap,
       location,
       geostoreType,
+      printRequests,
     } = this.props;
 
     const {
@@ -178,6 +182,7 @@ class MapComponent extends Component {
       drawing: prevDrawing,
       basemap: prevBasemap,
       location: prevLocation,
+      printRequests: prevPrintRequests,
     } = prevProps;
 
     if (!drawing && prevDrawing) {
@@ -283,6 +288,11 @@ class MapComponent extends Component {
           });
       }
     }
+
+    // if print request incremented
+    if (this.map && printRequests && printRequests !== prevPrintRequests) {
+      this.requestPrintMap();
+    }
   }
 
   componentWillUnmount() {
@@ -371,6 +381,25 @@ class MapComponent extends Component {
       );
 
       this.setState({ compareMap: compareMap });
+    }
+  };
+
+  requestPrintMap = () => {
+    const {
+      mapPrinting,
+      setMapSettings,
+      onGetMapPrintConfig,
+      viewport,
+    } = this.props;
+
+    if (!mapPrinting && onGetMapPrintConfig) {
+      setMapSettings({ printing: true });
+
+      onGetMapPrintConfig({
+        mapStyle: this.map.getStyle(),
+        viewport: viewport,
+        bounds: this.map.getBounds().toArray(),
+      });
     }
   };
 

@@ -18,6 +18,7 @@ import MetaModal from "components/modals/meta";
 import ShareModal from "components/modals/share";
 import AreaOfInterestModal from "components/modals/area-of-interest";
 import MyDataModal from "components/modals/my-data";
+import MapPrint from "components/map-print";
 
 import Map from "components/map";
 import MapPrompts from "components/prompts/map-prompts";
@@ -29,7 +30,17 @@ import MapControlButtons from "./components/map-controls";
 import "./styles.scss";
 
 class MainMapComponent extends PureComponent {
-  state = { locationReady: false };
+  state = { locationReady: false, mapPrintConfig: null };
+
+  handleOnGetMapPrintConfig = (mapPrintConfig) => {
+    this.setState({ mapPrintConfig: mapPrintConfig });
+  };
+
+  handleonPrintCancel = () => {
+    const { setMapSettings } = this.props;
+    setMapSettings({ printing: false });
+    this.setState({ mapPrintConfig: null });
+  };
 
   static propTypes = {
     onDrawComplete: PropTypes.func,
@@ -37,6 +48,7 @@ class MainMapComponent extends PureComponent {
     handleClickMap: PropTypes.func,
     hidePanels: PropTypes.bool,
     embed: PropTypes.bool,
+    mapPrinting: PropTypes.bool,
   };
 
   render() {
@@ -46,10 +58,19 @@ class MainMapComponent extends PureComponent {
       handleClickMap,
       handleClickAnalysis,
       onDrawComplete,
+      mapPrinting,
     } = this.props;
+
+    const { mapPrintConfig } = this.state;
 
     return (
       <div className={cx("c-map-main", { embed })}>
+        {mapPrinting && (
+          <MapPrint
+            mapPrintConfig={mapPrintConfig}
+            onCancel={this.handleonPrintCancel}
+          />
+        )}
         <Desktop>
           <MapMenu className="map-menu" embed={embed} isDesktop />
         </Desktop>
@@ -66,6 +87,7 @@ class MainMapComponent extends PureComponent {
             className="main-map"
             onDrawComplete={onDrawComplete}
             onClickAnalysis={handleClickAnalysis}
+            onGetMapPrintConfig={this.handleOnGetMapPrintConfig}
           />
         </div>
         {!hidePanels && (

@@ -1,16 +1,17 @@
-import * as actions from './actions';
+import * as actions from "./actions";
 
 export const initialState = {
   hidePanels: false,
   hideLegend: false,
   showBasemaps: false,
   showRecentImagery: false,
-  showAnalysis: false
+  showAnalysis: false,
+  printRequests: 0,
 };
 
 const setMainMapSettings = (state, { payload }) => ({
   ...state,
-  ...payload
+  ...payload,
 });
 
 export default {

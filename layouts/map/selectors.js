@@ -1,9 +1,9 @@
-import { createSelector, createStructuredSelector } from 'reselect';
+import { createSelector, createStructuredSelector } from "reselect";
 
 import {
   getActiveDatasetsFromState,
   getBasemapFromState,
-} from 'components/map/selectors';
+} from "components/map/selectors";
 
 const getMainMapSettings = (state) => state.mainMap || {};
 const selectLocation = (state) => state.location && state.location;
@@ -11,12 +11,12 @@ const selectLocationPayload = (state) =>
   state.location && state.location.payload;
 const selectMenuSection = (state) => state.mapMenu?.settings?.menuSection;
 const getDrawGeostoreId = (state) => state.draw && state.draw.geostoreId;
-
+const selectMapPrinting = (state) => state.map && state.map?.settings?.printing;
 
 // SELECTORS
 export const getEmbed = createSelector(
   [selectLocation],
-  (location) => location && location.pathname.includes('/embed')
+  (location) => location && location.pathname.includes("/embed")
 );
 
 export const getHidePanels = createSelector(
@@ -54,4 +54,5 @@ export const getMapProps = createStructuredSelector({
   geostoreId: getDrawGeostoreId,
   location: selectLocationPayload,
   basemap: getBasemapFromState,
+  mapPrinting: selectMapPrinting,
 });

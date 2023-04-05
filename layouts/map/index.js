@@ -8,6 +8,7 @@ import reducerRegistry from "redux/registry";
 import { getGeostoreId } from "providers/geostore-provider/actions";
 import { setMapPromptsSettings } from "components/prompts/map-prompts/actions";
 import { setMenuSettings } from "components/map-menu/actions";
+import { setMapSettings } from "components/map/actions";
 
 import reducers, { initialState } from "./reducers";
 import * as ownActions from "./actions";
@@ -16,6 +17,7 @@ import MapComponent from "./component";
 
 const actions = {
   setMenuSettings,
+  setMapSettings,
   setMapPromptsSettings,
   getGeostoreId,
   ...ownActions,

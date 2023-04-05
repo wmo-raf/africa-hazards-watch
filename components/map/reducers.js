@@ -34,6 +34,7 @@ export const initialState = {
     bbox: [],
     canBound: true,
     drawing: false,
+    printing: false,
     comparing: false,
     activeCompareSide: null,
     drawingMode: "draw_polygon",

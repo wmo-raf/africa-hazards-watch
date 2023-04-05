@@ -16,6 +16,7 @@ import helpIocn from "assets/icons/help.svg?sprite";
 import searchIcon from "assets/icons/search.svg?sprite";
 import settingsIcon from "assets/icons/settings.svg?sprite";
 import satelliteIcon from "assets/icons/satellite.svg?sprite";
+import printIcon from "assets/icons/print.svg?sprite";
 
 import Basemaps from "components/basemaps";
 import Button from "components/ui/button";
@@ -123,6 +124,20 @@ class MapControlsButtons extends PureComponent {
 
   setRecentImageryRef = (ref) => {
     this.recentImageryRef = ref;
+  };
+
+  handleOnPrint = () => {
+    const { printRequests, setMainMapSettings } = this.props;
+
+    setMainMapSettings({ printRequests: printRequests + 1 });
+
+    // TODO: Track event
+
+    // trackEvent({
+    //   category: "Map settings",
+    //   action: "Other buttons",
+    //   label: "Print map",
+    // });
   };
 
   renderRecentImageryBtn = () => {
@@ -342,6 +357,22 @@ class MapControlsButtons extends PureComponent {
   //       )}
   //     />
 
+  renderPrintButton = () => {
+    const { mapPrinting } = this.props;
+
+    return (
+      <Button
+        className="map-control"
+        theme="theme-button-map-control"
+        tooltip={{ text: "Print Map" }}
+        onClick={this.handleOnPrint}
+        disabled={mapPrinting}
+      >
+        <Icon icon={printIcon} className="print-icon" />
+      </Button>
+    );
+  };
+
   renderMapOptions() {
     return (
       <Button
@@ -421,6 +452,7 @@ class MapControlsButtons extends PureComponent {
                   {this.renderShareButton()}
                   {this.renderMapOptions(showBasemaps)}
                   {this.renderMapReloadButton()}
+                  {this.renderPrintButton()}
                   {this.renderMapTourBtn()}
                 </div>
                 {this.renderMapPosition()}
@@ -459,6 +491,8 @@ MapControlsButtons.propTypes = {
   minZoom: PropTypes.number,
   maxZoom: PropTypes.number,
   metaModalOpen: PropTypes.bool,
+  printRequests: PropTypes.number,
+  mapPrinting: PropTypes.bool,
 };
 
 export default connect()(MapControlsButtons);

@@ -38,6 +38,8 @@ const selectLayersLoadingStatus = (state) =>
   state.datasets && state.datasets.layerLoadingStatus;
 
 const selectDatasetParams = (state) => state.datasets?.params;
+const selectMapPrinting = (state) => state.map && state.map?.settings?.printing;
+const getMainMapSettings = (state) => state.mainMap || {};
 
 // CONSTS
 export const getMapSettings = (state) => state.map?.settings || {};
@@ -731,6 +733,11 @@ export const getActiveMapLang = createSelector(selectActiveLang, (lang) =>
   getMapboxLang(lang)
 );
 
+export const getPrintRequests = createSelector(
+  getMainMapSettings,
+  (settings) => settings.printRequests
+);
+
 export const getMapProps = createStructuredSelector({
   viewport: getMapViewport,
   loading: getMapLoading,
@@ -754,4 +761,6 @@ export const getMapProps = createStructuredSelector({
   lang: getActiveMapLang,
   location: selectLocation,
   hasHoverFeature: selectHoverFeature,
+  printRequests: getPrintRequests,
+  mapPrinting: selectMapPrinting,
 });
