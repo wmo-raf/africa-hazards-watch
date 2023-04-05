@@ -105,6 +105,11 @@
     "sub_categories": [
       {
         "active": true,
+        "id": "food-security",
+        "title": "Food Security"
+      },
+      {
+        "active": true,
         "id": "asap-agric-warnings",
         "title": "Agriculture Warnings"
       },
@@ -115,8 +120,8 @@
       },
       {
         "active": true,
-        "id": "food-security",
-        "title": "Food Security"
+        "id": "agric-land-cover",
+        "title": "Land Cover"
       }
     ]
   },

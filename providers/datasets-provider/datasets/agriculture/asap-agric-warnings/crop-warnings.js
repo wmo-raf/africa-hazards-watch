@@ -23,6 +23,7 @@ const datasets = [
     category: category,
     sub_category: subCategory,
     metadata: "",
+    citation: "ASAP, Updated every 10days",
     layers: [
       {
         id: layerId,
