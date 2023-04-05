@@ -2,8 +2,8 @@ const category = "agriculture";
 const subCategory = "agric-land-cover";
 
 const datasetName = "Rangeland Area";
-const layerId = "rangeland-area";
-const layerName = "asap5:mask_pasture";
+const layerId = "asap_africa_mask_rangeland_v03";
+const owsNameSpace = "agriculture";
 
 const datasets = [
   {
@@ -28,12 +28,13 @@ const datasets = [
             maxzoom: 12,
             minzoom: 3,
             tiles: [
-              `https://agriculturehotspots.icpac.net/asap/wms?LAYERS=${layerName}&FORMAT=image/png&TRANSPARENT=TRUE&SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&STYLES=&TILED=true&CRS=EPSG:3857&gridSet=EPSG:3857&BBOX={bbox-epsg-3857}&WIDTH=512&HEIGHT=512&FORMAT_OPTIONS=dpi:60`,
+              `http://20.56.94.119/gsky/ows/${owsNameSpace}?service=WMS&request=GetMap&version=1.1.1&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time={time}&layers=${layerId}&geojson_feature_id={geojson_feature_id}`,
             ],
 
             type: "raster",
           },
           type: "raster",
+          canClipToGeom: true,
         },
         legendConfig: {
           items: [
@@ -60,11 +61,15 @@ const datasets = [
           ],
           type: "basic",
         },
+        params: {
+          time: "2019-01-01T00:00:00.000Z",
+          geojson_feature_id: "",
+        },
       },
     ],
   },
 ];
 
-const updates = [];
+const updates = [{ layer: layerId }];
 
 export default { datasets, updates };

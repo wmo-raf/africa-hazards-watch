@@ -7,9 +7,13 @@ const datasets = [
   ...vegetationIndices.datasets,
   ...foodSecurity.datasets,
   ...asapAgricWarnings.datasets,
-  ...landCover.datasets
+  ...landCover.datasets,
 ];
 
-const updates = [...vegetationIndices.updates, ...asapAgricWarnings.updates];
+const updates = [
+  ...vegetationIndices.updates,
+  ...asapAgricWarnings.updates,
+  ...landCover.updates,
+];
 
 export default { datasets, updates };

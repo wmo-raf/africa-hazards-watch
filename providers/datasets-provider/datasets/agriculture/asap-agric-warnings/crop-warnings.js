@@ -24,6 +24,7 @@ const datasets = [
     sub_category: subCategory,
     metadata: "",
     citation: "ASAP, Updated every 10days",
+    capabilities: ["clipping", "timeseries"],
     layers: [
       {
         id: layerId,
