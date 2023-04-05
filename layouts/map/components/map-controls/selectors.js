@@ -10,6 +10,8 @@ import {
 import { getHidePanels, getShowBasemaps } from "layouts/map/selectors";
 
 const selectMapPrinting = (state) => state.map && state.map?.settings?.printing;
+const selectMapComparing = (state) =>
+  state.map && state.map?.settings?.comparing;
 const getDatasetsLoading = (state) => state.datasets && state.datasets.loading;
 const getMainMapSettings = (state) => state.mainMap || {};
 const getMapTourOpen = (state) => state.mapTour && state.mapTour.open;
@@ -33,5 +35,6 @@ export const getMapControlsProps = createStructuredSelector({
   mapTourOpen: getMapTourOpen,
   metaModalOpen: getMetaModalOpen,
   mapPrinting: selectMapPrinting,
+  mapComparing: selectMapComparing,
   printRequests: getPrintRequests,
 });

@@ -358,7 +358,7 @@ class MapControlsButtons extends PureComponent {
   //     />
 
   renderPrintButton = () => {
-    const { mapPrinting } = this.props;
+    const { mapPrinting, mapComparing } = this.props;
 
     return (
       <Button
@@ -366,7 +366,7 @@ class MapControlsButtons extends PureComponent {
         theme="theme-button-map-control"
         tooltip={{ text: "Print Map" }}
         onClick={this.handleOnPrint}
-        disabled={mapPrinting}
+        disabled={mapPrinting || mapComparing}
       >
         <Icon icon={printIcon} className="print-icon" />
       </Button>
