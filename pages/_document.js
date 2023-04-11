@@ -52,7 +52,7 @@ export default class MyDocument extends Document {
           <meta name="msapplication-TileColor" content="#da532c" />
           <meta name="theme-color" content="#ffffff" />
 
-          <script
+          {/* <script
             type="text/javascript"
             src="/scripts/transifex.js"
             rel="preconnect"
@@ -61,7 +61,7 @@ export default class MyDocument extends Document {
             type="text/javascript"
             src="//cdn.transifex.com/live.js"
             rel="preconnect"
-          />
+          /> */}
 
           {/* {isProduction && (
             <script
