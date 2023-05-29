@@ -4,7 +4,7 @@ const category = "satellite";
 const subCategory = "satellite_imagery";
 
 const layerId = "msg_fes:h60b";
-const name = "Precipitation Estimates";
+const name = "Precipitation Rate at Ground";
 
 const datasets = [
   {
