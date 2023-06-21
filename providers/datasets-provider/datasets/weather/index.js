@@ -1,18 +1,18 @@
 import gfsForecast from "./gfs";
 import ecmwfOpenDataForecast from "./ecmwf-opendata";
 
-import observations from "./observations";
+import ecwmfObservations from "./ecwmf-observations";
 
 const datasets = [
   ...gfsForecast.datasets,
   ...ecmwfOpenDataForecast.datasets,
-  ...observations.datasets,
+  ...ecwmfObservations.datasets,
 ];
 
 const updates = [
   ...gfsForecast.updates,
   ...ecmwfOpenDataForecast.updates,
-  ...observations.updates,
+  ...ecwmfObservations.updates,
 ];
 
 export default { datasets, updates };

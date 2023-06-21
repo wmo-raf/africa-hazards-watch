@@ -66,7 +66,6 @@ export const synopTimestampsRequest = create({
   // baseURL: "http://localhost:9001/met_web/date_ls", // TODO : SET TO PRODUCTION
 });
 
-
 export const myDataRequest = create({
   timeout: TIMEOUT,
   baseURL: `${HW_API}/my-data`,
@@ -74,4 +73,12 @@ export const myDataRequest = create({
     "content-type": "application/json",
     Authorization: `Bearer ${!isServer && localStorage.getItem("userToken")}`,
   },
+});
+
+export const ecmwfSynopTimestampsRequest = create({
+  headers: {
+    "content-type": "application/json",
+  },
+  timeout: TIMEOUT,
+  baseURL: "http://20.56.94.119/api/ecmwf-obs/dates",
 });
