@@ -3,9 +3,9 @@ import { POLITICAL_BOUNDARIES_DATASET } from "data/datasets";
 import { POLITICAL_BOUNDARIES } from "data/layers";
 
 const datasetName = "Monthly Rainfall Estimates";
-const layerName = "monthly_rainfall_estimate_rfe";
+const layerName = "tamsat_monthly_rainfall_estimate_rfe";
 const metadataId = "";
-const dataPath = "/gskydata/tamsat-rainfall/monthly_rainfall_estimate_rfe";
+const dataPath = "/gskydata/tamsat-rainfall/tamsat_monthly_rainfall_estimate_rfe";
 const owsNameSpace = "rainfall-estimates";
 
 const category = "climate";
