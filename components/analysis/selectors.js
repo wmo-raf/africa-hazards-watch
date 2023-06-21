@@ -1,13 +1,13 @@
-import { createSelector, createStructuredSelector } from 'reselect';
-import compact from 'lodash/compact';
-import isEmpty from 'lodash/isEmpty';
-import groupBy from 'lodash/groupBy';
-import flatMap from 'lodash/flatMap';
+import { createSelector, createStructuredSelector } from "reselect";
+import compact from "lodash/compact";
+import isEmpty from "lodash/isEmpty";
+import groupBy from "lodash/groupBy";
+import flatMap from "lodash/flatMap";
 
-import { getAllLayers, getActiveDatasets } from 'components/map/selectors';
-import { getActiveArea } from 'providers/areas-provider/selectors';
-import { getDataLocation, locationLevelToStr } from 'utils/location';
-import { getWidgets } from 'components/widgets/selectors';
+import { getAllLayers, getActiveDatasets } from "components/map/selectors";
+import { getActiveArea } from "providers/areas-provider/selectors";
+import { getDataLocation, locationLevelToStr } from "utils/location";
+import { getWidgets } from "components/widgets/selectors";
 
 const selectAnalysisLoading = (state) =>
   state.analysis && state.analysis.loading;
@@ -20,7 +20,7 @@ const selectGeodecriberLoading = (state) =>
 const selectSearch = (state) => state.location && state.location.search;
 const selectAnalysisLocation = (state) =>
   state.analysis && state.analysis.location;
-const selectEmbed = (state) => state.location?.pathname?.includes('/embed');
+const selectEmbed = (state) => state.location?.pathname?.includes("/embed");
 const selectError = (state) =>
   (state.analysis && state.analysis.error) ||
   (state.geostore && state.geostore.error);
@@ -60,7 +60,7 @@ export const getBoundaryDatasets = createSelector(
 export const getAllBoundaries = createSelector(
   [getBoundaryDatasets],
   (boundaries) =>
-    [{ label: 'No boundaries', value: 'no-boundaries' }].concat(boundaries)
+    [{ label: "No boundaries", value: "no-boundaries" }].concat(boundaries)
 );
 
 export const getActiveBoundaryDatasets = createSelector(
@@ -94,8 +94,8 @@ export const getLayerEndpoints = createSelector(
     if (!layers || !layers.length) return null;
 
     const { type, adm2 } = location;
-    const routeType = type === 'country' ? 'admin' : type;
-    const lossLayer = layers.find((l) => l.metadata === 'tree_cover_loss');
+    const routeType = type === "country" ? "admin" : type;
+    const lossLayer = layers.find((l) => l.metadata === "tree_cover_loss");
     const hasWidgetLayers = widgetLayers && !!widgetLayers.length;
 
     const admLevel = locationLevelToStr(location);
@@ -113,16 +113,16 @@ export const getLayerEndpoints = createSelector(
             l.analysisConfig.find(
               (a) =>
                 a.type === routeType ||
-                ((routeType === 'use' || routeType === 'wdpa') &&
-                  a.type === 'geostore')
+                ((routeType === "use" || routeType === "wdpa") &&
+                  a.type === "geostore")
             ) || {};
           const { params, decodeParams } = l;
           return {
             name: l.name,
-            version: analysisConfig.version || 'v1',
+            version: analysisConfig.version || "v1",
             slug: analysisConfig.service,
             params: {
-              ...(analysisConfig.service === 'umd-loss-gain' &&
+              ...(analysisConfig.service === "umd-loss-gain" &&
                 lossLayer && {
                   ...lossLayer.decodeParams,
                 }),
@@ -134,9 +134,9 @@ export const getLayerEndpoints = createSelector(
         })
     );
 
-    const groupedEndpoints = groupBy(endpoints, 'slug');
+    const groupedEndpoints = groupBy(endpoints, "slug");
     const parsedEndpoints = Object.keys(groupedEndpoints)
-      .filter((slug) => slug !== 'undefined')
+      .filter((slug) => slug !== "undefined")
       .map((slug) => {
         let params = {};
         groupedEndpoints[slug].forEach((e) => {
@@ -155,7 +155,7 @@ export const getLayerEndpoints = createSelector(
       });
 
     return adm2
-      ? parsedEndpoints.filter((e) => !e.slug.includes('forma'))
+      ? parsedEndpoints.filter((e) => !e.slug.includes("forma"))
       : parsedEndpoints;
   }
 );
@@ -163,7 +163,7 @@ export const getLayerEndpoints = createSelector(
 export const checkGeostoreSize = createSelector(
   [selectGeostoreSize, getDataLocation],
   (areaHa, location) => {
-    if (['aoi', 'geostore'].includes(location.type)) {
+    if (["aoi", "geostore"].includes(location.type)) {
       const ONE_BILLION_H = 1000000000;
       return areaHa > ONE_BILLION_H;
     }

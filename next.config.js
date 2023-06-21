@@ -35,6 +35,7 @@ const nextConfig = {
   },
   redirects: async () => redirects,
   rewrites: async () => rewrites,
+  assetPrefix: "/ahw-static/",
   trailingSlash: true,
   env: {
     ANALYTICS_PROPERTY_ID: process.env.ANALYTICS_PROPERTY_ID,

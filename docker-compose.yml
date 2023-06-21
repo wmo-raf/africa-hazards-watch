@@ -16,6 +16,7 @@ services:
         - HW_CMS_API=${HW_CMS_API}
         - MAPBOX_TOKEN=${MAPBOX_TOKEN}
         - TWITTER_CONVERSION_ID=${TWITTER_CONVERSION_ID}
+        - ASSET_PREFIX=${ASSET_PREFIX}
     ports:
       - ${PORT}:3000
 networks:
