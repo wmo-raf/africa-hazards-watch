@@ -27,9 +27,10 @@
         "title": "Weather Forecast",
         "group_options": [
           { "label": "GFS", "value": "gfs", "default": true },
-          { "label": "ECMWF - 0.4°", "value": "ecmwf" }
+          { "label": "ECMWF - 0.4°", "value": "ecmwf" },
+          { "label": "ECMWF - HRES", "value": "ecmwf-hres" }
         ],
-        "group_options_title": "Forecast Model"
+        "group_options_title": "Forecast Source"
       },
       {
         "active": true,
