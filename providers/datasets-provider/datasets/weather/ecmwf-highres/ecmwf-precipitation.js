@@ -37,7 +37,7 @@ const datasets = [
           source: {
             type: "raster",
             tiles: [
-              `https://eccharts-test.ecmwf.int/wms?service=WMS&request=GetMap&version=1.3.0&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time={time}&layers=${layerId}&token=530604a2ed5d28f759c02185beb2ca12`,
+              `https://eccharts.ecmwf.int/wms?service=WMS&request=GetMap&version=1.3.0&width=256&height=256&styles=&transparent=true&srs=EPSG:3857&bbox={bbox-epsg-3857}&format=image/png&time={time}&layers=${layerId}&token=530604a2ed5d28f759c02185beb2ca12`,
             ],
             minzoom: 3,
             maxzoom: 12,
