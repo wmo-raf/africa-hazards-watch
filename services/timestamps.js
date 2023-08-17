@@ -2,6 +2,7 @@ import {
   gskyTimestampsRequest,
   synopTimestampsRequest,
   ecmwfSynopTimestampsRequest,
+  ecmwfHresTimestampsRequest
 } from "utils/request";
 
 export const fetchTimestamps = (dataPath) => {
@@ -16,4 +17,9 @@ export const fetchSynopTimestamps = (dataPath) => {
 
 export const fetchEcwmfSynopTimestamps = () => {
   return ecmwfSynopTimestampsRequest.get();
+};
+
+export const fetchEcwmfHresTimestamps = (layer) => {
+  const url = `${layer}/`;
+  return ecmwfHresTimestampsRequest.get(url);
 };

@@ -3,7 +3,7 @@ import { ECMWF_TEMPERATURE_FORECAST } from "data/layers";
 import { fetchTimestamps } from "services/timestamps";
 import { getNextDate } from "utils/time";
 
-const datasetName = "Temperature Forecast ";
+const datasetName = "Temperature";
 const layerName = ECMWF_TEMPERATURE_FORECAST;
 const metadataId = "";
 const timestampsDataPath = "/gskydata/ecmwf-forecast/oper_fc_temperature_sfc";

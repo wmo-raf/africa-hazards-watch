@@ -2,7 +2,7 @@ import { fetchTimestamps } from "services/timestamps";
 import { getNextDate } from "utils/time";
 import { GFS_PRECIPITATION_FORECAST } from "data/layers";
 
-const datasetName = "Precipitation Forecast";
+const datasetName = "Precipitation";
 const layerName = GFS_PRECIPITATION_FORECAST;
 const metadataId = "4ba0fb8c-3e9e-42ea-8956-f961dc80f71f";
 const dataPath = "/gskydata/gfs/gfs-precipitation-1-hr";

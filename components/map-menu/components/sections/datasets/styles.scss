@@ -50,7 +50,7 @@ $plain-menu: #f1f1f1;
   }
 
   .group-options-wrapper {
-    padding-bottom: 20px;
+    margin-bottom: 20px;
 
     .group-options-title {
       font-size: 14px;
@@ -77,6 +77,7 @@ $plain-menu: #f1f1f1;
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-direction: column;
         padding: 0.2em 0;
         cursor: pointer;
         user-select: none;
@@ -86,6 +87,10 @@ $plain-menu: #f1f1f1;
           color: white;
           background-color: $green-gfw;
           box-shadow: 0 0 4px 0 black;
+        }
+
+        .group-option-meta {
+          font-size: 7px;
         }
       }
     }

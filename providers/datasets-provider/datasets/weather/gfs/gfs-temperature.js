@@ -2,7 +2,7 @@ import { GFS_TEMPERATURE_FORECAST } from "data/layers";
 import { fetchTimestamps } from "services/timestamps";
 import { getNextDate } from "utils/time";
 
-const datasetName = "Temperature Forecast ";
+const datasetName = "Temperature";
 const layerName = GFS_TEMPERATURE_FORECAST;
 const metadataId = "73c163c2-606c-4f27-85dc-4762268c8b9f";
 const timestampsDataPath = "/gskydata/gfs/gfs-temperature-2-m";

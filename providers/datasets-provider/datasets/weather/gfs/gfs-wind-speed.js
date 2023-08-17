@@ -2,7 +2,7 @@ import { GFS_WIND_SPEED } from "data/layers";
 import { fetchTimestamps } from "services/timestamps";
 import { getNextDate } from "utils/time";
 
-const datasetName = "Wind Forecast";
+const datasetName = "Wind";
 const layerName = GFS_WIND_SPEED;
 const metadataId = "73c163c2-606c-4f27-85dc-4762268c8b9f";
 const timestampsDataPath = "/gskydata/gfs/gfs-wind-speed-10-m";

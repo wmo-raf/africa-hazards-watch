@@ -2,7 +2,7 @@ import { ECMWF_RELATIVE_HUMIDITY_FORECAST } from "data/layers";
 import { fetchTimestamps } from "services/timestamps";
 import { getNextDate } from "utils/time";
 
-const datasetName = "Relative Humidity";
+const datasetName = "Relative";
 const layerName = ECMWF_RELATIVE_HUMIDITY_FORECAST;
 const metadataId = "";
 const timestampsDataPath =

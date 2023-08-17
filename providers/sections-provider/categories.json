@@ -24,18 +24,18 @@
       {
         "active": true,
         "id": "weather-forecast",
-        "title": "Weather Forecast",
+        "title": "Forecast",
         "group_options": [
-          { "label": "GFS", "value": "gfs", "default": true },
+          { "label": "ECMWF - HRES", "value": "ecmwf-hres" },
           { "label": "ECMWF - 0.4°", "value": "ecmwf" },
-          { "label": "ECMWF - HRES", "value": "ecmwf-hres" }
+          { "label": "GFS", "value": "gfs", "default": true }
         ],
-        "group_options_title": "Forecast Source"
+        "group_options_title": "Source"
       },
       {
         "active": true,
         "id": "synop-observations",
-        "title": "SYNOP Observations"
+        "title": "Observation"
       },
       {
         "active": false,

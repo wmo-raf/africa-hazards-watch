@@ -2,7 +2,7 @@ import { GFS_RELATIVE_HUMIDITY } from "data/layers";
 import { fetchTimestamps } from "services/timestamps";
 import { getNextDate } from "utils/time";
 
-const datasetName = "Relative Humidity Forecast";
+const datasetName = "Relative Humidity";
 const layerName = GFS_RELATIVE_HUMIDITY;
 const metadataId = "73c163c2-606c-4f27-85dc-4762268c8b9f";
 const timestampsDataPath = "/gskydata/gfs/gfs-relative-humidity-2-m";

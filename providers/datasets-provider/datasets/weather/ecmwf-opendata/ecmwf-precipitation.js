@@ -2,7 +2,7 @@ import { ECMWF_PRECIPITATION_FORECAST } from "data/layers";
 import { fetchTimestamps } from "services/timestamps";
 import { getNextDate } from "utils/time";
 
-const datasetName = "Precipitation Forecast ";
+const datasetName = "Precipitation";
 const layerName = ECMWF_PRECIPITATION_FORECAST;
 const metadataId = "";
 const timestampsDataPath =

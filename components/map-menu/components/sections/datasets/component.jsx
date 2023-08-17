@@ -165,6 +165,7 @@ class Datasets extends PureComponent {
                                   {subCat.group_options_title}
                                 </div>
                               )}
+
                               <div className="group-options">
                                 {subCat.group_options.map((groupOption) => {
                                   return (
@@ -181,7 +182,7 @@ class Datasets extends PureComponent {
                                         );
                                       }}
                                     >
-                                      {groupOption.label}
+                                      <div>{groupOption.label}</div>
                                     </div>
                                   );
                                 })}

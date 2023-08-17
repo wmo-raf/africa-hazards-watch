@@ -48,6 +48,7 @@ const nextConfig = {
     HW_CMS_API: process.env.HW_CMS_API,
     MAPBOX_TOKEN: process.env.MAPBOX_TOKEN,
     TWITTER_CONVERSION_ID: process.env.TWITTER_CONVERSION_ID,
+    ECWMF_HRES_TIMESTAMPS_URL:process.env.ECWMF_HRES_TIMESTAMPS_URL,
   },
 };
 

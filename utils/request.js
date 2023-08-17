@@ -1,6 +1,12 @@
 import { CancelToken, create } from "axios";
 
-import { HW_API, HW_CMS_API, PG_FEATURESERV_URL } from "utils/apis";
+import {
+  HW_API,
+  HW_CMS_API,
+  PG_FEATURESERV_URL,
+  ECWMF_HRES_TIMESTAMPS_URL,
+  METADATA_BASE_URL,
+} from "utils/apis";
 
 const isServer = typeof window === "undefined";
 
@@ -25,6 +31,11 @@ export const apiAuthRequest = create({
 export const cmsApiRequest = create({
   timeout: TIMEOUT,
   baseURL: HW_CMS_API,
+});
+
+export const metadataRequest = create({
+  timeout: TIMEOUT,
+  baseURL: METADATA_BASE_URL,
 });
 
 export const nominatimGeocodingRequest = create({
@@ -81,4 +92,12 @@ export const ecmwfSynopTimestampsRequest = create({
   },
   timeout: TIMEOUT,
   baseURL: "http://20.56.94.119/api/ecmwf-obs/dates",
+});
+
+export const ecmwfHresTimestampsRequest = create({
+  headers: {
+    "content-type": "application/json",
+  },
+  timeout: TIMEOUT,
+  baseURL: ECWMF_HRES_TIMESTAMPS_URL,
 });

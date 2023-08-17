@@ -5,13 +5,13 @@ import { getNextDate } from "utils/time";
 const category = "weather";
 const subCategory = "weather-forecast";
 
-const datasetName = "Precipitation";
-const layerName = "ecmwf_highres_precipitation";
+const datasetName = "Cloud Cover";
+const layerName = "ecmwf_highres_mcc";
 const metadataId = "";
 
 const baseWMSUrl = "http://20.56.94.119/hw-cms/api/ecmwf-hres/";
-const wmsLayer = "tp_interval";
-const style = "sh_blured_f05t300lst";
+const wmsLayer = "mcc";
+const style = "transparency_white";
 
 const wmsParams = {
   service: "WMS",
@@ -25,7 +25,10 @@ const wmsParams = {
   height: 512,
   styles: style,
   layers: wmsLayer,
+  preseed: 1,
+  expver: "0001",
 };
+
 const wmsParamsString = qs.stringify(wmsParams, { encode: false });
 const wmsUrl = `${baseWMSUrl}?${wmsParamsString}&time={time}`;
 
