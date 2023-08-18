@@ -1,8 +1,5 @@
 export const HW_CMS_API = process.env.HW_CMS_API;
 export const HW_API = process.env.HW_API;
-export const ECWMF_HRES_TIMESTAMPS_URL = process.env.ECWMF_HRES_TIMESTAMPS_URL;
-
-export const METADATA_BASE_URL = process.env.METADATA_BASE_URL;
 
 export const PG_FEATURESERV_URL = "http://20.56.94.119/pg4w/featureserv/";
 
@@ -20,3 +17,7 @@ export const TROPICAL_CYCLONES_URL =
 export const GSKY_WPS_URL =
   "http://20.56.94.119/gsky/data-api/v1/gsky/timeseries";
 
+
+export const ECWMF_HRES_TIMESTAMPS_URL = process.env.ECWMF_HRES_TIMESTAMPS_URL;
+
+export const METADATA_BASE_URL = process.env.METADATA_BASE_URL;
