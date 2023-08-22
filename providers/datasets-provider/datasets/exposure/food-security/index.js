@@ -369,6 +369,8 @@ const getLayers = (selectedCountries) => {
   return layers;
 };
 
+const metadataId = "da1fc788-0ee4-436c-a25e-573bbbfacdd7";
+
 const datasets = [
   {
     name: datasetName,
@@ -379,7 +381,7 @@ const datasets = [
     layer: layerId,
     category: category,
     sub_category: subCategory,
-    metadata: "46f0b628-70c4-4637-a32d-1e493b97bf9d",
+    metadata: metadataId,
     global: true,
     layers: getLayers(AFRICA_IPC_COUNTRIES_ALL.map((c) => c.iso2)),
   },
@@ -402,7 +404,7 @@ const getDatasetsForCountry = (countryIso) => {
       layer: layerId,
       category: category,
       sub_category: subCategory,
-      metadata: "46f0b628-70c4-4637-a32d-1e493b97bf9d",
+      metadata: metadataId,
       global: true,
       layers: getLayers(countries.map((c) => c.iso2)),
     },

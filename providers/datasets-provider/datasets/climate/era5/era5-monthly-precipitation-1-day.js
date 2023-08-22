@@ -2,7 +2,7 @@ import { fetchTimestamps } from "services/timestamps";
 
 const datasetName = "Monthly Total Precipitation Average";
 const layerName = "era5monthly_precipitation_1_day";
-const metadataId = "0cf9e8d5-42eb-426c-811b-e89661eb2ff3";
+const metadataId = "f0b0d8cf-2098-4783-b98b-7ab74c11c001";
 const dataPath = "/gskydata/era5/era5monthly-precipitation-1-day";
 
 const category = "climate";

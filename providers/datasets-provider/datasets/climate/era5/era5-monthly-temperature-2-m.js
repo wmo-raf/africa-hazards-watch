@@ -2,7 +2,7 @@ import { fetchTimestamps } from "services/timestamps";
 
 const datasetName = "Monthly Surface Temperature Average";
 const layerName = "era5monthly_temperature_2_m";
-const metadataId = "60fcce77-8b70-4acf-b2a7-e18208db4cde";
+const metadataId = "f0b0d8cf-2098-4783-b98b-7ab74c11c001";
 const dataPath = "/gskydata/era5/era5monthly-temperature-2-m";
 
 const category = "climate";

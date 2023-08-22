@@ -2,7 +2,7 @@ import { getTimeValuesFromWMS } from "services/wms";
 
 const datasetName = "NDVI eVIIRS Data";
 const layerName = "eviirsndvi_africa_pentad_data";
-const metadataId = "";
+const metadataId = "e5e25137-029e-452c-bc21-5be9ca517a64";
 
 const category = "environment";
 const subCategory = "vegetation-indices";

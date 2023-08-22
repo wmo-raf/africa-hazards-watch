@@ -6,6 +6,8 @@ const subCategory = "satellite_imagery";
 const layerId = "msg_iodc:ir108";
 const name = "Infrared Imagery - SEVIRI IRI 10.8μm";
 
+const metadataId = "de938fe0-0434-4428-acb0-fe6dfcb35b49";
+
 const datasets = [
   {
     id: layerId,
@@ -19,6 +21,7 @@ const datasets = [
     citation: "EUMETSAT, Updated every 15 minutes",
     global: true,
     capabilities: ["timeseries", "nearRealTime"],
+    metadata: metadataId,
     layers: [
       {
         name: name,

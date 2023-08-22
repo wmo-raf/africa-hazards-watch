@@ -6,6 +6,8 @@ const subCategory = "satellite_imagery";
 const layerId = "msg_fes:h60b";
 const name = "Precipitation Rate at Ground";
 
+const metadataId = "441ac3f9-261c-4b71-a7ce-7badec2cddd9";
+
 const datasets = [
   {
     id: layerId,
@@ -19,6 +21,7 @@ const datasets = [
     citation: "EUMETSAT, Updated every 15 minutes",
     global: true,
     capabilities: ["timeseries", "nearRealTime"],
+    metadata: metadataId,
     layers: [
       {
         name: name,

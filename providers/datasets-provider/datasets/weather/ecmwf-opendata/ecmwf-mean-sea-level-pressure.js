@@ -4,7 +4,7 @@ import { getNextDate } from "utils/time";
 
 const datasetName = "Mean Sea Level Pressure";
 const layerName = ECMWF_MSLP_FORECAST;
-const metadataId = "";
+const metadataId = "51554f52-2f73-4333-be62-61c8ee3c59bb";
 const timestampsDataPath =
   "/gskydata/ecmwf-forecast/oper_fc_mean_sea_level_pressure_sfc";
 const owsNameSpace = "ecmwf-opendata";

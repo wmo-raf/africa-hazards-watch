@@ -1,6 +1,8 @@
 const category = "alerts";
 const subCategory = "cap_alerts";
 
+const metadataId = "359923b8-1178-41d2-a3eb-aafaeec247ca"
+
 const datasets = [
   {
     id: "cap_alerts",
@@ -9,7 +11,7 @@ const datasets = [
     layer: "cap_alerts",
     initialVisible: true,
     isCapAlert: true,
-    metadata: "",
+    metadata: metadataId,
     category: category,
     sub_category: subCategory,
     global: true,

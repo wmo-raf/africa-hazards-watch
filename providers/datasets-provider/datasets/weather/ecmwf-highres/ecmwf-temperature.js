@@ -7,7 +7,7 @@ const subCategory = "weather-forecast";
 
 const datasetName = "Temperature";
 const layerName = "ecmwf_highres_temperature";
-const metadataId = "";
+const metadataId = "57d60cdf-6aa3-4141-9c9e-18ec6f6ba122";
 
 const baseWMSUrl = "http://20.56.94.119/hw-cms/api/ecmwf-hres/";
 const wmsLayer = "2t";

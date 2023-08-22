@@ -4,7 +4,7 @@ import { getNextDate } from "utils/time";
 
 const datasetName = "Precipitation";
 const layerName = ECMWF_PRECIPITATION_FORECAST;
-const metadataId = "";
+const metadataId = "51554f52-2f73-4333-be62-61c8ee3c59bb";
 const timestampsDataPath =
   "/gskydata/ecmwf-forecast/oper_fc_total_precipitation_sfc";
 

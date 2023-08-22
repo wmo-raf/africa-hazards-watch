@@ -1,5 +1,6 @@
 const category = "exposure";
 const subCategory = "infrastructure";
+const metadataId = "577401d6-3800-4625-a459-72e607e9eb98";
 
 const datasets = [
   {
@@ -10,9 +11,9 @@ const datasets = [
     published: true,
     status: "saved",
     layer: "africa_power_plants",
-    category: 7,
-    sub_category: 16,
-    metadata: "6e150e1a-a6f5-4cc9-921d-84bd2e01ab12",
+    category: category,
+    sub_category: subCategory,
+    metadata: metadataId,
     global: true,
     layers: [
       {

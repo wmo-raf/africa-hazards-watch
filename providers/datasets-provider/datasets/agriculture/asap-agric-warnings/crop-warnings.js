@@ -10,6 +10,8 @@ const datasetName = "Crops Conditions";
 const layerId = "crop_conditions";
 const layerName = "asap5:view_Crop_500k";
 
+const metadataId = "b478f4cf-a301-47b0-b0b9-02fb1223b43b"
+
 const datasets = [
   {
     name: datasetName,
@@ -22,7 +24,7 @@ const datasets = [
     layer: layerId,
     category: category,
     sub_category: subCategory,
-    metadata: "",
+    metadata: metadataId,
     citation: "ASAP, Updated every 10days",
     capabilities: ["clipping", "timeseries"],
     layers: [

@@ -4,7 +4,7 @@ import { GFS_PRECIPITATION_FORECAST } from "data/layers";
 
 const datasetName = "Precipitation";
 const layerName = GFS_PRECIPITATION_FORECAST;
-const metadataId = "4ba0fb8c-3e9e-42ea-8956-f961dc80f71f";
+const metadataId = "acde4034-a6bf-4f90-a3b8-2b50e553c6fc";
 const dataPath = "/gskydata/gfs/gfs-precipitation-1-hr";
 
 const category = "weather";

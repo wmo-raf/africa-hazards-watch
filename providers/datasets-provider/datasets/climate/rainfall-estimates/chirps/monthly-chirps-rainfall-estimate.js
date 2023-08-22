@@ -4,7 +4,7 @@ import { POLITICAL_BOUNDARIES } from "data/layers";
 
 const datasetName = "Monthly Rainfall Estimates";
 const layerName = "monthly_chirps_rainfall_estimate";
-const metadataId = "";
+const metadataId = "d00ff1c6-63d5-44d6-96f9-36f9cad67752";
 const dataPath = "/gskydata/chirps-rainfall/monthly_chirps_rainfall_estimate";
 const owsNameSpace = "rainfall-estimates";
 

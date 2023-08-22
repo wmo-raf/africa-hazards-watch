@@ -4,6 +4,7 @@ const subCategory = "agric-land-cover";
 const datasetName = "Crop Area";
 const layerId = "asap_africa_mask_crop_v03";
 const owsNameSpace = "agriculture";
+const metadataId = "27a8fa89-b621-4f96-b41b-2c37c198f4b6"
 
 const datasets = [
   {
@@ -17,7 +18,7 @@ const datasets = [
     layer: layerId,
     category: category,
     sub_category: subCategory,
-    metadata: "",
+    metadata: metadataId,
     layers: [
       {
         id: layerId,

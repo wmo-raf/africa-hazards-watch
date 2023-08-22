@@ -2,7 +2,7 @@ import { GFS_SUNSHINE } from "data/layers";
 
 const datasetName = "Sunshine in Previous Hour";
 const layerName = GFS_SUNSHINE;
-const metadataId = "73c163c2-606c-4f27-85dc-4762268c8b9f";
+const metadataId = "acde4034-a6bf-4f90-a3b8-2b50e553c6fc";
 const timestampsDataPath = "/gskydata/gfs/gfs-sunshine-1-hr";
 
 const category = "weather";

@@ -4,7 +4,7 @@ import { getNextDate } from "utils/time";
 
 const datasetName = "Dust Optical Depth Forecast (550nm)";
 const layerName = DUST_OPTICAL_DEPTH_FORECAST;
-const metadataId = "";
+const metadataId = "da6f13db-8896-4043-b89f-0811bce03a6f";
 const timestampsDataPath = "/gskydata/dust-forecast/od550_dust";
 
 const layerId = "od550_dust";

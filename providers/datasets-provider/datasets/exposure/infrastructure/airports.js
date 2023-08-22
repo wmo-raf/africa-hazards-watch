@@ -1,5 +1,6 @@
 const category = "exposure";
 const subCategory = "infrastructure";
+const metadataId = "f785b493-847c-49a8-9b77-56a75b934368";
 
 const datasets = [
   {
@@ -12,7 +13,7 @@ const datasets = [
     layer: "africa_airports",
     category: category,
     sub_category: subCategory,
-    metadata: "ecf74a56-2106-441e-8932-44b68a57c197",
+    metadata: metadataId,
     global: true,
     layers: [
       {

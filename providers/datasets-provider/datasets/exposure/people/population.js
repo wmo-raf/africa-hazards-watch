@@ -1,6 +1,8 @@
 const category = "exposure";
 const subCategory = "people";
 
+const metadataId = "b7d2b838-efde-4b27-9714-5ba748305cd8";
+
 const datasets = [
   {
     id: "world_pop_100_2020",
@@ -9,7 +11,7 @@ const datasets = [
     layer: "world_pop_100_2020",
     category: category,
     sub_category: subCategory,
-    metadata: "a928f7d5-bfe0-4570-9987-d3475d42bfbd",
+    metadata: metadataId,
     citation: "WorldPop constrained, 2020",
     global: true,
     layers: [

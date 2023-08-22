@@ -4,7 +4,7 @@ import { getNextDate } from "utils/time";
 
 const datasetName = "Temperature";
 const layerName = GFS_TEMPERATURE_FORECAST;
-const metadataId = "73c163c2-606c-4f27-85dc-4762268c8b9f";
+const metadataId = "acde4034-a6bf-4f90-a3b8-2b50e553c6fc";
 const timestampsDataPath = "/gskydata/gfs/gfs-temperature-2-m";
 
 const category = "weather";

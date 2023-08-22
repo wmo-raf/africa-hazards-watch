@@ -1,5 +1,6 @@
 const category = "exposure";
 const subCategory = "infrastructure";
+const metadataId = "5f9635f3-70c5-437d-926c-35619a488e1a";
 
 const datasets = [
   {
@@ -12,7 +13,7 @@ const datasets = [
     layer: "africa_dams",
     category: category,
     sub_category: subCategory,
-    metadata: "4ab406e5-64bd-4049-9ef4-59a6c9c8503b",
+    metadata: metadataId,
     global: true,
     layers: [
       {

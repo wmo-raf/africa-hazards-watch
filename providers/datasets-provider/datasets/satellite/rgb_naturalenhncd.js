@@ -5,7 +5,7 @@ const subCategory = "satellite_imagery";
 
 const layerId = "msg_fes:rgb_naturalenhncd";
 const name = "Natural Colour Enhanced RGB";
-const metadataId = "f4530e0b-6981-48b8-9121-163669099ee4";
+const metadataId = "b6fa3f2d-5d84-413c-acea-a74ace5e6b83";
 
 const datasets = [
   {

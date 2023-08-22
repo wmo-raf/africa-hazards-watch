@@ -4,7 +4,7 @@ import { getNextDate } from "utils/time";
 
 const datasetName = "Wind Divergence";
 const layerName = ECMWF_WIND_DIVERGENCE;
-const metadataId = "";
+const metadataId = "51554f52-2f73-4333-be62-61c8ee3c59bb";
 const timestampsDataPath =
   "/gskydata/ecmwf-forecast/oper_fc_divergence_pl_1000";
 const owsNameSpace = "ecmwf-opendata";

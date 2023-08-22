@@ -4,7 +4,7 @@ import { getNextDate } from "utils/time";
 
 const datasetName = "Water in Clouds";
 const layerName = GFS_CLOUD_WATER_TOTAL;
-const metadataId = "73c163c2-606c-4f27-85dc-4762268c8b9f";
+const metadataId = "acde4034-a6bf-4f90-a3b8-2b50e553c6fc";
 const timestampsDataPath = "/gskydata/gfs/gfs-cloud-water-total";
 
 const category = "weather";

@@ -4,6 +4,7 @@ const layerName = "esa_world_cover";
 
 const category = "environment";
 const subCategory = "landcover";
+const metadataId = "7d79cebb-5bf9-4b0a-a9f4-3cfbbbba56cb";
 
 const datasets = [
   {
@@ -15,6 +16,7 @@ const datasets = [
     sub_category: subCategory,
     metadata: "",
     citation: "ESA World Cover, 10M",
+    metadata: metadataId,
     global: true,
     layers: [
       {

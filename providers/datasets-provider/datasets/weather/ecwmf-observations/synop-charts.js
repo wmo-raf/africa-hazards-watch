@@ -8,7 +8,7 @@ import { skyCoverage } from "./synop-sky-cover";
 
 const datasetName = "Synoptic Charts";
 const layerName = "synoptic_charts";
-const metadataId = "60fcce77-8b70-4acf-b2a7-e18208db4cde";
+const metadataId = "1289e783-adb8-4c1a-89ce-dc3a32590243";
 
 const category = "weather";
 const subCategory = "synop-observations";
