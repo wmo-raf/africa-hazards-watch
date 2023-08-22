@@ -412,40 +412,19 @@ class MapMenuMyHW extends PureComponent {
           });
         },
       },
-      {
-        label: "My Data",
-        active: section === "MyData",
-        onClick: () => {
-          setMenuSettings({ myHWType: "MyData" });
-          trackEvent({
-            category: "Map menu",
-            action: "Select myHW category",
-            label: "My Data",
-          });
-        },
-      },
     ];
 
     return (
       <div className="c-map-menu-my-hw">
         {loading && <Loader />}
-        <SubnavMenu
-          links={links}
-          className="myhw-menu"
-          theme="theme-subnav-small-light"
-        />
         <div className="content">
           <div className="row">
             <div className="column small-12">
-              <div className="description">
-                {section === "myAOI" ? this.renderMyAOI() : this.renderMyData()}
-              </div>
+              <div className="description">{this.renderMyAOI()}</div>
             </div>
           </div>
         </div>
 
-        {/* {!loading && loggedIn && this.renderMyHW()} */}
-        {/* {!loading && !loggedIn && this.renderLoginWindow()} */}
         {!loading && loggedIn && !(areas && areas.length > 0) && isDesktop && (
           <img
             className={cx("my-hw-login-image", { "--login": !loggedIn })}
