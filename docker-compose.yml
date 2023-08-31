@@ -19,6 +19,7 @@ services:
         - ASSET_PREFIX=${ASSET_PREFIX}
         - ECWMF_HRES_TIMESTAMPS_URL=${ECWMF_HRES_TIMESTAMPS_URL}
         - METADATA_BASE_URL=${METADATA_BASE_URL}
+    volumes:
         - ./next/static/:/app/nginx/.next/static
     ports:
       - ${PORT}:3000
