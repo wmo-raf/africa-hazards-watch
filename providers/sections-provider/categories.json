@@ -24,13 +24,23 @@
       {
         "active": true,
         "id": "weather-forecast",
-        "title": "Forecast",
+        "title": "Global Forecast",
         "group_options": [
           { "label": "ECMWF - HRES", "value": "ecmwf-hres" },
           { "label": "ECMWF - 0.4°", "value": "ecmwf" },
           { "label": "GFS", "value": "gfs", "default": true }
         ],
         "group_options_title": "Source"
+      },
+      {
+        "active": true,
+        "id": "rsmc-dar",
+        "title": "Regional Forecast - RSMC Dar Es Salaam",
+        "group_options": [
+          { "label": "WRF - Lake Victoria", "value": "wrf-lake-victoria" },
+          { "label": "WRF - EAC", "value": "wrf-eac" }
+        ],
+        "group_options_title": "Model"
       },
       {
         "active": true,

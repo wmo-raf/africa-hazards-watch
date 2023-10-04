@@ -1,8 +1,8 @@
-import {
+import request, {
   gskyTimestampsRequest,
   synopTimestampsRequest,
   ecmwfSynopTimestampsRequest,
-  ecmwfHresTimestampsRequest
+  ecmwfHresTimestampsRequest,
 } from "utils/request";
 
 export const fetchTimestamps = (dataPath) => {
@@ -22,4 +22,8 @@ export const fetchEcwmfSynopTimestamps = () => {
 export const fetchEcwmfHresTimestamps = (layer) => {
   const url = `${layer}/`;
   return ecmwfHresTimestampsRequest.get(url);
+};
+
+export const fetchTileJsonTimestamps = (tileJsonUrl) => {
+  return request.get(tileJsonUrl);
 };

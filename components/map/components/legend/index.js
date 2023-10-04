@@ -172,8 +172,6 @@ class Legend extends PureComponent {
       }
     }
 
-    console.log("HELLO");
-
     setMapSettings({
       datasets: activeDatasets.map((l) => {
         const dataset = { ...l };

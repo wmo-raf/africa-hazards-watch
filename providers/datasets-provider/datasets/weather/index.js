@@ -4,11 +4,14 @@ import ecmwfHighres from "./ecmwf-highres";
 
 import ecwmfObservations from "./ecwmf-observations";
 
+import rsmcDarEsSalaam from "./rsmc-dar-es-salaam";
+
 const datasets = [
   ...gfsForecast.datasets,
   ...ecmwfOpenDataForecast.datasets,
   ...ecwmfObservations.datasets,
   ...ecmwfHighres.datasets,
+  ...rsmcDarEsSalaam.datasets,
 ];
 
 const updates = [
@@ -16,6 +19,7 @@ const updates = [
   ...ecmwfOpenDataForecast.updates,
   ...ecwmfObservations.updates,
   ...ecmwfHighres.updates,
+  ...rsmcDarEsSalaam.updates,
 ];
 
 export default { datasets, updates };
