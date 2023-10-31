@@ -1,6 +1,7 @@
 import qs from "query-string";
 import { fetchEcwmfHresTimestamps } from "services/timestamps";
 import { getNextDate } from "utils/time";
+import { ECMWF_HRES_TOKEN } from "utils/constants";
 
 const category = "weather";
 const subCategory = "weather-forecast";
@@ -9,7 +10,7 @@ const datasetName = "Geopotential Height";
 const layerName = "ecmwf_highres_ghz";
 const metadataId = "57d60cdf-6aa3-4141-9c9e-18ec6f6ba122";
 
-const baseWMSUrl = "http://20.56.94.119/hw-cms/api/ecmwf-hres/";
+const baseWMSUrl = "https://eccharts-test.ecmwf.int/wms/";
 const wmsLayer = "z500_field";
 const style = "ct_blk_i5_t2";
 
@@ -27,6 +28,7 @@ const wmsParams = {
   layers: wmsLayer,
   preseed: 1,
   expver: "0001",
+  token: ECMWF_HRES_TOKEN,
 };
 
 const wmsParamsString = qs.stringify(wmsParams, { encode: false });

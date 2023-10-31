@@ -1,6 +1,7 @@
 import qs from "query-string";
 import { fetchEcwmfHresTimestamps } from "services/timestamps";
 import { getNextDate } from "utils/time";
+import { ECMWF_HRES_TOKEN } from "utils/constants";
 
 const category = "weather";
 const subCategory = "weather-forecast";
@@ -9,7 +10,7 @@ const datasetName = "Precipitation";
 const layerName = "ecmwf_highres_precipitation";
 const metadataId = "57d60cdf-6aa3-4141-9c9e-18ec6f6ba122";
 
-const baseWMSUrl = "http://20.56.94.119/hw-cms/api/ecmwf-hres/";
+const baseWMSUrl = "https://eccharts-test.ecmwf.int/wms/";
 const wmsLayer = "tp_interval";
 const style = "sh_blured_f05t300lst";
 
@@ -25,6 +26,7 @@ const wmsParams = {
   height: 512,
   styles: style,
   layers: wmsLayer,
+  token: ECMWF_HRES_TOKEN,
 };
 const wmsParamsString = qs.stringify(wmsParams, { encode: false });
 const wmsUrl = `${baseWMSUrl}?${wmsParamsString}&time={time}`;
