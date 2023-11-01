@@ -18,6 +18,7 @@ services:
         - TWITTER_CONVERSION_ID=${TWITTER_CONVERSION_ID}
         - ASSET_PREFIX=${ASSET_PREFIX}
         - ECWMF_HRES_TIMESTAMPS_URL=${ECWMF_HRES_TIMESTAMPS_URL}
+        - ECMWF_HRES_TOKEN=${ECMWF_HRES_TOKEN}
         - METADATA_BASE_URL=${METADATA_BASE_URL}
     volumes:
         - ./.next/static/:/app/nginx/.next/static
